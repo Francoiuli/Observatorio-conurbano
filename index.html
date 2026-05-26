@@ -951,7 +951,7 @@ function renderComparador(){
     return `<div class="comp-row">
       <div class="comp-row-label">${met.l}</div>
       <div class="comp-row-vals" style="grid-template-columns:${munis.map(()=>'1fr').join(' ')}">
-        ${vals.map((v,i)=>`<div class="comp-cell ${i===bestIdx?'best':''}" style="${i===bestIdx?'color:'+COMP_COLORS[i]+';background:'+COMP_COLORS[i]+'22;border-left:3px solid '+COMP_COLORS[i]+';font-weight:700':''}">  ${i===bestIdx?'▲ ':''}\${v}</div>`).join('')}
+        ${vals.map((v,i)=>`<div class="comp-cell ${i===bestIdx?'best':''}" style="${i===bestIdx?'color:'+COMP_COLORS[i]+';background:'+COMP_COLORS[i]+'22;border-left:3px solid '+COMP_COLORS[i]+';font-weight:700':''}">${i===bestIdx?'▲ ':''}\${v}</div>`).join('')}
       </div>
     </div>`;
   }).join('');
