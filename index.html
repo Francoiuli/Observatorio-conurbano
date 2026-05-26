@@ -90,7 +90,7 @@ h1 b{color:var(--c4)}
 /* TABLA */
 .tw{overflow-x:auto;border-radius:var(--r2);box-shadow:var(--sh)}
 table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;background:var(--card);font-family:'DM Sans','Sora',sans-serif}
-thead th{background:var(--c1d);color:rgba(255,255,255,.85);padding:11px 14px;text-align:left;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+thead th{background:var(--c1d);color:rgba(255,255,255,.85);padding:8px 10px;text-align:left;font-family:'Sora',sans-serif;font-size:10px;font-weight:700;letter-spacing:.02em;white-space:normal;line-height:1.3}
 thead th:first-child{border-radius:var(--r2) 0 0 0}
 thead th:last-child{border-radius:0 var(--r2) 0 0}
 thead th.ts{cursor:pointer;user-select:none;transition:background .12s}
@@ -103,10 +103,10 @@ tbody tr:hover{background:#EDF3FF}
 tbody tr:nth-child(even){background:#F8FAFF}
 tbody tr:nth-child(even):hover{background:#EDF3FF}
 tbody tr.sel{background:#DBEAFE!important}
-td{padding:10px 14px;vertical-align:middle}
-td.mn{font-weight:700;font-size:14px;color:var(--c1d)}
-td.n{font-family:'DM Sans',sans-serif;font-size:13px;text-align:right;font-weight:600}
-td.na{font-family:'DM Sans',sans-serif;font-size:13px;text-align:right;color:var(--borde)}
+td{padding:8px 10px;vertical-align:middle}
+td.mn{font-weight:700;font-size:13px;color:var(--c1d)}
+td.n{font-family:'DM Sans',sans-serif;font-size:12px;text-align:right;font-weight:600}
+td.na{font-family:'DM Sans',sans-serif;font-size:12px;text-align:right;color:var(--borde)}
 .zch{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.05em}
 .zn{background:#CCFBF1;color:#0F766E}.zs{background:#FEE2E2;color:#DC2626}.zo{background:#EDE9FE;color:#7C3AED}
 .dch{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.06em;font-family:'JetBrains Mono',monospace}
@@ -668,7 +668,7 @@ function renderTable(){
       <td class="${prespc?'n':'na'}">${prespc?fmtK(prespc):'—'}</td>
       <td class="${m.recursos_percibidos_2025?'n':'na'}">${m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'}</td>
       <td class="${recpc?'n':'na'}">${recpc?fmtK(recpc):'—'}</td>
-      <td style="text-align:right;font-size:12px;font-weight:600;padding:10px 14px;${resBg};border-radius:4px">
+      <td style="text-align:right;font-size:12px;font-weight:600;padding:8px 10px;${resBg};border-radius:4px">
         ${resultado!=null?`<div>${resLabel}</div><div style="font-size:11px;font-weight:400">${fmtMM(Math.abs(resultado))}</div>`:'—'}
       </td>
     </tr>`;
