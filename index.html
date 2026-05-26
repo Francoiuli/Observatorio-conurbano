@@ -9,14 +9,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 :root{
-  --c1:#005EB8; --c1d:#002147; --c1l:#0099CC;
-  --c2:#E05C1A; --c3:#00875A; --c4:#F5A623;
-  --bg:#F4F6FA; --card:#fff;
-  --ink:#0D1B2E; --ink2:#4A5878; --ink3:#8A9CC0;
-  --borde:#DDE4F0;
-  --norte:#005EB8; --sur:#E05C1A; --oeste:#00875A;
-  --sh:0 2px 16px rgba(0,94,184,.10);
-  --sh2:0 8px 40px rgba(0,94,184,.18);
+  --c1:#0F766E; --c1d:#134E4A; --c1l:#2DD4BF;
+  --c2:#DC2626; --c3:#7C3AED; --c4:#F59E0B;
+  --bg:#F9F7F4; --card:#fff;
+  --ink:#1C1917; --ink2:#44403C; --ink3:#A8A29E;
+  --borde:#E7E5E4;
+  --norte:#0F766E; --sur:#DC2626; --oeste:#7C3AED;
+  --sh:0 2px 16px rgba(15,118,110,.10);
+  --sh2:0 8px 40px rgba(15,118,110,.18);
   --r:10px; --r2:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -27,7 +27,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Sora',sans-serif;font-si
 ::-webkit-scrollbar-thumb{background:var(--borde);border-radius:3px}
 
 /* HEADER */
-header{background:linear-gradient(135deg,var(--c1d) 0%,var(--c1) 55%,var(--c1l) 100%);position:relative;overflow:hidden}
+header{background:linear-gradient(135deg,#134E4A 0%,#0F766E 50%,#0D9488 100%);position:relative;overflow:hidden}
 header::before{content:'';position:absolute;inset:0;opacity:.06;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:32px 32px}
 .hdr-inner{max-width:1340px;margin:0 auto;padding:2.5rem 2.5rem 2rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;position:relative;z-index:1}
 .hdr-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:4px 12px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:.75rem}
@@ -41,7 +41,7 @@ h1 b{color:var(--c4)}
 .hdr-chip-l{font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
 
 /* NAV */
-.nav{background:var(--c1d);border-bottom:3px solid var(--c4);position:sticky;top:0;z-index:300}
+.nav{background:#134E4A;border-bottom:3px solid var(--c4);position:sticky;top:0;z-index:300}
 .nav-inner{max-width:1340px;margin:0 auto;padding:0 2.5rem;display:flex;overflow-x:auto}
 .nav-btn{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.95rem 1.5rem;color:rgba(255,255,255,.4);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .15s;white-space:nowrap}
 .nav-btn:hover{color:rgba(255,255,255,.8)}
@@ -61,7 +61,7 @@ h1 b{color:var(--c4)}
 .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:2rem}
 .kpi{background:var(--card);border-radius:var(--r2);padding:1.4rem 1.5rem;box-shadow:var(--sh);border-left:4px solid var(--c1);transition:transform .15s,box-shadow .15s}
 .kpi:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
-.kpi.c2{border-color:var(--c2)}.kpi.c3{border-color:var(--c3)}.kpi.c4{border-color:var(--c4)}.kpi.c5{border-color:var(--c1l)}
+.kpi.c2{border-color:#DC2626}.kpi.c3{border-color:#7C3AED}.kpi.c4{border-color:#F59E0B}.kpi.c5{border-color:#2DD4BF}
 .kpi-l{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:.5rem}
 .kpi-v{font-family:'JetBrains Mono',monospace;font-size:1.85rem;font-weight:700;color:var(--ink);line-height:1}
 .kpi-s{font-size:10px;color:var(--ink3);margin-top:.3rem}
@@ -107,15 +107,15 @@ td.mn{font-weight:700;font-size:13px;color:var(--c1d)}
 td.n{font-family:'JetBrains Mono',monospace;font-size:11.5px;text-align:right;font-weight:500}
 td.na{font-family:'JetBrains Mono',monospace;font-size:11.5px;text-align:right;color:var(--borde)}
 .zch{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.05em}
-.zn{background:#DBEAFE;color:var(--norte)}.zs{background:#FEE8DC;color:var(--sur)}.zo{background:#DCFCE7;color:var(--oeste)}
+.zn{background:#CCFBF1;color:#0F766E}.zs{background:#FEE2E2;color:#DC2626}.zo{background:#EDE9FE;color:#7C3AED}
 .dch{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.06em;font-family:'JetBrains Mono',monospace}
-.dr{background:#D1FAE5;color:#065F46}.da{background:#DBEAFE;color:#1E3A8A}.dp{background:var(--bg);color:var(--ink3)}
+.dr{background:#CCFBF1;color:#0F766E}.da{background:#FEF3C7;color:#92400E}.dp{background:var(--bg);color:var(--ink3)}
 
 /* PANEL */
 .panel{display:none;border-radius:var(--r2);background:var(--card);box-shadow:var(--sh2);margin-bottom:1.5rem;overflow:hidden;border-top:4px solid var(--c1);animation:pIn .2s ease}
 .panel.open{display:block}
 @keyframes pIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.ph{background:linear-gradient(130deg,var(--c1d),var(--c1));padding:1.5rem 2rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.ph{background:linear-gradient(130deg,#134E4A,#0F766E);padding:1.5rem 2rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
 .ph-t{font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-.02em}
 .ph-s{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.3rem;align-items:center}
 .p-close{background:rgba(255,255,255,.15);border:none;border-radius:var(--r);color:#fff;font-size:10px;font-weight:700;letter-spacing:.07em;padding:6px 14px;cursor:pointer;font-family:'JetBrains Mono',monospace;white-space:nowrap;margin-top:4px}
@@ -237,6 +237,7 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
     <button class="nav-btn" onclick="setView('tabla',this)">Tabla comparativa</button>
     <button class="nav-btn" onclick="setView('tish',this)">Tasas TISH</button>
     <button class="nav-btn" id="nav-comp" onclick="setView('comparar',this)" style="display:none">Comparador</button>
+    <button class="nav-btn" onclick="setView('glosario',this)">¿Qué significa?</button>
   </div>
 </nav>
 
@@ -251,11 +252,11 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 <!-- DASHBOARD -->
 <div class="wrap on" id="v-dashboard">
   <div class="kpi-row" id="kpis"></div>
-  <div class="sh"><span class="sh-t">PBG corriente 2023</span><span class="sh-n">DPE-PBA · mil millones de pesos</span></div>
+  <div class="sh"><span class="sh-t">PBG total 2023</span><span class="sh-n">Fuente: DPE-PBA 2023 · en millones de pesos</span></div>
   <div class="cgrid g1"><div class="cc"><div class="cc-t">PBG total — top 12 partidos (mil millones $)</div><div class="cc-c"><canvas id="c-pbg"></canvas></div></div></div>
   <div class="sh"><span class="sh-t">Per cápita comparado</span><span class="sh-n">Por habitante</span></div>
   <div class="cgrid g2">
-    <div class="cc v2"><div class="cc-t">PBG per cápita — precios constantes 2004</div><div class="cc-c md"><canvas id="c-pbg-pc"></canvas></div></div>
+    <div class="cc v2"><div class="cc-t">PBG per cápita — en pesos 2004</div><div class="cc-c md"><canvas id="c-pbg-pc"></canvas></div></div>
     <div class="cc v3"><div class="cc-t">Presupuesto per cápita 2025</div><div class="cc-c md"><canvas id="c-pres-pc"></canvas></div></div>
   </div>
   <div class="sh"><span class="sh-t">Demografía</span><span class="sh-n">INDEC Censo 2022</span></div>
@@ -291,6 +292,84 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
   <div id="comp-content"></div>
 </div>
 
+
+<!-- GLOSARIO -->
+<div class="wrap" id="v-glosario" style="display:none">
+  <div style="max-width:780px">
+    <div class="sh" style="margin-bottom:1.5rem"><span class="sh-t">¿Qué significa cada dato?</span></div>
+
+    <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c1)">
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">💰 Presupuesto municipal</div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
+        Es el plan de gastos que aprueba el Concejo Deliberante al inicio del año. Indica cuánto <strong>planifica gastar</strong> el municipio en cada área: salud, seguridad, obras públicas, etc.
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
+        Pero ojo: el presupuesto es una estimación. Lo que realmente importa es el <strong>gasto ejecutado</strong> (también llamado "devengado") — lo que efectivamente se gastó a fin de año. Siempre es distinto al presupuestado.
+      </p>
+      <div style="background:var(--bg);border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink3);line-height:1.6">
+        <strong style="color:var(--ink2)">Ejemplo:</strong> Si un municipio presupuesta $100 millones para salud pero gasta $130 millones, hubo "sobrejecución". Si gasta $70 millones, hubo "subejecución". Ninguno es necesariamente malo — depende del contexto.
+      </div>
+    </div>
+
+    <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c3)">
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">📊 PBG — Producto Bruto Geográfico</div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
+        Es el equivalente local del PBI (Producto Bruto Interno), pero a nivel de cada partido. Mide el valor de <strong>todo lo que se produce</strong> en ese municipio en un año: lo que fabrican las industrias, lo que venden los comercios, los servicios de salud, educación, etc.
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
+        Un PBG alto indica que en ese partido hay mucha actividad económica. El <strong>PBG por habitante</strong> permite comparar entre municipios de distinto tamaño: si La Matanza tiene el PBG total más alto pero 1,7 millones de habitantes, su PBG por persona puede ser menor que el de un municipio más chico pero económicamente más activo.
+      </p>
+      <div style="background:var(--bg);border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink3);line-height:1.6">
+        <strong style="color:var(--ink2)">Fuente:</strong> DPE-PBA (Dirección Provincial de Estadística de Buenos Aires). Los datos son de 2023. El "treemap" que aparece en el panel de cada municipio muestra qué sectores generan más riqueza: si domina industria, comercio, sector público, etc.
+      </div>
+    </div>
+
+    <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c4)">
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">🏪 TISH — Tasa de Inspección de Seguridad e Higiene</div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
+        Es la tasa más importante que pagan los comercios, industrias y empresas a cada municipio. La pagan por el "derecho" a funcionar bajo la habilitación municipal. Es la <strong>principal fuente de ingresos propios</strong> de la mayoría de los municipios del conurbano.
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
+        Se calcula como un porcentaje de la facturación del negocio. Se expresa en <strong>milésimos (‰)</strong>: si la alícuota es 5‰, significa que por cada $1.000 de facturación, el comercio paga $5 al municipio.
+      </p>
+      <div style="background:var(--bg);border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink3);line-height:1.6">
+        <strong style="color:var(--ink2)">¿Por qué importa comparar la TISH?</strong> Porque afecta directamente la competitividad del comercio y la industria local. Un municipio con TISH alta puede desincentivar la radicación de empresas. Tres de Febrero, por ejemplo, tiene una política explícita de <em>bajar</em> la TISH para atraer inversión productiva.
+      </div>
+    </div>
+
+    <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c2)">
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">👤 Los indicadores "per cápita"</div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
+        "Per cápita" significa <strong>"por habitante"</strong>. Se divide el total por la cantidad de personas del municipio. Sirve para comparar municipios de distinto tamaño: no es lo mismo gastar $500.000 millones en La Matanza (1,7 millones de habitantes) que en Vicente López (275.000 habitantes).
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.5rem">
+        <div style="background:var(--bg);border-radius:var(--r);padding:.75rem">
+          <div style="font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem">Presupuesto per cápita</div>
+          <div style="font-size:12px;color:var(--ink2);line-height:1.5">Cuánto gasta el municipio por cada vecino. Refleja la capacidad de inversión en servicios.</div>
+        </div>
+        <div style="background:var(--bg);border-radius:var(--r);padding:.75rem">
+          <div style="font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem">PBG per cápita</div>
+          <div style="font-size:12px;color:var(--ink2);line-height:1.5">Cuánto produce la economía local por cada habitante. Mide el nivel de actividad económica.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);border-left:4px solid var(--ink3)">
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">📌 Sobre los datos</div>
+      <div style="font-size:13px;color:var(--ink2);line-height:1.7">
+        <p style="margin-bottom:.5rem">Los datos de este observatorio provienen de fuentes oficiales:</p>
+        <ul style="padding-left:1.25rem;display:flex;flex-direction:column;gap:.3rem">
+          <li><strong>Presupuesto:</strong> Rendiciones de Cuentas municipales aprobadas por HCD / Sistema RAFAM</li>
+          <li><strong>PBG:</strong> Dirección Provincial de Estadística (DPE-PBA) — datos 2023</li>
+          <li><strong>Población:</strong> INDEC — Censo Nacional 2022</li>
+          <li><strong>TISH:</strong> Ordenanzas impositivas municipales</li>
+        </ul>
+        <p style="margin-top:.75rem;font-size:12px;color:var(--ink3)">Los datos marcados como <strong>Aprob.</strong> corresponden al presupuesto aprobado por el HCD, no a la ejecución final. Los marcados como <strong>Real</strong> son datos de rendición de cuentas ejecutados.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- TISH -->
 <div class="wrap" id="v-tish">
   <div class="sh"><span class="sh-t">Tasas de Seguridad e Higiene</span><span class="sh-n">Comparativa de alícuotas entre partidos</span></div>
@@ -307,16 +386,15 @@ let charts = {};
 const fmtN = n => n != null ? Number(n).toLocaleString('es-AR') : '—';
 const fmtMM = n => {
   if (!n) return '—';
-  return n >= 1000
-    ? '$' + (n/1000).toLocaleString('es-AR',{maximumFractionDigits:2}) + ' mm'
-    : '$' + fmtN(n) + ' M$';
+  if (n >= 1000000) return '$' + Math.round(n/1000).toLocaleString('es-AR') + ' mil millones';
+  return '$' + Math.round(n).toLocaleString('es-AR') + ' millones';
 };
-const fmtK = n => n ? '$' + Math.round(n/1000).toLocaleString('es-AR') + 'K' : '—';
+const fmtK = n => n ? '$' + Math.round(n).toLocaleString('es-AR') : '—';
 const ppc = (p,pop) => (p && pop) ? Math.round(p*1e6/pop) : null;
 const ZONA = {norte:'Norte', sur:'Sur', oeste:'Oeste'};
-const CZONA = {norte:'#005EB8', sur:'#E05C1A', oeste:'#00875A'};
-const PAL = ['#005EB8','#E05C1A','#00875A','#F5A623','#0099CC','#7C3AED','#DB2777','#0891B2','#065F46','#92400E','#1E40AF','#BE185D'];
-const GC = 'rgba(0,94,184,.06)', TC = '#8A9CC0';
+const CZONA = {norte:'#0F766E', sur:'#DC2626', oeste:'#7C3AED'};
+const PAL = ['#0F766E','#DC2626','#7C3AED','#F59E0B','#0891B2','#DB2777','#EA580C','#16A34A','#9333EA','#B45309','#0284C7','#BE185D'];
+const GC = 'rgba(28,25,23,.05)', TC = '#A8A29E';
 
 fetch('datos.json').then(r=>r.json()).then(d=>{DATA=d.municipios;init();}).catch(e=>console.error('Error:',e));
 
@@ -331,7 +409,7 @@ function renderHdr(){
   const totPBG = DATA.filter(m=>m.pbg_corriente_2023).reduce((a,m)=>a+m.pbg_corriente_2023,0);
   document.getElementById('hdr-chips').innerHTML = `
     <div class="hdr-chip"><div class="hdr-chip-v">${(totPob/1e6).toFixed(1)}M</div><div class="hdr-chip-l">habitantes</div></div>
-    <div class="hdr-chip"><div class="hdr-chip-v">$${(totPBG/1000).toFixed(0)} mm</div><div class="hdr-chip-l">PBG corriente</div></div>
+    <div class="hdr-chip"><div class="hdr-chip-v">$${Math.round(totPBG).toLocaleString('es-AR')} millones</div><div class="hdr-chip-l">PBG</div></div>
     <div class="hdr-chip"><div class="hdr-chip-v">${conPres}/24</div><div class="hdr-chip-l">con presupuesto</div></div>`;
 }
 
@@ -346,9 +424,9 @@ function renderKPIs(){
   const maxPPc  = conPres.map(m=>({n:m.nombre,v:Math.round(m.presupuesto_2025*1e6/m.poblacion)})).sort((a,b)=>b.v-a.v)[0];
   document.getElementById('kpis').innerHTML = `
     <div class="kpi"><div class="kpi-l">Población total</div><div class="kpi-v">${(totPob/1e6).toFixed(1)}M</div><div class="kpi-s">hab. · Censo 2022</div></div>
-    <div class="kpi c2"><div class="kpi-l">Presupuesto total</div><div class="kpi-v">$${(totPres/1000).toLocaleString('es-AR',{maximumFractionDigits:1})} mm</div><div class="kpi-s">${conPres.length} partidos con dato</div></div>
-    <div class="kpi c3"><div class="kpi-l">PBG corriente total</div><div class="kpi-v">$${(totPBG/1000).toFixed(0)} mm</div><div class="kpi-s">DPE-PBA 2023 · 24 partidos</div></div>
-    <div class="kpi c4"><div class="kpi-l">Mayor PBG per cápita</div><div class="kpi-v">${maxBPc?fmtK(maxBPc.v):'—'}</div><div class="kpi-s">${maxBPc?.n||''} · cte.2004</div></div>
+    <div class="kpi c2"><div class="kpi-l">Presupuesto total</div><div class="kpi-v">$${Math.round(totPres).toLocaleString('es-AR')} millones</div><div class="kpi-s">${conPres.length} partidos con dato</div></div>
+    <div class="kpi c3"><div class="kpi-l">PBG total</div><div class="kpi-v">$${Math.round(totPBG).toLocaleString('es-AR')} millones</div><div class="kpi-s">DPE-PBA 2023 · 24 partidos</div></div>
+    <div class="kpi c4"><div class="kpi-l">Mayor PBG per cápita</div><div class="kpi-v">${maxBPc?fmtK(maxBPc.v):'—'}</div><div class="kpi-s">${maxBPc?.n||''} · </div></div>
     <div class="kpi c5"><div class="kpi-l">Mayor presup. per cápita</div><div class="kpi-v">${maxPPc?fmtK(maxPPc.v):'—'}</div><div class="kpi-s">${maxPPc?.n||''} · 2025</div></div>`;
 }
 
@@ -365,7 +443,7 @@ function renderCharts(){
   const mk = (id,cfg) => { if(charts[id])charts[id].destroy(); charts[id]=new Chart(document.getElementById(id),cfg); };
 
   const pbgL = [...DATA].filter(m=>m.pbg_corriente_2023).sort((a,b)=>b.pbg_corriente_2023-a.pbg_corriente_2023).slice(0,12);
-  mk('c-pbg',{type:'bar',data:{labels:pbgL.map(m=>m.nombre),datasets:[{data:pbgL.map(m=>+(m.pbg_corriente_2023/1000).toFixed(2)),backgroundColor:pbgL.map(m=>CZONA[m.zona]),borderRadius:5}]},options:{...opts(v=>'$'+v+' mm')}});
+  mk('c-pbg',{type:'bar',data:{labels:pbgL.map(m=>m.nombre),datasets:[{data:pbgL.map(m=>+(m.pbg_corriente_2023/1000).toFixed(2)),backgroundColor:pbgL.map(m=>CZONA[m.zona]),borderRadius:5}]},options:{...opts(v=>'$'+v.toLocaleString('es-AR')+' mm')}});
 
   const pcL = [...DATA].filter(m=>m.pbg_constante_2004_2023).map(m=>({...m,pc:Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)})).sort((a,b)=>b.pc-a.pc);
   mk('c-pbg-pc',{type:'bar',data:{labels:pcL.map(m=>m.nombre),datasets:[{data:pcL.map(m=>m.pc),backgroundColor:'#00875A',borderRadius:5}]},options:{...opts(v=>'$'+Math.round(v/1000)+'K')}});
@@ -384,8 +462,8 @@ const COLS = [
   {k:'pop',    l:'Población',         sort:'poblacion',  num:true},
   {k:'km2',    l:'Sup. km²',          sort:null,         num:true},
   {k:'dens',   l:'Densidad',          sort:'densidad',   num:true},
-  {k:'pbgc',   l:'PBG corr. 2023',    sort:'pbg_corr',   num:true},
-  {k:'pbgpc',  l:'PBG pc cte.04',     sort:'pbg_pc',     num:true},
+  {k:'pbgc',   l:'PBG 2023',    sort:'pbg_corr',   num:true},
+  {k:'pbgpc',  l:'PBG per cápita',     sort:'pbg_pc',     num:true},
   {k:'sector', l:'Sector líder',      sort:null,         num:false},
   {k:'pres',   l:'Presup. 2025',      sort:'presupuesto',num:true},
   {k:'prespc', l:'Presup. pc',        sort:'pres_pc',    num:true},
@@ -459,12 +537,12 @@ function renderTable(){
 
 // ── TREEMAP (squarified) ───────────────────────────────────
 const SECT_COLORS_TM = {
-  industria:     '#1a4a8a', comercio:      '#2970c4', inmobiliario:  '#4a90d9',
-  construccion:  '#e05c1a', transporte:    '#f07a3a', electricidad:  '#f0a060',
-  publico:       '#00875a', ensenanza:     '#1aab7a', salud:         '#3acc9a',
-  financiero:    '#7c3aed', comunitarios:  '#a060f0', serv_domestico:'#c090f8',
-  hoteles:       '#ba7517', agropecuario:  '#639922', pesca:         '#3b6d11',
-  mineria:       '#888780',
+  industria:     '#0F766E', comercio:      '#0D9488', inmobiliario:  '#2DD4BF',
+  construccion:  '#DC2626', transporte:    '#EA580C', electricidad:  '#F59E0B',
+  publico:       '#7C3AED', ensenanza:     '#9333EA', salud:         '#A855F7',
+  financiero:    '#0891B2', comunitarios:  '#0284C7', serv_domestico:'#38BDF8',
+  hoteles:       '#16A34A', agropecuario:  '#15803D', pesca:         '#166534',
+  mineria:       '#78716C',
 };
 const SECT_LABELS_TM = {
   industria:'Industria', comercio:'Comercio', inmobiliario:'Inmobiliario',
@@ -516,53 +594,30 @@ function squarify(items, x, y, w, h) {
   return rects;
 }
 
-function drawTreemap(canvasId, sectores) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  // Tomar dimensiones reales del elemento renderizado
-  const W = canvas.offsetWidth || 560;
-  const H = canvas.offsetHeight || 300;
-  canvas.width = W;
-  canvas.height = H;
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0,0,W,H);
+function drawTreemap(containerId, sectores) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const W = container.offsetWidth || 500;
+  const H = 280;
+  container.style.height = H + 'px';
   const items = Object.entries(sectores)
     .filter(([,v])=>v.pct>0)
     .map(([k,v])=>({key:k, val:v.pct}))
     .sort((a,b)=>b.val-a.val);
   const rects = squarify(items, 0, 0, W, H);
-  const PAD = 2;
-  rects.forEach(r=>{
+  const GAP = 2;
+  container.innerHTML = rects.map(r => {
     const col = SECT_COLORS_TM[r.key] || '#555';
-    const rx = r.x+PAD, ry = r.y+PAD, rw = r.w-PAD*2, rh = r.h-PAD*2;
-    if (rw<2||rh<2) return;
-    // Rectángulo sin roundRect (compatibilidad universal)
-    ctx.fillStyle = col;
-    ctx.fillRect(rx, ry, rw, rh);
-    // Borde sutil
-    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(rx, ry, rw, rh);
-    const item = items.find(i=>i.key===r.key);
-    const label = SECT_LABELS_TM[r.key]||r.key;
-    const pct = item ? item.val.toFixed(1)+'%' : '';
-    ctx.fillStyle = 'rgba(255,255,255,0.92)';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    if (rw>65 && rh>32) {
-      ctx.font = `bold ${Math.min(12, rh/3.5)}px sans-serif`;
-      if (rh > 48) {
-        ctx.fillText(label, rx+rw/2, ry+rh/2-9);
-        ctx.font = `${Math.min(11, rh/4)}px monospace`;
-        ctx.fillText(pct, rx+rw/2, ry+rh/2+10);
-      } else {
-        ctx.fillText(label+' '+pct, rx+rw/2, ry+rh/2);
-      }
-    } else if (rw>32 && rh>18) {
-      ctx.font = 'bold 10px monospace';
-      ctx.fillText(pct, rx+rw/2, ry+rh/2);
-    }
-  });
+    const label = SECT_LABELS_TM[r.key] || r.key;
+    const pct = r.val ? r.val.toFixed(1)+'%' : '';
+    const w = r.w - GAP*2, h = r.h - GAP*2;
+    const showLabel = w > 55 && h > 28;
+    const showBoth = w > 65 && h > 44;
+    return `<div style="position:absolute;left:${r.x+GAP}px;top:${r.y+GAP}px;width:${w}px;height:${h}px;background:${col};overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:default" title="${label}: ${pct}">
+      ${showLabel ? `<span style="color:rgba(255,255,255,.95);font-size:${Math.min(11,h/3.5)}px;font-weight:700;text-align:center;line-height:1.1;padding:0 4px;white-space:nowrap;overflow:hidden;max-width:100%">${showBoth?label:pct}</span>` : ''}
+      ${showBoth ? `<span style="color:rgba(255,255,255,.75);font-size:${Math.min(10,h/4.5)}px;text-align:center">${pct}</span>` : ''}
+    </div>`;
+  }).join('');
 }
 
 function openPanel(id){
@@ -583,14 +638,14 @@ function openPanel(id){
   const kpis=[
     ['Población',fmtN(m.poblacion),'Censo 2022'],
     ['Superficie',m.superficie_km2?fmtN(m.superficie_km2)+' km²':'—',dens?fmtN(dens)+' hab/km²':''],
-    ['PBG corriente 2023',m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—',pbgpc?'pc: '+fmtK(pbgpc):''],
-    ['PBG cte.2004 (2023)',m.pbg_constante_2004_2023?fmtMM(m.pbg_constante_2004_2023):'—',pbgpc_cte?'pc: '+fmtK(pbgpc_cte):''],
+    ['PBG total 2023',m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—',pbgpc?'pc: '+fmtK(pbgpc):''],
+    ['PBG por habitante',m.pbg_constante_2004_2023?fmtMM(m.pbg_constante_2004_2023):'—',pbgpc_cte?'pc: '+fmtK(pbgpc_cte):''],
     ['Presupuesto 2025',m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—',prespc?'pc: '+fmtK(prespc):''],
     ['Rec. percibidos',m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—',''],
   ];
   const tieneSec=m.secretarias?.length>0;
   const secHTML=tieneSec
-    ?m.secretarias.map((s,i)=>`<div class="sbar"><span class="sbn">${s.nombre}</span><div class="sbt"><div class="sbf" style="width:${s.pct/m.secretarias[0].pct*100}%;background:${PAL[i%PAL.length]}22"><span class="sbp" style="color:${PAL[i%PAL.length]}">${s.pct}%</span></div></div>${s.monto_m?`<span class="sbm">${s.monto_m>=1000?'$'+(s.monto_m/1000).toFixed(1)+' mm':'$'+Math.round(s.monto_m)+'M'}</span>`:''}</div>`).join('')
+    ?m.secretarias.map((s,i)=>`<div class="sbar"><span class="sbn">${s.nombre}</span><div class="sbt"><div class="sbf" style="width:${s.pct/m.secretarias[0].pct*100}%;background:${PAL[i%PAL.length]}22"><span class="sbp" style="color:${PAL[i%PAL.length]}">${s.pct}%</span></div></div>${s.monto_m?`<span class="sbm">${s.monto_m>=1000?s.monto_m>=1000?'$'+Math.round(s.monto_m/1000).toLocaleString('es-AR')+' mil mill.':'$'+Math.round(s.monto_m).toLocaleString('es-AR')+' millones'}</span>`:''}</div>`).join('')
     :`<div class="pend">Adjuntá la rendición para ver el desglose.</div>`;
 
   const tieneSect = m.pbg_sectores_2023 && Object.keys(m.pbg_sectores_2023).length>0;
@@ -606,7 +661,7 @@ function openPanel(id){
       <div>
         <div class="pst">Composición del PBG por sector — 2023</div>
         ${tieneSect
-          ? `<canvas id="tm-canvas" style="width:100%;height:300px;border-radius:var(--r);display:block"></canvas>
+          ? `<div id="tm-canvas" style="position:relative;width:100%;border-radius:var(--r);overflow:hidden;background:var(--bg)"></div>
              <div style="margin-top:.6rem;line-height:1.8">${legendHTML}</div>`
           : `<div class="pend">Sin datos sectoriales disponibles.</div>`}
       </div>
@@ -619,7 +674,7 @@ function openPanel(id){
   renderTable();
   setTimeout(()=>{
     document.getElementById('panel-anchor').scrollIntoView({behavior:'smooth',block:'nearest'});
-    if(tieneSect) setTimeout(()=>drawTreemap('tm-canvas', m.pbg_sectores_2023), 150);
+    if(tieneSect) setTimeout(()=>drawTreemap('tm-canvas', m.pbg_sectores_2023), 80);
   },80);
 }
 
@@ -627,7 +682,7 @@ function closePanel(){panelId=null;document.getElementById('panel').classList.re
 
 // ── TISH ─────────────────────────────────────────────────
 function renderTISH(){
-  const cols=['#005EB8','#E05C1A','#00875A','#7C3AED','#F5A623','#DB2777'];
+  const cols=['#0F766E','#DC2626','#7C3AED','#F59E0B','#0891B2','#DB2777'];
   document.getElementById('tish-cards').innerHTML=DATA.map((m,i)=>{
     const t=m.tish;
     if(!t?.alicuota_base_milesimos)
@@ -661,7 +716,7 @@ function clearSearch(){
 // ── COMPARADOR ────────────────────────────────────────────
 let compIds = [];
 const MAX_COMP = 3;
-const COMP_COLORS = ['#005EB8','#E05C1A','#00875A'];
+const COMP_COLORS = ['#0F766E','#DC2626','#7C3AED'];
 
 function toggleComp(id){
   if(compIds.includes(id)){
@@ -737,8 +792,8 @@ function renderComparador(){
     {l:'Población',       fn:m=>fmtN(m.poblacion)},
     {l:'Superficie km²',  fn:m=>m.superficie_km2?fmtN(m.superficie_km2):'—'},
     {l:'Densidad hab/km²',fn:m=>m.superficie_km2?fmtN(Math.round(m.poblacion/m.superficie_km2)):'—'},
-    {l:'PBG corriente 2023',fn:m=>m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—', best:m=>m.pbg_corriente_2023||0},
-    {l:'PBG pc cte.2004', fn:m=>m.pbg_constante_2004_2023?fmtK(Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)):'—', best:m=>m.pbg_constante_2004_2023?m.pbg_constante_2004_2023/m.poblacion:0},
+    {l:'PBG total 2023',fn:m=>m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—', best:m=>m.pbg_corriente_2023||0},
+    {l:'PBG per cápita', fn:m=>m.pbg_constante_2004_2023?fmtK(Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)):'—', best:m=>m.pbg_constante_2004_2023?m.pbg_constante_2004_2023/m.poblacion:0},
     {l:'Sector líder',    fn:m=>m.sector_principal||'—'},
     {l:'Presupuesto 2025',fn:m=>m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—', best:m=>m.presupuesto_2025||0},
     {l:'Presup. pc',      fn:m=>m.presupuesto_2025?fmtK(Math.round(m.presupuesto_2025*1e6/m.poblacion)):'—', best:m=>m.presupuesto_2025?m.presupuesto_2025/m.poblacion:0},
@@ -796,7 +851,7 @@ function renderComparador(){
 
 // ── SECTORES EN PANEL ─────────────────────────────────────
 const SECT_NAMES = {agropecuario:'Agropecuario',pesca:'Pesca',mineria:'Minería',industria:'Industria',electricidad:'Electricidad',construccion:'Construcción',comercio:'Comercio',hoteles:'Hoteles y rest.',transporte:'Transporte',financiero:'Financiero',inmobiliario:'Inmobiliario',publico:'Sector público',ensenanza:'Enseñanza',salud:'Salud',comunitarios:'Comunitarios',serv_domestico:'Serv. doméstico'};
-const SECT_COLORS = ['#005EB8','#E05C1A','#00875A','#F5A623','#0099CC','#7C3AED','#DB2777','#0891B2','#065F46','#92400E','#1E40AF','#BE185D','#0E7490','#9D174D','#4D7C0F','#B45309'];
+const SECT_COLORS = ['#0F766E','#DC2626','#7C3AED','#F59E0B','#0891B2','#DB2777','#DB2777','#0891B2','#065F46','#92400E','#1E40AF','#BE185D','#0E7490','#9D174D','#4D7C0F','#B45309'];
 
 function buildSectHTML(m){
   if(!m.pbg_sectores_2023) return '<div class="pend">Sin datos sectoriales disponibles.</div>';
