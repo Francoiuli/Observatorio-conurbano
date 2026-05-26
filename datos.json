@@ -34,7 +34,69 @@
       "dato_calidad": "aprobado",
       "pbg_corriente_2022": 743966,
       "pbg_constante_2004_2023": 6638,
-      "pbg_constante_2004_2022": 6637
+      "pbg_constante_2004_2022": 6637,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 4442,
+          "pct": 0.3
+        },
+        "mineria": {
+          "millones": 129,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 384481,
+          "pct": 21.9
+        },
+        "electricidad": {
+          "millones": 18721,
+          "pct": 1.1
+        },
+        "construccion": {
+          "millones": 53982,
+          "pct": 3.1
+        },
+        "comercio": {
+          "millones": 271458,
+          "pct": 15.4
+        },
+        "hoteles": {
+          "millones": 33040,
+          "pct": 1.9
+        },
+        "transporte": {
+          "millones": 78697,
+          "pct": 4.5
+        },
+        "financiero": {
+          "millones": 33395,
+          "pct": 1.9
+        },
+        "inmobiliario": {
+          "millones": 203444,
+          "pct": 11.6
+        },
+        "publico": {
+          "millones": 74803,
+          "pct": 4.3
+        },
+        "ensenanza": {
+          "millones": 91744,
+          "pct": 5.2
+        },
+        "salud": {
+          "millones": 104976,
+          "pct": 6.0
+        },
+        "comunitarios": {
+          "millones": 56852,
+          "pct": 3.2
+        },
+        "serv_domestico": {
+          "millones": 16704,
+          "pct": 1.0
+        }
+      }
     },
     {
       "id": "avellaneda",
@@ -58,7 +120,69 @@
       "dato_calidad": "pendiente",
       "pbg_corriente_2022": 727422,
       "pbg_constante_2004_2023": 6606,
-      "pbg_constante_2004_2022": 6502
+      "pbg_constante_2004_2022": 6502,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 14,
+          "pct": 0.0
+        },
+        "mineria": {
+          "millones": 510,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 402123,
+          "pct": 23.5
+        },
+        "electricidad": {
+          "millones": 61977,
+          "pct": 3.6
+        },
+        "construccion": {
+          "millones": 78856,
+          "pct": 4.6
+        },
+        "comercio": {
+          "millones": 264368,
+          "pct": 15.4
+        },
+        "hoteles": {
+          "millones": 32217,
+          "pct": 1.9
+        },
+        "transporte": {
+          "millones": 110223,
+          "pct": 6.4
+        },
+        "financiero": {
+          "millones": 46081,
+          "pct": 2.7
+        },
+        "inmobiliario": {
+          "millones": 155328,
+          "pct": 9.1
+        },
+        "publico": {
+          "millones": 71777,
+          "pct": 4.2
+        },
+        "ensenanza": {
+          "millones": 73041,
+          "pct": 4.3
+        },
+        "salud": {
+          "millones": 79877,
+          "pct": 4.7
+        },
+        "comunitarios": {
+          "millones": 50604,
+          "pct": 3.0
+        },
+        "serv_domestico": {
+          "millones": 7346,
+          "pct": 0.4
+        }
+      }
     },
     {
       "id": "berazategui",
@@ -82,7 +206,69 @@
       "dato_calidad": "pendiente",
       "pbg_corriente_2022": 470421,
       "pbg_constante_2004_2023": 4164,
-      "pbg_constante_2004_2022": 4200
+      "pbg_constante_2004_2022": 4200,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 6293,
+          "pct": 0.6
+        },
+        "mineria": {
+          "millones": 27684,
+          "pct": 2.5
+        },
+        "industria": {
+          "millones": 239390,
+          "pct": 21.8
+        },
+        "electricidad": {
+          "millones": 12337,
+          "pct": 1.1
+        },
+        "construccion": {
+          "millones": 39657,
+          "pct": 3.6
+        },
+        "comercio": {
+          "millones": 150513,
+          "pct": 13.7
+        },
+        "hoteles": {
+          "millones": 17834,
+          "pct": 1.6
+        },
+        "transporte": {
+          "millones": 48433,
+          "pct": 4.4
+        },
+        "financiero": {
+          "millones": 17894,
+          "pct": 1.6
+        },
+        "inmobiliario": {
+          "millones": 119062,
+          "pct": 10.9
+        },
+        "publico": {
+          "millones": 49970,
+          "pct": 4.6
+        },
+        "ensenanza": {
+          "millones": 58401,
+          "pct": 5.3
+        },
+        "salud": {
+          "millones": 66262,
+          "pct": 6.0
+        },
+        "comunitarios": {
+          "millones": 29009,
+          "pct": 2.6
+        },
+        "serv_domestico": {
+          "millones": 9780,
+          "pct": 0.9
+        }
+      }
     },
     {
       "id": "esteban_echeverria",
@@ -106,7 +292,69 @@
       "dato_calidad": "pendiente",
       "pbg_corriente_2022": 422452,
       "pbg_constante_2004_2023": 3691,
-      "pbg_constante_2004_2022": 3790
+      "pbg_constante_2004_2022": 3790,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 502,
+          "pct": 0.1
+        },
+        "mineria": {
+          "millones": 57,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 219931,
+          "pct": 22.9
+        },
+        "electricidad": {
+          "millones": 7260,
+          "pct": 0.8
+        },
+        "construccion": {
+          "millones": 31233,
+          "pct": 3.2
+        },
+        "comercio": {
+          "millones": 159787,
+          "pct": 16.6
+        },
+        "hoteles": {
+          "millones": 16441,
+          "pct": 1.7
+        },
+        "transporte": {
+          "millones": 45004,
+          "pct": 4.7
+        },
+        "financiero": {
+          "millones": 13914,
+          "pct": 1.4
+        },
+        "inmobiliario": {
+          "millones": 109366,
+          "pct": 11.4
+        },
+        "publico": {
+          "millones": 40276,
+          "pct": 4.2
+        },
+        "ensenanza": {
+          "millones": 58715,
+          "pct": 6.1
+        },
+        "salud": {
+          "millones": 42087,
+          "pct": 4.4
+        },
+        "comunitarios": {
+          "millones": 20810,
+          "pct": 2.2
+        },
+        "serv_domestico": {
+          "millones": 9981,
+          "pct": 1.0
+        }
+      }
     },
     {
       "id": "ezeiza",
@@ -130,7 +378,69 @@
       "dato_calidad": "pendiente",
       "pbg_corriente_2022": 334273,
       "pbg_constante_2004_2023": 3253,
-      "pbg_constante_2004_2022": 2980
+      "pbg_constante_2004_2022": 2980,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 1145,
+          "pct": 0.1
+        },
+        "mineria": {
+          "millones": 128,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 144040,
+          "pct": 18.0
+        },
+        "electricidad": {
+          "millones": 4174,
+          "pct": 0.5
+        },
+        "construccion": {
+          "millones": 79600,
+          "pct": 9.9
+        },
+        "comercio": {
+          "millones": 97904,
+          "pct": 12.2
+        },
+        "hoteles": {
+          "millones": 24081,
+          "pct": 3.0
+        },
+        "transporte": {
+          "millones": 132579,
+          "pct": 16.5
+        },
+        "financiero": {
+          "millones": 6403,
+          "pct": 0.8
+        },
+        "inmobiliario": {
+          "millones": 64729,
+          "pct": 8.1
+        },
+        "publico": {
+          "millones": 34100,
+          "pct": 4.3
+        },
+        "ensenanza": {
+          "millones": 43848,
+          "pct": 5.5
+        },
+        "salud": {
+          "millones": 20111,
+          "pct": 2.5
+        },
+        "comunitarios": {
+          "millones": 17495,
+          "pct": 2.2
+        },
+        "serv_domestico": {
+          "millones": 6057,
+          "pct": 0.8
+        }
+      }
     },
     {
       "id": "florencio_varela",
@@ -154,7 +464,69 @@
       "dato_calidad": "aprobado",
       "pbg_corriente_2022": 503749,
       "pbg_constante_2004_2023": 4664,
-      "pbg_constante_2004_2022": 4596
+      "pbg_constante_2004_2022": 4596,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 8874,
+          "pct": 0.7
+        },
+        "mineria": {
+          "millones": 59,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 248264,
+          "pct": 20.4
+        },
+        "electricidad": {
+          "millones": 10254,
+          "pct": 0.8
+        },
+        "construccion": {
+          "millones": 25036,
+          "pct": 2.1
+        },
+        "comercio": {
+          "millones": 155841,
+          "pct": 12.8
+        },
+        "hoteles": {
+          "millones": 20632,
+          "pct": 1.7
+        },
+        "transporte": {
+          "millones": 67241,
+          "pct": 5.5
+        },
+        "financiero": {
+          "millones": 12373,
+          "pct": 1.0
+        },
+        "inmobiliario": {
+          "millones": 142544,
+          "pct": 11.7
+        },
+        "publico": {
+          "millones": 60259,
+          "pct": 4.9
+        },
+        "ensenanza": {
+          "millones": 102912,
+          "pct": 8.5
+        },
+        "salud": {
+          "millones": 69368,
+          "pct": 5.7
+        },
+        "comunitarios": {
+          "millones": 29671,
+          "pct": 2.4
+        },
+        "serv_domestico": {
+          "millones": 14692,
+          "pct": 1.2
+        }
+      }
     },
     {
       "id": "hurlingham",
@@ -178,7 +550,69 @@
       "dato_calidad": "real",
       "pbg_corriente_2022": 279940,
       "pbg_constante_2004_2023": 2560,
-      "pbg_constante_2004_2022": 2497
+      "pbg_constante_2004_2022": 2497,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 2,
+          "pct": 0.0
+        },
+        "mineria": {
+          "millones": 39,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 169174,
+          "pct": 24.3
+        },
+        "electricidad": {
+          "millones": 6090,
+          "pct": 0.9
+        },
+        "construccion": {
+          "millones": 25283,
+          "pct": 3.6
+        },
+        "comercio": {
+          "millones": 111385,
+          "pct": 16.0
+        },
+        "hoteles": {
+          "millones": 7652,
+          "pct": 1.1
+        },
+        "transporte": {
+          "millones": 28091,
+          "pct": 4.0
+        },
+        "financiero": {
+          "millones": 12149,
+          "pct": 1.7
+        },
+        "inmobiliario": {
+          "millones": 65646,
+          "pct": 9.4
+        },
+        "publico": {
+          "millones": 27851,
+          "pct": 4.0
+        },
+        "ensenanza": {
+          "millones": 60458,
+          "pct": 8.7
+        },
+        "salud": {
+          "millones": 38063,
+          "pct": 5.5
+        },
+        "comunitarios": {
+          "millones": 20221,
+          "pct": 2.9
+        },
+        "serv_domestico": {
+          "millones": 4849,
+          "pct": 0.7
+        }
+      }
     },
     {
       "id": "ituzaingo",
@@ -202,7 +636,69 @@
       "dato_calidad": "pendiente",
       "pbg_corriente_2022": 274794,
       "pbg_constante_2004_2023": 2349,
-      "pbg_constante_2004_2022": 2413
+      "pbg_constante_2004_2022": 2413,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 6,
+          "pct": 0.0
+        },
+        "mineria": {
+          "millones": 62,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 126344,
+          "pct": 20.0
+        },
+        "electricidad": {
+          "millones": 6567,
+          "pct": 1.0
+        },
+        "construccion": {
+          "millones": 28202,
+          "pct": 4.5
+        },
+        "comercio": {
+          "millones": 127882,
+          "pct": 20.2
+        },
+        "hoteles": {
+          "millones": 13189,
+          "pct": 2.1
+        },
+        "transporte": {
+          "millones": 26254,
+          "pct": 4.2
+        },
+        "financiero": {
+          "millones": 15061,
+          "pct": 2.4
+        },
+        "inmobiliario": {
+          "millones": 67899,
+          "pct": 10.7
+        },
+        "publico": {
+          "millones": 26651,
+          "pct": 4.2
+        },
+        "ensenanza": {
+          "millones": 28569,
+          "pct": 4.5
+        },
+        "salud": {
+          "millones": 34245,
+          "pct": 5.4
+        },
+        "comunitarios": {
+          "millones": 19780,
+          "pct": 3.1
+        },
+        "serv_domestico": {
+          "millones": 3579,
+          "pct": 0.6
+        }
+      }
     },
     {
       "id": "jose_c_paz",
@@ -226,7 +722,69 @@
       "dato_calidad": "pendiente",
       "pbg_corriente_2022": 398647,
       "pbg_constante_2004_2023": 3596,
-      "pbg_constante_2004_2022": 3569
+      "pbg_constante_2004_2022": 3569,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 68,
+          "pct": 0.0
+        },
+        "mineria": {
+          "millones": 22,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 255758,
+          "pct": 26.7
+        },
+        "electricidad": {
+          "millones": 9856,
+          "pct": 1.0
+        },
+        "construccion": {
+          "millones": 20078,
+          "pct": 2.1
+        },
+        "comercio": {
+          "millones": 121638,
+          "pct": 12.7
+        },
+        "hoteles": {
+          "millones": 11010,
+          "pct": 1.1
+        },
+        "transporte": {
+          "millones": 42657,
+          "pct": 4.4
+        },
+        "financiero": {
+          "millones": 6828,
+          "pct": 0.7
+        },
+        "inmobiliario": {
+          "millones": 96409,
+          "pct": 10.0
+        },
+        "publico": {
+          "millones": 39132,
+          "pct": 4.1
+        },
+        "ensenanza": {
+          "millones": 73489,
+          "pct": 7.7
+        },
+        "salud": {
+          "millones": 59120,
+          "pct": 6.2
+        },
+        "comunitarios": {
+          "millones": 22931,
+          "pct": 2.4
+        },
+        "serv_domestico": {
+          "millones": 12330,
+          "pct": 1.3
+        }
+      }
     },
     {
       "id": "la_matanza",
@@ -250,7 +808,69 @@
       "dato_calidad": "aprobado",
       "pbg_corriente_2022": 2083211,
       "pbg_constante_2004_2023": 19233,
-      "pbg_constante_2004_2022": 18969
+      "pbg_constante_2004_2022": 18969,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 694,
+          "pct": 0.0
+        },
+        "mineria": {
+          "millones": 1679,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 1243067,
+          "pct": 24.9
+        },
+        "electricidad": {
+          "millones": 35333,
+          "pct": 0.7
+        },
+        "construccion": {
+          "millones": 79900,
+          "pct": 1.6
+        },
+        "comercio": {
+          "millones": 765668,
+          "pct": 15.4
+        },
+        "hoteles": {
+          "millones": 55038,
+          "pct": 1.1
+        },
+        "transporte": {
+          "millones": 249183,
+          "pct": 5.0
+        },
+        "financiero": {
+          "millones": 71811,
+          "pct": 1.4
+        },
+        "inmobiliario": {
+          "millones": 517581,
+          "pct": 10.4
+        },
+        "publico": {
+          "millones": 244527,
+          "pct": 4.9
+        },
+        "ensenanza": {
+          "millones": 297652,
+          "pct": 6.0
+        },
+        "salud": {
+          "millones": 242593,
+          "pct": 4.9
+        },
+        "comunitarios": {
+          "millones": 126002,
+          "pct": 2.5
+        },
+        "serv_domestico": {
+          "millones": 36629,
+          "pct": 0.7
+        }
+      }
     },
     {
       "id": "lanus",
@@ -274,7 +894,65 @@
       "dato_calidad": "aprobado",
       "pbg_corriente_2022": 717593,
       "pbg_constante_2004_2023": 6445,
-      "pbg_constante_2004_2022": 6427
+      "pbg_constante_2004_2022": 6427,
+      "pbg_sectores_2023": {
+        "mineria": {
+          "millones": 151,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 389681,
+          "pct": 22.6
+        },
+        "electricidad": {
+          "millones": 21111,
+          "pct": 1.2
+        },
+        "construccion": {
+          "millones": 39335,
+          "pct": 2.3
+        },
+        "comercio": {
+          "millones": 306873,
+          "pct": 17.8
+        },
+        "hoteles": {
+          "millones": 27587,
+          "pct": 1.6
+        },
+        "transporte": {
+          "millones": 71182,
+          "pct": 4.1
+        },
+        "financiero": {
+          "millones": 49038,
+          "pct": 2.8
+        },
+        "inmobiliario": {
+          "millones": 190495,
+          "pct": 11.1
+        },
+        "publico": {
+          "millones": 80637,
+          "pct": 4.7
+        },
+        "ensenanza": {
+          "millones": 77068,
+          "pct": 4.5
+        },
+        "salud": {
+          "millones": 101068,
+          "pct": 5.9
+        },
+        "comunitarios": {
+          "millones": 59417,
+          "pct": 3.5
+        },
+        "serv_domestico": {
+          "millones": 9811,
+          "pct": 0.6
+        }
+      }
     },
     {
       "id": "lomas_de_zamora",
@@ -298,7 +976,69 @@
       "dato_calidad": "pendiente",
       "pbg_corriente_2022": 952119,
       "pbg_constante_2004_2023": 8466,
-      "pbg_constante_2004_2022": 8447
+      "pbg_constante_2004_2022": 8447,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 71,
+          "pct": 0.0
+        },
+        "mineria": {
+          "millones": 189,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 528437,
+          "pct": 23.2
+        },
+        "electricidad": {
+          "millones": 22513,
+          "pct": 1.0
+        },
+        "construccion": {
+          "millones": 42584,
+          "pct": 1.9
+        },
+        "comercio": {
+          "millones": 361782,
+          "pct": 15.9
+        },
+        "hoteles": {
+          "millones": 36905,
+          "pct": 1.6
+        },
+        "transporte": {
+          "millones": 97267,
+          "pct": 4.3
+        },
+        "financiero": {
+          "millones": 52992,
+          "pct": 2.3
+        },
+        "inmobiliario": {
+          "millones": 245900,
+          "pct": 10.8
+        },
+        "publico": {
+          "millones": 115652,
+          "pct": 5.1
+        },
+        "ensenanza": {
+          "millones": 143464,
+          "pct": 6.3
+        },
+        "salud": {
+          "millones": 128418,
+          "pct": 5.6
+        },
+        "comunitarios": {
+          "millones": 67479,
+          "pct": 3.0
+        },
+        "serv_domestico": {
+          "millones": 17723,
+          "pct": 0.8
+        }
+      }
     },
     {
       "id": "malvinas_argentinas",
@@ -322,7 +1062,69 @@
       "dato_calidad": "pendiente",
       "pbg_corriente_2022": 578660,
       "pbg_constante_2004_2023": 5229,
-      "pbg_constante_2004_2022": 5220
+      "pbg_constante_2004_2022": 5220,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 46,
+          "pct": 0.0
+        },
+        "mineria": {
+          "millones": 44,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 427085,
+          "pct": 30.5
+        },
+        "electricidad": {
+          "millones": 6615,
+          "pct": 0.5
+        },
+        "construccion": {
+          "millones": 44131,
+          "pct": 3.1
+        },
+        "comercio": {
+          "millones": 242412,
+          "pct": 17.3
+        },
+        "hoteles": {
+          "millones": 21506,
+          "pct": 1.5
+        },
+        "transporte": {
+          "millones": 62344,
+          "pct": 4.4
+        },
+        "financiero": {
+          "millones": 12908,
+          "pct": 0.9
+        },
+        "inmobiliario": {
+          "millones": 111414,
+          "pct": 8.0
+        },
+        "publico": {
+          "millones": 34658,
+          "pct": 2.5
+        },
+        "ensenanza": {
+          "millones": 67969,
+          "pct": 4.9
+        },
+        "salud": {
+          "millones": 63264,
+          "pct": 4.5
+        },
+        "comunitarios": {
+          "millones": 41455,
+          "pct": 3.0
+        },
+        "serv_domestico": {
+          "millones": 16644,
+          "pct": 1.2
+        }
+      }
     },
     {
       "id": "merlo",
@@ -346,7 +1148,69 @@
       "dato_calidad": "pendiente",
       "pbg_corriente_2022": 705678,
       "pbg_constante_2004_2023": 6323,
-      "pbg_constante_2004_2022": 6301
+      "pbg_constante_2004_2022": 6301,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 1565,
+          "pct": 0.1
+        },
+        "mineria": {
+          "millones": 68,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 416853,
+          "pct": 24.9
+        },
+        "electricidad": {
+          "millones": 13663,
+          "pct": 0.8
+        },
+        "construccion": {
+          "millones": 24381,
+          "pct": 1.5
+        },
+        "comercio": {
+          "millones": 241025,
+          "pct": 14.4
+        },
+        "hoteles": {
+          "millones": 21205,
+          "pct": 1.3
+        },
+        "transporte": {
+          "millones": 76338,
+          "pct": 4.6
+        },
+        "financiero": {
+          "millones": 19901,
+          "pct": 1.2
+        },
+        "inmobiliario": {
+          "millones": 176910,
+          "pct": 10.6
+        },
+        "publico": {
+          "millones": 90885,
+          "pct": 5.4
+        },
+        "ensenanza": {
+          "millones": 99904,
+          "pct": 6.0
+        },
+        "salud": {
+          "millones": 99240,
+          "pct": 5.9
+        },
+        "comunitarios": {
+          "millones": 44784,
+          "pct": 2.7
+        },
+        "serv_domestico": {
+          "millones": 17358,
+          "pct": 1.0
+        }
+      }
     },
     {
       "id": "moreno",
@@ -354,23 +1218,152 @@
       "zona": "oeste",
       "poblacion": 661862,
       "superficie_km2": 186,
-      "presupuesto_2025": null,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 303972449,
+      "recursos_percibidos_2025": 273356057,
       "pbg_corriente_2023": 1490136,
       "pbg_constante_2004": null,
-      "sector_principal": null,
+      "sector_principal": "Comercio e Industria",
       "tish": {
         "alicuota_base_milesimos": null,
         "escala": [],
         "fuente": "Pendiente",
-        "nombre_tasa": "TISH"
+        "nombre_tasa": "TISH",
+        "recaudado_2025_millones": 44127.0
       },
-      "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "secretarias": [
+        {
+          "nombre": "Prom. y Asistencia Social",
+          "pct": 18.1,
+          "monto_m": 54999920
+        },
+        {
+          "nombre": "Planeam. y Des. Urbano",
+          "pct": 24.2,
+          "monto_m": 73669571
+        },
+        {
+          "nombre": "Administración gubernam.",
+          "pct": 23.4,
+          "monto_m": 70984035
+        },
+        {
+          "nombre": "Salud",
+          "pct": 9.1,
+          "monto_m": 27611586
+        },
+        {
+          "nombre": "Servicios de Seguridad",
+          "pct": 8.5,
+          "monto_m": 25954340
+        },
+        {
+          "nombre": "Educación, Cultura y Dep.",
+          "pct": 6.6,
+          "monto_m": 19927111
+        },
+        {
+          "nombre": "Tránsito y Transporte",
+          "pct": 1.9,
+          "monto_m": 5810832
+        },
+        {
+          "nombre": "Ambiente y Des. Sostenible",
+          "pct": 16.9,
+          "monto_m": 51502616
+        },
+        {
+          "nombre": "Mujeres, Géneros y Div.",
+          "pct": 0.5,
+          "monto_m": 1435238
+        },
+        {
+          "nombre": "Comunicación Pública",
+          "pct": 1.9,
+          "monto_m": 5819662
+        },
+        {
+          "nombre": "HCD",
+          "pct": 0.7,
+          "monto_m": 2116604
+        },
+        {
+          "nombre": "IDUAR / IMDEL / Otros",
+          "pct": 4.2,
+          "monto_m": 12667956
+        }
+      ],
+      "dato_fuente": "Rendición de Cuentas 2025 — Secretaría de Economía / Contaduría Municipal",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 625350,
       "pbg_constante_2004_2023": 5713,
-      "pbg_constante_2004_2022": 5629
+      "pbg_constante_2004_2022": 5629,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 780,
+          "pct": 0.1
+        },
+        "mineria": {
+          "millones": 51,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 324646,
+          "pct": 21.8
+        },
+        "electricidad": {
+          "millones": 10351,
+          "pct": 0.7
+        },
+        "construccion": {
+          "millones": 58055,
+          "pct": 3.9
+        },
+        "comercio": {
+          "millones": 234294,
+          "pct": 15.7
+        },
+        "hoteles": {
+          "millones": 16878,
+          "pct": 1.1
+        },
+        "transporte": {
+          "millones": 69712,
+          "pct": 4.7
+        },
+        "financiero": {
+          "millones": 13105,
+          "pct": 0.9
+        },
+        "inmobiliario": {
+          "millones": 170117,
+          "pct": 11.4
+        },
+        "publico": {
+          "millones": 79196,
+          "pct": 5.3
+        },
+        "ensenanza": {
+          "millones": 102230,
+          "pct": 6.9
+        },
+        "salud": {
+          "millones": 60507,
+          "pct": 4.1
+        },
+        "comunitarios": {
+          "millones": 34539,
+          "pct": 2.3
+        },
+        "serv_domestico": {
+          "millones": 18943,
+          "pct": 1.3
+        }
+      },
+      "presupuesto_vigente_2025": 354229038,
+      "rec_municipal_libre_2025": 110863309,
+      "autonomia_pct": 40.6,
+      "tish_recaudado_m": 44126.9,
+      "tsg_recaudado_m": 22813.0
     },
     {
       "id": "moron",
@@ -430,7 +1423,69 @@
       "dato_calidad": "real",
       "pbg_corriente_2022": 555714,
       "pbg_constante_2004_2023": 4736,
-      "pbg_constante_2004_2022": 4797
+      "pbg_constante_2004_2022": 4797,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 10,
+          "pct": 0.0
+        },
+        "mineria": {
+          "millones": 142,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 262144,
+          "pct": 20.2
+        },
+        "electricidad": {
+          "millones": 12513,
+          "pct": 1.0
+        },
+        "construccion": {
+          "millones": 62493,
+          "pct": 4.8
+        },
+        "comercio": {
+          "millones": 269598,
+          "pct": 20.8
+        },
+        "hoteles": {
+          "millones": 27777,
+          "pct": 2.1
+        },
+        "transporte": {
+          "millones": 52617,
+          "pct": 4.1
+        },
+        "financiero": {
+          "millones": 37035,
+          "pct": 2.9
+        },
+        "inmobiliario": {
+          "millones": 128736,
+          "pct": 9.9
+        },
+        "publico": {
+          "millones": 59417,
+          "pct": 4.6
+        },
+        "ensenanza": {
+          "millones": 55293,
+          "pct": 4.3
+        },
+        "salud": {
+          "millones": 72915,
+          "pct": 5.6
+        },
+        "comunitarios": {
+          "millones": 37829,
+          "pct": 2.9
+        },
+        "serv_domestico": {
+          "millones": 5016,
+          "pct": 0.4
+        }
+      }
     },
     {
       "id": "quilmes",
@@ -454,7 +1509,69 @@
       "dato_calidad": "real",
       "pbg_corriente_2022": 877321,
       "pbg_constante_2004_2023": 7742,
-      "pbg_constante_2004_2022": 7781
+      "pbg_constante_2004_2022": 7781,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 6,
+          "pct": 0.0
+        },
+        "mineria": {
+          "millones": 236,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 451555,
+          "pct": 21.7
+        },
+        "electricidad": {
+          "millones": 29242,
+          "pct": 1.4
+        },
+        "construccion": {
+          "millones": 47420,
+          "pct": 2.3
+        },
+        "comercio": {
+          "millones": 338405,
+          "pct": 16.3
+        },
+        "hoteles": {
+          "millones": 43065,
+          "pct": 2.1
+        },
+        "transporte": {
+          "millones": 87357,
+          "pct": 4.2
+        },
+        "financiero": {
+          "millones": 46630,
+          "pct": 2.2
+        },
+        "inmobiliario": {
+          "millones": 232735,
+          "pct": 11.2
+        },
+        "publico": {
+          "millones": 105707,
+          "pct": 5.1
+        },
+        "ensenanza": {
+          "millones": 124927,
+          "pct": 6.0
+        },
+        "salud": {
+          "millones": 120192,
+          "pct": 5.8
+        },
+        "comunitarios": {
+          "millones": 59351,
+          "pct": 2.9
+        },
+        "serv_domestico": {
+          "millones": 14654,
+          "pct": 0.7
+        }
+      }
     },
     {
       "id": "san_fernando",
@@ -478,7 +1595,69 @@
       "dato_calidad": "pendiente",
       "pbg_corriente_2022": 318498,
       "pbg_constante_2004_2023": 2769,
-      "pbg_constante_2004_2022": 2823
+      "pbg_constante_2004_2022": 2823,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 834,
+          "pct": 0.1
+        },
+        "mineria": {
+          "millones": 66,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 147966,
+          "pct": 20.1
+        },
+        "electricidad": {
+          "millones": 5399,
+          "pct": 0.7
+        },
+        "construccion": {
+          "millones": 99514,
+          "pct": 13.5
+        },
+        "comercio": {
+          "millones": 140540,
+          "pct": 19.1
+        },
+        "hoteles": {
+          "millones": 16764,
+          "pct": 2.3
+        },
+        "transporte": {
+          "millones": 29031,
+          "pct": 3.9
+        },
+        "financiero": {
+          "millones": 10827,
+          "pct": 1.5
+        },
+        "inmobiliario": {
+          "millones": 62383,
+          "pct": 8.5
+        },
+        "publico": {
+          "millones": 23100,
+          "pct": 3.1
+        },
+        "ensenanza": {
+          "millones": 24781,
+          "pct": 3.4
+        },
+        "salud": {
+          "millones": 30807,
+          "pct": 4.2
+        },
+        "comunitarios": {
+          "millones": 26015,
+          "pct": 3.5
+        },
+        "serv_domestico": {
+          "millones": 7802,
+          "pct": 1.1
+        }
+      }
     },
     {
       "id": "san_isidro",
@@ -502,7 +1681,65 @@
       "dato_calidad": "aprobado",
       "pbg_corriente_2022": 642792,
       "pbg_constante_2004_2023": 5416,
-      "pbg_constante_2004_2022": 5559
+      "pbg_constante_2004_2022": 5559,
+      "pbg_sectores_2023": {
+        "mineria": {
+          "millones": 246,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 274077,
+          "pct": 18.5
+        },
+        "electricidad": {
+          "millones": 9911,
+          "pct": 0.7
+        },
+        "construccion": {
+          "millones": 117427,
+          "pct": 7.9
+        },
+        "comercio": {
+          "millones": 362023,
+          "pct": 24.4
+        },
+        "hoteles": {
+          "millones": 42305,
+          "pct": 2.9
+        },
+        "transporte": {
+          "millones": 56742,
+          "pct": 3.8
+        },
+        "financiero": {
+          "millones": 43804,
+          "pct": 3.0
+        },
+        "inmobiliario": {
+          "millones": 139405,
+          "pct": 9.4
+        },
+        "publico": {
+          "millones": 45349,
+          "pct": 3.1
+        },
+        "ensenanza": {
+          "millones": 52358,
+          "pct": 3.5
+        },
+        "salud": {
+          "millones": 60535,
+          "pct": 4.1
+        },
+        "comunitarios": {
+          "millones": 57861,
+          "pct": 3.9
+        },
+        "serv_domestico": {
+          "millones": 8698,
+          "pct": 0.6
+        }
+      }
     },
     {
       "id": "sanmartin",
@@ -539,7 +1776,65 @@
       "dato_calidad": "aprobado",
       "pbg_corriente_2022": 771484,
       "pbg_constante_2004_2023": 6762,
-      "pbg_constante_2004_2022": 6823
+      "pbg_constante_2004_2022": 6823,
+      "pbg_sectores_2023": {
+        "mineria": {
+          "millones": 106,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 515975,
+          "pct": 28.1
+        },
+        "electricidad": {
+          "millones": 13684,
+          "pct": 0.7
+        },
+        "construccion": {
+          "millones": 44420,
+          "pct": 2.4
+        },
+        "comercio": {
+          "millones": 319963,
+          "pct": 17.4
+        },
+        "hoteles": {
+          "millones": 22308,
+          "pct": 1.2
+        },
+        "transporte": {
+          "millones": 76545,
+          "pct": 4.2
+        },
+        "financiero": {
+          "millones": 33747,
+          "pct": 1.8
+        },
+        "inmobiliario": {
+          "millones": 162628,
+          "pct": 8.9
+        },
+        "publico": {
+          "millones": 74789,
+          "pct": 4.1
+        },
+        "ensenanza": {
+          "millones": 79846,
+          "pct": 4.3
+        },
+        "salud": {
+          "millones": 102432,
+          "pct": 5.6
+        },
+        "comunitarios": {
+          "millones": 58039,
+          "pct": 3.2
+        },
+        "serv_domestico": {
+          "millones": 12025,
+          "pct": 0.7
+        }
+      }
     },
     {
       "id": "san_miguel",
@@ -563,7 +1858,65 @@
       "dato_calidad": "pendiente",
       "pbg_corriente_2022": 441405,
       "pbg_constante_2004_2023": 3878,
-      "pbg_constante_2004_2022": 3862
+      "pbg_constante_2004_2022": 3862,
+      "pbg_sectores_2023": {
+        "mineria": {
+          "millones": 73,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 225422,
+          "pct": 21.6
+        },
+        "electricidad": {
+          "millones": 9854,
+          "pct": 0.9
+        },
+        "construccion": {
+          "millones": 55825,
+          "pct": 5.3
+        },
+        "comercio": {
+          "millones": 163248,
+          "pct": 15.6
+        },
+        "hoteles": {
+          "millones": 18904,
+          "pct": 1.8
+        },
+        "transporte": {
+          "millones": 43775,
+          "pct": 4.2
+        },
+        "financiero": {
+          "millones": 19090,
+          "pct": 1.8
+        },
+        "inmobiliario": {
+          "millones": 102851,
+          "pct": 9.9
+        },
+        "publico": {
+          "millones": 52741,
+          "pct": 5.1
+        },
+        "ensenanza": {
+          "millones": 52791,
+          "pct": 5.1
+        },
+        "salud": {
+          "millones": 63076,
+          "pct": 6.0
+        },
+        "comunitarios": {
+          "millones": 36508,
+          "pct": 3.5
+        },
+        "serv_domestico": {
+          "millones": 10091,
+          "pct": 1.0
+        }
+      }
     },
     {
       "id": "tigre",
@@ -587,7 +1940,69 @@
       "dato_calidad": "aprobado",
       "pbg_corriente_2022": 887069,
       "pbg_constante_2004_2023": 7785,
-      "pbg_constante_2004_2022": 7872
+      "pbg_constante_2004_2022": 7872,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 72,
+          "pct": 0.0
+        },
+        "mineria": {
+          "millones": 196,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 627852,
+          "pct": 30.1
+        },
+        "electricidad": {
+          "millones": 10440,
+          "pct": 0.5
+        },
+        "construccion": {
+          "millones": 175899,
+          "pct": 8.4
+        },
+        "comercio": {
+          "millones": 356735,
+          "pct": 17.1
+        },
+        "hoteles": {
+          "millones": 46405,
+          "pct": 2.2
+        },
+        "transporte": {
+          "millones": 103771,
+          "pct": 5.0
+        },
+        "financiero": {
+          "millones": 23501,
+          "pct": 1.1
+        },
+        "inmobiliario": {
+          "millones": 152675,
+          "pct": 7.3
+        },
+        "publico": {
+          "millones": 39865,
+          "pct": 1.9
+        },
+        "ensenanza": {
+          "millones": 75576,
+          "pct": 3.6
+        },
+        "salud": {
+          "millones": 54029,
+          "pct": 2.6
+        },
+        "comunitarios": {
+          "millones": 50432,
+          "pct": 2.4
+        },
+        "serv_domestico": {
+          "millones": 19248,
+          "pct": 0.9
+        }
+      }
     },
     {
       "id": "tresdefebrero",
@@ -667,7 +2082,69 @@
       "dato_calidad": "real",
       "pbg_corriente_2022": 692692,
       "pbg_constante_2004_2023": 5963,
-      "pbg_constante_2004_2022": 6121
+      "pbg_constante_2004_2022": 6121,
+      "pbg_sectores_2023": {
+        "agropecuario": {
+          "millones": 24,
+          "pct": 0.0
+        },
+        "mineria": {
+          "millones": 137,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 461901,
+          "pct": 28.6
+        },
+        "electricidad": {
+          "millones": 14925,
+          "pct": 0.9
+        },
+        "construccion": {
+          "millones": 27805,
+          "pct": 1.7
+        },
+        "comercio": {
+          "millones": 300714,
+          "pct": 18.6
+        },
+        "hoteles": {
+          "millones": 28385,
+          "pct": 1.8
+        },
+        "transporte": {
+          "millones": 68217,
+          "pct": 4.2
+        },
+        "financiero": {
+          "millones": 36532,
+          "pct": 2.3
+        },
+        "inmobiliario": {
+          "millones": 146812,
+          "pct": 9.1
+        },
+        "publico": {
+          "millones": 54055,
+          "pct": 3.3
+        },
+        "ensenanza": {
+          "millones": 57280,
+          "pct": 3.5
+        },
+        "salud": {
+          "millones": 82355,
+          "pct": 5.1
+        },
+        "comunitarios": {
+          "millones": 54043,
+          "pct": 3.3
+        },
+        "serv_domestico": {
+          "millones": 6990,
+          "pct": 0.4
+        }
+      }
     },
     {
       "id": "vicente_lopez",
@@ -691,7 +2168,65 @@
       "dato_calidad": "aprobado",
       "pbg_corriente_2022": 633212,
       "pbg_constante_2004_2023": 5403,
-      "pbg_constante_2004_2022": 5462
+      "pbg_constante_2004_2022": 5462,
+      "pbg_sectores_2023": {
+        "mineria": {
+          "millones": 263,
+          "pct": 0.0
+        },
+        "industria": {
+          "millones": 296392,
+          "pct": 19.9
+        },
+        "electricidad": {
+          "millones": 11226,
+          "pct": 0.8
+        },
+        "construccion": {
+          "millones": 82425,
+          "pct": 5.5
+        },
+        "comercio": {
+          "millones": 424860,
+          "pct": 28.6
+        },
+        "hoteles": {
+          "millones": 29875,
+          "pct": 2.0
+        },
+        "transporte": {
+          "millones": 59268,
+          "pct": 4.0
+        },
+        "financiero": {
+          "millones": 45624,
+          "pct": 3.1
+        },
+        "inmobiliario": {
+          "millones": 134674,
+          "pct": 9.1
+        },
+        "publico": {
+          "millones": 36316,
+          "pct": 2.4
+        },
+        "ensenanza": {
+          "millones": 34819,
+          "pct": 2.3
+        },
+        "salud": {
+          "millones": 59389,
+          "pct": 4.0
+        },
+        "comunitarios": {
+          "millones": 53962,
+          "pct": 3.6
+        },
+        "serv_domestico": {
+          "millones": 5016,
+          "pct": 0.3
+        }
+      }
     }
   ]
 }
