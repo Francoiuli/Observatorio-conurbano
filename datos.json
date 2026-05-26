@@ -190,8 +190,8 @@
       "zona": "sur",
       "poblacion": 370606,
       "superficie_km2": 190,
-      "presupuesto_2025": null,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 153105,
+      "recursos_percibidos_2025": 155732,
       "pbg_corriente_2023": 1096370,
       "pbg_constante_2004": null,
       "sector_principal": null,
@@ -202,8 +202,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 470421,
       "pbg_constante_2004_2023": 4164,
       "pbg_constante_2004_2022": 4200,
@@ -268,7 +268,8 @@
           "millones": 9780,
           "pct": 0.9
         }
-      }
+      },
+      "saldo_caja_2025": 38488
     },
     {
       "id": "esteban_echeverria",
@@ -362,8 +363,8 @@
       "zona": "sur",
       "poblacion": 196024,
       "superficie_km2": 228,
-      "presupuesto_2025": null,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 130747,
+      "recursos_percibidos_2025": 125761,
       "pbg_corriente_2023": 801986,
       "pbg_constante_2004": null,
       "sector_principal": null,
@@ -374,8 +375,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 334273,
       "pbg_constante_2004_2023": 3253,
       "pbg_constante_2004_2022": 2980,
@@ -440,7 +441,8 @@
           "millones": 6057,
           "pct": 0.8
         }
-      }
+      },
+      "saldo_caja_2025": 4042
     },
     {
       "id": "florencio_varela",
@@ -448,8 +450,8 @@
       "zona": "sur",
       "poblacion": 474141,
       "superficie_km2": 190,
-      "presupuesto_2025": 108809,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 169995,
+      "recursos_percibidos_2025": 154793,
       "pbg_corriente_2023": 1217434,
       "pbg_constante_2004": null,
       "sector_principal": null,
@@ -460,8 +462,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Presupuesto aprobado HCD 2024 — El Termómetro",
-      "dato_calidad": "aprobado",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 503749,
       "pbg_constante_2004_2023": 4664,
       "pbg_constante_2004_2022": 4596,
@@ -526,7 +528,8 @@
           "millones": 14692,
           "pct": 1.2
         }
-      }
+      },
+      "saldo_caja_2025": 5913
     },
     {
       "id": "hurlingham",
@@ -620,8 +623,8 @@
       "zona": "oeste",
       "poblacion": 181243,
       "superficie_km2": 38,
-      "presupuesto_2025": 109571,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 83288,
+      "recursos_percibidos_2025": 76887,
       "pbg_corriente_2023": 632409,
       "pbg_constante_2004": null,
       "sector_principal": null,
@@ -632,7 +635,7 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Rendición de Cuentas 2025 — RAFAM",
+      "dato_fuente": "Rendición de Cuentas 2025",
       "dato_calidad": "real",
       "pbg_corriente_2022": 274794,
       "pbg_constante_2004_2023": 2349,
@@ -698,7 +701,8 @@
           "millones": 3579,
           "pct": 0.6
         }
-      }
+      },
+      "saldo_caja_2025": 2742
     },
     {
       "id": "jose_c_paz",
@@ -706,8 +710,8 @@
       "zona": "norte",
       "poblacion": 278356,
       "superficie_km2": 50,
-      "presupuesto_2025": null,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 159166,
+      "recursos_percibidos_2025": 146735,
       "pbg_corriente_2023": 959320,
       "pbg_constante_2004": null,
       "sector_principal": null,
@@ -718,8 +722,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 398647,
       "pbg_constante_2004_2023": 3596,
       "pbg_constante_2004_2022": 3569,
@@ -784,7 +788,8 @@
           "millones": 12330,
           "pct": 1.3
         }
-      }
+      },
+      "saldo_caja_2025": 4615
     },
     {
       "id": "la_matanza",
@@ -792,8 +797,8 @@
       "zona": "oeste",
       "poblacion": 1775816,
       "superficie_km2": 323,
-      "presupuesto_2025": 298000,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 536978,
+      "recursos_percibidos_2025": 657710,
       "pbg_corriente_2023": 4986948,
       "pbg_constante_2004": null,
       "sector_principal": "Industria",
@@ -804,8 +809,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Presupuesto aprobado 2025 — El1 Digital",
-      "dato_calidad": "aprobado",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 2083211,
       "pbg_constante_2004_2023": 19233,
       "pbg_constante_2004_2022": 18969,
@@ -870,7 +875,8 @@
           "millones": 36629,
           "pct": 0.7
         }
-      }
+      },
+      "saldo_caja_2025": 266497
     },
     {
       "id": "lanus",
@@ -878,8 +884,8 @@
       "zona": "sur",
       "poblacion": 459263,
       "superficie_km2": 45,
-      "presupuesto_2025": 168362,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 250087,
+      "recursos_percibidos_2025": 233515,
       "pbg_corriente_2023": 1721856,
       "pbg_constante_2004": null,
       "sector_principal": "Industria",
@@ -890,8 +896,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Presupuesto aprobado 2025 — Lanús Hoy",
-      "dato_calidad": "aprobado",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 717593,
       "pbg_constante_2004_2023": 6445,
       "pbg_constante_2004_2022": 6427,
@@ -952,7 +958,8 @@
           "millones": 9811,
           "pct": 0.6
         }
-      }
+      },
+      "saldo_caja_2025": 29834
     },
     {
       "id": "lomas_de_zamora",
@@ -1046,8 +1053,8 @@
       "zona": "norte",
       "poblacion": 382759,
       "superficie_km2": 63,
-      "presupuesto_2025": null,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 378963,
+      "recursos_percibidos_2025": 330613,
       "pbg_corriente_2023": 1401292,
       "pbg_constante_2004": null,
       "sector_principal": null,
@@ -1058,8 +1065,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 578660,
       "pbg_constante_2004_2023": 5229,
       "pbg_constante_2004_2022": 5220,
@@ -1124,7 +1131,8 @@
           "millones": 16644,
           "pct": 1.2
         }
-      }
+      },
+      "saldo_caja_2025": 15145
     },
     {
       "id": "merlo",
@@ -1363,7 +1371,8 @@
       "rec_municipal_libre_2025": 110863,
       "autonomia_pct": 40.6,
       "tish_recaudado_m": 44126.9,
-      "tsg_recaudado_m": 22813.0
+      "tsg_recaudado_m": 22813.0,
+      "saldo_caja_2025": 7086
     },
     {
       "id": "moron",
@@ -1371,7 +1380,7 @@
       "zona": "oeste",
       "poblacion": 349545,
       "superficie_km2": 55,
-      "presupuesto_2025": 177000,
+      "presupuesto_2025": 202116,
       "recursos_percibidos_2025": 180500,
       "pbg_corriente_2023": 1295858,
       "pbg_constante_2004": null,
@@ -1419,7 +1428,7 @@
           "pct": 23.4
         }
       ],
-      "dato_fuente": "Rendición 2025 — RAFAM",
+      "dato_fuente": "Rendición de Cuentas 2025",
       "dato_calidad": "real",
       "pbg_corriente_2022": 555714,
       "pbg_constante_2004_2023": 4736,
@@ -1485,7 +1494,8 @@
           "millones": 5016,
           "pct": 0.4
         }
-      }
+      },
+      "saldo_caja_2025": 4160
     },
     {
       "id": "quilmes",
@@ -1493,8 +1503,8 @@
       "zona": "sur",
       "poblacion": 640907,
       "superficie_km2": 125,
-      "presupuesto_2025": 398000,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 325770,
+      "recursos_percibidos_2025": 306363,
       "pbg_corriente_2023": 2078416,
       "pbg_constante_2004": null,
       "sector_principal": "Industria",
@@ -1505,7 +1515,7 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Rendición 2025 aprobada HCD — El Termómetro",
+      "dato_fuente": "Rendición de Cuentas 2025",
       "dato_calidad": "real",
       "pbg_corriente_2022": 877321,
       "pbg_constante_2004_2023": 7742,
@@ -1571,7 +1581,8 @@
           "millones": 14654,
           "pct": 0.7
         }
-      }
+      },
+      "saldo_caja_2025": 62973
     },
     {
       "id": "san_fernando",
@@ -1579,8 +1590,8 @@
       "zona": "norte",
       "poblacion": 174937,
       "superficie_km2": 924,
-      "presupuesto_2025": null,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 148932,
+      "recursos_percibidos_2025": 176642,
       "pbg_corriente_2023": 737629,
       "pbg_constante_2004": null,
       "sector_principal": null,
@@ -1591,8 +1602,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 318498,
       "pbg_constante_2004_2023": 2769,
       "pbg_constante_2004_2022": 2823,
@@ -1657,7 +1668,8 @@
           "millones": 7802,
           "pct": 1.1
         }
-      }
+      },
+      "saldo_caja_2025": 105299
     },
     {
       "id": "san_isidro",
@@ -1665,8 +1677,8 @@
       "zona": "norte",
       "poblacion": 295631,
       "superficie_km2": 48,
-      "presupuesto_2025": 237000,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 324304,
+      "recursos_percibidos_2025": 303185,
       "pbg_corriente_2023": 1484112,
       "pbg_constante_2004": null,
       "sector_principal": null,
@@ -1677,8 +1689,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Presupuesto aprobado HCD 2025 (2026: $340B)",
-      "dato_calidad": "aprobado",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 642792,
       "pbg_constante_2004_2023": 5416,
       "pbg_constante_2004_2022": 5559,
@@ -1739,7 +1751,8 @@
           "millones": 8698,
           "pct": 0.6
         }
-      }
+      },
+      "saldo_caja_2025": 26426
     },
     {
       "id": "sanmartin",
@@ -1747,8 +1760,8 @@
       "zona": "norte",
       "poblacion": 441793,
       "superficie_km2": 56,
-      "presupuesto_2025": 57900,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 276003,
+      "recursos_percibidos_2025": 275830,
       "pbg_corriente_2023": 1835619,
       "pbg_constante_2004": null,
       "sector_principal": "Industria",
@@ -1772,8 +1785,8 @@
           "pct": 51.7
         }
       ],
-      "dato_fuente": "Presupuesto aprobado HCD 2025",
-      "dato_calidad": "aprobado",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 771484,
       "pbg_constante_2004_2023": 6762,
       "pbg_constante_2004_2022": 6823,
@@ -1834,7 +1847,8 @@
           "millones": 12025,
           "pct": 0.7
         }
-      }
+      },
+      "saldo_caja_2025": 15926
     },
     {
       "id": "san_miguel",
@@ -1924,8 +1938,8 @@
       "zona": "norte",
       "poblacion": 424002,
       "superficie_km2": 1471,
-      "presupuesto_2025": 412000,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 400156,
+      "recursos_percibidos_2025": 385841,
       "pbg_corriente_2023": 2088084,
       "pbg_constante_2004": null,
       "sector_principal": "Industria",
@@ -1936,8 +1950,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Presupuesto aprobado HCD dic. 2024 — Zona Norte Diario",
-      "dato_calidad": "aprobado",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 887069,
       "pbg_constante_2004_2023": 7785,
       "pbg_constante_2004_2022": 7872,
@@ -2002,7 +2016,8 @@
           "millones": 19248,
           "pct": 0.9
         }
-      }
+      },
+      "saldo_caja_2025": 49608
     },
     {
       "id": "tresdefebrero",
@@ -2011,7 +2026,7 @@
       "poblacion": 368150,
       "superficie_km2": 46,
       "presupuesto_2025": 150745,
-      "recursos_percibidos_2025": 68493,
+      "recursos_percibidos_2025": 154472,
       "pbg_corriente_2023": 1617624,
       "pbg_constante_2004": null,
       "sector_principal": "Industria",
@@ -2078,7 +2093,7 @@
           "monto_m": 24501
         }
       ],
-      "dato_fuente": "Ejecución RAFAM 2025",
+      "dato_fuente": "Rendición de Cuentas 2025 — RAFAM",
       "dato_calidad": "real",
       "pbg_corriente_2022": 692692,
       "pbg_constante_2004_2023": 5963,
@@ -2144,7 +2159,8 @@
           "millones": 6990,
           "pct": 0.4
         }
-      }
+      },
+      "saldo_caja_2025": 30734
     },
     {
       "id": "vicente_lopez",
@@ -2152,8 +2168,8 @@
       "zona": "norte",
       "poblacion": 275023,
       "superficie_km2": 33,
-      "presupuesto_2025": 297000,
-      "recursos_percibidos_2025": null,
+      "presupuesto_2025": 318824,
+      "recursos_percibidos_2025": 297936,
       "pbg_corriente_2023": 1487367,
       "pbg_constante_2004": null,
       "sector_principal": null,
@@ -2164,8 +2180,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Presupuesto aprobado HCD dic. 2024 — La Noticia Web (Salud: 82.6B = 27.77%)",
-      "dato_calidad": "aprobado",
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 633212,
       "pbg_constante_2004_2023": 5403,
       "pbg_constante_2004_2022": 5462,
@@ -2226,7 +2242,8 @@
           "millones": 5016,
           "pct": 0.3
         }
-      }
+      },
+      "saldo_caja_2025": 27151
     }
   ]
 }
