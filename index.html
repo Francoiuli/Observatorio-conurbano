@@ -456,6 +456,110 @@ function renderTable(){
 }
 
 // ── PANEL ─────────────────────────────────────────────────
+
+// ── TREEMAP (squarified) ───────────────────────────────────
+const SECT_COLORS_TM = {
+  industria:     '#1a4a8a', comercio:      '#2970c4', inmobiliario:  '#4a90d9',
+  construccion:  '#e05c1a', transporte:    '#f07a3a', electricidad:  '#f0a060',
+  publico:       '#00875a', ensenanza:     '#1aab7a', salud:         '#3acc9a',
+  financiero:    '#7c3aed', comunitarios:  '#a060f0', serv_domestico:'#c090f8',
+  hoteles:       '#ba7517', agropecuario:  '#639922', pesca:         '#3b6d11',
+  mineria:       '#888780',
+};
+const SECT_LABELS_TM = {
+  industria:'Industria', comercio:'Comercio', inmobiliario:'Inmobiliario',
+  construccion:'Construcción', transporte:'Transporte', electricidad:'Electricidad',
+  publico:'Sector público', ensenanza:'Enseñanza', salud:'Salud',
+  financiero:'Financiero', comunitarios:'Comunitarios', serv_domestico:'Serv. doméstico',
+  hoteles:'Hoteles', agropecuario:'Agropecuario', pesca:'Pesca', mineria:'Minería',
+};
+
+function squarify(items, x, y, w, h) {
+  if (!items.length) return [];
+  const total = items.reduce((s,i)=>s+i.val,0);
+  const rects = [];
+  function worstRatio(row, len) {
+    const s = row.reduce((a,b)=>a+b.val,0);
+    const max = Math.max(...row.map(r=>r.val));
+    const min = Math.min(...row.map(r=>r.val));
+    return Math.max((len*len*max)/(s*s), (s*s)/(len*len*min));
+  }
+  function layoutRow(row, len, isHoriz) {
+    const s = row.reduce((a,b)=>a+b.val,0);
+    let off = isHoriz ? x : y;
+    row.forEach(item=>{
+      const portion = item.val/s;
+      const perpSize = (s/total)*(isHoriz?h:w);
+      const parSize = portion * len;
+      rects.push(isHoriz
+        ? {key:item.key, x:off, y:isHoriz?y:x, w:parSize, h:perpSize}
+        : {key:item.key, x:isHoriz?x:y, y:off, w:perpSize, h:parSize}
+      );
+      off += parSize;
+    });
+    if (isHoriz) { y += perpSize; h -= perpSize; }
+    else         { x += perpSize; w -= perpSize; }
+  }
+  const sorted = [...items].sort((a,b)=>b.val-a.val);
+  let row=[], remaining=[...sorted], len=Math.min(w,h);
+  while(remaining.length) {
+    const item = remaining[0];
+    const testRow = [...row, item];
+    if (!row.length || worstRatio(testRow,len) <= worstRatio(row,len)) {
+      row.push(item); remaining.shift();
+    } else {
+      layoutRow(row, len, w>=h);
+      row=[]; len=Math.min(w,h);
+    }
+  }
+  if (row.length) layoutRow(row, len, w>=h);
+  return rects;
+}
+
+function drawTreemap(canvasId, sectores) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const W = canvas.width, H = canvas.height;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  const items = Object.entries(sectores)
+    .filter(([,v])=>v.pct>0)
+    .map(([k,v])=>({key:k, val:v.pct}))
+    .sort((a,b)=>b.val-a.val);
+  const rects = squarify(items, 0, 0, W, H);
+  const PAD = 1.5;
+  rects.forEach(r=>{
+    const col = SECT_COLORS_TM[r.key] || '#555';
+    const rx = r.x+PAD, ry = r.y+PAD, rw = r.w-PAD*2, rh = r.h-PAD*2;
+    if (rw<2||rh<2) return;
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    ctx.roundRect(rx,ry,rw,rh,3);
+    ctx.fill();
+    const item = items.find(i=>i.key===r.key);
+    const label = SECT_LABELS_TM[r.key]||r.key;
+    const pct = item ? item.val.toFixed(1)+'%' : '';
+    ctx.fillStyle = 'rgba(255,255,255,0.92)';
+    if (rw>60 && rh>28) {
+      ctx.font = `bold ${Math.min(12, rh/3)}px 'Sora',sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      if (rh > 44) {
+        ctx.fillText(label, rx+rw/2, ry+rh/2-8);
+        ctx.font = `${Math.min(11,rh/3.5)}px 'JetBrains Mono',monospace`;
+        ctx.fillText(pct, rx+rw/2, ry+rh/2+9);
+      } else {
+        ctx.fillText(label+' '+pct, rx+rw/2, ry+rh/2);
+      }
+    } else if (rw>30 && rh>16) {
+      ctx.font = `bold 10px 'Sora',sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(pct, rx+rw/2, ry+rh/2);
+    }
+  });
+}
+
 function openPanel(id){
   if(panelId===id){closePanel();return;}
   panelId=id;
@@ -480,30 +584,38 @@ function openPanel(id){
     ['Rec. percibidos',m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—',''],
   ];
   const tieneSec=m.secretarias?.length>0;
-  const tieneTish=m.tish?.escala?.length>0;
   const secHTML=tieneSec
     ?m.secretarias.map((s,i)=>`<div class="sbar"><span class="sbn">${s.nombre}</span><div class="sbt"><div class="sbf" style="width:${s.pct/m.secretarias[0].pct*100}%;background:${PAL[i%PAL.length]}22"><span class="sbp" style="color:${PAL[i%PAL.length]}">${s.pct}%</span></div></div>${s.monto_m?`<span class="sbm">${s.monto_m>=1000?'$'+(s.monto_m/1000).toFixed(1)+' mm':'$'+Math.round(s.monto_m)+'M'}</span>`:''}</div>`).join('')
     :`<div class="pend">Adjuntá la rendición para ver el desglose.</div>`;
-  const tishHTML=tieneTish
-    ?`<p style="font-size:10px;color:var(--ink3);margin-bottom:.6rem">${m.tish.fuente||''}</p><table class="tt"><tbody>
-        <tr><td>Nombre</td><td>${m.tish.nombre_tasa||'TISH'}</td></tr>
-        <tr><td>Alícuota base</td><td>${m.tish.alicuota_base_milesimos}‰</td></tr>
-        ${m.tish.minimo_bimestral_comercio_mf?`<tr><td>Mín. comercio</td><td>${fmtN(m.tish.minimo_bimestral_comercio_mf)} MF</td></tr>`:''}
-        ${m.tish.minimo_bimestral_industria_mf?`<tr><td>Mín. industria</td><td>${fmtN(m.tish.minimo_bimestral_industria_mf)} MF</td></tr>`:''}
-        ${(m.tish.escala||[]).map(e=>`<tr><td>Hasta ${e.hasta_mf||e.hasta} MF</td><td>${e.alicuota}‰</td></tr>`).join('')}
-        ${m.tish.recaudado_2025_millones?`<tr><td>Recaudado 2025</td><td>${fmtMM(m.tish.recaudado_2025_millones)}</td></tr>`:''}
-      </tbody></table>`
-    :`<div class="pend">${m.tish?.fuente||'Pendiente de carga.'}</div>`;
+
+  const tieneSect = m.pbg_sectores_2023 && Object.keys(m.pbg_sectores_2023).length>0;
+  const legendHTML = tieneSect
+    ? Object.entries(m.pbg_sectores_2023).filter(([,v])=>v.pct>0)
+        .sort((a,b)=>b[1].pct-a[1].pct)
+        .map(([k,v])=>`<span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--ink2);margin-right:8px;margin-bottom:4px"><span style="width:8px;height:8px;border-radius:2px;background:${SECT_COLORS_TM[k]||'#888'};flex-shrink:0"></span>${SECT_LABELS_TM[k]||k} <strong style="color:var(--ink)">${v.pct.toFixed(1)}%</strong></span>`).join('')
+    : '';
+
   document.getElementById('p-body').innerHTML=`
     <div class="pk-row">${kpis.map(([l,v,s])=>`<div class="pk"><div class="pk-l">${l}</div><div class="pk-v">${v}</div>${s?`<div class="pk-s">${s}</div>`:''}</div>`).join('')}</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem">
-      <div><div class="pst">PBG por sector 2023</div>${buildSectHTML(m)}</div>
-      <div><div class="pst">Gasto por secretaría</div>${secHTML}</div>
-      <div><div class="pst">Tasa ${m.tish?.nombre_tasa||'TISH'}</div>${tishHTML}</div>
+    <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:1.25rem;margin-top:.25rem">
+      <div>
+        <div class="pst">Composición del PBG por sector — 2023</div>
+        ${tieneSect
+          ? `<canvas id="tm-canvas" width="560" height="300" style="width:100%;height:300px;border-radius:var(--r);display:block"></canvas>
+             <div style="margin-top:.6rem;line-height:1.8">${legendHTML}</div>`
+          : `<div class="pend">Sin datos sectoriales disponibles.</div>`}
+      </div>
+      <div>
+        <div class="pst">Gasto por secretaría</div>
+        ${secHTML}
+      </div>
     </div>`;
   document.getElementById('panel').classList.add('open');
   renderTable();
-  setTimeout(()=>document.getElementById('panel-anchor').scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+  setTimeout(()=>{
+    document.getElementById('panel-anchor').scrollIntoView({behavior:'smooth',block:'nearest'});
+    if(tieneSect) drawTreemap('tm-canvas', m.pbg_sectores_2023);
+  },80);
 }
 
 function closePanel(){panelId=null;document.getElementById('panel').classList.remove('open');renderTable();}
