@@ -3,161 +3,749 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Observatorio Fiscal del Conurbano</title>
+<title>★ OBSERVATORIO POPULAR DEL CONURBANO PROFUNDO ★ VIVA PERÓN CARAJO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Special+Elite&family=Black+Ops+One&display=swap" rel="stylesheet">
 <style>
 :root{
-  --c1:#4ECDC4; --c1d:#0A0D14; --c1l:#7FDBDA;
-  --c2:#FF6B6B; --c3:#95E77E; --c4:#FFD93D;
-  --bg:#0F1117; --bg2:#161820; --card:#1C1F2E;
-  --ink:#E8E4DC; --ink2:#9E9B93; --ink3:#5C5A55;
-  --borde:#2A2D3E;
-  --norte:#4ECDC4; --sur:#FF6B6B; --oeste:#95E77E;
-  --sh:0 2px 20px rgba(0,0,0,.40);
-  --sh2:0 8px 40px rgba(0,0,0,.60);
-  --r:10px; --r2:16px;
+  /* PALETA NAC Y POP — bien fea, bien militante */
+  --c1:#E30613; --c1d:#8B0000; --c1l:#FF1744;     /* rojo peronista / sangre */
+  --c2:#FFD100; --c3:#6CACE4; --c4:#009B3A;        /* amarillo CGT, celeste bandera, verde militancia */
+  --bg:#F4E8C1; --card:#FFF6D6;                    /* papel afiche viejo */
+  --ink:#1A1A1A; --ink2:#3A2818; --ink3:#6B4423;   /* tinta negra / sepia panfleto */
+  --borde:#1A1A1A;
+  --bg2:#E8DCAA;
+  --norte:#E30613; --sur:#FFD100; --oeste:#009B3A;
+  --sh:4px 4px 0 #1A1A1A;
+  --sh2:8px 8px 0 #E30613;
+  --r:0px; --r2:0px;
+  --patria:#6CACE4;
+  --sangre:#8B0000;
+  --oro:#FFD100;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-body{background:var(--bg);color:var(--ink);font-family:'Sora',sans-serif;font-size:14px;line-height:1.55}
+body{
+  background:var(--bg);
+  background-image:
+    repeating-linear-gradient(135deg, rgba(227,6,19,.04) 0 2px, transparent 2px 18px),
+    repeating-linear-gradient(45deg, rgba(0,0,0,.025) 0 1px, transparent 1px 14px),
+    radial-gradient(circle at 20% 30%, rgba(255,209,0,.18) 0 12%, transparent 13%),
+    radial-gradient(circle at 80% 70%, rgba(108,172,228,.18) 0 14%, transparent 15%);
+  color:var(--ink);
+  font-family:'Oswald','Arial Narrow',sans-serif;
+  font-size:14px;
+  line-height:1.4;
+}
+body::before{
+  content:'★ VIVA PERÓN ★ LA PATRIA ES EL OTRO ★ NI UN PASO ATRÁS ★ ORGANIZADOS COMPAÑEROS ★ PATRIA SÍ COLONIA NO ★ ';
+  position:fixed;inset:-50px -50px -50px -50px;
+  font-family:'Anton',sans-serif;font-size:120px;
+  color:rgba(227,6,19,.05);
+  white-space:nowrap;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+  transform:rotate(-12deg);
+  line-height:1.1;
+  letter-spacing:-2px;
+}
 ::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:#0A0D14}
-::-webkit-scrollbar-thumb{background:#2A2D3E;border-radius:3px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:#3A3D50;border-radius:3px}
 .nav-inner::-webkit-scrollbar{display:none}
 .nav-inner{scrollbar-width:none}
 
-/* HEADER */
-header{background:linear-gradient(160deg,#060810 0%,#0D1220 60%,#111828 100%);position:relative;overflow:hidden}
-header::before{content:'';position:absolute;inset:0;opacity:.06;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:32px 32px}
-.hdr-inner{max-width:1340px;margin:0 auto;padding:2.5rem 2.5rem 2rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;position:relative;z-index:1}
-.hdr-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:4px 12px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:.75rem}
-.hdr-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--c4)}
-h1{font-size:clamp(1.75rem,3.5vw,2.7rem);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.035em}
-h1 b{color:var(--c4)}
-.hdr-desc{font-size:13px;color:rgba(255,255,255,.5);margin-top:.5rem;font-weight:300}
-.hdr-chips{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
-.hdr-chip{background:rgba(255,255,255,.1);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);border-radius:var(--r);padding:.65rem 1.2rem;text-align:right;min-width:130px}
-.hdr-chip-v{font-family:'JetBrains Mono',monospace;font-size:1.35rem;font-weight:700;color:#fff;line-height:1}
-.hdr-chip-l{font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+/* HEADER — AFICHE PERONISTA */
+header{
+  background:var(--c1);
+  background-image:
+    linear-gradient(180deg, var(--c1) 0%, var(--c1) 60%, var(--c1d) 100%),
+    repeating-linear-gradient(45deg, rgba(0,0,0,.08) 0 3px, transparent 3px 10px);
+  background-blend-mode:multiply;
+  position:relative;
+  overflow:hidden;
+  border-bottom:8px solid var(--ink);
+  box-shadow:0 8px 0 var(--c2);
+}
+header::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:
+    radial-gradient(circle at 90% 50%, var(--oro) 0 80px, transparent 81px),
+    repeating-conic-gradient(from 0deg at 90% 50%, transparent 0deg 6deg, rgba(255,209,0,.35) 6deg 8deg);
+  opacity:.6;
+  pointer-events:none;
+}
+header::after{
+  content:'☭';
+  position:absolute;
+  top:30px;
+  left:50%;
+  transform:translateX(-50%) rotate(-5deg);
+  font-size:200px;
+  color:rgba(255,255,255,.08);
+  pointer-events:none;
+  font-weight:700;
+}
+.hdr-inner{
+  max-width:1340px;margin:0 auto;
+  padding:2rem 2.5rem;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:2rem;align-items:center;
+  position:relative;z-index:2;
+}
+.hdr-pill{
+  display:inline-block;
+  background:var(--ink);
+  color:var(--oro);
+  border:3px solid var(--oro);
+  padding:6px 14px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:14px;
+  font-weight:400;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  margin-bottom:.75rem;
+  transform:rotate(-1.5deg);
+  box-shadow:4px 4px 0 var(--ink);
+}
+.hdr-pill::before{content:'★ '}
+.hdr-pill::after{content:' ★'}
+h1{
+  font-family:'Anton','Impact',sans-serif;
+  font-size:clamp(2.3rem,5.5vw,4.6rem);
+  font-weight:400;
+  color:#fff;
+  line-height:.9;
+  letter-spacing:.01em;
+  text-transform:uppercase;
+  text-shadow:5px 5px 0 var(--ink), 10px 10px 0 var(--oro);
+  -webkit-text-stroke:1.5px var(--ink);
+}
+h1 b{
+  color:var(--oro);
+  display:inline-block;
+  background:var(--ink);
+  padding:0 .3em;
+  transform:rotate(-1deg);
+  margin-left:-.1em;
+  text-shadow:none;
+  -webkit-text-stroke:0;
+}
+.hdr-desc{
+  font-family:'Special Elite','Courier New',monospace;
+  font-size:15px;
+  color:#fff;
+  margin-top:1rem;
+  font-weight:400;
+  background:var(--ink);
+  display:inline-block;
+  padding:6px 14px;
+  border-left:6px solid var(--oro);
+  transform:rotate(.5deg);
+}
+.hdr-chips{
+  display:flex;flex-direction:column;gap:10px;align-items:flex-end;
+}
+.hdr-chip{
+  background:var(--oro);
+  border:3px solid var(--ink);
+  padding:.6rem 1.2rem;
+  text-align:right;
+  min-width:160px;
+  box-shadow:5px 5px 0 var(--ink);
+  transform:rotate(1.5deg);
+  position:relative;
+}
+.hdr-chip:nth-child(2){transform:rotate(-2deg);background:#fff}
+.hdr-chip:nth-child(3){transform:rotate(1deg);background:var(--patria)}
+.hdr-chip-v{
+  font-family:'Anton',sans-serif;
+  font-size:1.7rem;
+  font-weight:400;
+  color:var(--ink);
+  line-height:1;
+  letter-spacing:.02em;
+}
+.hdr-chip-l{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:13px;
+  color:var(--c1d);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  margin-top:3px;
+  font-weight:700;
+}
 
-/* NAV */
-.nav{background:#0A0D14;border-bottom:2px solid #2A2D3E;position:sticky;top:0;z-index:300}
-.nav-inner{max-width:1340px;margin:0 auto;padding:0 2.5rem;display:flex;flex-wrap:wrap;scrollbar-width:none}.nav-inner::-webkit-scrollbar{display:none}
-.nav-btn{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.95rem 1.5rem;color:rgba(255,255,255,.4);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .15s;white-space:nowrap}
-.nav-btn:hover{color:rgba(255,255,255,.8)}
-.nav-btn.on{color:var(--ink);border-bottom-color:var(--c4)}
+/* NAV — TIRA DE COMITÉ */
+.nav{
+  background:var(--ink);
+  background-image:repeating-linear-gradient(90deg, var(--ink) 0 24px, var(--c1d) 24px 48px);
+  border-bottom:6px solid var(--oro);
+  border-top:3px solid var(--oro);
+  position:sticky;top:0;z-index:300;
+  box-shadow:0 6px 0 var(--c1);
+}
+.nav-inner{max-width:1340px;margin:0 auto;padding:0 2.5rem;display:flex;flex-wrap:wrap;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-btn{
+  font-family:'Bebas Neue','Impact',sans-serif;
+  font-size:18px;
+  font-weight:400;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:1rem 1.6rem;
+  color:#fff;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  border-right:2px solid rgba(255,255,255,.2);
+  transition:all .1s;
+  white-space:nowrap;
+  position:relative;
+}
+.nav-btn::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:var(--c1);
+  transform:scaleY(0);
+  transform-origin:bottom;
+  transition:transform .15s;
+  z-index:-1;
+}
+.nav-btn:hover{color:var(--oro)}
+.nav-btn:hover::before{transform:scaleY(1)}
+.nav-btn.on{
+  color:var(--ink);
+  background:var(--oro);
+  font-weight:700;
+}
+.nav-btn.on::after{
+  content:'★';
+  margin-left:6px;
+  color:var(--c1);
+}
 
 /* WRAP */
-.wrap{max-width:1340px;margin:0 auto;padding:2rem 2.5rem;display:none}
+.wrap{max-width:1340px;margin:0 auto;padding:2rem 2.5rem;display:none;position:relative;z-index:2}
 .wrap.on{display:block}
 
-/* SECTION HEAD */
-.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
-.sh-t{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--c1);display:flex;align-items:center;gap:8px}
-.sh-t::before{content:'';width:3px;height:14px;background:var(--c4);border-radius:2px}
-.sh-n{font-size:11px;color:var(--ink3)}
+/* SECTION HEAD — TITULAR DE DIARIO POPULAR */
+.sh{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:1.25rem;
+  flex-wrap:wrap;gap:.5rem;
+  background:var(--ink);
+  padding:.8rem 1.2rem;
+  border-left:10px solid var(--c1);
+  box-shadow:5px 5px 0 var(--c2);
+  transform:rotate(-.3deg);
+}
+.sh-t{
+  font-family:'Anton','Impact',sans-serif;
+  font-size:22px;
+  font-weight:400;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:var(--oro);
+  display:flex;align-items:center;gap:10px;
+}
+.sh-t::before{content:'★';color:var(--c1l);font-size:24px}
+.sh-n{
+  font-family:'Special Elite',monospace;
+  font-size:12px;
+  color:#fff;
+  background:var(--c1d);
+  padding:3px 10px;
+  border:2px dashed var(--oro);
+}
 
-/* KPIs */
-.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
-.kpi{background:var(--card);border-radius:var(--r2);padding:1.4rem 1.5rem;box-shadow:var(--sh);border-left:3px solid var(--c1);border:1px solid var(--borde);border-left:3px solid var(--c1);transition:transform .15s,box-shadow .15s}
-.kpi:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
-.kpi.c2{border-color:#DC2626}.kpi.c3{border-color:#7C3AED}.kpi.c4{border-color:#F59E0B}.kpi.c5{border-color:#2DD4BF}
-.kpi-l{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:.5rem}
-.kpi-v{font-family:'JetBrains Mono',monospace;font-size:1.85rem;font-weight:700;color:var(--ink);line-height:1}
-.kpi-s{font-size:10px;color:var(--ink3);margin-top:.3rem}
+/* KPIs — CHAPITAS DE MILITANCIA */
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-bottom:2rem}
+.kpi{
+  background:var(--card);
+  padding:1.4rem 1.5rem;
+  box-shadow:var(--sh);
+  border:4px solid var(--ink);
+  border-left:14px solid var(--c1);
+  transition:transform .12s, box-shadow .12s;
+  position:relative;
+  transform:rotate(-.5deg);
+}
+.kpi:nth-child(2){transform:rotate(.4deg)}
+.kpi:nth-child(3){transform:rotate(-.6deg)}
+.kpi:nth-child(4){transform:rotate(.3deg)}
+.kpi:hover{transform:rotate(0) translateY(-3px);box-shadow:var(--sh2)}
+.kpi::after{
+  content:'★';
+  position:absolute;
+  top:8px;right:12px;
+  color:var(--c1);
+  font-size:18px;
+  opacity:.6;
+}
+.kpi.c2{border-left-color:var(--c2);background:#FFF}
+.kpi.c2::after{color:var(--c2)}
+.kpi.c3{border-left-color:var(--patria);background:#E8F4FC}
+.kpi.c3::after{color:var(--patria)}
+.kpi.c4{border-left-color:var(--c4);background:#E8F5E9}
+.kpi.c4::after{color:var(--c4)}
+.kpi.c5{border-left-color:var(--oro)}
+.kpi-l{
+  font-family:'Bebas Neue','Impact',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--ink2);
+  margin-bottom:.5rem;
+}
+.kpi-v{
+  font-family:'Anton','Impact',sans-serif;
+  font-size:2.4rem;
+  font-weight:400;
+  color:var(--ink);
+  line-height:1;
+  letter-spacing:.01em;
+}
+.kpi-s{
+  font-family:'Special Elite',monospace;
+  font-size:11px;
+  color:var(--ink3);
+  margin-top:.4rem;
+}
 
-/* CHARTS */
-.cgrid{display:grid;gap:1.25rem;margin-bottom:2rem}
+/* CHARTS — PANCARTAS */
+.cgrid{display:grid;gap:1.5rem;margin-bottom:2rem}
 .cgrid.g1{grid-template-columns:1fr}
 .cgrid.g2{grid-template-columns:1fr 1fr}
-.cc{background:var(--card);border-radius:var(--r2);padding:1.5rem;box-shadow:var(--sh);position:relative;overflow:hidden}
-.cc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c1l))}
-.cc.v2::before{background:linear-gradient(90deg,var(--c3),var(--c1l))}
-.cc.v3::before{background:linear-gradient(90deg,var(--c2),var(--c4))}
-.cc-t{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:1rem}
+.cc{
+  background:var(--card);
+  padding:1.5rem;
+  box-shadow:var(--sh);
+  position:relative;
+  overflow:hidden;
+  border:3px solid var(--ink);
+}
+.cc::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:10px;
+  background:repeating-linear-gradient(90deg, var(--c1) 0 18px, var(--ink) 18px 22px, var(--oro) 22px 40px, var(--ink) 40px 44px);
+}
+.cc.v2::before{
+  background:repeating-linear-gradient(90deg, var(--patria) 0 18px, var(--ink) 18px 22px, #fff 22px 40px, var(--ink) 40px 44px);
+}
+.cc.v3::before{
+  background:repeating-linear-gradient(90deg, var(--c4) 0 18px, var(--ink) 18px 22px, var(--oro) 22px 40px, var(--ink) 40px 44px);
+}
+.cc-t{
+  font-family:'Bebas Neue','Impact',sans-serif;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--c1d);
+  margin-bottom:1rem;
+  margin-top:.5rem;
+  padding-bottom:.5rem;
+  border-bottom:3px dashed var(--c1);
+}
+.cc-t::before{content:'» '}
 .cc-c{position:relative;height:280px}
 .cc-c.md{height:230px}
 
-/* FILTROS */
-.fbar{background:var(--card);border-radius:var(--r2);padding:1rem 1.25rem;box-shadow:var(--sh);display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem}
-.fl{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
-.pill{font-size:11px;font-weight:600;padding:5px 15px;border-radius:99px;border:1.5px solid var(--borde);background:transparent;color:var(--ink3);cursor:pointer;transition:all .14s;font-family:'Sora',sans-serif}
-.pill:hover{border-color:var(--c1);color:var(--c1);background:rgba(78,205,196,.08)}
-.pill.on{background:var(--c1);color:#0F1117;border-color:var(--c1);font-weight:700}
-.sep{width:1px;height:20px;background:var(--borde)}
+/* FILTROS — TIRA DE PUNTERAJE */
+.fbar{
+  background:var(--ink);
+  padding:1rem 1.25rem;
+  box-shadow:var(--sh);
+  display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;
+  margin-bottom:1.25rem;
+  border:3px solid var(--ink);
+  border-left:10px solid var(--c1);
+}
+.fl{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:14px;font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--oro);
+}
+.pill{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:13px;font-weight:700;
+  letter-spacing:.05em;
+  padding:6px 16px;
+  border-radius:0;
+  border:2px solid var(--oro);
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  transition:all .1s;
+  text-transform:uppercase;
+}
+.pill:hover{background:var(--c1);color:var(--oro);border-color:var(--c1l)}
+.pill.on{background:var(--oro);color:var(--ink);border-color:var(--oro);font-weight:700;box-shadow:3px 3px 0 var(--c1)}
+.pill.on::before{content:'★ '}
+.sep{width:3px;height:24px;background:var(--c1);transform:skewX(-10deg)}
 
-/* TABLA */
-.tw{overflow-x:auto;border-radius:var(--r2);box-shadow:var(--sh)}
-table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;background:var(--bg2);font-family:'DM Sans','Sora',sans-serif}
-thead th{background:#0A0D14;color:rgba(232,228,220,.9);padding:8px 10px;text-align:left;font-family:'Sora',sans-serif;font-size:10px;font-weight:700;letter-spacing:.02em;white-space:normal;line-height:1.3}
-thead th:first-child{border-radius:var(--r2) 0 0 0}
-thead th:last-child{border-radius:0 var(--r2) 0 0}
-thead th.ts{cursor:pointer;user-select:none;transition:background .12s}
-thead th.ts:hover{background:#1A2235}
-thead th.ts.on{background:#1A2235;color:var(--c1)}
-.sa{margin-left:3px;opacity:.5}
-.ts.on .sa{opacity:1}
-tbody tr{border-bottom:1px solid #1E2130;transition:background .1s;cursor:pointer}
-tbody tr:hover{background:#1E2130}
-tbody tr:nth-child(even){background:#13151E}
-tbody tr:nth-child(even):hover{background:#1E2130}
-tbody tr.sel{background:#1A2A3A!important}
-td{padding:8px 10px;vertical-align:middle;color:var(--ink)}
-td.mn{font-weight:700;font-size:13px;color:var(--ink)}
-td.n{font-family:'DM Sans',sans-serif;font-size:12px;text-align:right;font-weight:600;color:var(--ink)}
-td.na{font-family:'DM Sans',sans-serif;font-size:12px;text-align:right;color:var(--ink3)}
-.zch{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.05em}
-.zn{background:#162E2D;color:#4ECDC4}.zs{background:#2E1515;color:#FF6B6B}.zo{background:#1A2415;color:#95E77E}
-.dch{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.06em;font-family:'JetBrains Mono',monospace}
-.dr{background:#162E2D;color:#4ECDC4}.da{background:#2A2210;color:#FFD93D}.dp{background:var(--bg2);color:var(--ink3)}
+/* TABLA — PLANILLA DE UNIDAD BÁSICA */
+.tw{
+  overflow-x:auto;
+  border:4px solid var(--ink);
+  box-shadow:var(--sh);
+  background:var(--card);
+}
+table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  font-size:14px;
+  background:var(--card);
+  font-family:'Oswald',sans-serif;
+}
+thead th{
+  background:var(--c1);
+  color:var(--oro);
+  padding:10px 10px;
+  text-align:left;
+  font-family:'Bebas Neue','Impact',sans-serif;
+  font-size:13px;
+  font-weight:400;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  white-space:normal;
+  line-height:1.2;
+  border-bottom:4px solid var(--ink);
+  border-right:1px solid var(--c1d);
+}
+thead th.ts{cursor:pointer;user-select:none;transition:background .1s}
+thead th.ts:hover{background:var(--c1d);color:var(--oro)}
+thead th.ts.on{background:var(--ink);color:var(--oro)}
+.sa{margin-left:3px;opacity:.7}
+.ts.on .sa{opacity:1;color:var(--c1l)}
+tbody tr{
+  border-bottom:2px solid var(--ink);
+  transition:background .08s;
+  cursor:pointer;
+}
+tbody tr:hover{background:var(--oro)!important}
+tbody tr:nth-child(even){background:#F4E8C1}
+tbody tr.sel{background:var(--c2)!important;border-left:6px solid var(--c1)}
+td{padding:8px 10px;vertical-align:middle;border-right:1px dashed #C4B280}
+td.mn{
+  font-family:'Bebas Neue',sans-serif;
+  font-weight:400;
+  font-size:16px;
+  color:var(--c1d);
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+td.mn::before{content:'» '; color:var(--c1)}
+td.n{
+  font-family:'Oswald',sans-serif;
+  font-size:13px;
+  text-align:right;
+  font-weight:600;
+  color:var(--ink);
+}
+td.na{
+  font-family:'Special Elite',monospace;
+  font-size:11px;
+  text-align:right;
+  color:var(--ink3);
+  font-style:italic;
+}
+.zch{
+  display:inline-block;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  padding:3px 10px;
+  border-radius:0;
+  letter-spacing:.08em;
+  border:2px solid var(--ink);
+  text-transform:uppercase;
+}
+.zn{background:var(--c1);color:#fff}
+.zs{background:var(--oro);color:var(--ink)}
+.zo{background:var(--c4);color:#fff}
+.dch{
+  display:inline-block;
+  font-family:'Special Elite',monospace;
+  font-size:10px;
+  font-weight:700;
+  padding:2px 8px;
+  border-radius:0;
+  letter-spacing:.05em;
+  border:1px solid var(--ink);
+}
+.dr{background:#D1FAE5;color:#065F46}
+.da{background:#FFF3CD;color:#7C2D12}
+.dp{background:#F4E8C1;color:var(--ink3)}
 
-/* PANEL */
-.panel{display:none;border-radius:var(--r2);background:var(--card);box-shadow:var(--sh2);margin-bottom:1.5rem;overflow:hidden;border-top:4px solid var(--c1);animation:pIn .2s ease}
+/* PANEL — FICHA DE COMPAÑERO */
+.panel{
+  display:none;
+  background:var(--card);
+  box-shadow:var(--sh2);
+  margin-bottom:1.5rem;
+  overflow:hidden;
+  border:5px solid var(--ink);
+  border-top:14px solid var(--c1);
+  animation:pIn .2s ease;
+  position:relative;
+}
+.panel::before{
+  content:'EXPEDIENTE Nº';
+  position:absolute;
+  top:-12px;left:30px;
+  background:var(--oro);
+  color:var(--ink);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:14px;
+  padding:2px 12px;
+  border:2px solid var(--ink);
+  letter-spacing:.1em;
+  z-index:5;
+}
 .panel.open{display:block}
 @keyframes pIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.ph{background:linear-gradient(130deg,#060810,#101525);padding:1.5rem 2rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
-.ph-t{font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-.02em}
-.ph-s{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.3rem;align-items:center}
-.p-close{background:rgba(78,205,196,.15);border:none;border-radius:var(--r);color:#fff;font-size:10px;font-weight:700;letter-spacing:.07em;padding:6px 14px;cursor:pointer;font-family:'JetBrains Mono',monospace;white-space:nowrap;margin-top:4px}
-.p-close:hover{background:rgba(255,255,255,.28)}
+.ph{
+  background:var(--ink);
+  background-image:repeating-linear-gradient(45deg, var(--ink) 0 8px, var(--c1d) 8px 16px);
+  padding:1.5rem 2rem;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:1rem;
+  border-bottom:6px solid var(--oro);
+}
+.ph-t{
+  font-family:'Anton','Impact',sans-serif;
+  font-size:2rem;
+  font-weight:400;
+  color:var(--oro);
+  letter-spacing:.02em;
+  text-transform:uppercase;
+  text-shadow:3px 3px 0 var(--c1);
+}
+.ph-t::before{content:'★ '}
+.ph-s{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.5rem;align-items:center}
+.p-close{
+  background:var(--c1);
+  border:3px solid var(--oro);
+  color:var(--oro);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.08em;
+  padding:6px 14px;
+  cursor:pointer;
+  white-space:nowrap;
+  margin-top:4px;
+}
+.p-close:hover{background:var(--oro);color:var(--c1);border-color:var(--c1)}
 .pb{padding:1.75rem 2rem}
-.pk-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:.75rem;margin-bottom:1.5rem}
-.pk{background:#13151E;border-radius:var(--r);padding:.875rem 1rem}
-.pk-l{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:.35rem}
-.pk-v{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;color:var(--ink)}
-.pk-s{font-size:10px;color:var(--ink3);margin-top:.2rem}
+.pk-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:.85rem;margin-bottom:1.5rem}
+.pk{
+  background:#fff;
+  padding:.875rem 1rem;
+  border:3px solid var(--ink);
+  border-left:8px solid var(--c1);
+  transform:rotate(-.4deg);
+}
+.pk:nth-child(2n){transform:rotate(.5deg);border-left-color:var(--c4)}
+.pk:nth-child(3n){border-left-color:var(--patria)}
+.pk-l{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--c1d);
+  margin-bottom:.35rem;
+}
+.pk-v{
+  font-family:'Anton','Impact',sans-serif;
+  font-size:1.5rem;
+  font-weight:400;
+  color:var(--ink);
+}
+.pk-s{
+  font-family:'Special Elite',monospace;
+  font-size:11px;
+  color:var(--ink3);
+  margin-top:.2rem;
+}
 .p2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-.pst{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:.875rem;display:flex;align-items:center;gap:6px}
-.pst::before{content:'';width:3px;height:11px;background:var(--c1);border-radius:2px}
-.sbar{display:flex;align-items:center;gap:8px;margin-bottom:5px}
-.sbn{font-size:11px;color:var(--ink2);width:155px;flex-shrink:0;text-align:right;font-weight:500}
-.sbt{flex:1;background:#0F1117;border-radius:3px;height:18px;overflow:hidden}
-.sbf{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:5px}
-.sbp{font-size:9.5px;font-weight:700}
-.sbm{font-size:9.5px;color:var(--ink3);min-width:50px;text-align:right;font-family:'JetBrains Mono',monospace}
+.pst{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:#fff;
+  margin-bottom:.875rem;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:var(--c1);
+  padding:6px 14px;
+  border-left:6px solid var(--oro);
+}
+.pst::before{content:'☭ '}
+.sbar{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.sbn{
+  font-family:'Oswald',sans-serif;
+  font-size:12px;
+  color:var(--ink);
+  width:155px;
+  flex-shrink:0;
+  text-align:right;
+  font-weight:600;
+  text-transform:uppercase;
+}
+.sbt{flex:1;background:#fff;border:2px solid var(--ink);height:22px;overflow:hidden}
+.sbf{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding-right:6px;
+  background-image:repeating-linear-gradient(45deg, transparent 0 4px, rgba(0,0,0,.08) 4px 8px);
+}
+.sbp{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:13px;
+  font-weight:700;
+}
+.sbm{
+  font-family:'Special Elite',monospace;
+  font-size:11px;
+  color:var(--ink2);
+  min-width:60px;
+  text-align:right;
+}
 .tt{width:100%;border-collapse:collapse}
-.tt tr{border-bottom:1px solid var(--bg)}
+.tt tr{border-bottom:1px dashed var(--ink3)}
 .tt tr:last-child{border:none}
-.tt td{padding:5px 2px;font-size:12px;color:var(--ink2)}
-.tt td:last-child{text-align:right;font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--ink)}
-.pend{background:#13151E;border-radius:var(--r);padding:1.25rem;text-align:center;font-size:12px;color:var(--ink3)}
+.tt td{padding:5px 2px;font-size:13px;color:var(--ink2)}
+.tt td:last-child{text-align:right;font-weight:700;color:var(--ink)}
+.pend{
+  background:repeating-linear-gradient(135deg, var(--bg2) 0 10px, #DDD0A0 10px 20px);
+  padding:1.25rem;
+  text-align:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:16px;
+  color:var(--ink);
+  border:3px dashed var(--c1);
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+.pend::before{content:'⚠ '}
 
-/* TISH */
-.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem}
-.tc{background:var(--card);border-radius:var(--r2);padding:1.25rem;box-shadow:var(--sh);border-left:3px solid var(--c1);border:1px solid var(--borde);border-left:3px solid var(--c1);transition:transform .15s}
-.tc:hover{transform:translateY(-2px)}
-.tc-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem}
-.tc-n{font-weight:700;font-size:13px;color:var(--ink)}
-.tc-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace}
-.tc-sub{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:.5rem}
-.tc-row{display:flex;justify-content:space-between;font-size:11px;border-bottom:1px solid var(--bg);padding:3px 0;color:var(--ink2)}
-.tc-row span:last-child{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--ink)}
-.tc-foot{font-size:9.5px;color:var(--ink3);margin-top:.5rem}
+/* TISH — REGISTRO DE TASAS POR UNIDAD BÁSICA */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
+.tc{
+  background:var(--card);
+  padding:1.25rem;
+  box-shadow:var(--sh);
+  border:4px solid var(--ink);
+  border-left:14px solid var(--c1);
+  transition:transform .1s;
+  transform:rotate(-.5deg);
+  position:relative;
+}
+.tc:nth-child(3n){transform:rotate(.6deg);border-left-color:var(--c4)}
+.tc:nth-child(5n){transform:rotate(-.4deg);border-left-color:var(--patria)}
+.tc:nth-child(7n){border-left-color:var(--c2)}
+.tc:hover{transform:rotate(0) translateY(-3px);box-shadow:var(--sh2)}
+.tc-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem;gap:.5rem}
+.tc-n{
+  font-family:'Bebas Neue','Impact',sans-serif;
+  font-weight:400;
+  font-size:18px;
+  color:var(--ink);
+  text-transform:uppercase;
+  letter-spacing:.03em;
+}
+.tc-badge{
+  font-family:'Anton',sans-serif;
+  font-size:18px;
+  font-weight:400;
+  padding:4px 12px;
+  border:2px solid var(--ink);
+  background:var(--oro)!important;
+  color:var(--ink)!important;
+}
+.tc-sub{
+  font-family:'Special Elite',monospace;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:var(--c1d);
+  margin-bottom:.5rem;
+  border-bottom:2px dotted var(--c1);
+  padding-bottom:4px;
+}
+.tc-row{
+  display:flex;
+  justify-content:space-between;
+  font-family:'Oswald',sans-serif;
+  font-size:12px;
+  border-bottom:1px dashed #C4B280;
+  padding:4px 0;
+  color:var(--ink2);
+}
+.tc-row span:last-child{font-weight:700;color:var(--c1)}
+.tc-foot{
+  font-family:'Special Elite',monospace;
+  font-size:10px;
+  color:var(--ink3);
+  margin-top:.5rem;
+}
 
-/* FOOTER */
-footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;margin-top:2rem}
-.fi{max-width:1340px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+/* FOOTER — PANCARTA DE CIERRE */
+footer{
+  background:var(--ink);
+  background-image:repeating-linear-gradient(90deg, var(--ink) 0 30px, var(--c1) 30px 36px);
+  color:var(--oro);
+  padding:2rem 2.5rem 1.5rem;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:13px;
+  letter-spacing:.08em;
+  margin-top:2rem;
+  border-top:8px solid var(--oro);
+  text-transform:uppercase;
+  position:relative;
+  z-index:2;
+}
+.fi{
+  max-width:1340px;
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:.5rem;
+  align-items:center;
+}
+.fi::before{
+  content:'★ VIVA PERÓN, CARAJO ★ VIVA EVITA ★ ORGANIZADOS, COMPAÑEROS, ORGANIZADOS ★ ';
+  position:absolute;
+  bottom:8px;
+  left:0;right:0;
+  text-align:center;
+  font-family:'Anton',sans-serif;
+  font-size:11px;
+  letter-spacing:.15em;
+  color:var(--c1l);
+  opacity:.6;
+}
 
 @media(max-width:768px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){
@@ -173,42 +761,75 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 
 /* BUSCADOR */
 .search-wrap{position:relative;flex:1;min-width:200px}
-.search-input{width:100%;padding:6px 12px 6px 34px;border:1.5px solid var(--borde);border-radius:99px;font-family:'Sora',sans-serif;font-size:12px;color:var(--ink);background:#13151E;outline:none;transition:border-color .15s}
-.search-input:focus{border-color:var(--c1)}
-.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--ink3);pointer-events:none}
-.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--ink3);cursor:pointer;font-size:13px;display:none}
+.search-input{
+  width:100%;
+  padding:8px 12px 8px 34px;
+  border:3px solid var(--oro);
+  border-radius:0;
+  font-family:'Oswald',sans-serif;
+  font-size:13px;
+  color:var(--ink);
+  background:var(--card);
+  outline:none;
+  transition:border-color .1s;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.search-input::placeholder{color:var(--ink3);font-style:italic}
+.search-input:focus{border-color:var(--c1l);background:#fff;box-shadow:3px 3px 0 var(--c1)}
+.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--c1);pointer-events:none}
+.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:var(--c1);border:none;color:var(--oro);cursor:pointer;font-size:12px;display:none;width:20px;height:20px;line-height:1}
 
 /* COMPARADOR */
-.comp-bar{background:#060810;border-bottom:2px solid rgba(255,255,255,.1);padding:.6rem 2.5rem;display:none;align-items:center;gap:1rem;flex-wrap:wrap}
+.comp-bar{background:var(--c1d);border-bottom:2px solid rgba(255,255,255,.1);padding:.6rem 2.5rem;display:none;align-items:center;gap:1rem;flex-wrap:wrap}
 .comp-bar.show{display:flex}
-.comp-bar-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);white-space:nowrap}
+.comp-bar-label{font-family:'Bebas Neue',sans-serif;font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--oro);white-space:nowrap}
 .comp-chips{display:flex;gap:.5rem;flex-wrap:wrap;flex:1}
-.comp-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:600;color:#fff}
-.comp-chip button{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:13px;line-height:1;padding:0}
-.comp-chip button:hover{color:#fff}
-.comp-btn{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;padding:6px 18px;border-radius:99px;border:1.5px solid var(--c4);background:var(--c4);color:var(--c1d);cursor:pointer;white-space:nowrap}
-.comp-btn:hover{background:#e09510}
-.comp-btn.sec{background:transparent;color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.2)}
-.comp-btn.sec:hover{color:#fff;border-color:rgba(255,255,255,.4)}
-.comp-hint{font-size:10px;color:rgba(255,255,255,.35);white-space:nowrap}
+.comp-chip{display:flex;align-items:center;gap:6px;background:var(--oro);border:2px solid var(--ink);padding:4px 12px;font-family:'Bebas Neue',sans-serif;font-size:13px;font-weight:600;color:var(--ink)}
+.comp-chip button{background:none;border:none;color:var(--c1d);cursor:pointer;font-size:14px;line-height:1;padding:0;font-weight:700}
+.comp-chip button:hover{color:var(--c1)}
+.comp-btn{font-family:'Bebas Neue',sans-serif;font-size:14px;font-weight:700;padding:8px 22px;border-radius:0;border:3px solid var(--ink);background:var(--oro);color:var(--ink);cursor:pointer;white-space:nowrap;letter-spacing:.06em;text-transform:uppercase;box-shadow:3px 3px 0 var(--ink)}
+.comp-btn:hover{background:var(--c1);color:var(--oro);box-shadow:4px 4px 0 var(--c1d)}
+.comp-btn.sec{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+.comp-btn.sec:hover{color:var(--oro);border-color:var(--oro)}
+.comp-hint{font-family:'Special Elite',monospace;font-size:11px;color:var(--oro);white-space:nowrap}
 
 /* VISTA COMPARADOR */
 #v-comparar .comp-header{display:grid;gap:1rem;margin-bottom:1.5rem}
 .comp-kpi-grid{display:grid;gap:1rem;margin-bottom:1.5rem}
-.comp-card{background:var(--bg2);border-radius:var(--r2);padding:1.25rem;box-shadow:var(--sh);border:1px solid var(--borde)}
-.comp-card-title{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-.comp-card-title::before{content:'';width:3px;height:12px;background:var(--c4);border-radius:2px}
+.comp-card{
+  background:var(--card);
+  padding:1.5rem;
+  box-shadow:var(--sh);
+  border:4px solid var(--ink);
+}
+.comp-card-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#fff;
+  margin-bottom:1rem;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:var(--c1);
+  padding:8px 14px;
+  border-left:8px solid var(--oro);
+}
+.comp-card-title::before{content:'⚖';color:var(--oro);font-size:18px}
 .comp-muni-col{text-align:center;padding:.5rem}
-.comp-muni-name{font-weight:800;font-size:14px;color:var(--ink)}
-.comp-muni-zona{font-size:10px;color:var(--ink3);margin-top:2px}
+.comp-muni-name{font-family:'Bebas Neue','Impact',sans-serif;font-weight:400;font-size:18px;color:var(--ink);text-transform:uppercase;letter-spacing:.04em}
+.comp-muni-zona{font-family:'Special Elite',monospace;font-size:11px;color:var(--c1);margin-top:2px;font-weight:700}
 .comp-val{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700;line-height:1;margin-bottom:2px}
 .comp-val-s{font-size:10px;color:var(--ink3)}
-.comp-row{display:flex;align-items:stretch;border-bottom:1px solid var(--borde)}
+.comp-row{display:flex;align-items:stretch;border-bottom:2px dashed var(--ink3)}
 .comp-row:last-child{border:none}
-.comp-row-label{font-size:11px;color:var(--ink3);width:170px;flex-shrink:0;padding:.6rem 0;font-weight:600}
+.comp-row-label{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--c1d);width:170px;flex-shrink:0;padding:.7rem 0;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
 .comp-row-vals{display:grid;flex:1;gap:0}
-.comp-cell{padding:.6rem .75rem;font-family:'Sora',sans-serif;font-size:12px;font-weight:500;text-align:right;border-left:1px solid var(--borde)}
-.comp-cell.best{font-weight:700}
+.comp-cell{padding:.7rem .85rem;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;text-align:right;border-left:2px solid var(--bg2)}
+.comp-cell.best{font-family:'Anton',sans-serif;font-weight:400;font-size:15px}
 
 /* PBG SECTORIAL en panel */
 .pbg-sect-grid{display:grid;grid-template-columns:1fr 1fr;gap:.35rem}
@@ -220,10 +841,10 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 #svg-tooltip{position:fixed;pointer-events:none}
 
 #comp-modal.open{display:flex}
-.muni-option{padding:8px 12px;border-radius:var(--r);border:1.5px solid var(--borde);font-size:12px;cursor:pointer;transition:all .12s;text-align:left;background:#13151E;font-family:'Sora',sans-serif;color:var(--ink2);display:flex;align-items:center;gap:6px}
-.muni-option:hover{border-color:var(--c1);color:var(--c1)}
-.muni-option.sel{border-color:var(--c1);background:var(--c1);color:#fff;font-weight:600}
-.muni-option .zona-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.muni-option{padding:8px 12px;border-radius:0;border:2px solid var(--ink);font-family:'Bebas Neue',sans-serif;font-size:14px;cursor:pointer;transition:all .1s;text-align:left;background:#fff;color:var(--ink);display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.04em;font-weight:400}
+.muni-option:hover{border-color:var(--c1);color:var(--c1);background:var(--oro);box-shadow:3px 3px 0 var(--ink)}
+.muni-option.sel{border-color:var(--ink);background:var(--c1);color:var(--oro);font-weight:700;box-shadow:3px 3px 0 var(--c1d)}
+.muni-option .zona-dot{width:9px;height:9px;border-radius:0;flex-shrink:0;border:1.5px solid var(--ink)}
 </style>
 </head>
 <body>
@@ -231,9 +852,9 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 <header>
   <div class="hdr-inner">
     <div>
-      <div class="hdr-pill">Datos públicos · Provincia de Buenos Aires</div>
-      <h1>Observatorio Fiscal<br><b>del Conurbano</b></h1>
-      <p class="hdr-desc">24 partidos · Presupuesto · PBG · TISH · 2025</p>
+      <div class="hdr-pill">Patria Sí, Colonia No · Pueblo Bonaerense</div>
+      <h1>Observatorio Popular<br><b>del Conurbano Profundo</b></h1>
+      <p class="hdr-desc">★ 24 PARTIDOS DE LA RESISTENCIA · PLATA DEL PUEBLO · PBG · TASAS A LA OLIGARQUÍA · 2025 ★</p>
     </div>
     <div class="hdr-chips" id="hdr-chips"></div>
   </div>
@@ -241,11 +862,11 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 
 <nav class="nav">
   <div class="nav-inner">
-    <button class="nav-btn on" onclick="setView('dashboard',this)">Dashboard</button>
-    <button class="nav-btn" onclick="setView('glosario',this)">¿Qué significa?</button>
-    <button class="nav-btn" onclick="setView('tabla',this)">Tabla comparativa</button>
-    <button class="nav-btn" onclick="setView('demo',this)">Condiciones de vida</button>
-    <button class="nav-btn" onclick="setView('tish',this)">Tasas TISH</button>
+    <button class="nav-btn on" onclick="setView('dashboard',this)">Panel de la Patria</button>
+    <button class="nav-btn" onclick="setView('glosario',this)">¿Qué Significa, Negrada?</button>
+    <button class="nav-btn" onclick="setView('tabla',this)">Ranking de Compañeros</button>
+    <button class="nav-btn" onclick="setView('demo',this)">Condiciones del Pueblo</button>
+    <button class="nav-btn" onclick="setView('tish',this)">Guita a la Oligarquía</button>
   </div>
 </nav>
 
@@ -253,49 +874,52 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 
 <!-- DASHBOARD -->
 <div class="wrap on" id="v-dashboard">
+  <div style="background:var(--c1);color:var(--oro);padding:1rem 1.5rem;margin-bottom:1.5rem;border:4px solid var(--ink);box-shadow:6px 6px 0 var(--oro);transform:rotate(-.3deg);font-family:'Anton',sans-serif;font-size:1.4rem;letter-spacing:.04em;text-transform:uppercase;text-align:center">
+    ★ "LA PATRIA ES EL OTRO" — JUAN DOMINGO PERÓN ★ NI UN PASO ATRÁS, COMPAÑEROS ★
+  </div>
   <div class="kpi-row" id="kpis"></div>
-  <div class="sh"><span class="sh-t">Distribución del presupuesto 2025</span><span class="sh-n">% del total del conurbano</span></div>
+  <div class="sh"><span class="sh-t">Cómo se reparte la guita del pueblo — 2025</span><span class="sh-n">% del total del conurbano combativo</span></div>
   <div class="cgrid g2" style="margin-bottom:2rem">
-    <div class="cc v3"><div class="cc-t">Presupuesto total — participación por municipio</div><div id="donut-pres" style="min-height:300px"></div></div>
-    <div class="cc v3"><div class="cc-t">Presupuesto per cápita 2025 — comparativa</div><div class="cc-c md"><div id="c-pres-pc" style="width:100%;height:100%"></div></div></div>
+    <div class="cc v3"><div class="cc-t">Plata del pueblo — participación por compañero intendente</div><div id="donut-pres" style="min-height:300px"></div></div>
+    <div class="cc v3"><div class="cc-t">Guita por cabeza de compañero — 2025</div><div class="cc-c md"><div id="c-pres-pc" style="width:100%;height:100%"></div></div></div>
   </div>
-  <div class="sh"><span class="sh-t">Distribución del PBG 2023</span><span class="sh-n">% del total del conurbano · Fuente DPE-PBA</span></div>
+  <div class="sh"><span class="sh-t">Lo que produce el pueblo — PBG 2023</span><span class="sh-n">% del total · Datos de los compañeros de la DPE-PBA</span></div>
   <div class="cgrid g2" style="margin-bottom:2rem">
-    <div class="cc v2"><div class="cc-t">PBG total — participación por municipio</div><div id="donut-pbg" style="min-height:300px"></div></div>
-    <div class="cc v2"><div class="cc-t">PBG per cápita — comparativa</div><div class="cc-c md"><div id="c-pbg-pc" style="width:100%;height:100%"></div></div></div>
+    <div class="cc v2"><div class="cc-t">PBG total — el laburo de los compañeros</div><div id="donut-pbg" style="min-height:300px"></div></div>
+    <div class="cc v2"><div class="cc-t">PBG por cabeza — comparativa de partidos</div><div class="cc-c md"><div id="c-pbg-pc" style="width:100%;height:100%"></div></div></div>
   </div>
-  <div class="sh"><span class="sh-t">Demografía</span><span class="sh-n">INDEC Censo 2022</span></div>
-  <div class="cgrid g1"><div class="cc"><div class="cc-t">Población — 24 partidos del Conurbano bonaerense</div><div class="cc-c md"><div id="c-pop" style="width:100%;height:100%"></div></div></div></div>
+  <div class="sh"><span class="sh-t">El Pueblo de la Patria — Demografía</span><span class="sh-n">INDEC Censo 2022 · Compañeros y compañeras</span></div>
+  <div class="cgrid g1"><div class="cc"><div class="cc-t">Compañeros por partido — 24 distritos de la resistencia</div><div class="cc-c md"><div id="c-pop" style="width:100%;height:100%"></div></div></div></div>
 </div>
 
 <!-- TABLA -->
 <div class="wrap" id="v-tabla">
   <div class="fbar">
-    <span class="fl">Zona</span>
-    <button class="pill on" onclick="fZona('todos',this)">Todos</button>
-    <button class="pill" onclick="fZona('norte',this)">Norte</button>
-    <button class="pill" onclick="fZona('sur',this)">Sur</button>
-    <button class="pill" onclick="fZona('oeste',this)">Oeste</button>
+    <span class="fl">★ Zona Combativa</span>
+    <button class="pill on" onclick="fZona('todos',this)">Toda la Patria</button>
+    <button class="pill" onclick="fZona('norte',this)">Norte Gorila</button>
+    <button class="pill" onclick="fZona('sur',this)">Sur Profundo</button>
+    <button class="pill" onclick="fZona('oeste',this)">Oeste Combativo</button>
     <div class="sep"></div>
     <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input class="search-input" id="search-input" type="text" placeholder="Buscar municipio..." oninput="onSearch(this.value)">
+      <span class="search-icon">★</span>
+      <input class="search-input" id="search-input" type="text" placeholder="BUSCAR COMPAÑERO INTENDENTE..." oninput="onSearch(this.value)">
       <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
     </div>
     <div class="sep"></div>
-    <span class="fl" style="color:var(--ink3);text-transform:none;letter-spacing:0;font-weight:400;font-size:11px">Clic en una fila para ver el detalle</span>
+    <span class="fl" style="color:var(--oro);font-weight:400;font-size:12px;font-family:'Special Elite',monospace">» Hacé clic para ver el expediente</span>
     <div style="flex:1"></div>
-    <button onclick="abrirModalComp()" style="background:var(--c1);color:#fff;border:none;border-radius:99px;padding:6px 18px;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">⚖ Comparar municipios</button>
+    <button onclick="abrirModalComp()" style="background:var(--oro);color:var(--ink);border:3px solid var(--ink);border-radius:0;padding:8px 22px;font-family:'Bebas Neue',sans-serif;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;letter-spacing:.06em;text-transform:uppercase;box-shadow:3px 3px 0 var(--c1d)">⚖ Mano a Mano</button>
   </div>
   <div id="panel-anchor"></div>
   <!-- Panel comparación — se muestra dentro de la tabla -->
-  <div id="comp-result" style="display:none;background:var(--card);border-radius:var(--r2);box-shadow:0 4px 24px rgba(0,0,0,.5);margin-bottom:1.5rem;overflow:hidden;border-top:2px solid var(--c4)">
-    <div style="background:linear-gradient(130deg,#060810,#101525);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between">
+  <div id="comp-result" style="display:none;background:var(--card);border-radius:var(--r2);box-shadow:0 4px 24px rgba(0,0,0,.12);margin-bottom:1.5rem;overflow:hidden;border-top:4px solid var(--c4)">
+    <div style="background:linear-gradient(130deg,#0A0D14,#1A2235);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between">
       <div>
-        <div style="font-size:13px;font-weight:700;color:#fff">Comparación</div>
-        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px" id="comp-view-title"></div>
+        <div style="font-family:'Anton',sans-serif;font-size:1.4rem;color:var(--oro);text-transform:uppercase;letter-spacing:.03em">★ Mano a Mano de Compañeros</div>
+        <div style="font-family:'Special Elite',monospace;font-size:13px;color:#FFF;margin-top:4px" id="comp-view-title"></div>
       </div>
-      <button onclick="cerrarComparacion()" style="background:rgba(255,255,255,.15);border:none;border-radius:var(--r);color:#fff;font-size:10px;font-weight:700;padding:5px 12px;cursor:pointer;font-family:'JetBrains Mono',monospace">✕ CERRAR</button>
+      <button onclick="cerrarComparacion()" style="background:var(--c1);border:3px solid var(--oro);border-radius:0;color:var(--oro);font-family:'Bebas Neue',sans-serif;font-size:14px;font-weight:700;padding:6px 14px;cursor:pointer;letter-spacing:.06em">✕ CERRAR</button>
     </div>
     <div style="padding:1.5rem;overflow-x:auto">
       <div id="comp-content"></div>
@@ -312,76 +936,76 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 
 <!-- GLOSARIO -->
 <div class="wrap" id="v-glosario">
-  <div style="max-width:780px">
-    <div class="sh" style="margin-bottom:1.5rem"><span class="sh-t">¿Qué significa cada dato?</span></div>
+  <div style="max-width:820px">
+    <div class="sh" style="margin-bottom:1.5rem"><span class="sh-t">Manual del Compañero — ¿Qué cornos significa cada dato?</span></div>
 
-    <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c1)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">💰 Presupuesto municipal</div>
-      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
-        Es el plan de gastos que aprueba el Concejo Deliberante al inicio del año. Indica cuánto <strong>planifica gastar</strong> el municipio en cada área: salud, seguridad, obras públicas, etc.
+    <div style="background:var(--card);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.5rem;border:4px solid var(--ink);border-left:14px solid var(--c1);transform:rotate(-.3deg)">
+      <div style="font-family:'Anton',sans-serif;font-size:24px;color:var(--c1);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.02em">★ La Plata del Pueblo (Presupuesto)</div>
+      <p style="font-size:14px;color:var(--ink);line-height:1.7;margin-bottom:.75rem">
+        Es el plan de gastos que aprueba el Concejo Deliberante a principio de año. Indica cuánta <strong>guita</strong> piensa repartir el compañero intendente en cada área: salud para el pueblo, seguridad, obra pública para que laburen los compañeros, etc.
       </p>
-      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
-        Pero ojo: el presupuesto es una estimación. Lo que realmente importa es el <strong>gasto ejecutado</strong> (también llamado "devengado") — lo que efectivamente se gastó a fin de año. Siempre es distinto al presupuestado.
+      <p style="font-size:14px;color:var(--ink);line-height:1.7;margin-bottom:.75rem">
+        Pero ojo, compañero: el presupuesto es una estimación. Lo que realmente importa es el <strong>gasto ejecutado</strong> (el "devengado", decimos los compañeros que sabemos) — lo que efectivamente se bancó a fin de año. Siempre da distinto.
       </p>
-      <div style="background:var(--bg);border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink3);line-height:1.6">
-        <strong style="color:var(--ink2)">Ejemplo:</strong> Si un municipio presupuesta $100 millones para salud pero gasta $130 millones, hubo "sobrejecución". Si gasta $70 millones, hubo "subejecución". Ninguno es necesariamente malo — depende del contexto.
+      <div style="background:var(--oro);padding:.875rem 1rem;font-family:'Special Elite',monospace;font-size:13px;color:var(--ink);line-height:1.6;border-left:6px solid var(--ink)">
+        <strong>EJEMPLO:</strong> Si un compañero intendente presupuesta $100 palos para salud pero termina gastando $130, hubo "sobrejecución" — y eso es porque la patria primero. Si gasta $70, hubo "subejecución" — gorila probablemente.
       </div>
     </div>
 
-    <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c3)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">📊 PBG — Producto Bruto Geográfico</div>
-      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
-        Es el equivalente local del PBI (Producto Bruto Interno), pero a nivel de cada partido. Mide el valor de <strong>todo lo que se produce</strong> en ese municipio en un año: lo que fabrican las industrias, lo que venden los comercios, los servicios de salud, educación, etc.
+    <div style="background:var(--card);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.5rem;border:4px solid var(--ink);border-left:14px solid var(--patria);transform:rotate(.4deg)">
+      <div style="font-family:'Anton',sans-serif;font-size:24px;color:var(--patria);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.02em">☭ Lo que produce el pueblo (PBG)</div>
+      <p style="font-size:14px;color:var(--ink);line-height:1.7;margin-bottom:.75rem">
+        Es el equivalente local del PBI, pero medido en cada partido. Mide el valor de <strong>todo lo que producen los compañeros</strong> en un año: lo que fabrica la clase obrera industrial, lo que venden los comerciantes patriotas, los servicios populares de salud y educación, etc.
       </p>
-      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
-        Un PBG alto indica que en ese partido hay mucha actividad económica. El <strong>PBG por habitante</strong> permite comparar entre municipios de distinto tamaño: si La Matanza tiene el PBG total más alto pero 1,7 millones de habitantes, su PBG por persona puede ser menor que el de un municipio más chico pero económicamente más activo.
+      <p style="font-size:14px;color:var(--ink);line-height:1.7;margin-bottom:.75rem">
+        Un PBG alto indica que en ese partido <strong>se labura, carajo</strong>. El PBG por cabeza de compañero permite comparar partidos chicos contra grandes: La Matanza tiene el PBG total más alto pero 1,7 millones de almas — su PBG por persona puede ser menor que el de un barrio cheto como Vicente López, donde la oligarquía concentra la riqueza.
       </p>
-      <div style="background:var(--bg);border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink3);line-height:1.6">
-        <strong style="color:var(--ink2)">Fuente:</strong> DPE-PBA (Dirección Provincial de Estadística de Buenos Aires). Los datos son de 2023. El "treemap" que aparece en el panel de cada municipio muestra qué sectores generan más riqueza: si domina industria, comercio, sector público, etc.
+      <div style="background:var(--oro);padding:.875rem 1rem;font-family:'Special Elite',monospace;font-size:13px;color:var(--ink);line-height:1.6;border-left:6px solid var(--ink)">
+        <strong>FUENTE:</strong> Los compañeros de la DPE-PBA. Los datos son de 2023. El gráfico de torta muestra qué sector tira más para arriba: si manda la industria nacional, el comercio popular, el sector público del Estado presente, etc.
       </div>
     </div>
 
-    <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c4)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">🏪 TISH — Tasa de Inspección de Seguridad e Higiene</div>
-      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
-        Es la tasa más importante que pagan los comercios, industrias y empresas a cada municipio. La pagan por el "derecho" a funcionar bajo la habilitación municipal. Es la <strong>principal fuente de ingresos propios</strong> de la mayoría de los municipios del conurbano.
+    <div style="background:var(--card);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.5rem;border:4px solid var(--ink);border-left:14px solid var(--c4);transform:rotate(-.2deg)">
+      <div style="font-family:'Anton',sans-serif;font-size:24px;color:var(--c4);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.02em">⚒ Guita a la Oligarquía (TISH)</div>
+      <p style="font-size:14px;color:var(--ink);line-height:1.7;margin-bottom:.75rem">
+        Es la tasa más importante que le sacamos al gran capital. La pagan los comercios, las industrias y las empresas a cada municipio. Es la <strong>principal fuente de guita propia</strong> de la mayoría de los compañeros intendentes.
       </p>
-      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
-        Se calcula como un porcentaje de la facturación del negocio. Se expresa en <strong>milésimos (‰)</strong>: si la alícuota es 5‰, significa que por cada $1.000 de facturación, el comercio paga $5 al municipio.
+      <p style="font-size:14px;color:var(--ink);line-height:1.7;margin-bottom:.75rem">
+        Se calcula como un porcentaje de la facturación. Se expresa en <strong>milésimos (‰)</strong>: si la alícuota es 5‰, significa que por cada $1.000 de facturación, el burgués paga $5 al pueblo.
       </p>
-      <div style="background:var(--bg);border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink3);line-height:1.6">
-        <strong style="color:var(--ink2)">¿Por qué importa comparar la TISH?</strong> Porque afecta directamente la competitividad del comercio y la industria local. Un municipio con TISH alta puede desincentivar la radicación de empresas. Tres de Febrero, por ejemplo, tiene una política explícita de <em>bajar</em> la TISH para atraer inversión productiva.
+      <div style="background:var(--oro);padding:.875rem 1rem;font-family:'Special Elite',monospace;font-size:13px;color:var(--ink);line-height:1.6;border-left:6px solid var(--ink)">
+        <strong>¿Y POR QUÉ COMPARAMOS?</strong> Porque hay compañeros más combativos que les meten más impuestos al gran capital y otros más timoratos que les bajan la mano. Tres de Febrero, por ejemplo, le baja la TISH para atraer empresas privadas — ¡traición a la patria! (o pragmatismo, según se mire).
       </div>
     </div>
 
-    <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c2)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">👤 Los indicadores "per cápita"</div>
-      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
-        "Per cápita" significa <strong>"por habitante"</strong>. Se divide el total por la cantidad de personas del municipio. Sirve para comparar municipios de distinto tamaño: no es lo mismo gastar $500.000 millones en La Matanza (1,7 millones de habitantes) que en Vicente López (275.000 habitantes).
+    <div style="background:var(--card);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.5rem;border:4px solid var(--ink);border-left:14px solid var(--c2);transform:rotate(.3deg)">
+      <div style="font-family:'Anton',sans-serif;font-size:24px;color:var(--c1);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.02em">★ "Per cápita" (Por cabeza de compañero)</div>
+      <p style="font-size:14px;color:var(--ink);line-height:1.7;margin-bottom:.75rem">
+        "Per cápita" significa <strong>"por cabeza de compañero"</strong>. Se divide el total por la cantidad de almas del municipio. Sirve para comparar partidos de distinto tamaño: no es lo mismo bancar a 1,7 millones de almas en La Matanza que a 275.000 cheteríos en Vicente López.
       </p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.5rem">
-        <div style="background:var(--bg);border-radius:var(--r);padding:.75rem">
-          <div style="font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem">Presupuesto per cápita</div>
-          <div style="font-size:12px;color:var(--ink2);line-height:1.5">Cuánto gasta el municipio por cada vecino. Refleja la capacidad de inversión en servicios.</div>
+        <div style="background:var(--bg2);padding:.85rem;border:2px solid var(--ink)">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;font-weight:700;color:var(--c1);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">★ Guita por cabeza</div>
+          <div style="font-size:13px;color:var(--ink);line-height:1.5">Cuánto le banca el municipio a cada compañero. Refleja el compromiso popular del intendente.</div>
         </div>
-        <div style="background:var(--bg);border-radius:var(--r);padding:.75rem">
-          <div style="font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem">PBG per cápita</div>
-          <div style="font-size:12px;color:var(--ink2);line-height:1.5">Cuánto produce la economía local por cada habitante. Mide el nivel de actividad económica.</div>
+        <div style="background:var(--bg2);padding:.85rem;border:2px solid var(--ink)">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;font-weight:700;color:var(--c1);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">☭ Producción por cabeza</div>
+          <div style="font-size:13px;color:var(--ink);line-height:1.5">Cuánto labura la economía local por cada alma. Mide el músculo productivo del pueblo.</div>
         </div>
       </div>
     </div>
 
-    <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);border-left:4px solid var(--ink3)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">📌 Sobre los datos</div>
-      <div style="font-size:13px;color:var(--ink2);line-height:1.7">
-        <p style="margin-bottom:.5rem">Los datos de este observatorio provienen de fuentes oficiales:</p>
-        <ul style="padding-left:1.25rem;display:flex;flex-direction:column;gap:.3rem">
-          <li><strong>Presupuesto:</strong> Rendiciones de Cuentas municipales aprobadas por HCD / Sistema RAFAM</li>
-          <li><strong>PBG:</strong> Dirección Provincial de Estadística (DPE-PBA) — datos 2023</li>
-          <li><strong>Población:</strong> INDEC — Censo Nacional 2022</li>
-          <li><strong>TISH:</strong> Ordenanzas impositivas municipales</li>
+    <div style="background:var(--card);padding:1.5rem 1.75rem;box-shadow:var(--sh);border:4px solid var(--ink);border-left:14px solid var(--ink);transform:rotate(-.2deg)">
+      <div style="font-family:'Anton',sans-serif;font-size:24px;color:var(--ink);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.02em">⚐ De Dónde Sacamos los Datos</div>
+      <div style="font-size:14px;color:var(--ink);line-height:1.7">
+        <p style="margin-bottom:.5rem">Toda la data viene de fuentes oficiales del Estado presente:</p>
+        <ul style="padding-left:1.25rem;display:flex;flex-direction:column;gap:.4rem;list-style:none">
+          <li>★ <strong>Plata del pueblo:</strong> Rendiciones de Cuentas aprobadas por el HCD / Sistema RAFAM</li>
+          <li>★ <strong>PBG:</strong> Compañeros de la DPE-PBA — datos 2023</li>
+          <li>★ <strong>Censo:</strong> INDEC — Censo Nacional 2022</li>
+          <li>★ <strong>TISH:</strong> Ordenanzas impositivas de cada compañero intendente</li>
         </ul>
-        <p style="margin-top:.75rem;font-size:12px;color:var(--ink3)">Los datos marcados como <strong>Aprob.</strong> corresponden al presupuesto aprobado por el HCD, no a la ejecución final. Los marcados como <strong>Real</strong> son datos de rendición de cuentas ejecutados.</p>
+        <p style="margin-top:.85rem;font-family:'Special Elite',monospace;font-size:12px;color:var(--ink3);background:var(--bg2);padding:.6rem;border-left:4px solid var(--c1)">⚠ Los datos como <strong>"Aprob."</strong> son el presupuesto que aprobó el HCD, no la ejecución final. Los que dicen <strong>"Real"</strong> son rendición de cuentas — guita que realmente se gastó.</p>
       </div>
     </div>
   </div>
@@ -392,14 +1016,14 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 <div class="wrap" id="v-demo">
 
   <div class="sh" style="margin-bottom:.5rem">
-    <span class="sh-t">Condiciones de vida — Censo 2022</span>
-    <span class="sh-n">Fuente: INDEC · Resultados definitivos · 24 partidos del Conurbano</span>
+    <span class="sh-t">Cómo Vive el Pueblo — Censo del Compañero 2022</span>
+    <span class="sh-n">INDEC · 24 partidos de la patria conurbana</span>
   </div>
-  <div style="background:var(--bg2);border-left:3px solid var(--c1);padding:.6rem 1rem;border-radius:0 var(--r) var(--r) 0;font-size:11px;color:var(--ink3);margin-bottom:1.5rem;line-height:1.6">
-    <strong style="color:var(--ink2)">Agua de red pública:</strong> % de hogares con agua de la red pública de distribución (agua corriente). &nbsp;·&nbsp;
-    <strong style="color:var(--ink2)">Red cloacal:</strong> % de hogares con desagüe a red pública. &nbsp;·&nbsp;
-    <strong style="color:var(--ink2)">Índice de masculinidad:</strong> varones cada 100 mujeres. &nbsp;·&nbsp;
-    <strong style="color:var(--ink2)">Edad mediana:</strong> la mitad de la población tiene menos años que este valor.
+  <div style="background:var(--ink);color:#fff;border-left:8px solid var(--oro);padding:.85rem 1.1rem;font-family:'Special Elite',monospace;font-size:12px;margin-bottom:1.5rem;line-height:1.7;box-shadow:4px 4px 0 var(--c1)">
+    <strong style="color:var(--oro)">⚠ Agua corriente:</strong> % de hogares de compañeros con agua de red. &nbsp;·&nbsp;
+    <strong style="color:var(--oro)">⚠ Cloacas:</strong> % de hogares con desagüe a red. &nbsp;·&nbsp;
+    <strong style="color:var(--oro)">⚠ Masculinidad:</strong> compañeros cada 100 compañeras. &nbsp;·&nbsp;
+    <strong style="color:var(--oro)">⚠ Edad mediana:</strong> la mitad del pueblo tiene menos años que esto.
   </div>
 
   <!-- KPIs rápidos -->
@@ -408,41 +1032,41 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
   <!-- Gráficos -->
   <div class="cgrid g2" style="margin-bottom:2rem">
     <div class="cc v2">
-      <div class="cc-t">Crecimiento poblacional 2010–2022 (%)</div>
+      <div class="cc-t">Cuánto creció el pueblo 2010–2022 (%)</div>
       <div class="cc-c md"><div id="c-demo-crec" style="width:100%;height:100%"></div></div>
     </div>
     <div class="cc">
-      <div class="cc-t">Edad mediana de la población (años)</div>
+      <div class="cc-t">Edad mediana de los compañeros (años)</div>
       <div class="cc-c md"><div id="c-demo-edad" style="width:100%;height:100%"></div></div>
     </div>
   </div>
   <div class="cgrid g2" style="margin-bottom:2rem">
     <div class="cc v3">
-      <div class="cc-t">Acceso al agua de red pública (% hogares)</div>
+      <div class="cc-t">¿Llega el agua de red al pueblo? (% hogares)</div>
       <div class="cc-c md"><div id="c-demo-agua" style="width:100%;height:100%"></div></div>
     </div>
     <div class="cc">
-      <div class="cc-t">Acceso a red cloacal (% hogares)</div>
+      <div class="cc-t">¿Hay cloacas, carajo? (% hogares)</div>
       <div class="cc-c md"><div id="c-demo-cloaca" style="width:100%;height:100%"></div></div>
     </div>
   </div>
 
   <!-- Tabla -->
-  <div class="sh"><span class="sh-t">Tabla comparativa completa</span></div>
+  <div class="sh"><span class="sh-t">Planilla Completa del Pueblo</span></div>
   <div class="tw">
     <table>
       <thead>
         <tr>
-          <th class="ts on" onclick="sortDemo('nombre',this)">Municipio <span class="sa">▲</span></th>
+          <th class="ts on" onclick="sortDemo('nombre',this)">Compañero Intendente <span class="sa">▲</span></th>
           <th>Zona</th>
-          <th class="ts" onclick="sortDemo('pob',this)">Población 2022 <span class="sa">↕</span></th>
-          <th class="ts" onclick="sortDemo('pob10',this)">Población 2010 <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('pob',this)">Pueblo 2022 <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('pob10',this)">Pueblo 2010 <span class="sa">↕</span></th>
           <th class="ts" onclick="sortDemo('crec',this)">Crecimiento <span class="sa">↕</span></th>
-          <th class="ts" onclick="sortDemo('hogares',this)">Hogares <span class="sa">↕</span></th>
-          <th class="ts" onclick="sortDemo('pers_hogar',this)">Pers/hogar <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('hogares',this)">Ranchos <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('pers_hogar',this)">Almas/Rancho <span class="sa">↕</span></th>
           <th class="ts" onclick="sortDemo('edad',this)">Edad mediana <span class="sa">↕</span></th>
-          <th class="ts" onclick="sortDemo('masc',this)">Índ. masculin. <span class="sa">↕</span></th>
-          <th class="ts" onclick="sortDemo('agua',this)">Agua red % <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('masc',this)">Machos/100 hembras <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('agua',this)">Agua % <span class="sa">↕</span></th>
           <th class="ts" onclick="sortDemo('cloaca',this)">Cloaca % <span class="sa">↕</span></th>
           <th class="ts" onclick="sortDemo('dens',this)">Densidad <span class="sa">↕</span></th>
         </tr>
@@ -454,43 +1078,54 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 
 <!-- TISH -->
 <div class="wrap" id="v-tish">
-  <div class="sh"><span class="sh-t">Tasas de Seguridad e Higiene</span><span class="sh-n">Comparativa de alícuotas entre partidos</span></div>
+  <div class="sh"><span class="sh-t">⚒ Lo que le sacamos a la oligarquía ⚒</span><span class="sh-n">Comparativa de alícuotas — guita al comercio y la industria</span></div>
+  <div style="background:var(--c1);color:var(--oro);padding:.85rem 1.2rem;margin-bottom:1.25rem;border:3px solid var(--ink);font-family:'Special Elite',monospace;font-size:13px;line-height:1.6;box-shadow:5px 5px 0 var(--ink)">
+    <strong style="font-family:'Anton',sans-serif;font-size:18px;letter-spacing:.05em">☭ COMPAÑERO COMERCIANTE:</strong> esta es la tasa que pagás para que tu municipio bonaerense pueda bancarle el comedor, la salita y el polideportivo al pueblo. Cuanto más alta la alícuota, más combativo es el compañero intendente. <strong>¡La patria se construye con tributos al gran capital!</strong>
+  </div>
   <div class="tgrid" id="tish-cards"></div>
 </div>
 
 <div id="svg-tooltip" style="position:fixed;background:var(--ink);color:#fff;padding:6px 11px;border-radius:6px;font-size:12px;font-family:'Sora',sans-serif;pointer-events:none;opacity:0;transition:opacity .15s;z-index:9999;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.25)"></div>
 
 <!-- MODAL COMPARADOR -->
-<div id="comp-modal" style="position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;display:none">
-  <div style="background:#1C1F2E;border-radius:var(--r2);padding:2rem;border:1px solid var(--borde);width:min(620px,90vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.3)">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+<div id="comp-modal" style="position:fixed;inset:0;z-index:1000;background:rgba(139,0,0,.7);backdrop-filter:blur(2px);align-items:center;justify-content:center;display:none">
+  <div style="background:var(--card);padding:2rem;width:min(640px,90vw);max-height:82vh;display:flex;flex-direction:column;border:5px solid var(--ink);border-top:14px solid var(--c1);box-shadow:10px 10px 0 var(--c1d)">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem;gap:1rem">
       <div>
-        <div style="font-size:1.1rem;font-weight:700;color:var(--ink)">Comparar municipios</div>
-        <div style="font-size:11px;color:var(--ink3);margin-top:3px">Seleccioná entre 2 y 3 partidos</div>
+        <div style="font-family:'Anton',sans-serif;font-size:1.8rem;font-weight:400;color:var(--c1);text-transform:uppercase;letter-spacing:.02em">★ Mano a Mano, Compañeros</div>
+        <div style="font-family:'Special Elite',monospace;font-size:13px;color:var(--ink2);margin-top:3px">» Elegí entre 2 y 3 partidos para enfrentar</div>
       </div>
-      <button onclick="cerrarModalComp()" style="background:var(--bg);border:none;border-radius:var(--r);padding:6px 12px;cursor:pointer;font-size:12px;color:var(--ink2)">✕ Cerrar</button>
+      <button onclick="cerrarModalComp()" style="background:var(--ink);color:var(--oro);border:3px solid var(--oro);border-radius:0;padding:6px 14px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.06em">✕ Cerrar</button>
     </div>
     <!-- Seleccionados -->
-    <div id="modal-selec" style="display:flex;gap:.5rem;flex-wrap:wrap;min-height:36px;margin-bottom:1rem;padding:.5rem;background:var(--bg);border-radius:var(--r)">
-      <span id="modal-selec-hint" style="font-size:11px;color:var(--ink3);align-self:center;padding:0 .25rem">Ningún municipio seleccionado todavía</span>
+    <div id="modal-selec" style="display:flex;gap:.5rem;flex-wrap:wrap;min-height:40px;margin-bottom:1rem;padding:.6rem;background:var(--ink);border:3px solid var(--oro)">
+      <span id="modal-selec-hint" style="font-family:'Special Elite',monospace;font-size:12px;color:var(--oro);align-self:center;padding:0 .25rem">⚠ Ningún compañero elegido todavía...</span>
     </div>
     <!-- Buscador -->
     <div style="position:relative;margin-bottom:.875rem">
-      <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--ink3)">🔍</span>
-      <input id="modal-search" type="text" placeholder="Buscar..." oninput="filtrarModal(this.value)"
-        style="width:100%;padding:7px 12px 7px 34px;border:1.5px solid var(--borde);border-radius:99px;font-family:'Sora',sans-serif;font-size:12px;outline:none">
+      <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--c1)">★</span>
+      <input id="modal-search" type="text" placeholder="BUSCAR COMPAÑERO..." oninput="filtrarModal(this.value)"
+        style="width:100%;padding:9px 12px 9px 34px;border:3px solid var(--oro);border-radius:0;font-family:'Oswald',sans-serif;font-size:13px;outline:none;text-transform:uppercase;letter-spacing:.04em">
     </div>
     <!-- Lista de municipios -->
-    <div id="modal-lista" style="overflow-y:auto;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:.4rem"></div>
+    <div id="modal-lista" style="overflow-y:auto;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:.5rem"></div>
     <!-- Botón comparar -->
     <div style="margin-top:1.25rem;display:flex;justify-content:flex-end;gap:.75rem">
-      <button onclick="limpiarComp()" style="background:transparent;border:1.5px solid var(--borde);border-radius:99px;padding:7px 18px;font-family:'Sora',sans-serif;font-size:12px;cursor:pointer;color:var(--ink2)">Limpiar</button>
-      <button id="modal-comparar-btn" onclick="ejecutarComparacion()" style="background:var(--c1);color:#fff;border:none;border-radius:99px;padding:7px 22px;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;cursor:pointer;opacity:.4" disabled>Ver comparación →</button>
+      <button onclick="limpiarComp()" style="background:transparent;border:3px solid var(--ink);border-radius:0;padding:8px 18px;font-family:'Bebas Neue',sans-serif;font-size:14px;cursor:pointer;color:var(--ink);letter-spacing:.06em;text-transform:uppercase">Limpiar Todo</button>
+      <button id="modal-comparar-btn" onclick="ejecutarComparacion()" style="background:var(--c1);color:var(--oro);border:3px solid var(--ink);border-radius:0;padding:8px 22px;font-family:'Bebas Neue',sans-serif;font-size:14px;font-weight:700;cursor:pointer;opacity:.4;letter-spacing:.06em;text-transform:uppercase;box-shadow:4px 4px 0 var(--ink)" disabled>★ Enfrentar Compañeros →</button>
     </div>
   </div>
 </div>
 
-<footer><div class="fi"><span>Observatorio Fiscal del Conurbano · 2025–2026</span><span>DPE-PBA · RAFAM · INDEC Censo 2022 · HCD Municipales</span></div></footer>
+<footer>
+  <div class="fi">
+    <span>★ Observatorio Popular del Conurbano · 2025–2026 ★</span>
+    <span>DPE-PBA · RAFAM · INDEC '22 · HCD Compañeros</span>
+  </div>
+  <div style="max-width:1340px;margin:2.5rem auto 0;text-align:center;font-family:'Anton',sans-serif;font-size:24px;letter-spacing:.1em;color:var(--oro);padding-top:1.5rem;border-top:3px dashed var(--oro)">
+    ★ PERÓN VIVE EN EL CORAZÓN DEL PUEBLO ★
+  </div>
+</footer>
 
 <script>
 // ── DATOS Y HELPERS ──────────────────────────────────────
@@ -504,9 +1139,9 @@ const fmtMM = n => {
 };
 const fmtK = n => n ? '$' + Math.round(n).toLocaleString('es-AR') : '—';
 const ppc = (p,pop) => (p && pop) ? Math.round(p*1e6/pop) : null;
-const ZONA = {norte:'Norte', sur:'Sur', oeste:'Oeste'};
-const CZONA = {norte:'#4ECDC4', sur:'#FF6B6B', oeste:'#95E77E'};
-const PAL = ['#4ECDC4','#FF6B6B','#95E77E','#FFD93D','#7FB3D3','#FF9F43','#A29BFE','#FD79A8','#55EFC4','#FDCB6E','#74B9FF','#E17055'];
+const ZONA = {norte:'Norte Gorila', sur:'Sur Profundo', oeste:'Oeste Combativo'};
+const CZONA = {norte:'#E30613', sur:'#FFD100', oeste:'#009B3A'};
+const PAL = ['#E30613','#FFD100','#6CACE4','#009B3A','#8B0000','#FF1744','#FFA000','#1976D2','#388E3C','#C62828','#FBC02D','#0288D1'];
 const GC = 'rgba(255,255,255,.06)', TC = '#5C5A55';
 
 fetch('datos.json').then(r=>r.json()).then(d=>{DATA=d.municipios;init();}).catch(e=>{console.error('Error cargando datos.json — verificá que el archivo esté en el repositorio:',e);DATA=[];init();});
@@ -521,9 +1156,9 @@ function renderHdr(){
   const conPres = DATA.filter(m=>m.presupuesto_2025).length;
   const totPBG = DATA.filter(m=>m.pbg_corriente_2023).reduce((a,m)=>a+m.pbg_corriente_2023,0);
   document.getElementById('hdr-chips').innerHTML = `
-    <div class="hdr-chip"><div class="hdr-chip-v">${(totPob/1e6).toFixed(1)}M</div><div class="hdr-chip-l">habitantes</div></div>
-    <div class="hdr-chip"><div class="hdr-chip-v">$${Math.round(totPBG).toLocaleString('es-AR')} millones</div><div class="hdr-chip-l">PBG</div></div>
-    <div class="hdr-chip"><div class="hdr-chip-v">${conPres}/24</div><div class="hdr-chip-l">con presupuesto</div></div>`;
+    <div class="hdr-chip"><div class="hdr-chip-v">${(totPob/1e6).toFixed(1)}M</div><div class="hdr-chip-l">★ Almas del pueblo</div></div>
+    <div class="hdr-chip"><div class="hdr-chip-v">$${Math.round(totPBG/1000).toLocaleString('es-AR')}MM</div><div class="hdr-chip-l">☭ Producción popular</div></div>
+    <div class="hdr-chip"><div class="hdr-chip-v">${conPres}/24</div><div class="hdr-chip-l">⚒ Compañeros rindiendo</div></div>`;
 }
 
 // ── KPIs ─────────────────────────────────────────────────
@@ -534,9 +1169,9 @@ function renderKPIs(){
   const totPres = conPres.reduce((a,m)=>a+m.presupuesto_2025,0);
   const totPBG  = conPBG.reduce((a,m)=>a+m.pbg_corriente_2023,0);
   document.getElementById('kpis').innerHTML = `
-    <div class="kpi"><div class="kpi-l">Población total</div><div class="kpi-v">${(totPob/1e6).toFixed(1)}M</div><div class="kpi-s">24 partidos · Censo 2022</div></div>
-    <div class="kpi c2"><div class="kpi-l">Presupuesto total ejecutado</div><div class="kpi-v">$${Math.round(totPres).toLocaleString('es-AR')} mm</div><div class="kpi-s">${conPres.length} municipios con dato real</div></div>
-    <div class="kpi c3"><div class="kpi-l">PBG total 2023</div><div class="kpi-v">$${Math.round(totPBG).toLocaleString('es-AR')} mm</div><div class="kpi-s">${conPBG.length} partidos · DPE-PBA</div></div>`;
+    <div class="kpi"><div class="kpi-l">★ El pueblo unido</div><div class="kpi-v">${(totPob/1e6).toFixed(1)}M</div><div class="kpi-s">» 24 partidos de la patria · Censo '22</div></div>
+    <div class="kpi c2"><div class="kpi-l">⚒ Plata del pueblo (ejecutada)</div><div class="kpi-v">$${Math.round(totPres).toLocaleString('es-AR')} MM</div><div class="kpi-s">» ${conPres.length} compañeros rindiendo cuentas</div></div>
+    <div class="kpi c3"><div class="kpi-l">☭ Producción popular 2023</div><div class="kpi-v">$${Math.round(totPBG/1000).toLocaleString('es-AR')} MMM</div><div class="kpi-s">» ${conPBG.length} partidos · datos DPE-PBA</div></div>`;
 }
 
 // ── GRÁFICOS ─────────────────────────────────────────────
@@ -557,15 +1192,15 @@ function svgBar(containerId, items, colorFn, labelFn) {
   let s = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" style="display:block;overflow:visible">`;
 
   // Fondo
-  s += `<rect x="${PLEFT}" y="${PTOP}" width="${cW}" height="${cH}" fill="#13151E" rx="4"/>`;
+  s += `<rect x="${PLEFT}" y="${PTOP}" width="${cW}" height="${cH}" fill="#FAFAF9" rx="4"/>`;
 
   // Líneas guía + labels eje Y
   [0, 0.25, 0.5, 0.75, 1].forEach(f => {
     const y = PTOP + cH * (1 - f);
-    s += `<line x1="${PLEFT}" y1="${y}" x2="${W-PRIGHT}" y2="${y}" stroke="${f===0?'#2A2D3E':'#1E2130'}" stroke-width="${f===0?1.5:1}"/>`;
+    s += `<line x1="${PLEFT}" y1="${y}" x2="${W-PRIGHT}" y2="${y}" stroke="${f===0?'#D6D3D1':'#E7E5E4'}" stroke-width="${f===0?1.5:1}"/>`;
     if (f > 0) {
       const lbl = labelFn(max * f);
-      s += `<text x="${PLEFT-6}" y="${y+3}" text-anchor="end" fill="#5C5A55" font-size="10" font-family="sans-serif">${lbl}</text>`;
+      s += `<text x="${PLEFT-6}" y="${y+3}" text-anchor="end" fill="#A8A29E" font-size="10" font-family="sans-serif">${lbl}</text>`;
     }
   });
 
@@ -577,7 +1212,7 @@ function svgBar(containerId, items, colorFn, labelFn) {
     const y = PTOP + cH - bh;
     const col = colorFn(item);
     // Sombra suave
-    s += `<rect x="${x+1}" y="${y+2}" width="${bw}" height="${bh}" fill="rgba(0,0,0,0.3)" rx="3"/>`;
+    s += `<rect x="${x+1}" y="${y+2}" width="${bw}" height="${bh}" fill="rgba(0,0,0,0.06)" rx="3"/>`;
     // Barra con tooltip
     const tip = item.tooltip || item.label;
     s += `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="${col}" rx="3" style="cursor:pointer" onmouseenter="showTip(event,'${tip}')" onmouseleave="hideTip()"/>`;
@@ -586,7 +1221,7 @@ function svgBar(containerId, items, colorFn, labelFn) {
     // Label eje X rotado
     const lx = x + bw / 2;
     const ly = PTOP + cH + 10;
-    s += `<text transform="translate(${lx},${ly}) rotate(-42)" text-anchor="end" fill="#6B6860" font-size="9.5" font-family="sans-serif">${item.label}</text>`;
+    s += `<text transform="translate(${lx},${ly}) rotate(-42)" text-anchor="end" fill="#78716C" font-size="9.5" font-family="sans-serif">${item.label}</text>`;
   });
 
   s += '</svg>';
@@ -646,14 +1281,14 @@ function renderCharts(){
     .map(m=>({label:m.nombre, val:Math.round(m.pbg_corriente_2023*1e6/m.poblacion), zona:m.zona,
       tooltip:m.nombre+': $'+Math.round(m.pbg_corriente_2023*1e6/m.poblacion).toLocaleString('es-AR')+' por hab.'}))
     .sort((a,b)=>b.val-a.val);
-  svgBar('c-pbg-pc', pcL, i=>CZONA[i.zona],
+  svgBar('c-pbg-pc', pcL, i=>CZONA[i.zona]||'#0D9488',
     v => '$'+Math.round(v/1000).toLocaleString('es-AR')+'K');
 
   const ppL = lista.filter(m=>m.presupuesto_2025)
     .map(m=>({label:m.nombre, val:Math.round(m.presupuesto_2025*1e6/m.poblacion), zona:m.zona,
       tooltip:m.nombre+': $'+Math.round(m.presupuesto_2025*1e6/m.poblacion).toLocaleString('es-AR')+' por hab.'}))
     .sort((a,b)=>b.val-a.val);
-  svgBar('c-pres-pc', ppL, i=>CZONA[i.zona],
+  svgBar('c-pres-pc', ppL, _=>'#DC2626',
     v => '$'+Math.round(v/1000).toLocaleString('es-AR')+'K');
 
   const popL = [...lista].sort((a,b)=>b.poblacion-a.poblacion)
@@ -665,16 +1300,16 @@ function renderCharts(){
 
 // ── TABLA ─────────────────────────────────────────────────
 const COLS = [
-  {k:'nombre', l:'Municipio',           sort:'nombre',     num:false},
-  {k:'zona',   l:'Zona',                sort:null,         num:false},
-  {k:'pop',    l:'Población',           sort:'poblacion',  num:true},
-  {k:'pbgc',   l:'PBG 2023 (mm$)',      sort:'pbg_corr',   num:true},
-  {k:'pbgpc',  l:'PBG por habitante',   sort:'pbg_pc',     num:true},
-  {k:'pres',   l:'Presup. 2025 (mm$)',  sort:'presupuesto',num:true},
-  {k:'prespc', l:'Presup. por hab.',    sort:'pres_pc',    num:true},
-  {k:'rec',    l:'Recursos 2025 (mm$)', sort:'recursos',   num:true},
-  {k:'recpc',  l:'Recursos por hab.',   sort:'rec_pc',     num:true},
-  {k:'result', l:'Resultado fiscal',    sort:'resultado',  num:true},
+  {k:'nombre', l:'★ Compañero Intendente',  sort:'nombre',     num:false},
+  {k:'zona',   l:'Zona',                    sort:null,         num:false},
+  {k:'pop',    l:'Almas del Pueblo',        sort:'poblacion',  num:true},
+  {k:'pbgc',   l:'☭ Producción \'23 (mm$)', sort:'pbg_corr',   num:true},
+  {k:'pbgpc',  l:'Por Cabeza Compañera',    sort:'pbg_pc',     num:true},
+  {k:'pres',   l:'⚒ Guita del Pueblo (mm$)',sort:'presupuesto',num:true},
+  {k:'prespc', l:'Plata por Cabeza',        sort:'pres_pc',    num:true},
+  {k:'rec',    l:'Recursos (mm$)',          sort:'recursos',   num:true},
+  {k:'recpc',  l:'Recursos por Compañero',  sort:'rec_pc',     num:true},
+  {k:'result', l:'¿Patria o Ajuste?',       sort:'resultado',  num:true},
 ];
 
 function buildThead(){
@@ -722,8 +1357,8 @@ function renderTable(){
     // Resultado fiscal
     const resultado = (m.recursos_percibidos_2025!=null && m.presupuesto_2025!=null)
       ? m.recursos_percibidos_2025 - m.presupuesto_2025 : null;
-    const resBg = resultado!=null?(resultado>=0?'background:#162E2D;color:#4ECDC4':'background:#2E1515;color:#FF6B6B'):'';
-    const resLabel = resultado!=null?(resultado>=0?'▲ Superávit':'▼ Déficit'):'—';
+    const resBg = resultado!=null?(resultado>=0?'background:#009B3A;color:#FFD100':'background:#8B0000;color:#FFD100'):'';
+    const resLabel = resultado!=null?(resultado>=0?'★ VICTORIA POPULAR':'☠ AJUSTE GORILA'):'—';
     return `<tr class="${sel}" onclick="openPanel('${m.id}')">
       <td class="mn">${m.nombre}</td>
       <td><span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span></td>
@@ -842,8 +1477,8 @@ function drawTreemap(containerId, sectores) {
   container.innerHTML = `
     <svg viewBox="0 0 200 200" style="width:200px;height:200px;flex-shrink:0">
       ${slices}
-      <text x="${CX}" y="${CY+5}" text-anchor="middle" font-size="11" fill="#9E9B93" font-family="sans-serif" font-weight="600">PBG</text>
-      <text x="${CX}" y="${CY+18}" text-anchor="middle" font-size="9" fill="#5C5A55" font-family="sans-serif">por sector</text>
+      <text x="${CX}" y="${CY+5}" text-anchor="middle" font-size="11" fill="#44403C" font-family="sans-serif" font-weight="600">PBG</text>
+      <text x="${CX}" y="${CY+18}" text-anchor="middle" font-size="9" fill="#A8A29E" font-family="sans-serif">por sector</text>
     </svg>
     <div>${legend}${items.length>8?`<div style="font-size:10px;color:var(--ink3);margin-top:4px">+ ${items.length-8} sectores menores</div>`:''}</div>`;
 }
@@ -857,25 +1492,25 @@ function openPanel(id){
   const pbgpc_cte=m.pbg_constante_2004_2023?Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion):null;
   const dens=m.superficie_km2?Math.round(m.poblacion/m.superficie_km2):null;
   const dq=m.dato_calidad==='real'?'dr':m.dato_calidad==='aprobado'?'da':'dp';
-  const dl=m.dato_calidad==='real'?'Real':m.dato_calidad==='aprobado'?'Aprobado':'Pendiente';
+  const dl=m.dato_calidad==='real'?'★ Rendido':m.dato_calidad==='aprobado'?'Aprobado HCD':'⏳ Pendiente';
   document.getElementById('p-title').textContent=m.nombre;
   document.getElementById('p-sub').innerHTML=`
     <span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span>
     <span class="dch ${dq}">${dl} · ${m.dato_fuente||''}</span>
     `;
   const kpis=[
-    ['Población',fmtN(m.poblacion),'Censo 2022'],
-    ['Superficie',m.superficie_km2?fmtN(m.superficie_km2)+' km²':'—',dens?fmtN(dens)+' hab/km²':''],
-    ['PBG 2023',m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—',pbgpc?'pc: '+fmtK(pbgpc):''],
-    ['PBG por habitante',m.pbg_constante_2004_2023?fmtMM(m.pbg_constante_2004_2023):'—',pbgpc_cte?'pc: '+fmtK(pbgpc_cte):''],
-    ['Gasto ejecutado 2025',m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—',prespc?'pc: '+fmtK(prespc):''],
-    ['Recursos percibidos',m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—',''],
-    ...(m.saldo_caja_2025!=null?[['Saldo de caja — cierre 2025',fmtMM(m.saldo_caja_2025),'disponibilidades 31/12']]:[]),
+    ['★ Almas del pueblo',fmtN(m.poblacion),'Censo del compañero 2022'],
+    ['Territorio popular',m.superficie_km2?fmtN(m.superficie_km2)+' km²':'—',dens?fmtN(dens)+' compañeros/km²':''],
+    ['☭ Producción 2023',m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—',pbgpc?'» pc: '+fmtK(pbgpc):''],
+    ['Producción por cabeza',m.pbg_constante_2004_2023?fmtMM(m.pbg_constante_2004_2023):'—',pbgpc_cte?'» pc: '+fmtK(pbgpc_cte):''],
+    ['⚒ Guita ejecutada 2025',m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—',prespc?'» pc: '+fmtK(prespc):''],
+    ['Recursos al pueblo',m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—',''],
+    ...(m.saldo_caja_2025!=null?[['★ Caja del compañero',fmtMM(m.saldo_caja_2025),'cierre 31/12 — disponibilidades']]:[]),
   ];
   const tieneSec=m.secretarias?.length>0;
   const secHTML=tieneSec
-    ?m.secretarias.map((s,i)=>`<div class="sbar"><span class="sbn">${s.nombre}</span><div class="sbt"><div class="sbf" style="width:${s.pct/m.secretarias[0].pct*100}%;background:${PAL[i%PAL.length]}22"><span class="sbp" style="color:${PAL[i%PAL.length]}">${s.pct}%</span></div></div>${s.monto_m?`<span class="sbm">${s.monto_m>=1000?'$'+Math.round(s.monto_m/1000).toLocaleString('es-AR')+' mil mill.':'$'+Math.round(s.monto_m).toLocaleString('es-AR')+' mill.'}</span>`:''}</div>`).join('')
-    :`<div class="pend">Adjuntá la rendición para ver el desglose.</div>`;
+    ?m.secretarias.map((s,i)=>`<div class="sbar"><span class="sbn">${s.nombre}</span><div class="sbt"><div class="sbf" style="width:${s.pct/m.secretarias[0].pct*100}%;background:${PAL[i%PAL.length]}33"><span class="sbp" style="color:${PAL[i%PAL.length]}">${s.pct}%</span></div></div>${s.monto_m?`<span class="sbm">${s.monto_m>=1000?'$'+Math.round(s.monto_m/1000).toLocaleString('es-AR')+' mil mill.':'$'+Math.round(s.monto_m).toLocaleString('es-AR')+' mill.'}</span>`:''}</div>`).join('')
+    :`<div class="pend">Falta la rendición del compañero — todavía no llegó la guita al pueblo</div>`;
 
   const tieneSect = m.pbg_sectores_2023 && Object.keys(m.pbg_sectores_2023).length>0;
   const legendHTML = tieneSect
@@ -888,14 +1523,14 @@ function openPanel(id){
     <div class="pk-row">${kpis.map(([l,v,s])=>`<div class="pk"><div class="pk-l">${l}</div><div class="pk-v">${v}</div>${s?`<div class="pk-s">${s}</div>`:''}</div>`).join('')}</div>
     <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:1.25rem;margin-top:.25rem">
       <div>
-        <div class="pst">Composición del PBG por sector — 2023</div>
+        <div class="pst">☭ Producción del pueblo por sector — 2023</div>
         ${tieneSect
           ? `<div id="tm-canvas" style="position:relative;width:100%;border-radius:var(--r);overflow:hidden;background:var(--bg)"></div>
              <div style="margin-top:.6rem;line-height:1.8">${legendHTML}</div>`
-          : `<div class="pend">Sin datos sectoriales disponibles.</div>`}
+          : `<div class="pend">Todavía no llegaron los datos del sector — pendiente</div>`}
       </div>
       <div>
-        <div class="pst">Gasto por secretaría</div>
+        <div class="pst">⚒ Guita por secretaría del compañero</div>
         ${secHTML}
       </div>
     </div>`;
@@ -911,17 +1546,17 @@ function closePanel(){panelId=null;document.getElementById('panel').classList.re
 
 // ── TISH ─────────────────────────────────────────────────
 function renderTISH(){
-  const cols=['#4ECDC4','#FF6B6B','#95E77E','#FFD93D','#74B9FF','#FD79A8'];
+  const cols=['#E30613','#FFD100','#6CACE4','#009B3A','#8B0000','#FF1744'];
   document.getElementById('tish-cards').innerHTML=DATA.map((m,i)=>{
     const t=m.tish;
     if(!t?.alicuota_base_milesimos)
-      return `<div class="tc" style="border-color:var(--borde);opacity:.55"><div class="tc-n">${m.nombre}</div><div class="tc-sub" style="margin-top:.4rem">PENDIENTE</div></div>`;
+      return `<div class="tc" style="border-left-color:var(--ink3);opacity:.6"><div class="tc-h"><div class="tc-n">${m.nombre}</div></div><div class="tc-sub" style="margin-top:.4rem">⏳ Pendiente — compañero no rindió</div></div>`;
     const c=cols[i%cols.length];
-    return `<div class="tc" style="border-color:${c}">
-      <div class="tc-h"><div class="tc-n">${m.nombre}</div><span class="tc-badge" style="background:${c}18;color:${c}">${t.alicuota_base_milesimos}‰</span></div>
-      <div class="tc-sub">${t.nombre_tasa||'TISH'}</div>
+    return `<div class="tc" style="border-left-color:${c}">
+      <div class="tc-h"><div class="tc-n">★ ${m.nombre}</div><span class="tc-badge" style="background:${c};color:${c==='#FFD100'?'#1A1A1A':'#FFD100'};border-color:#1A1A1A">${t.alicuota_base_milesimos}‰</span></div>
+      <div class="tc-sub">⚒ ${t.nombre_tasa||'TISH'}</div>
       ${(t.escala||[]).map(e=>`<div class="tc-row"><span>Hasta ${e.hasta_mf||e.hasta} MF</span><span>${e.alicuota}‰</span></div>`).join('')}
-      ${t.minimo_bimestral_comercio_mf?`<div class="tc-foot">Mín. comercio: <b>${fmtN(t.minimo_bimestral_comercio_mf)} MF</b> · industria: <b>${fmtN(t.minimo_bimestral_industria_mf)} MF</b></div>`:''}
+      ${t.minimo_bimestral_comercio_mf?`<div class="tc-foot">» Mín. comercio: <b>${fmtN(t.minimo_bimestral_comercio_mf)} MF</b> · industria: <b>${fmtN(t.minimo_bimestral_industria_mf)} MF</b></div>`:''}
       <div class="tc-foot">${t.fuente||''}</div>
     </div>`;
   }).join('');
@@ -941,10 +1576,10 @@ function renderDemo() {
   const masViejo = [...lista].sort((a,b)=>(b.censo_2022.edad_mediana||0)-(a.censo_2022.edad_mediana||0))[0];
   const masJoven = [...lista].sort((a,b)=>(a.censo_2022.edad_mediana||0)-(b.censo_2022.edad_mediana||0))[0];
   document.getElementById('demo-kpis').innerHTML = `
-    <div class="kpi c3"><div class="kpi-l">Mayor crecimiento 2010–22</div><div class="kpi-v">+${masCrec?.censo_2022.var_intercensal_pct}%</div><div class="kpi-s">${masCrec?.nombre}</div></div>
-    <div class="kpi c2"><div class="kpi-l">Menor crecimiento 2010–22</div><div class="kpi-v">+${menosCrec?.censo_2022.var_intercensal_pct}%</div><div class="kpi-s">${menosCrec?.nombre}</div></div>
-    <div class="kpi c4"><div class="kpi-l">Población más envejecida</div><div class="kpi-v">${masViejo?.censo_2022.edad_mediana} años</div><div class="kpi-s">${masViejo?.nombre} · edad mediana</div></div>
-    <div class="kpi"><div class="kpi-l">Población más joven</div><div class="kpi-v">${masJoven?.censo_2022.edad_mediana} años</div><div class="kpi-s">${masJoven?.nombre} · edad mediana</div></div>`;
+    <div class="kpi c3"><div class="kpi-l">★ Más creció el pueblo</div><div class="kpi-v">+${masCrec?.censo_2022.var_intercensal_pct}%</div><div class="kpi-s">» ${masCrec?.nombre}</div></div>
+    <div class="kpi c2"><div class="kpi-l">☠ Menos creció (gorila)</div><div class="kpi-v">+${menosCrec?.censo_2022.var_intercensal_pct}%</div><div class="kpi-s">» ${menosCrec?.nombre}</div></div>
+    <div class="kpi c4"><div class="kpi-l">Compañeros más veteranos</div><div class="kpi-v">${masViejo?.censo_2022.edad_mediana} años</div><div class="kpi-s">» ${masViejo?.nombre} · edad mediana</div></div>
+    <div class="kpi"><div class="kpi-l">★ Pueblo joven, futuro patria</div><div class="kpi-v">${masJoven?.censo_2022.edad_mediana} años</div><div class="kpi-s">» ${masJoven?.nombre} · edad mediana</div></div>`;
 
   // Gráficos
   const porCrec = [...lista].filter(m=>m.censo_2022.var_intercensal_pct!=null)
@@ -963,13 +1598,13 @@ function renderDemo() {
     .sort((a,b)=>b.censo_2022.pct_agua_red-a.censo_2022.pct_agua_red)
     .map(m=>({label:m.nombre, val:m.censo_2022.pct_agua_red, zona:m.zona,
       tooltip:m.nombre+': '+m.censo_2022.pct_agua_red+'% de hogares con agua de red'}));
-  svgBar('c-demo-agua', porAgua, _=>'#4ECDC4', v=>v.toFixed(1)+'%');
+  svgBar('c-demo-agua', porAgua, _=>'#0891B2', v=>v.toFixed(1)+'%');
 
   const porCloaca = [...lista].filter(m=>m.censo_2022.pct_cloaca_red!=null)
     .sort((a,b)=>b.censo_2022.pct_cloaca_red-a.censo_2022.pct_cloaca_red)
     .map(m=>({label:m.nombre, val:m.censo_2022.pct_cloaca_red, zona:m.zona,
       tooltip:m.nombre+': '+m.censo_2022.pct_cloaca_red+'% de hogares con red cloacal'}));
-  svgBar('c-demo-cloaca', porCloaca, _=>'#A29BFE', v=>v.toFixed(1)+'%');
+  svgBar('c-demo-cloaca', porCloaca, _=>'#7C3AED', v=>v.toFixed(1)+'%');
 
   // Tabla
   renderDemoTable();
@@ -1011,8 +1646,8 @@ function renderDemoTable() {
   const fmtPct = v => v!=null ? v.toFixed(1)+'%' : '—';
   const pctColor = (v, low, high) => {
     if(v==null) return '';
-    if(v>=high) return 'color:#4ECDC4;background:#162E2D';
-    if(v<=low)  return 'color:#FF6B6B;background:#2E1515';
+    if(v>=high) return 'color:#065F46;background:#D1FAE5';
+    if(v<=low)  return 'color:#991B1B;background:#FEE2E2';
     return '';
   };
 
@@ -1020,7 +1655,7 @@ function renderDemoTable() {
     const c = m.censo_2022;
     const persHogar = c.total_hogares ? (m.poblacion/c.total_hogares).toFixed(2) : '—';
     const crec = c.var_intercensal_pct;
-    const crecStyle = crec!=null?(crec>15?'color:#95E77E;background:#1A2415':crec<5?'color:#FFD93D;background:#2A2210':''):'';
+    const crecStyle = crec!=null?(crec>15?'color:#065F46;background:#D1FAE5':crec<5?'color:#92400E;background:#FEF3C7':''):'';
     return `<tr>
       <td class="mn">${m.nombre}</td>
       <td><span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span></td>
@@ -1140,7 +1775,7 @@ function clearSearch(){
 // ── COMPARADOR ────────────────────────────────────────────
 let compIds = [];
 const MAX_COMP = 3;
-const COMP_COLORS = ['#4ECDC4','#FF6B6B','#FFD93D'];
+const COMP_COLORS = ['#E30613','#6CACE4','#FFD100'];
 
 // toggleComp legacy — ahora se usa toggleCompModal
 function toggleComp(id){ toggleCompModal(id); }
@@ -1151,15 +1786,15 @@ function renderComparador(){
   document.getElementById('comp-view-title').textContent = munis.map(m=>m.nombre).join(' vs ');
 
   const METRICAS = [
-    {l:'Población',       fn:m=>fmtN(m.poblacion)},
-    {l:'Superficie km²',  fn:m=>m.superficie_km2?fmtN(m.superficie_km2):'—'},
-    {l:'Densidad hab/km²',fn:m=>m.superficie_km2?fmtN(Math.round(m.poblacion/m.superficie_km2)):'—'},
-    {l:'PBG total 2023',fn:m=>m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—', best:m=>m.pbg_corriente_2023||0},
-    {l:'PBG per cápita', fn:m=>m.pbg_constante_2004_2023?fmtK(Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)):'—', best:m=>m.pbg_constante_2004_2023?m.pbg_constante_2004_2023/m.poblacion:0},
-    {l:'Presupuesto 2025',fn:m=>m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—', best:m=>m.presupuesto_2025||0},
-    {l:'Presup. pc',      fn:m=>m.presupuesto_2025?fmtK(Math.round(m.presupuesto_2025*1e6/m.poblacion)):'—', best:m=>m.presupuesto_2025?m.presupuesto_2025/m.poblacion:0},
-    {l:'Rec. percibidos', fn:m=>m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'},
-    {l:'TISH alícuota',   fn:m=>m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'},
+    {l:'★ Almas del pueblo', fn:m=>fmtN(m.poblacion)},
+    {l:'Territorio km²',     fn:m=>m.superficie_km2?fmtN(m.superficie_km2):'—'},
+    {l:'Compañeros/km²',     fn:m=>m.superficie_km2?fmtN(Math.round(m.poblacion/m.superficie_km2)):'—'},
+    {l:'☭ Producción \'23',  fn:m=>m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—', best:m=>m.pbg_corriente_2023||0},
+    {l:'Producción por cabeza', fn:m=>m.pbg_constante_2004_2023?fmtK(Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)):'—', best:m=>m.pbg_constante_2004_2023?m.pbg_constante_2004_2023/m.poblacion:0},
+    {l:'⚒ Guita del pueblo', fn:m=>m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—', best:m=>m.presupuesto_2025||0},
+    {l:'Plata por compañero', fn:m=>m.presupuesto_2025?fmtK(Math.round(m.presupuesto_2025*1e6/m.poblacion)):'—', best:m=>m.presupuesto_2025?m.presupuesto_2025/m.poblacion:0},
+    {l:'Recursos al pueblo', fn:m=>m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'},
+    {l:'TISH (a la oligarquía)', fn:m=>m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'},
   ];
 
   // Headers de municipios con color
@@ -1201,12 +1836,12 @@ function renderComparador(){
 
   document.getElementById('comp-content').innerHTML = `
     <div class="comp-card">
-      <div class="comp-card-title">Indicadores fiscales y económicos</div>
-      <div style="font-size:10px;color:var(--ink3);margin-bottom:.75rem;background:var(--bg);padding:.4rem .75rem;border-radius:var(--r);display:inline-block">📌 Todos los valores monetarios están expresados en <strong>millones de pesos</strong></div>
+      <div class="comp-card-title">⚒ Plata y producción de los compañeros</div>
+      <div style="font-family:'Special Elite',monospace;font-size:12px;color:var(--ink);margin-bottom:.75rem;background:var(--oro);padding:.5rem .85rem;display:inline-block;border:2px solid var(--ink)">★ Toda la guita está en <strong>millones de mangos</strong>, compañero</div>
       ${headersHTML}${rowsHTML}
     </div>
-    <div class="comp-card" style="margin-top:1rem">
-      <div class="comp-card-title">Composición del PBG por sector — 2023</div>
+    <div class="comp-card" style="margin-top:1.5rem">
+      <div class="comp-card-title">☭ Qué produce el pueblo por sector — 2023</div>
       ${headersHTML}${sectRowsHTML}
     </div>`;
 }
