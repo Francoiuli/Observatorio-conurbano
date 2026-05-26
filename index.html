@@ -41,7 +41,7 @@ h1 b{color:var(--c4)}
 
 /* NAV */
 .nav{background:#134E4A;border-bottom:3px solid var(--c4);position:sticky;top:0;z-index:300}
-.nav-inner{max-width:1340px;margin:0 auto;padding:0 2.5rem;display:flex;overflow-x:auto;scrollbar-width:none}.nav-inner::-webkit-scrollbar{display:none}
+.nav-inner{max-width:1340px;margin:0 auto;padding:0 2.5rem;display:flex;overflow-x:auto}
 .nav-btn{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.95rem 1.5rem;color:rgba(255,255,255,.4);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .15s;white-space:nowrap}
 .nav-btn:hover{color:rgba(255,255,255,.8)}
 .nav-btn.on{color:#fff;border-bottom-color:var(--c4)}
@@ -233,10 +233,10 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 <nav class="nav">
   <div class="nav-inner">
     <button class="nav-btn on" onclick="setView('dashboard',this)">Dashboard</button>
+    <button class="nav-btn" onclick="setView('glosario',this)">¿Qué significa?</button>
     <button class="nav-btn" onclick="setView('tabla',this)">Tabla comparativa</button>
     <button class="nav-btn" onclick="setView('tish',this)">Tasas TISH</button>
     <button class="nav-btn" id="nav-comp" onclick="setView('comparar',this)" style="display:none">Comparador</button>
-    <button class="nav-btn" onclick="setView('glosario',this)">¿Qué significa?</button>
   </div>
 </nav>
 
@@ -251,8 +251,6 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 <!-- DASHBOARD -->
 <div class="wrap on" id="v-dashboard">
   <div class="kpi-row" id="kpis"></div>
-  <div class="sh"><span class="sh-t">PBG total 2023</span><span class="sh-n">Fuente: DPE-PBA 2023 · en millones de pesos</span></div>
-  <div class="cgrid g1"><div class="cc"><div class="cc-t">PBG total — top 12 partidos (mil millones $)</div><div class="cc-c"><div id="c-pbg" style="width:100%;height:100%"></div></div></div></div>
   <div class="sh"><span class="sh-t">Per cápita comparado</span><span class="sh-n">Por habitante</span></div>
   <div class="cgrid g2">
     <div class="cc v2"><div class="cc-t">PBG per cápita — en pesos 2004</div><div class="cc-c md"><div id="c-pbg-pc" style="width:100%;height:100%"></div></div></div>
@@ -293,7 +291,7 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 
 
 <!-- GLOSARIO -->
-<div class="wrap" id="v-glosario" style="display:none">
+<div class="wrap" id="v-glosario">
   <div style="max-width:780px">
     <div class="sh" style="margin-bottom:1.5rem"><span class="sh-t">¿Qué significa cada dato?</span></div>
 
@@ -395,7 +393,7 @@ const CZONA = {norte:'#0F766E', sur:'#DC2626', oeste:'#7C3AED'};
 const PAL = ['#0F766E','#DC2626','#7C3AED','#F59E0B','#0891B2','#DB2777','#EA580C','#16A34A','#9333EA','#B45309','#0284C7','#BE185D'];
 const GC = 'rgba(28,25,23,.05)', TC = '#A8A29E';
 
-fetch('datos.json').then(r=>r.json()).then(d=>{DATA=d.municipios;init();}).catch(e=>console.error('Error:',e));
+fetch('datos.json').then(r=>r.json()).then(d=>{DATA=d.municipios;init();}).catch(e=>{console.error('Error cargando datos.json — verificá que el archivo esté en el repositorio:',e);DATA=[];init();});
 
 function init(){
   renderHdr(); renderKPIs(); renderCharts(); renderTable(); renderTISH();
@@ -424,57 +422,65 @@ function renderKPIs(){
   document.getElementById('kpis').innerHTML = `
     <div class="kpi"><div class="kpi-l">Población total</div><div class="kpi-v">${(totPob/1e6).toFixed(1)}M</div><div class="kpi-s">hab. · Censo 2022</div></div>
     <div class="kpi c2"><div class="kpi-l">Presupuesto total</div><div class="kpi-v">$${Math.round(totPres).toLocaleString('es-AR')} millones</div><div class="kpi-s">${conPres.length} partidos con dato</div></div>
-    <div class="kpi c3"><div class="kpi-l">PBG total</div><div class="kpi-v">$${Math.round(totPBG).toLocaleString('es-AR')} millones</div><div class="kpi-s">DPE-PBA 2023 · 24 partidos</div></div>
+    <div class="kpi c3"><div class="kpi-l">Con PBG cargado</div><div class="kpi-v">${conPBG.length}/24</div><div class="kpi-sub" style="font-size:10px;color:var(--ink3);margin-top:.25rem">partidos con dato</div></div>
     <div class="kpi c4"><div class="kpi-l">Mayor PBG per cápita</div><div class="kpi-v">${maxBPc?fmtK(maxBPc.v):'—'}</div><div class="kpi-s">${maxBPc?.n||''} · </div></div>
     <div class="kpi c5"><div class="kpi-l">Mayor presup. per cápita</div><div class="kpi-v">${maxPPc?fmtK(maxPPc.v):'—'}</div><div class="kpi-s">${maxPPc?.n||''} · 2025</div></div>`;
 }
 
 // ── GRÁFICOS ─────────────────────────────────────────────
-function svgBar(containerId, items, colorFn, labelFn, valFn) {
+function svgBar(containerId, items, colorFn, labelFn) {
   const el = document.getElementById(containerId);
-  if (!el) return;
-  const W = el.offsetWidth || 680;
-  const H = el.offsetHeight || 240;
-  const PAD = {top:8, right:12, bottom:52, left:16};
-  const cW = W - PAD.left - PAD.right;
-  const cH = H - PAD.top - PAD.bottom;
-  const vals = items.map(i => i.val);
-  const max = Math.max(...vals) * 1.05;
-  const bW = Math.floor(cW / items.length);
-  const bGap = Math.max(2, Math.floor(bW * 0.15));
+  if (!el || !items.length) return;
+  const rect = el.getBoundingClientRect();
+  const W = Math.round(rect.width) || el.parentElement?.getBoundingClientRect().width || 600;
+  const H = 230;
+  el.style.height = H + 'px';
+  const PLEFT = 72, PRIGHT = 12, PTOP = 12, PBOTTOM = 56;
+  const cW = W - PLEFT - PRIGHT;
+  const cH = H - PTOP - PBOTTOM;
+  const max = Math.max(...items.map(i=>i.val)) * 1.08;
+  const bW = cW / items.length;
+  const bGap = Math.max(3, bW * 0.18);
 
-  let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" style="display:block">`;
-  // Lineas guía
-  [0.25,0.5,0.75,1].forEach(f => {
-    const y = PAD.top + cH * (1 - f);
-    svg += `<line x1="${PAD.left}" y1="${y}" x2="${W-PAD.right}" y2="${y}" stroke="#E7E5E4" stroke-width="1"/>`;
-    svg += `<text x="${PAD.left}" y="${y-3}" fill="#A8A29E" font-size="9" font-family="sans-serif">${labelFn(max*f)}</text>`;
+  let s = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" style="display:block;overflow:visible">`;
+
+  // Fondo
+  s += `<rect x="${PLEFT}" y="${PTOP}" width="${cW}" height="${cH}" fill="#FAFAF9" rx="4"/>`;
+
+  // Líneas guía + labels eje Y
+  [0, 0.25, 0.5, 0.75, 1].forEach(f => {
+    const y = PTOP + cH * (1 - f);
+    s += `<line x1="${PLEFT}" y1="${y}" x2="${W-PRIGHT}" y2="${y}" stroke="${f===0?'#D6D3D1':'#E7E5E4'}" stroke-width="${f===0?1.5:1}"/>`;
+    if (f > 0) {
+      const lbl = labelFn(max * f);
+      s += `<text x="${PLEFT-6}" y="${y+3}" text-anchor="end" fill="#A8A29E" font-size="10" font-family="sans-serif">${lbl}</text>`;
+    }
   });
-  // Barras
+
+  // Barras + labels eje X
   items.forEach((item, i) => {
-    const x = PAD.left + i * bW + bGap/2;
-    const bh = cH * (item.val / max);
-    const y = PAD.top + cH - bh;
+    const x = PLEFT + i * bW + bGap / 2;
+    const bw = bW - bGap;
+    const bh = Math.max(2, cH * (item.val / max));
+    const y = PTOP + cH - bh;
     const col = colorFn(item);
-    svg += `<rect x="${x}" y="${y}" width="${bW - bGap}" height="${bh}" fill="${col}" rx="3"/>`;
-    // Label eje X (rotado)
-    const lx = x + (bW - bGap) / 2;
-    const ly = H - PAD.bottom + 12;
-    svg += `<text transform="translate(${lx},${ly}) rotate(-38)" text-anchor="end" fill="#78716C" font-size="9" font-family="sans-serif">${item.label}</text>`;
+    // Sombra suave
+    s += `<rect x="${x+1}" y="${y+2}" width="${bw}" height="${bh}" fill="rgba(0,0,0,0.06)" rx="3"/>`;
+    // Barra
+    s += `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="${col}" rx="3"/>`;
+    // Label eje X rotado
+    const lx = x + bw / 2;
+    const ly = PTOP + cH + 10;
+    s += `<text transform="translate(${lx},${ly}) rotate(-42)" text-anchor="end" fill="#78716C" font-size="9.5" font-family="sans-serif">${item.label}</text>`;
   });
-  svg += '</svg>';
-  el.innerHTML = svg;
+
+  s += '</svg>';
+  el.innerHTML = s;
 }
 
 function renderCharts(){
   let lista = [...DATA];
   if(zona!=='todos') lista = lista.filter(m=>m.zona===zona);
-
-  const pbgL = lista.filter(m=>m.pbg_corriente_2023)
-    .sort((a,b)=>b.pbg_corriente_2023-a.pbg_corriente_2023).slice(0,12)
-    .map(m=>({label:m.nombre, val:m.pbg_corriente_2023, zona:m.zona}));
-  svgBar('c-pbg', pbgL, i=>CZONA[i.zona],
-    v => '$'+Math.round(v/1000).toLocaleString('es-AR')+' mm');
 
   const pcL = lista.filter(m=>m.pbg_constante_2004_2023)
     .map(m=>({label:m.nombre, val:Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion), zona:m.zona}))
@@ -636,7 +642,7 @@ function squarify(items, x, y, w, h) {
 function drawTreemap(containerId, sectores) {
   const container = document.getElementById(containerId);
   if (!container) return;
-  const W = container.offsetWidth || 500;
+  const W = container.getBoundingClientRect().width || container.parentElement?.getBoundingClientRect().width || 500;
   const H = 280;
   container.style.height = H + 'px';
   const items = Object.entries(sectores)
@@ -713,7 +719,7 @@ function openPanel(id){
   renderTable();
   setTimeout(()=>{
     document.getElementById('panel-anchor').scrollIntoView({behavior:'smooth',block:'nearest'});
-    if(tieneSect) setTimeout(()=>drawTreemap('tm-canvas', m.pbg_sectores_2023), 80);
+    if(tieneSect) requestAnimationFrame(()=>requestAnimationFrame(()=>drawTreemap('tm-canvas', m.pbg_sectores_2023)));
   },80);
 }
 
