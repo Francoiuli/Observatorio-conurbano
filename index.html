@@ -93,7 +93,7 @@ h1.hdr-title b{color:var(--c4);font-weight:800}
 .nav-btn.active{color:#fff;border-bottom-color:var(--c4)}
 
 /* ── WRAP ── */
-.wrap{max-width:1340px;margin:0 auto;padding:2rem;flex:1}
+.wrap{max-width:1340px;margin:0 auto;padding:2rem 2.5rem;flex:1}
 
 /* ── SECTION HEAD ── */
 .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;flex-wrap:wrap;gap:.5rem}
@@ -105,7 +105,7 @@ h1.hdr-title b{color:var(--c4);font-weight:800}
 .sh-n{font-size:11px;color:var(--ink3)}
 
 /* ── KPIS ── */
-.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:1rem;margin-bottom:2rem}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
 .kpi{
   background:var(--card);border-radius:var(--r2);
   padding:1.4rem 1.5rem;box-shadow:var(--sh);
@@ -130,8 +130,8 @@ h1.hdr-title b{color:var(--c4);font-weight:800}
 .ccard.accent2::before{background:linear-gradient(90deg,var(--c2),var(--c4))}
 .ccard.accent3::before{background:linear-gradient(90deg,var(--c3),var(--c1l))}
 .ccard-t{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:1rem}
-.ccard-canvas{position:relative;height:240px}
-.ccard-canvas.tall{height:200px}
+.ccard-canvas{position:relative;height:260px}
+.ccard-canvas.tall{height:230px}
 
 /* ── FILTROS ── */
 .fbar{background:var(--card);border-radius:var(--r2);padding:1rem 1.25rem;box-shadow:var(--sh);display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem}
@@ -142,7 +142,7 @@ h1.hdr-title b{color:var(--c4);font-weight:800}
 .sep{width:1px;height:20px;background:var(--borde)}
 
 /* ── TABLA ── */
-.tw{overflow-x:auto;border-radius:var(--r2);box-shadow:var(--sh)}
+.tw{overflow-x:auto;border-radius:var(--r2);box-shadow:var(--sh);width:100%}
 table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;background:var(--card)}
 thead th{
   background:var(--c1d);color:rgba(255,255,255,.8);
@@ -229,6 +229,15 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2rem;fon
   .ccard.g2{grid-column:1}
   .p2{grid-template-columns:1fr}
   .sbn{width:110px}
+}
+
+@media(min-width:1200px){
+  .chart-grid.g2{grid-template-columns:1fr 1fr}
+  .kpi-row{grid-template-columns:repeat(5,1fr)}
+  .ccard-canvas{height:280px}
+}
+@media(min-width:1400px){
+  .ccard-canvas{height:300px}
 }
 </style>
 </head>
@@ -384,6 +393,7 @@ function Dashboard({data}) {
       <div className="sh"><span className="sh-t">PBG corriente 2023</span><span className="sh-n">DPE-PBA · mil millones de pesos</span></div>
       <div className="chart-grid g1" style={{marginBottom:'2rem'}}>
         <ChartBox title="PBG total corriente — top 12 partidos (mm $)" chartId="c-pbg"
+          canvasCls="tall"
           chartConfig={{type:'bar', data:{
             labels:pbgList.map(m=>m.nombre),
             datasets:[{data:pbgList.map(m=>+(m.pbg_corriente_2023/1000).toFixed(2)),
@@ -657,7 +667,16 @@ function App() {
     <div style={{display:'flex',alignItems:'center',justifyContent:'center',height:'100vh',flexDirection:'column',gap:'1rem'}}>
       <div style={{width:48,height:48,border:'4px solid #005EB8',borderTopColor:'transparent',borderRadius:'50%',animation:'spin 1s linear infinite'}}/>
       <p style={{color:'var(--ink3)',fontFamily:'var(--mono)',fontSize:13}}>Cargando datos...</p>
-      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}
+@media(min-width:1200px){
+  .chart-grid.g2{grid-template-columns:1fr 1fr}
+  .kpi-row{grid-template-columns:repeat(5,1fr)}
+  .ccard-canvas{height:280px}
+}
+@media(min-width:1400px){
+  .ccard-canvas{height:300px}
+}
+</style>
     </div>
   );
 
