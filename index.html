@@ -215,6 +215,7 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 .sect-name{font-size:11px;color:var(--ink2);flex:1}
 .sect-pct{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--ink)}
 .sect-chart{position:relative;height:200px;margin-top:.5rem}
+#svg-tooltip{position:fixed;pointer-events:none}
 </style>
 </head>
 <body>
@@ -373,7 +374,8 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
   <div class="tgrid" id="tish-cards"></div>
 </div>
 
-<footer><div class="fi"><span>Observatorio Fiscal del Conurbano · Franco Iuliani · <a href="mailto:franco.d.iuliani@gmail.com" style="color:rgba(255,255,255,.5);text-decoration:none">franco.d.iuliani@gmail.com</a></span><span>DPE-PBA · RAFAM · INDEC Censo 2022 · HCD Municipales</span></div></footer>
+<div id="svg-tooltip" style="position:fixed;background:var(--ink);color:#fff;padding:6px 11px;border-radius:6px;font-size:12px;font-family:'Sora',sans-serif;pointer-events:none;opacity:0;transition:opacity .15s;z-index:9999;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.25)"></div>
+<footer><div class="fi"><span>Observatorio Fiscal del Conurbano · 2025–2026</span><span>DPE-PBA · RAFAM · INDEC Censo 2022 · HCD Municipales</span></div></footer>
 
 <script>
 // ── DATOS Y HELPERS ──────────────────────────────────────
@@ -466,8 +468,11 @@ function svgBar(containerId, items, colorFn, labelFn) {
     const col = colorFn(item);
     // Sombra suave
     s += `<rect x="${x+1}" y="${y+2}" width="${bw}" height="${bh}" fill="rgba(0,0,0,0.06)" rx="3"/>`;
-    // Barra
-    s += `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="${col}" rx="3"/>`;
+    // Barra con tooltip
+    const tip = item.tooltip || item.label;
+    s += `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="${col}" rx="3" style="cursor:pointer" onmouseenter="showTip(event,'${tip}')" onmouseleave="hideTip()"/>`;
+    // Overlay transparente para mejor hitbox
+    s += `<rect x="${x}" y="${PTOP}" width="${bw}" height="${cH}" fill="transparent" onmouseenter="showTip(event,'${tip}')" onmouseleave="hideTip()"/>`;
     // Label eje X rotado
     const lx = x + bw / 2;
     const ly = PTOP + cH + 10;
@@ -483,19 +488,22 @@ function renderCharts(){
   if(zona!=='todos') lista = lista.filter(m=>m.zona===zona);
 
   const pcL = lista.filter(m=>m.pbg_constante_2004_2023)
-    .map(m=>({label:m.nombre, val:Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion), zona:m.zona}))
+    .map(m=>({label:m.nombre, val:Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion), zona:m.zona,
+      tooltip:m.nombre+': $'+Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion).toLocaleString('es-AR')+' por hab.'}))
     .sort((a,b)=>b.val-a.val);
   svgBar('c-pbg-pc', pcL, _=>'#0D9488',
     v => '$'+Math.round(v/1000).toLocaleString('es-AR')+'K');
 
   const ppL = lista.filter(m=>m.presupuesto_2025)
-    .map(m=>({label:m.nombre, val:Math.round(m.presupuesto_2025*1e6/m.poblacion), zona:m.zona}))
+    .map(m=>({label:m.nombre, val:Math.round(m.presupuesto_2025*1e6/m.poblacion), zona:m.zona,
+      tooltip:m.nombre+': $'+Math.round(m.presupuesto_2025*1e6/m.poblacion).toLocaleString('es-AR')+' por hab. ($'+Math.round(m.presupuesto_2025).toLocaleString('es-AR')+' mm total)'}))
     .sort((a,b)=>b.val-a.val);
   svgBar('c-pres-pc', ppL, _=>'#DC2626',
     v => '$'+Math.round(v/1000).toLocaleString('es-AR')+'K');
 
-  const popL = lista.sort((a,b)=>b.poblacion-a.poblacion)
-    .map(m=>({label:m.nombre, val:m.poblacion, zona:m.zona}));
+  const popL = [...lista].sort((a,b)=>b.poblacion-a.poblacion)
+    .map(m=>({label:m.nombre, val:m.poblacion, zona:m.zona,
+      tooltip:m.nombre+': '+m.poblacion.toLocaleString('es-AR')+' habitantes'}));
   svgBar('c-pop', popL, i=>CZONA[i.zona],
     v => Math.round(v/1000)+'k');
 }
@@ -642,25 +650,21 @@ function squarify(items, x, y, w, h) {
 function drawTreemap(containerId, sectores) {
   const container = document.getElementById(containerId);
   if (!container) return;
-  const W = container.getBoundingClientRect().width || container.parentElement?.getBoundingClientRect().width || 500;
-  const H = 280;
-  container.style.height = H + 'px';
   const items = Object.entries(sectores)
     .filter(([,v])=>v.pct>0)
     .map(([k,v])=>({key:k, val:v.pct}))
     .sort((a,b)=>b.val-a.val);
-  const rects = squarify(items, 0, 0, W, H);
-  const GAP = 2;
-  container.innerHTML = rects.map(r => {
-    const col = SECT_COLORS_TM[r.key] || '#555';
-    const label = SECT_LABELS_TM[r.key] || r.key;
-    const pct = r.val ? r.val.toFixed(1)+'%' : '';
-    const w = r.w - GAP*2, h = r.h - GAP*2;
-    const showLabel = w > 55 && h > 28;
-    const showBoth = w > 65 && h > 44;
-    return `<div style="position:absolute;left:${r.x+GAP}px;top:${r.y+GAP}px;width:${w}px;height:${h}px;background:${col};overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:default" title="${label}: ${pct}">
-      ${showLabel ? `<span style="color:rgba(255,255,255,.95);font-size:${Math.min(11,h/3.5)}px;font-weight:700;text-align:center;line-height:1.1;padding:0 4px;white-space:nowrap;overflow:hidden;max-width:100%">${showBoth?label:pct}</span>` : ''}
-      ${showBoth ? `<span style="color:rgba(255,255,255,.75);font-size:${Math.min(10,h/4.5)}px;text-align:center">${pct}</span>` : ''}
+  const total = items.reduce((s,i)=>s+i.val,0);
+  // Flex wrapping: cada item tiene flex-basis proporcional al %
+  container.style.cssText = 'display:flex;flex-wrap:wrap;height:280px;gap:2px;overflow:hidden;border-radius:8px';
+  container.innerHTML = items.map(item => {
+    const col = SECT_COLORS_TM[item.key] || '#888';
+    const label = SECT_LABELS_TM[item.key] || item.key;
+    const pct = item.val.toFixed(1)+'%';
+    const basis = (item.val/total*100).toFixed(2);
+    return `<div style="flex:${basis} 0 ${basis}%;min-width:32px;min-height:28px;background:${col};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;overflow:hidden;cursor:default;transition:filter .15s" title="${label}: ${pct}" onmouseenter="this.style.filter='brightness(1.15)'" onmouseleave="this.style.filter='none'">
+      <span style="color:rgba(255,255,255,.95);font-size:10px;font-weight:700;text-align:center;padding:0 3px;line-height:1.2;overflow:hidden;max-width:100%;white-space:nowrap;text-overflow:ellipsis">${label}</span>
+      <span style="color:rgba(255,255,255,.7);font-size:9px;text-align:center">${pct}</span>
     </div>`;
   }).join('');
 }
@@ -683,10 +687,11 @@ function openPanel(id){
   const kpis=[
     ['Población',fmtN(m.poblacion),'Censo 2022'],
     ['Superficie',m.superficie_km2?fmtN(m.superficie_km2)+' km²':'—',dens?fmtN(dens)+' hab/km²':''],
-    ['PBG total 2023',m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—',pbgpc?'pc: '+fmtK(pbgpc):''],
+    ['PBG 2023',m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—',pbgpc?'pc: '+fmtK(pbgpc):''],
     ['PBG por habitante',m.pbg_constante_2004_2023?fmtMM(m.pbg_constante_2004_2023):'—',pbgpc_cte?'pc: '+fmtK(pbgpc_cte):''],
-    ['Presupuesto 2025',m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—',prespc?'pc: '+fmtK(prespc):''],
-    ['Rec. percibidos',m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—',''],
+    ['Gasto ejecutado 2025',m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—',prespc?'pc: '+fmtK(prespc):''],
+    ['Recursos percibidos',m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—',''],
+    ...(m.saldo_caja_2025!=null?[['Saldo de caja — cierre 2025',fmtMM(m.saldo_caja_2025),'disponibilidades 31/12']]:[]),
   ];
   const tieneSec=m.secretarias?.length>0;
   const secHTML=tieneSec
@@ -719,7 +724,7 @@ function openPanel(id){
   renderTable();
   setTimeout(()=>{
     document.getElementById('panel-anchor').scrollIntoView({behavior:'smooth',block:'nearest'});
-    if(tieneSect) requestAnimationFrame(()=>requestAnimationFrame(()=>drawTreemap('tm-canvas', m.pbg_sectores_2023)));
+    if(tieneSect) drawTreemap('tm-canvas', m.pbg_sectores_2023);
   },80);
 }
 
@@ -913,6 +918,28 @@ function buildSectHTML(m){
     </div>`).join('');
   return bars;
 }
+
+
+// ── TOOLTIPS ──────────────────────────────────────────────
+function showTip(e, text) {
+  const t = document.getElementById('svg-tooltip');
+  if (!t) return;
+  t.textContent = text;
+  t.style.opacity = '1';
+  t.style.left = (e.clientX + 14) + 'px';
+  t.style.top  = (e.clientY - 28) + 'px';
+}
+function hideTip() {
+  const t = document.getElementById('svg-tooltip');
+  if (t) t.style.opacity = '0';
+}
+document.addEventListener('mousemove', e => {
+  const t = document.getElementById('svg-tooltip');
+  if (t && t.style.opacity === '1') {
+    t.style.left = (e.clientX + 14) + 'px';
+    t.style.top  = (e.clientY - 28) + 'px';
+  }
+});
 
 // ── NAV / FILTROS ─────────────────────────────────────────
 function setView(v,btn){
