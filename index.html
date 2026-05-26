@@ -21,7 +21,7 @@
   --r:6px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;line-height:1.5;min-height:100vh}
 
 /* HEADER */
 header{background:var(--ink);color:var(--bg);padding:1.75rem 2.5rem 1.5rem;border-bottom:2px solid #2B5FA3}
@@ -69,12 +69,18 @@ header h1 em{font-style:italic;color:#A8C4E8}
 table{width:100%;border-collapse:collapse;font-size:12px;background:white;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
 thead tr{background:var(--ink)}
 th{padding:9px 11px;text-align:left;color:var(--bg);font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;font-weight:400}
-tbody tr{border-bottom:1px solid var(--line);cursor:pointer;transition:background .1s}
+th.th-sort{cursor:pointer;user-select:none;transition:background .12s}
+th.th-sort:hover{background:#2B4070}
+th.th-sort.on{background:#2B5FA3}
+.sort-arrow{font-size:9px;opacity:.7;margin-left:3px}
+th.th-sort.on .sort-arrow{opacity:1}
+
+tbody tr{border-bottom:1px solid var(--line);cursor:pointer;transition:background .1s;font-size:13px}
 tbody tr:hover{background:#F0EDE5}
 tbody tr:last-child{border:none}
-td{padding:8px 11px;vertical-align:middle}
-td.n{font-family:'DM Mono',monospace;font-size:11px;text-align:right;color:var(--ink)}
-td.na{font-family:'DM Mono',monospace;font-size:11px;text-align:right;color:var(--ink3)}
+td{padding:8px 11px;vertical-align:middle;font-weight:400}
+td.n{font-family:'DM Mono',monospace;font-size:12px;text-align:right;color:var(--ink);font-weight:500}
+td.na{font-family:'DM Mono',monospace;font-size:12px;text-align:right;color:var(--ink3)}
 .zb{display:inline-block;font-size:9px;padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace}
 .zn{background:var(--norte-bg);color:var(--norte)}
 .zs{background:var(--sur-bg);color:var(--sur)}
@@ -141,12 +147,7 @@ footer{background:var(--ink);color:#5A6A7A;padding:1.25rem 2.5rem;font-family:'D
     <button class="pill" onclick="fZona('norte',this)">Norte</button>
     <button class="pill" onclick="fZona('sur',this)">Sur</button>
     <button class="pill" onclick="fZona('oeste',this)">Oeste</button>
-    <div class="sep"></div>
-    <span class="tlabel">Ordenar</span>
-    <button class="pill on" onclick="fSort('nombre',this)">Nombre</button>
-    <button class="pill" onclick="fSort('poblacion',this)">Población</button>
-    <button class="pill" onclick="fSort('pbg_pc',this)">PBG per cápita</button>
-    <button class="pill" onclick="fSort('pres_pc',this)">Presup. per cápita</button>
+
   </div>
 
   <div class="kpis" id="kpis"></div>
@@ -184,10 +185,20 @@ footer{background:var(--ink);color:#5A6A7A;padding:1.25rem 2.5rem;font-family:'D
     <table>
       <thead>
         <tr>
-          <th>Municipio</th><th>Zona</th><th>Población</th><th>Sup. km²</th>
-          <th>Densidad</th><th>PBG corriente 2023</th><th>PBG pc cte.2004</th>
-          <th>Sector líder</th><th>Presupuesto 2025</th><th>Presup. pc</th>
-          <th>Rec. percibidos</th><th>Rec. pc</th><th>TISH base</th><th>Dato</th>
+          <th class="th-sort on" onclick="sortBy('nombre',this)">Municipio <span class="sort-arrow">▲</span></th>
+          <th>Zona</th>
+          <th class="th-sort" onclick="sortBy('poblacion',this)">Población <span class="sort-arrow">↕</span></th>
+          <th>Sup. km²</th>
+          <th class="th-sort" onclick="sortBy('densidad',this)">Densidad <span class="sort-arrow">↕</span></th>
+          <th class="th-sort" onclick="sortBy('pbg_corr',this)">PBG corriente 2023 <span class="sort-arrow">↕</span></th>
+          <th class="th-sort" onclick="sortBy('pbg_pc_cte',this)">PBG pc cte.2004 <span class="sort-arrow">↕</span></th>
+          <th>Sector líder</th>
+          <th class="th-sort" onclick="sortBy('presupuesto',this)">Presupuesto 2025 <span class="sort-arrow">↕</span></th>
+          <th class="th-sort" onclick="sortBy('pres_pc',this)">Presup. pc <span class="sort-arrow">↕</span></th>
+          <th>Rec. percibidos</th>
+          <th>Rec. pc</th>
+          <th class="th-sort" onclick="sortBy('tish',this)">TISH base <span class="sort-arrow">↕</span></th>
+          <th>Dato</th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
@@ -292,15 +303,25 @@ function renderTable(){
   lista.sort((a,b)=>{
     if(sort==='nombre')return a.nombre.localeCompare(b.nombre,'es');
     if(sort==='poblacion')return b.poblacion-a.poblacion;
-    if(sort==='pbg_pc'){
-      const pa=a.pbg_corriente_2023?Math.round(a.pbg_corriente_2023*1e6/a.poblacion):0;
-      const pb=b.pbg_corriente_2023?Math.round(b.pbg_corriente_2023*1e6/b.poblacion):0;
+    if(sort==='densidad'){
+      const da=a.superficie_km2?a.poblacion/a.superficie_km2:0;
+      const db=b.superficie_km2?b.poblacion/b.superficie_km2:0;
+      return db-da;
+    }
+    if(sort==='pbg_corr') return (b.pbg_corriente_2023||0)-(a.pbg_corriente_2023||0);
+    if(sort==='pbg_pc'||sort==='pbg_pc_cte'){
+      const pa=a.pbg_constante_2004_2023?Math.round(a.pbg_constante_2004_2023*1e6/a.poblacion):0;
+      const pb=b.pbg_constante_2004_2023?Math.round(b.pbg_constante_2004_2023*1e6/b.poblacion):0;
       return pb-pa;
     }
+    if(sort==='presupuesto') return (b.presupuesto_2025||0)-(a.presupuesto_2025||0);
     if(sort==='pres_pc'){
       const pa=a.presupuesto_2025?Math.round(a.presupuesto_2025*1e6/a.poblacion):0;
       const pb=b.presupuesto_2025?Math.round(b.presupuesto_2025*1e6/b.poblacion):0;
       return pb-pa;
+    }
+    if(sort==='tish'){
+      return (b.tish.alicuota_base_milesimos||0)-(a.tish.alicuota_base_milesimos||0);
     }
     return 0;
   });
@@ -397,12 +418,17 @@ function fZona(z,btn){
   btn.classList.add('on');
   renderCharts();renderTable();
 }
-function fSort(s,btn){
+function sortBy(s,btn){
   sort=s;
-  document.querySelectorAll('.pill').forEach(p=>{if(['Nombre','Población','PBG per cápita','Presup. per cápita'].includes(p.textContent))p.classList.remove('on');});
+  document.querySelectorAll('th.th-sort').forEach(th=>{
+    th.classList.remove('on');
+    th.querySelector('.sort-arrow').textContent='↕';
+  });
   btn.classList.add('on');
+  btn.querySelector('.sort-arrow').textContent='▼';
   renderTable();
 }
+function fSort(s,btn){sortBy(s,btn);}
 </script>
 </body>
 </html>
