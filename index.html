@@ -6,7 +6,6 @@
 <title>Observatorio Fiscal del Conurbano</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 :root{
   --c1:#0F766E; --c1d:#134E4A; --c1l:#2DD4BF;
@@ -253,14 +252,14 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 <div class="wrap on" id="v-dashboard">
   <div class="kpi-row" id="kpis"></div>
   <div class="sh"><span class="sh-t">PBG total 2023</span><span class="sh-n">Fuente: DPE-PBA 2023 · en millones de pesos</span></div>
-  <div class="cgrid g1"><div class="cc"><div class="cc-t">PBG total — top 12 partidos (mil millones $)</div><div class="cc-c"><canvas id="c-pbg"></canvas></div></div></div>
+  <div class="cgrid g1"><div class="cc"><div class="cc-t">PBG total — top 12 partidos (mil millones $)</div><div class="cc-c"><div id="c-pbg" style="width:100%;height:100%"></div></div></div></div>
   <div class="sh"><span class="sh-t">Per cápita comparado</span><span class="sh-n">Por habitante</span></div>
   <div class="cgrid g2">
-    <div class="cc v2"><div class="cc-t">PBG per cápita — en pesos 2004</div><div class="cc-c md"><canvas id="c-pbg-pc"></canvas></div></div>
-    <div class="cc v3"><div class="cc-t">Presupuesto per cápita 2025</div><div class="cc-c md"><canvas id="c-pres-pc"></canvas></div></div>
+    <div class="cc v2"><div class="cc-t">PBG per cápita — en pesos 2004</div><div class="cc-c md"><div id="c-pbg-pc" style="width:100%;height:100%"></div></div></div>
+    <div class="cc v3"><div class="cc-t">Presupuesto per cápita 2025</div><div class="cc-c md"><div id="c-pres-pc" style="width:100%;height:100%"></div></div></div>
   </div>
   <div class="sh"><span class="sh-t">Demografía</span><span class="sh-n">INDEC Censo 2022</span></div>
-  <div class="cgrid g1"><div class="cc"><div class="cc-t">Población — 24 partidos del Conurbano bonaerense</div><div class="cc-c md"><canvas id="c-pop"></canvas></div></div></div>
+  <div class="cgrid g1"><div class="cc"><div class="cc-t">Población — 24 partidos del Conurbano bonaerense</div><div class="cc-c md"><div id="c-pop" style="width:100%;height:100%"></div></div></div></div>
 </div>
 
 <!-- TABLA -->
@@ -381,7 +380,7 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 <script>
 // ── DATOS Y HELPERS ──────────────────────────────────────
 let DATA = [], zona = 'todos', sort = 'nombre', panelId = null;
-let charts = {};
+let charts = {};  // legacy, ahora SVG puro
 
 const fmtN = n => n != null ? Number(n).toLocaleString('es-AR') : '—';
 const fmtMM = n => {
@@ -431,28 +430,68 @@ function renderKPIs(){
 }
 
 // ── GRÁFICOS ─────────────────────────────────────────────
-function renderCharts(){
-  const opts = cb => ({
-    responsive:true, maintainAspectRatio:false,
-    plugins:{legend:{display:false}},
-    scales:{
-      x:{grid:{color:GC},ticks:{color:TC,font:{size:9.5},maxRotation:38}},
-      y:{grid:{color:GC},ticks:{color:TC,font:{size:9.5},callback:cb}}
-    }
+function svgBar(containerId, items, colorFn, labelFn, valFn) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const W = el.offsetWidth || 680;
+  const H = el.offsetHeight || 240;
+  const PAD = {top:8, right:12, bottom:52, left:16};
+  const cW = W - PAD.left - PAD.right;
+  const cH = H - PAD.top - PAD.bottom;
+  const vals = items.map(i => i.val);
+  const max = Math.max(...vals) * 1.05;
+  const bW = Math.floor(cW / items.length);
+  const bGap = Math.max(2, Math.floor(bW * 0.15));
+
+  let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" style="display:block">`;
+  // Lineas guía
+  [0.25,0.5,0.75,1].forEach(f => {
+    const y = PAD.top + cH * (1 - f);
+    svg += `<line x1="${PAD.left}" y1="${y}" x2="${W-PAD.right}" y2="${y}" stroke="#E7E5E4" stroke-width="1"/>`;
+    svg += `<text x="${PAD.left}" y="${y-3}" fill="#A8A29E" font-size="9" font-family="sans-serif">${labelFn(max*f)}</text>`;
   });
-  const mk = (id,cfg) => { if(charts[id])charts[id].destroy(); charts[id]=new Chart(document.getElementById(id),cfg); };
+  // Barras
+  items.forEach((item, i) => {
+    const x = PAD.left + i * bW + bGap/2;
+    const bh = cH * (item.val / max);
+    const y = PAD.top + cH - bh;
+    const col = colorFn(item);
+    svg += `<rect x="${x}" y="${y}" width="${bW - bGap}" height="${bh}" fill="${col}" rx="3"/>`;
+    // Label eje X (rotado)
+    const lx = x + (bW - bGap) / 2;
+    const ly = H - PAD.bottom + 12;
+    svg += `<text transform="translate(${lx},${ly}) rotate(-38)" text-anchor="end" fill="#78716C" font-size="9" font-family="sans-serif">${item.label}</text>`;
+  });
+  svg += '</svg>';
+  el.innerHTML = svg;
+}
 
-  const pbgL = [...DATA].filter(m=>m.pbg_corriente_2023).sort((a,b)=>b.pbg_corriente_2023-a.pbg_corriente_2023).slice(0,12);
-  mk('c-pbg',{type:'bar',data:{labels:pbgL.map(m=>m.nombre),datasets:[{data:pbgL.map(m=>+(m.pbg_corriente_2023/1000).toFixed(2)),backgroundColor:pbgL.map(m=>CZONA[m.zona]),borderRadius:5}]},options:{...opts(v=>'$'+v.toLocaleString('es-AR')+' mm')}});
+function renderCharts(){
+  let lista = [...DATA];
+  if(zona!=='todos') lista = lista.filter(m=>m.zona===zona);
 
-  const pcL = [...DATA].filter(m=>m.pbg_constante_2004_2023).map(m=>({...m,pc:Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)})).sort((a,b)=>b.pc-a.pc);
-  mk('c-pbg-pc',{type:'bar',data:{labels:pcL.map(m=>m.nombre),datasets:[{data:pcL.map(m=>m.pc),backgroundColor:'#00875A',borderRadius:5}]},options:{...opts(v=>'$'+Math.round(v/1000)+'K')}});
+  const pbgL = lista.filter(m=>m.pbg_corriente_2023)
+    .sort((a,b)=>b.pbg_corriente_2023-a.pbg_corriente_2023).slice(0,12)
+    .map(m=>({label:m.nombre, val:m.pbg_corriente_2023, zona:m.zona}));
+  svgBar('c-pbg', pbgL, i=>CZONA[i.zona],
+    v => '$'+Math.round(v/1000).toLocaleString('es-AR')+' mm');
 
-  const ppL = [...DATA].filter(m=>m.presupuesto_2025).map(m=>({...m,pc:Math.round(m.presupuesto_2025*1e6/m.poblacion)})).sort((a,b)=>b.pc-a.pc);
-  mk('c-pres-pc',{type:'bar',data:{labels:ppL.map(m=>m.nombre),datasets:[{data:ppL.map(m=>m.pc),backgroundColor:'#E05C1A',borderRadius:5}]},options:{...opts(v=>'$'+Math.round(v/1000)+'K')}});
+  const pcL = lista.filter(m=>m.pbg_constante_2004_2023)
+    .map(m=>({label:m.nombre, val:Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion), zona:m.zona}))
+    .sort((a,b)=>b.val-a.val);
+  svgBar('c-pbg-pc', pcL, _=>'#0D9488',
+    v => '$'+Math.round(v/1000).toLocaleString('es-AR')+'K');
 
-  const popL = [...DATA].sort((a,b)=>b.poblacion-a.poblacion);
-  mk('c-pop',{type:'bar',data:{labels:popL.map(m=>m.nombre),datasets:[{data:popL.map(m=>m.poblacion),backgroundColor:popL.map(m=>CZONA[m.zona]),borderRadius:4}]},options:{...opts(v=>Math.round(v/1000)+'k')}});
+  const ppL = lista.filter(m=>m.presupuesto_2025)
+    .map(m=>({label:m.nombre, val:Math.round(m.presupuesto_2025*1e6/m.poblacion), zona:m.zona}))
+    .sort((a,b)=>b.val-a.val);
+  svgBar('c-pres-pc', ppL, _=>'#DC2626',
+    v => '$'+Math.round(v/1000).toLocaleString('es-AR')+'K');
+
+  const popL = lista.sort((a,b)=>b.poblacion-a.poblacion)
+    .map(m=>({label:m.nombre, val:m.poblacion, zona:m.zona}));
+  svgBar('c-pop', popL, i=>CZONA[i.zona],
+    v => Math.round(v/1000)+'k');
 }
 
 // ── TABLA ─────────────────────────────────────────────────
@@ -645,7 +684,7 @@ function openPanel(id){
   ];
   const tieneSec=m.secretarias?.length>0;
   const secHTML=tieneSec
-    ?m.secretarias.map((s,i)=>`<div class="sbar"><span class="sbn">${s.nombre}</span><div class="sbt"><div class="sbf" style="width:${s.pct/m.secretarias[0].pct*100}%;background:${PAL[i%PAL.length]}22"><span class="sbp" style="color:${PAL[i%PAL.length]}">${s.pct}%</span></div></div>${s.monto_m?`<span class="sbm">${s.monto_m>=1000?s.monto_m>=1000?'$'+Math.round(s.monto_m/1000).toLocaleString('es-AR')+' mil mill.':'$'+Math.round(s.monto_m).toLocaleString('es-AR')+' millones'}</span>`:''}</div>`).join('')
+    ?m.secretarias.map((s,i)=>`<div class="sbar"><span class="sbn">${s.nombre}</span><div class="sbt"><div class="sbf" style="width:${s.pct/m.secretarias[0].pct*100}%;background:${PAL[i%PAL.length]}22"><span class="sbp" style="color:${PAL[i%PAL.length]}">${s.pct}%</span></div></div>${s.monto_m?`<span class="sbm">${s.monto_m>=1000?'$'+Math.round(s.monto_m/1000).toLocaleString('es-AR')+' mil mill.':'$'+Math.round(s.monto_m).toLocaleString('es-AR')+' mill.'}</span>`:''}</div>`).join('')
     :`<div class="pend">Adjuntá la rendición para ver el desglose.</div>`;
 
   const tieneSect = m.pbg_sectores_2023 && Object.keys(m.pbg_sectores_2023).length>0;
