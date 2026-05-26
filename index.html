@@ -5,698 +5,690 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Observatorio Fiscal del Conurbano</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
 <style>
-/* ═══════════════════════════════════════════════════════
-   CONURBANO DATA — Tema personalizado
-   Azul PBA #005EB8 · Azul Noche #002147 · Celeste #0099CC
-   Naranja #E05C1A · Verde #00875A · Amarillo #F5A623
-   Sora + JetBrains Mono
-═══════════════════════════════════════════════════════ */
-:root{
-  --c1:#005EB8; --c1d:#002147; --c1l:#0099CC;
-  --c2:#E05C1A; --c3:#00875A; --c4:#F5A623;
-  --bg:#F4F6FA; --card:#FFFFFF;
-  --ink:#0D1B2E; --ink2:#4A5878; --ink3:#8A9CC0;
-  --borde:#DDE4F0;
-  --norte:#005EB8; --sur:#E05C1A; --oeste:#00875A;
-  --sh: 0 2px 16px rgba(0,94,184,.10);
-  --sh2: 0 8px 40px rgba(0,94,184,.18);
-  --r:10px; --r2:16px;
-  --font:'Sora',sans-serif;
-  --mono:'JetBrains Mono',monospace;
+:root {
+  --azul:    #0057B8;
+  --azul2:   #003E85;
+  --azul3:   #001F4D;
+  --celeste: #0090D4;
+  --verde:   #00A86B;
+  --naranja: #E8601C;
+  --amarillo:#F5A623;
+  --rojo:    #D0021B;
+  --bg:      #F0F4FA;
+  --bg2:     #E4EBF5;
+  --blanco:  #FFFFFF;
+  --ink:     #0A1628;
+  --ink2:    #2C3E5F;
+  --ink3:    #6B7FA3;
+  --borde:   #C8D5E8;
+  --norte:   #0057B8;
+  --sur:     #E8601C;
+  --oeste:   #00A86B;
+  --r: 10px;
+  --r2: 16px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.55;min-height:100vh}
-#root{display:flex;flex-direction:column;min-height:100vh}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Sora',sans-serif;font-size:14px;line-height:1.5}
 
-/* ── Scrollbar ── */
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--borde);border-radius:3px}
+/* ══ HEADER ══════════════════════════════════════════════ */
+header {
+  background: linear-gradient(135deg, var(--azul3) 0%, var(--azul) 60%, var(--celeste) 100%);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content:'';
+  position:absolute;inset:0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hdr-inner {
+  max-width:1320px;margin:0 auto;
+  padding:2.5rem 2rem 2rem;
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:2rem;position:relative;z-index:1;
+}
+.hdr-eyebrow {
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:500;letter-spacing:.15em;
+  color:rgba(255,255,255,.55);text-transform:uppercase;
+  margin-bottom:.6rem;display:flex;align-items:center;gap:8px;
+}
+.hdr-eyebrow::before{
+  content:'';width:24px;height:2px;background:var(--amarillo);border-radius:2px;
+}
+header h1 {
+  font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:800;color:#fff;line-height:1.1;
+  letter-spacing:-.03em;
+}
+header h1 span{color:var(--amarillo)}
+.hdr-sub{
+  font-size:13px;color:rgba(255,255,255,.6);margin-top:.6rem;
+  font-weight:300;letter-spacing:.01em;
+}
+.hdr-stats{
+  display:flex;flex-direction:column;gap:8px;align-items:flex-end;
+}
+.hdr-stat{
+  background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:var(--r);padding:.6rem 1.1rem;text-align:right;
+}
+.hdr-stat-val{font-size:1.3rem;font-weight:700;color:#fff;font-family:'JetBrains Mono',monospace}
+.hdr-stat-lbl{font-size:10px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em;margin-top:1px}
 
-/* ── HEADER ── */
-.hdr{
-  background:linear-gradient(135deg,var(--c1d) 0%,var(--c1) 55%,var(--c1l) 100%);
-  padding:0;position:relative;overflow:hidden;
+/* ══ NAV TABS ════════════════════════════════════════════ */
+.nav-bar{
+  background:var(--azul3);
+  border-bottom:3px solid var(--amarillo);
+  position:sticky;top:0;z-index:200;
 }
-.hdr::before{
-  content:'';position:absolute;inset:0;opacity:.07;
-  background-image:radial-gradient(circle at 20% 50%,#fff 1px,transparent 1px),
-    radial-gradient(circle at 80% 20%,#fff 1px,transparent 1px);
-  background-size:40px 40px;
+.nav-inner{
+  max-width:1320px;margin:0 auto;
+  padding:0 2rem;
+  display:flex;gap:0;overflow-x:auto;
 }
-.hdr-inner{
-  max-width:1340px;margin:0 auto;padding:2.5rem 2rem 2rem;
-  display:grid;grid-template-columns:1fr auto;gap:2rem;
-  align-items:center;position:relative;z-index:1;
-}
-.hdr-pill{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
-  border-radius:99px;padding:4px 12px;
-  font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(255,255,255,.7);margin-bottom:.75rem;
-}
-.hdr-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--c4)}
-h1.hdr-title{
-  font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;
-  color:#fff;line-height:1.1;letter-spacing:-.035em;
-}
-h1.hdr-title b{color:var(--c4);font-weight:800}
-.hdr-desc{font-size:13px;color:rgba(255,255,255,.55);margin-top:.5rem;font-weight:300}
-.hdr-chips{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
-.hdr-chip{
-  background:rgba(255,255,255,.1);backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,.15);border-radius:var(--r);
-  padding:.65rem 1.2rem;text-align:right;min-width:130px;
-}
-.hdr-chip-v{font-family:var(--mono);font-size:1.35rem;font-weight:700;color:#fff;line-height:1}
-.hdr-chip-l{font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
-
-/* ── NAV ── */
-.nav{background:var(--c1d);border-bottom:3px solid var(--c4);position:sticky;top:0;z-index:300}
-.nav-inner{max-width:1340px;margin:0 auto;padding:0 2rem;display:flex;gap:0;overflow-x:auto}
-.nav-btn{
-  font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:.08em;
-  text-transform:uppercase;padding:.95rem 1.5rem;
-  color:rgba(255,255,255,.45);border:none;background:none;cursor:pointer;
+.nav-tab{
+  font-family:'Sora',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:.9rem 1.4rem;color:rgba(255,255,255,.5);
+  border:none;background:none;cursor:pointer;
   border-bottom:3px solid transparent;margin-bottom:-3px;
-  transition:all .15s;white-space:nowrap;
+  transition:all .18s;white-space:nowrap;
 }
-.nav-btn:hover{color:rgba(255,255,255,.8)}
-.nav-btn.active{color:#fff;border-bottom-color:var(--c4)}
+.nav-tab:hover{color:rgba(255,255,255,.85)}
+.nav-tab.on{color:#fff;border-bottom-color:var(--amarillo)}
 
-/* ── WRAP ── */
-.wrap{max-width:1340px;margin:0 auto;padding:2rem 2.5rem;flex:1}
+/* ══ WRAPPER ══════════════════════════════════════════════ */
+.wrap{max-width:1320px;margin:0 auto;padding:2rem}
 
-/* ── SECTION HEAD ── */
-.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;flex-wrap:wrap;gap:.5rem}
-.sh-t{
-  font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--c1);display:flex;align-items:center;gap:8px;
+/* ══ VISTA: DASHBOARD ════════════════════════════════════ */
+/* KPIs grandes */
+.kpi-strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1rem;margin-bottom:2rem;
 }
-.sh-t::before{content:'';width:3px;height:14px;background:var(--c4);border-radius:2px}
-.sh-n{font-size:11px;color:var(--ink3)}
-
-/* ── KPIS ── */
-.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
 .kpi{
-  background:var(--card);border-radius:var(--r2);
-  padding:1.4rem 1.5rem;box-shadow:var(--sh);
-  border-left:4px solid var(--c1);
-  transition:transform .15s,box-shadow .15s;cursor:default;
+  background:var(--blanco);border-radius:var(--r2);
+  padding:1.4rem 1.5rem;
+  border-left:4px solid var(--azul);
+  box-shadow:0 2px 12px rgba(0,87,184,.08);
+  transition:transform .15s,box-shadow .15s;
 }
-.kpi:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
-.kpi.c2{border-color:var(--c2)} .kpi.c3{border-color:var(--c3)}
-.kpi.c4{border-color:var(--c4)} .kpi.c5{border-color:var(--c1l)}
-.kpi-l{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:.5rem}
-.kpi-v{font-family:var(--mono);font-size:1.85rem;font-weight:700;color:var(--ink);line-height:1}
-.kpi-s{font-size:10px;color:var(--ink3);margin-top:.3rem}
+.kpi:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,87,184,.14)}
+.kpi:nth-child(2){border-color:var(--verde)}
+.kpi:nth-child(3){border-color:var(--naranja)}
+.kpi:nth-child(4){border-color:var(--celeste)}
+.kpi:nth-child(5){border-color:var(--amarillo)}
+.kpi-lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:.5rem}
+.kpi-val{font-family:'JetBrains Mono',monospace;font-size:1.9rem;font-weight:700;color:var(--ink);line-height:1}
+.kpi-sub{font-size:11px;color:var(--ink3);margin-top:.35rem}
 
-/* ── CARDS CHART ── */
-.chart-grid{display:grid;gap:1.25rem;margin-bottom:2rem}
-.chart-grid.g2{grid-template-columns:1fr 1fr}
-.chart-grid.g3{grid-template-columns:1fr 1fr 1fr}
-.chart-grid.g1{grid-template-columns:1fr}
-.ccard{background:var(--card);border-radius:var(--r2);padding:1.5rem;box-shadow:var(--sh);position:relative;overflow:hidden}
-.ccard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c1),var(--c1l))}
-.ccard-canvas{position:relative;height:270px}
-.ccard-canvas.tall{height:235px}
+/* Sección de título */
+.sec-head{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;
+}
+.sec-title{
+  font-size:13px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--azul);
+  display:flex;align-items:center;gap:8px;
+}
+.sec-title::before{
+  content:'';width:3px;height:16px;background:var(--azul);
+  border-radius:2px;
+}
+.sec-note{font-size:11px;color:var(--ink3)}
 
-.ccard.g2{grid-column:span 2}
-.ccard.accent2::before{background:linear-gradient(90deg,var(--c2),var(--c4))}
-.ccard.accent3::before{background:linear-gradient(90deg,var(--c3),var(--c1l))}
-.ccard-t{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:1rem}
+/* Grid de gráficos */
+.chart-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.25rem;margin-bottom:2rem;
+}
+.chart-grid.three{grid-template-columns:1fr 1fr 1fr}
+.chart-grid.full{grid-template-columns:1fr}
+.cc{
+  background:var(--blanco);border-radius:var(--r2);
+  padding:1.4rem 1.5rem;
+  box-shadow:0 2px 12px rgba(0,87,184,.07);
+  position:relative;overflow:hidden;
+}
+.cc::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--azul),var(--celeste));
+}
+.cc.verde::after{background:linear-gradient(90deg,var(--verde),#00D4A0)}
+.cc.naranja::after{background:linear-gradient(90deg,var(--naranja),var(--amarillo))}
+.cc.span2{grid-column:span 2}
+.cc-title{
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:1rem;
+}
+.cc-canvas{height:230px;position:relative}
 
-
-
-/* ── FILTROS ── */
-.fbar{background:var(--card);border-radius:var(--r2);padding:1rem 1.25rem;box-shadow:var(--sh);display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem}
-.fl{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
-.pill{font-size:11px;font-weight:600;padding:5px 15px;border-radius:99px;border:1.5px solid var(--borde);background:transparent;color:var(--ink2);cursor:pointer;transition:all .14s;font-family:var(--font)}
-.pill:hover{border-color:var(--c1);color:var(--c1)}
-.pill.on{background:var(--c1);color:#fff;border-color:var(--c1)}
+/* ══ VISTA: TABLA ════════════════════════════════════════ */
+/* Filtros */
+.filter-bar{
+  background:var(--blanco);border-radius:var(--r2);
+  padding:1rem 1.25rem;
+  box-shadow:0 2px 12px rgba(0,87,184,.07);
+  display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;
+  margin-bottom:1.25rem;
+}
+.fl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.pill{
+  font-size:11px;font-weight:600;padding:5px 14px;
+  border-radius:99px;border:1.5px solid var(--borde);
+  background:transparent;color:var(--ink2);cursor:pointer;
+  transition:all .14s;font-family:'Sora',sans-serif;letter-spacing:.03em;
+}
+.pill:hover{border-color:var(--azul);color:var(--azul)}
+.pill.on{background:var(--azul);color:#fff;border-color:var(--azul)}
 .sep{width:1px;height:20px;background:var(--borde)}
 
-/* ── TABLA ── */
-.tw{overflow-x:auto;border-radius:var(--r2);box-shadow:var(--sh);width:100%}
-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;background:var(--card)}
+/* Tabla nueva */
+.table-wrap{overflow-x:auto;border-radius:var(--r2);box-shadow:0 2px 12px rgba(0,87,184,.07)}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;background:var(--blanco)}
 thead th{
-  background:var(--c1d);color:rgba(255,255,255,.8);
-  padding:10px 13px;text-align:left;
-  font-family:var(--mono);font-size:9.5px;font-weight:600;
-  letter-spacing:.07em;white-space:nowrap;
+  background:var(--azul3);color:rgba(255,255,255,.85);
+  padding:11px 14px;text-align:left;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  font-weight:500;letter-spacing:.07em;white-space:nowrap;
 }
 thead th:first-child{border-radius:var(--r2) 0 0 0}
 thead th:last-child{border-radius:0 var(--r2) 0 0}
-thead th.ts{cursor:pointer;user-select:none;transition:background .12s}
-thead th.ts:hover{background:#1a3060}
-thead th.ts.on{background:var(--c1)}
-.sa{margin-left:3px;opacity:.55}
-.ts.on .sa{opacity:1}
-tbody tr{border-bottom:1px solid var(--bg);transition:background .1s;cursor:pointer}
-tbody tr:hover{background:#EDF3FF}
-tbody tr:nth-child(even){background:#F8FAFF}
-tbody tr:nth-child(even):hover{background:#EDF3FF}
-td{padding:9px 13px;vertical-align:middle}
-td.mn{font-weight:700;font-size:13px;color:var(--c1d)}
-td.n{font-family:var(--mono);font-size:11.5px;text-align:right;font-weight:500;color:var(--ink)}
-td.na{font-family:var(--mono);font-size:11.5px;text-align:right;color:var(--borde)}
-.zch{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.05em}
-.zn{background:#DBEAFE;color:var(--norte)}
-.zs{background:#FEE8DC;color:var(--sur)}
-.zo{background:#DCFCE7;color:var(--oeste)}
-.dch{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.06em;font-family:var(--mono)}
-.dr{background:#D1FAE5;color:#065F46}
-.da{background:#DBEAFE;color:#1E3A8A}
-.dp{background:var(--bg);color:var(--ink3)}
+thead th.th-sort{cursor:pointer;user-select:none}
+thead th.th-sort:hover{background:#1a3060;color:#fff}
+thead th.th-sort.on{background:var(--azul);color:#fff}
+.sort-arrow{margin-left:4px;opacity:.6}
+th.th-sort.on .sort-arrow{opacity:1}
+tbody tr{border-bottom:1px solid var(--bg2);transition:background .1s}
+tbody tr:last-child td{border:none}
+tbody tr:hover{background:#EEF4FF}
+tbody tr:nth-child(even){background:#F7FAFF}
+tbody tr:nth-child(even):hover{background:#EEF4FF}
+td{padding:10px 14px;vertical-align:middle}
+td.num{font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right;font-weight:500;color:var(--ink)}
+td.na{font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right;color:var(--borde)}
+td.muni-name{font-weight:700;font-size:13px;color:var(--azul3)}
+.zona-chip{
+  display:inline-block;font-size:10px;font-weight:700;
+  padding:2px 8px;border-radius:4px;letter-spacing:.05em;
+}
+.zn{background:#DBEAFE;color:var(--azul)}
+.zs{background:#FEE8DC;color:var(--naranja)}
+.zo{background:#D1FAE5;color:var(--verde)}
+.dato-chip{
+  display:inline-block;font-size:9px;font-weight:700;
+  padding:2px 7px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase;
+  font-family:'JetBrains Mono',monospace;
+}
+.dc-real{background:#D1FAE5;color:#065F46}
+.dc-ok{background:#DBEAFE;color:#1E40AF}
+.dc-pend{background:var(--bg2);color:var(--ink3)}
 
-/* ── PANEL ── */
-.panel{display:none;border-radius:var(--r2);background:var(--card);box-shadow:var(--sh2);margin-bottom:1.5rem;overflow:hidden;border-top:4px solid var(--c1)}
-.panel.open{display:block;animation:pIn .2s ease}
-@keyframes pIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.ph{background:linear-gradient(130deg,var(--c1d) 0%,var(--c1) 100%);padding:1.5rem 2rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
-.ph-title{font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-.02em}
-.ph-sub{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.3rem;align-items:center}
-.p-close{background:rgba(255,255,255,.15);border:none;border-radius:var(--r);color:#fff;font-size:10px;font-weight:700;letter-spacing:.07em;padding:6px 14px;cursor:pointer;font-family:var(--mono);white-space:nowrap;margin-top:4px;transition:background .12s}
-.p-close:hover{background:rgba(255,255,255,.28)}
-.pb{padding:1.75rem 2rem}
-.pk-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:.75rem;margin-bottom:1.5rem}
+/* ══ PANEL DETALLE ════════════════════════════════════════ */
+.panel{
+  display:none;border-radius:var(--r2);
+  background:var(--blanco);
+  box-shadow:0 8px 40px rgba(0,87,184,.16);
+  margin-bottom:1.5rem;overflow:hidden;
+  border-top:4px solid var(--azul);
+  animation:panelIn .2s ease;
+}
+@keyframes panelIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.panel.open{display:block}
+.panel-hdr{
+  background:linear-gradient(135deg,var(--azul3),var(--azul));
+  padding:1.5rem 2rem;display:flex;align-items:flex-start;
+  justify-content:space-between;gap:1rem;
+}
+.panel-title{font-size:1.4rem;font-weight:800;color:#fff;letter-spacing:-.02em}
+.panel-sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:.3rem;display:flex;gap:.75rem;flex-wrap:wrap}
+.panel-close{
+  background:rgba(255,255,255,.15);border:none;border-radius:var(--r);
+  color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;
+  padding:6px 14px;cursor:pointer;font-family:'JetBrains Mono',monospace;
+  white-space:nowrap;margin-top:4px;
+}
+.panel-close:hover{background:rgba(255,255,255,.25)}
+.panel-body{padding:1.75rem 2rem}
+.panel-kpis{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:.75rem;margin-bottom:1.5rem;
+}
 .pk{background:var(--bg);border-radius:var(--r);padding:.875rem 1rem}
-.pk-l{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:.35rem}
-.pk-v{font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--ink)}
-.pk-s{font-size:10px;color:var(--ink3);margin-top:.2rem}
-.p2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-.pst{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:.875rem;display:flex;align-items:center;gap:6px}
-.pst::before{content:'';width:3px;height:11px;background:var(--c1);border-radius:2px}
-.sbar{display:flex;align-items:center;gap:8px;margin-bottom:5px}
-.sbn{font-size:11px;color:var(--ink2);width:155px;flex-shrink:0;text-align:right;font-weight:500}
-.sbt{flex:1;background:var(--bg);border-radius:3px;height:18px;overflow:hidden}
-.sbf{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:5px}
-.sbp{font-size:9.5px;font-weight:700}
-.sbm{font-size:9.5px;color:var(--ink3);min-width:50px;text-align:right;font-family:var(--mono)}
-.tt{width:100%;border-collapse:collapse}
-.tt tr{border-bottom:1px solid var(--bg)}
-.tt tr:last-child{border:none}
-.tt td{padding:5px 2px;font-size:12px;color:var(--ink2)}
-.tt td:last-child{text-align:right;font-family:var(--mono);font-weight:600;color:var(--ink)}
-.pend{background:var(--bg);border-radius:var(--r);padding:1.25rem;text-align:center;font-size:12px;color:var(--ink3)}
-
-/* ── TISH VIEW ── */
-.tish-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem}
-.tc{background:var(--card);border-radius:var(--r2);padding:1.25rem;box-shadow:var(--sh);border-left:4px solid var(--c1);transition:transform .15s}
-.tc:hover{transform:translateY(-2px)}
-.tc-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem}
-.tc-n{font-weight:700;font-size:13px;color:var(--ink)}
-.tc-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:5px;font-family:var(--mono)}
-.tc-sub{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:.5rem}
-.tc-row{display:flex;justify-content:space-between;font-size:11px;border-bottom:1px solid var(--bg);padding:3px 0;color:var(--ink2)}
-.tc-row span:last-child{font-family:var(--mono);font-weight:600;color:var(--ink)}
-.tc-foot{font-size:9.5px;color:var(--ink3);margin-top:.5rem}
-
-/* ── FOOTER ── */
-footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2rem;font-family:var(--mono);font-size:10px;letter-spacing:.04em}
-.fi{max-width:1340px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
-
-
-@media(min-width:1200px){
-  .chart-grid.g2{grid-template-columns:1fr 1fr}
-  .kpi-row{grid-template-columns:repeat(5,1fr)}
-  .ccard-canvas{height:290px}
-  .ccard-canvas.tall{height:250px}
+.pk-lbl{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-bottom:.35rem}
+.pk-val{font-family:'JetBrains Mono',monospace;font-size:1.25rem;font-weight:700;color:var(--ink)}
+.pk-sub{font-size:10px;color:var(--ink3);margin-top:.2rem}
+.panel-2col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.panel-sec-title{
+  font-size:11px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:.875rem;
+  display:flex;align-items:center;gap:6px;
 }
-@media(min-width:1400px){
-  .ccard-canvas{height:310px}
-  .ccard-canvas.tall{height:270px}
+.panel-sec-title::before{content:'';width:3px;height:12px;background:var(--azul);border-radius:2px}
+/* Barras de secretarías */
+.sb{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.sb-nm{font-size:11px;color:var(--ink2);width:158px;flex-shrink:0;text-align:right;font-weight:500}
+.sb-track{flex:1;background:var(--bg2);border-radius:3px;height:18px;overflow:hidden}
+.sb-fill{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:5px;transition:width .4s ease}
+.sb-pct{font-size:10px;font-weight:700}
+.sb-amt{font-size:10px;color:var(--ink3);min-width:52px;text-align:right;font-family:'JetBrains Mono',monospace}
+/* TISH */
+.tish-table{width:100%;border-collapse:collapse}
+.tish-table tr{border-bottom:1px solid var(--bg2)}
+.tish-table tr:last-child{border:none}
+.tish-table td{padding:5px 2px;font-size:12px;color:var(--ink2)}
+.tish-table td:last-child{text-align:right;font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--ink)}
+.pend-panel{
+  background:var(--bg2);border-radius:var(--r);padding:1.5rem;
+  text-align:center;font-size:12px;color:var(--ink3);
 }
 
+/* ══ FOOTER ══════════════════════════════════════════════ */
+footer{
+  background:var(--azul3);color:rgba(255,255,255,.45);
+  padding:1.5rem 2rem;margin-top:2rem;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;
+}
+.foot-inner{max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+
+/* ══ RESPONSIVE ══════════════════════════════════════════ */
 @media(max-width:900px){
   .hdr-inner{grid-template-columns:1fr;padding:1.5rem 1rem}
-  .hdr-chips{display:none}
+  .hdr-stats{display:none}
   .wrap{padding:1rem}
-  .chart-grid.g2,.chart-grid.g3{grid-template-columns:1fr}
-  .ccard.g2{grid-column:1}
-  .p2{grid-template-columns:1fr}
-  .sbn{width:110px}
+  .chart-grid,.chart-grid.three{grid-template-columns:1fr}
+  .cc.span2{grid-column:1}
+  .panel-2col{grid-template-columns:1fr}
+  .sb-nm{width:110px}
 }
-
 </style>
 </head>
 <body>
-<div id="root"></div>
 
-<script type="text/babel">
-const {useState, useEffect, useRef, useCallback} = React;
-
-/* ═══ HELPERS ═══ */
-const fmtN = n => n != null ? Number(n).toLocaleString('es-AR') : '—';
-const fmtMM = n => {
-  if (!n) return '—';
-  return n >= 1000
-    ? '$' + (n/1000).toLocaleString('es-AR', {maximumFractionDigits:2}) + ' mm'
-    : '$' + fmtN(n) + ' M$';
-};
-const fmtK = n => n ? '$' + Math.round(n/1000).toLocaleString('es-AR') + 'K' : '—';
-const ppc = (p, pop) => (p && pop) ? Math.round(p * 1e6 / pop) : null;
-const ZONA = {norte:'Norte', sur:'Sur', oeste:'Oeste'};
-const CZONA = {norte:'#005EB8', sur:'#E05C1A', oeste:'#00875A'};
-const PALETA = ['#005EB8','#E05C1A','#00875A','#F5A623','#0099CC','#7C3AED','#DB2777','#0891B2','#065F46','#92400E','#1E40AF','#BE185D'];
-const GC = 'rgba(0,94,184,.06)', TC = '#8A9CC0';
-
-/* ═══ CHART HOOK ═══ */
-function useChart(id, config, deps) {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (!ref.current) return;
-    const existing = Chart.getChart(id);
-    if (existing) existing.destroy();
-    new Chart(ref.current, config);
-  }, deps);
-  return ref;
-}
-
-/* ═══ HEADER ═══ */
-function Header({data}) {
-  const totPob = data.reduce((a,m) => a + m.poblacion, 0);
-  const conPres = data.filter(m => m.presupuesto_2025).length;
-  const totPBG = data.filter(m=>m.pbg_corriente_2023).reduce((a,m)=>a+m.pbg_corriente_2023,0);
-  return (
-    <header className="hdr">
-      <div className="hdr-inner">
-        <div>
-          <div className="hdr-pill">Datos Públicos · Provincia de Buenos Aires</div>
-          <h1 className="hdr-title">Observatorio Fiscal<br/><b>del Conurbano</b></h1>
-          <p className="hdr-desc">24 partidos · Presupuesto · PBG · TISH · 2025</p>
-        </div>
-        <div className="hdr-chips">
-          <div className="hdr-chip">
-            <div className="hdr-chip-v">{(totPob/1e6).toFixed(1)}M</div>
-            <div className="hdr-chip-l">habitantes</div>
-          </div>
-          <div className="hdr-chip">
-            <div className="hdr-chip-v">${(totPBG/1000).toFixed(0)} mm</div>
-            <div className="hdr-chip-l">PBG corriente</div>
-          </div>
-          <div className="hdr-chip">
-            <div className="hdr-chip-v">{conPres}/24</div>
-            <div className="hdr-chip-l">con presupuesto</div>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
-
-/* ═══ NAV ═══ */
-function Nav({view, setView}) {
-  const tabs = [
-    {id:'dashboard', label:'Dashboard'},
-    {id:'tabla', label:'Tabla comparativa'},
-    {id:'tish', label:'Tasas TISH'},
-  ];
-  return (
-    <nav className="nav">
-      <div className="nav-inner">
-        {tabs.map(t => (
-          <button key={t.id} className={`nav-btn ${view===t.id?'active':''}`}
-            onClick={() => setView(t.id)}>{t.label}</button>
-        ))}
-      </div>
-    </nav>
-  );
-}
-
-/* ═══ KPI CARD ═══ */
-function KPI({label, value, sub, cls=''}) {
-  return (
-    <div className={`kpi ${cls}`}>
-      <div className="kpi-l">{label}</div>
-      <div className="kpi-v">{value}</div>
-      {sub && <div className="kpi-s">{sub}</div>}
+<header>
+  <div class="hdr-inner">
+    <div>
+      <div class="hdr-eyebrow">Datos públicos · Provincia de Buenos Aires</div>
+      <h1>Observatorio Fiscal<br><span>del Conurbano</span></h1>
+      <p class="hdr-sub">24 partidos · Presupuesto · PBG · TISH · 2025</p>
     </div>
-  );
-}
+    <div class="hdr-stats" id="hdr-stats"></div>
+  </div>
+</header>
 
-/* ═══ CHART WRAPPER ═══ */
-function ChartBox({title, cls='', canvasCls='', children, chartId, chartConfig, deps=[]}) {
-  const ref = useChart(chartId, chartConfig, deps);
-  return (
-    <div className={`ccard ${cls}`}>
-      <div className="ccard-t">{title}</div>
-      <div className={`ccard-canvas ${canvasCls}`}>
-        <canvas ref={ref} id={chartId}></canvas>
-      </div>
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-tab on" onclick="setView('dashboard',this)">Dashboard</button>
+    <button class="nav-tab" onclick="setView('tabla',this)">Tabla comparativa</button>
+    <button class="nav-tab" onclick="setView('tish',this)">Tasas TISH</button>
+  </div>
+</nav>
+
+<!-- ══ VISTA: DASHBOARD ══ -->
+<div class="wrap" id="v-dashboard">
+  <div class="kpi-strip" id="kpi-strip"></div>
+
+  <div class="sec-head">
+    <span class="sec-title">PBG por partido — corriente 2023</span>
+    <span class="sec-note">Fuente: DPE-PBA · en mil millones de pesos corrientes</span>
+  </div>
+  <div class="chart-grid" style="margin-bottom:2rem">
+    <div class="cc span2">
+      <div class="cc-title">PBG total corriente — top 12 partidos (mil millones $)</div>
+      <div class="cc-canvas"><canvas id="c-pbg-total"></canvas></div>
     </div>
-  );
+  </div>
+
+  <div class="sec-head">
+    <span class="sec-title">Comparativas per cápita</span>
+    <span class="sec-note">Por habitante · Censo 2022</span>
+  </div>
+  <div class="chart-grid">
+    <div class="cc verde">
+      <div class="cc-title">PBG per cápita — constante 2004 ($ por hab.)</div>
+      <div class="cc-canvas"><canvas id="c-pbg-pc"></canvas></div>
+    </div>
+    <div class="cc naranja">
+      <div class="cc-title">Presupuesto per cápita 2025 ($ por hab.)</div>
+      <div class="cc-canvas"><canvas id="c-pres-pc"></canvas></div>
+    </div>
+  </div>
+
+  <div class="sec-head" style="margin-top:.5rem">
+    <span class="sec-title">Demografía</span>
+    <span class="sec-note">INDEC Censo 2022</span>
+  </div>
+  <div class="chart-grid full">
+    <div class="cc">
+      <div class="cc-title">Población por partido — todos los 24</div>
+      <div class="cc-canvas" style="height:200px"><canvas id="c-pop"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ VISTA: TABLA ══ -->
+<div class="wrap" id="v-tabla" style="display:none">
+  <div class="filter-bar">
+    <span class="fl">Zona</span>
+    <button class="pill on" onclick="fZona('todos',this)">Todos</button>
+    <button class="pill" onclick="fZona('norte',this)">Norte</button>
+    <button class="pill" onclick="fZona('sur',this)">Sur</button>
+    <button class="pill" onclick="fZona('oeste',this)">Oeste</button>
+    <div class="sep"></div>
+    <span class="fl">Hacé clic en un municipio para el detalle</span>
+  </div>
+
+  <div class="panel" id="panel">
+    <div class="panel-hdr">
+      <div>
+        <div class="panel-title" id="p-title">—</div>
+        <div class="panel-sub" id="p-sub"></div>
+      </div>
+      <button class="panel-close" onclick="closePanel()">✕ CERRAR</button>
+    </div>
+    <div class="panel-body" id="p-body"></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="th-sort on" onclick="sortBy('nombre',this)">Municipio <span class="sort-arrow">▲</span></th>
+          <th>Zona</th>
+          <th class="th-sort" onclick="sortBy('poblacion',this)">Población <span class="sort-arrow">↕</span></th>
+          <th>Sup. km²</th>
+          <th class="th-sort" onclick="sortBy('densidad',this)">Densidad <span class="sort-arrow">↕</span></th>
+          <th class="th-sort" onclick="sortBy('pbg_corr',this)">PBG corr. 2023 <span class="sort-arrow">↕</span></th>
+          <th class="th-sort" onclick="sortBy('pbg_pc_cte',this)">PBG pc cte.2004 <span class="sort-arrow">↕</span></th>
+          <th>Sector líder</th>
+          <th class="th-sort" onclick="sortBy('presupuesto',this)">Presup. 2025 <span class="sort-arrow">↕</span></th>
+          <th class="th-sort" onclick="sortBy('pres_pc',this)">Presup. pc <span class="sort-arrow">↕</span></th>
+          <th>Rec. percibidos</th>
+          <th class="th-sort" onclick="sortBy('tish',this)">TISH base <span class="sort-arrow">↕</span></th>
+          <th>Dato</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ VISTA: TISH ══ -->
+<div class="wrap" id="v-tish" style="display:none">
+  <div class="sec-head">
+    <span class="sec-title">Tasas de Seguridad e Higiene</span>
+    <span class="sec-note">Comparativa de alícuotas y mínimos entre partidos</span>
+  </div>
+  <div id="tish-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem"></div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <span>Observatorio Fiscal del Conurbano · 2025–2026</span>
+    <span>Fuentes: DPE-PBA · RAFAM · INDEC Censo 2022 · HCD Municipales</span>
+  </div>
+</footer>
+
+<script>
+let DATA=[], zona='todos', sort='nombre';
+let charts={};
+
+const CZONA={norte:'#0057B8',sur:'#E8601C',oeste:'#00A86B'};
+const COLORS=['#0057B8','#E8601C','#00A86B','#F5A623','#0090D4','#7C3AED','#DB2777','#0891B2','#065F46','#92400E','#1E40AF','#BE185D'];
+const GC='rgba(0,87,184,0.06)', TC='#6B7FA3';
+const fmtN=n=>n!=null?Number(n).toLocaleString('es-AR'):'—';
+const fmtMM=n=>{if(!n)return'—';return n>=1000?'$'+(n/1000).toLocaleString('es-AR',{maximumFractionDigits:2})+' mil mill.':'$'+fmtN(n)+' M$'};
+const fmtK=n=>n?'$'+Math.round(n/1000).toLocaleString('es-AR')+'K':'—';
+const ppc=(p,pop)=>(p&&pop)?Math.round(p*1e6/pop):null;
+const znMap={norte:'Norte',sur:'Sur',oeste:'Oeste'};
+
+fetch('datos.json')
+  .then(r=>r.json())
+  .then(d=>{DATA=d.municipios;init();})
+  .catch(()=>console.error('No se pudo cargar datos.json'));
+
+function init(){
+  renderHdrStats();
+  renderKPIs();
+  renderCharts();
+  renderTable();
+  renderTISH();
 }
 
-/* ═══ DASHBOARD ═══ */
-function Dashboard({data}) {
-  const conPres = data.filter(m=>m.presupuesto_2025);
-  const conPBG = data.filter(m=>m.pbg_corriente_2023);
-  const totPob = data.reduce((a,m)=>a+m.poblacion,0);
-  const totPres = conPres.reduce((a,m)=>a+m.presupuesto_2025,0);
-  const totPBG = conPBG.reduce((a,m)=>a+m.pbg_corriente_2023,0);
-  const maxPBGpc = data.filter(m=>m.pbg_constante_2004_2023)
-    .map(m=>({n:m.nombre,v:Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)}))
-    .sort((a,b)=>b.v-a.v)[0];
-  const maxPrespc = conPres.map(m=>({n:m.nombre,v:Math.round(m.presupuesto_2025*1e6/m.poblacion)}))
-    .sort((a,b)=>b.v-a.v)[0];
+/* ── Header stats ── */
+function renderHdrStats(){
+  const conPres=DATA.filter(m=>m.presupuesto_2025);
+  const totPob=DATA.reduce((a,m)=>a+m.poblacion,0);
+  const totPres=conPres.reduce((a,m)=>a+m.presupuesto_2025,0);
+  document.getElementById('hdr-stats').innerHTML=`
+    <div class="hdr-stat"><div class="hdr-stat-val">${(totPob/1e6).toFixed(1)}M</div><div class="hdr-stat-lbl">habitantes</div></div>
+    <div class="hdr-stat"><div class="hdr-stat-val">24</div><div class="hdr-stat-lbl">partidos</div></div>
+    <div class="hdr-stat"><div class="hdr-stat-val">${conPres.length}/24</div><div class="hdr-stat-lbl">con presupuesto</div></div>
+  `;
+}
 
-  const baseOpts = (cb) => ({
-    responsive:true, maintainAspectRatio:false,
+/* ── KPIs ── */
+function renderKPIs(){
+  const conPres=DATA.filter(m=>m.presupuesto_2025);
+  const conPBG=DATA.filter(m=>m.pbg_corriente_2023);
+  const totPob=DATA.reduce((a,m)=>a+m.poblacion,0);
+  const totPres=conPres.reduce((a,m)=>a+m.presupuesto_2025,0);
+  const totPBG=conPBG.reduce((a,m)=>a+m.pbg_corriente_2023,0);
+  const maxPBGpc=DATA.filter(m=>m.pbg_constante_2004_2023).map(m=>({n:m.nombre,v:Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)})).sort((a,b)=>b.v-a.v)[0];
+  const maxPrespc=conPres.map(m=>({n:m.nombre,v:Math.round(m.presupuesto_2025*1e6/m.poblacion)})).sort((a,b)=>b.v-a.v)[0];
+  document.getElementById('kpi-strip').innerHTML=`
+    <div class="kpi"><div class="kpi-lbl">Población total</div><div class="kpi-val">${(totPob/1e6).toFixed(1)}M</div><div class="kpi-sub">hab. · Censo 2022 · 24 partidos</div></div>
+    <div class="kpi"><div class="kpi-lbl">Presupuesto total</div><div class="kpi-val">$${(totPres/1000).toLocaleString('es-AR',{maximumFractionDigits:1})} mm</div><div class="kpi-sub">${conPres.length} municipios con dato</div></div>
+    <div class="kpi"><div class="kpi-lbl">PBG corriente total</div><div class="kpi-val">$${(totPBG/1000).toLocaleString('es-AR',{maximumFractionDigits:0})} mm</div><div class="kpi-sub">${conPBG.length} partidos · DPE-PBA 2023</div></div>
+    <div class="kpi"><div class="kpi-lbl">Mayor PBG per cápita</div><div class="kpi-val">${maxPBGpc?fmtK(maxPBGpc.v):'—'}</div><div class="kpi-sub">${maxPBGpc?.n||''} · cte. 2004</div></div>
+    <div class="kpi"><div class="kpi-lbl">Mayor presup. per cápita</div><div class="kpi-val">${maxPrespc?fmtK(maxPrespc.v):'—'}</div><div class="kpi-sub">${maxPrespc?.n||''} · 2025</div></div>
+  `;
+}
+
+/* ── Gráficos dashboard ── */
+function renderCharts(){
+  const opts=(cb)=>({
+    responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false}},
     scales:{
-      x:{grid:{color:GC}, ticks:{color:TC, font:{size:9.5}, maxRotation:35}},
-      y:{grid:{color:GC}, ticks:{color:TC, font:{size:9.5}, callback:cb}}
+      x:{grid:{color:GC},ticks:{color:TC,font:{size:10},maxRotation:35}},
+      y:{grid:{color:GC},ticks:{color:TC,font:{size:10},callback:cb}}
     }
   });
 
-  const pbgList = [...data].filter(m=>m.pbg_corriente_2023)
-    .sort((a,b)=>b.pbg_corriente_2023-a.pbg_corriente_2023).slice(0,12);
-  const pbgPcList = [...data].filter(m=>m.pbg_constante_2004_2023)
-    .map(m=>({...m, pc:Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)}))
-    .sort((a,b)=>b.pc-a.pc);
-  const presPcList = conPres.map(m=>({...m, pc:Math.round(m.presupuesto_2025*1e6/m.poblacion)}))
-    .sort((a,b)=>b.pc-a.pc);
-  const popList = [...data].sort((a,b)=>b.poblacion-a.poblacion);
+  // PBG total
+  const pbgL=[...DATA].filter(m=>m.pbg_corriente_2023).sort((a,b)=>b.pbg_corriente_2023-a.pbg_corriente_2023).slice(0,12);
+  if(charts.pbgT)charts.pbgT.destroy();
+  charts.pbgT=new Chart('c-pbg-total',{type:'bar',data:{
+    labels:pbgL.map(m=>m.nombre),
+    datasets:[{
+      data:pbgL.map(m=>+(m.pbg_corriente_2023/1000).toFixed(2)),
+      backgroundColor:pbgL.map(m=>CZONA[m.zona]),
+      borderRadius:5,borderSkipped:false
+    }]
+  },options:{...opts(v=>'$'+v+' mm'),plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toLocaleString('es-AR')+' mm'}}}}});
 
-  return (
-    <div className="wrap">
-      <div className="kpi-row">
-        <KPI label="Población total" value={`${(totPob/1e6).toFixed(1)}M`} sub="hab. · Censo 2022"/>
-        <KPI label="Presupuesto total" value={`$${(totPres/1000).toLocaleString('es-AR',{maximumFractionDigits:1})} mm`} sub={`${conPres.length} municipios`} cls="c2"/>
-        <KPI label="PBG corriente total" value={`$${(totPBG/1000).toFixed(0)} mm`} sub="DPE-PBA 2023" cls="c3"/>
-        <KPI label="Mayor PBG pc" value={maxPBGpc?fmtK(maxPBGpc.v):'—'} sub={maxPBGpc?.n+' · cte.2004'} cls="c4"/>
-        <KPI label="Mayor presup. pc" value={maxPrespc?fmtK(maxPrespc.v):'—'} sub={maxPrespc?.n+' · 2025'} cls="c5"/>
-      </div>
+  // PBG pc constante
+  const pbgPcL=[...DATA].filter(m=>m.pbg_constante_2004_2023).map(m=>({...m,pc:Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)})).sort((a,b)=>b.pc-a.pc);
+  if(charts.pbgPc)charts.pbgPc.destroy();
+  charts.pbgPc=new Chart('c-pbg-pc',{type:'bar',data:{
+    labels:pbgPcL.map(m=>m.nombre),
+    datasets:[{data:pbgPcL.map(m=>m.pc),backgroundColor:'#00A86B',borderRadius:5}]
+  },options:{...opts(v=>'$'+Math.round(v/1000)+'K'),plugins:{legend:{display:false}}}});
 
-      <div className="sh"><span className="sh-t">PBG corriente 2023</span><span className="sh-n">DPE-PBA · mil millones de pesos</span></div>
-      <div className="chart-grid g1" style={{marginBottom:'2rem'}}>
-        <ChartBox title="PBG total corriente — top 12 partidos (mm $)" chartId="c-pbg"
-          canvasCls="tall"
-          chartConfig={{type:'bar', data:{
-            labels:pbgList.map(m=>m.nombre),
-            datasets:[{data:pbgList.map(m=>+(m.pbg_corriente_2023/1000).toFixed(2)),
-              backgroundColor:pbgList.map(m=>CZONA[m.zona]),borderRadius:5,borderSkipped:false}]
-          }, options:{...baseOpts(v=>'$'+v+' mm'),animation:{duration:800}}}}
-          deps={[data]}/>
-      </div>
+  // Presup pc
+  const presPcL=[...DATA].filter(m=>m.presupuesto_2025).map(m=>({...m,pc:Math.round(m.presupuesto_2025*1e6/m.poblacion)})).sort((a,b)=>b.pc-a.pc);
+  if(charts.presPc)charts.presPc.destroy();
+  charts.presPc=new Chart('c-pres-pc',{type:'bar',data:{
+    labels:presPcL.map(m=>m.nombre),
+    datasets:[{data:presPcL.map(m=>m.pc),backgroundColor:'#E8601C',borderRadius:5}]
+  },options:{...opts(v=>'$'+Math.round(v/1000)+'K'),plugins:{legend:{display:false}}}});
 
-      <div className="sh"><span className="sh-t">Per cápita comparado</span><span className="sh-n">Por habitante</span></div>
-      <div className="chart-grid g2">
-        <ChartBox title="PBG pc — constante 2004 ($ por hab.)" cls="accent3" chartId="c-pbg-pc"
-          chartConfig={{type:'bar', data:{
-            labels:pbgPcList.map(m=>m.nombre),
-            datasets:[{data:pbgPcList.map(m=>m.pc), backgroundColor:'#00875A', borderRadius:5}]
-          }, options:{...baseOpts(v=>'$'+Math.round(v/1000)+'K'), animation:{duration:600}}}}
-          deps={[data]}/>
-        <ChartBox title="Presupuesto pc 2025 ($ por hab.)" cls="accent2" chartId="c-pres-pc"
-          chartConfig={{type:'bar', data:{
-            labels:presPcList.map(m=>m.nombre),
-            datasets:[{data:presPcList.map(m=>m.pc), backgroundColor:'#E05C1A', borderRadius:5}]
-          }, options:{...baseOpts(v=>'$'+Math.round(v/1000)+'K'), animation:{duration:600}}}}
-          deps={[data]}/>
-      </div>
-
-      <div className="sh"><span className="sh-t">Demografía</span><span className="sh-n">INDEC Censo 2022</span></div>
-      <div className="chart-grid g1">
-        <ChartBox title="Población — 24 partidos del Conurbano" canvasCls="tall" chartId="c-pop"
-          chartConfig={{type:'bar', data:{
-            labels:popList.map(m=>m.nombre),
-            datasets:[{data:popList.map(m=>m.poblacion), backgroundColor:popList.map(m=>CZONA[m.zona]), borderRadius:4}]
-          }, options:{...baseOpts(v=>Math.round(v/1000)+'k'), animation:{duration:500}}}}
-          deps={[data]}/>
-      </div>
-    </div>
-  );
+  // Población
+  const popL=[...DATA].sort((a,b)=>b.poblacion-a.poblacion);
+  if(charts.pop)charts.pop.destroy();
+  charts.pop=new Chart('c-pop',{type:'bar',data:{
+    labels:popL.map(m=>m.nombre),
+    datasets:[{data:popL.map(m=>m.poblacion),backgroundColor:popL.map(m=>CZONA[m.zona]),borderRadius:4}]
+  },options:{...opts(v=>Math.round(v/1000)+'k'),plugins:{legend:{display:false}}}});
 }
 
-/* ═══ PANEL DETALLE ═══ */
-function Panel({muni, onClose}) {
-  if (!muni) return null;
-  const m = muni;
-  const prespc = ppc(m.presupuesto_2025, m.poblacion);
-  const pbgpc = m.pbg_corriente_2023 ? Math.round(m.pbg_corriente_2023*1e6/m.poblacion) : null;
-  const pbgpc_cte = m.pbg_constante_2004_2023 ? Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion) : null;
-  const dens = m.superficie_km2 ? Math.round(m.poblacion/m.superficie_km2) : null;
-  const dq = m.dato_calidad==='real'?'dr':m.dato_calidad==='aprobado'?'da':'dp';
-  const dl = m.dato_calidad==='real'?'Real':m.dato_calidad==='aprobado'?'Aprobado':'Pendiente';
-  const tieneSec = m.secretarias?.length > 0;
-  const tieneTish = m.tish?.escala?.length > 0;
+/* ── Tabla ── */
+function renderTable(){
+  let lista=[...DATA];
+  if(zona!=='todos')lista=lista.filter(m=>m.zona===zona);
+  lista.sort((a,b)=>{
+    if(sort==='nombre')return a.nombre.localeCompare(b.nombre,'es');
+    if(sort==='poblacion')return b.poblacion-a.poblacion;
+    if(sort==='densidad'){return(b.superficie_km2?b.poblacion/b.superficie_km2:0)-(a.superficie_km2?a.poblacion/a.superficie_km2:0)}
+    if(sort==='pbg_corr')return(b.pbg_corriente_2023||0)-(a.pbg_corriente_2023||0);
+    if(sort==='pbg_pc_cte'){return(b.pbg_constante_2004_2023?b.pbg_constante_2004_2023*1e6/b.poblacion:0)-(a.pbg_constante_2004_2023?a.pbg_constante_2004_2023*1e6/a.poblacion:0)}
+    if(sort==='presupuesto')return(b.presupuesto_2025||0)-(a.presupuesto_2025||0);
+    if(sort==='pres_pc'){return(b.presupuesto_2025?b.presupuesto_2025*1e6/b.poblacion:0)-(a.presupuesto_2025?a.presupuesto_2025*1e6/a.poblacion:0)}
+    if(sort==='tish')return(b.tish.alicuota_base_milesimos||0)-(a.tish.alicuota_base_milesimos||0);
+    return 0;
+  });
+  document.getElementById('tbody').innerHTML=lista.map(m=>{
+    const prespc=ppc(m.presupuesto_2025,m.poblacion);
+    const pbgpc_cte=m.pbg_constante_2004_2023?Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion):null;
+    const dens=m.superficie_km2?Math.round(m.poblacion/m.superficie_km2):null;
+    const dq=m.dato_calidad==='real'?'dc-real':m.dato_calidad==='aprobado'?'dc-ok':'dc-pend';
+    const dl=m.dato_calidad==='real'?'Real':m.dato_calidad==='aprobado'?'Aprobado':'Pend.';
+    return `<tr onclick="openPanel('${m.id}')">
+      <td class="muni-name">${m.nombre}</td>
+      <td><span class="zona-chip z${m.zona[0]}">${znMap[m.zona]}</span></td>
+      <td class="num">${fmtN(m.poblacion)}</td>
+      <td class="num">${m.superficie_km2?fmtN(m.superficie_km2):'<span class="na">—</span>'}</td>
+      <td class="num">${dens?fmtN(dens):'<span class="na">—</span>'}</td>
+      <td class="num">${m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'<span class="na">—</span>'}</td>
+      <td class="num">${pbgpc_cte?fmtK(pbgpc_cte):'<span class="na">—</span>'}</td>
+      <td style="font-size:11px;color:var(--ink3);font-style:italic">${m.sector_principal||'—'}</td>
+      <td class="num">${m.presupuesto_2025?fmtMM(m.presupuesto_2025):'<span class="na">—</span>'}</td>
+      <td class="num">${prespc?fmtK(prespc):'<span class="na">—</span>'}</td>
+      <td class="num">${m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'<span class="na">—</span>'}</td>
+      <td class="num">${m.tish.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'<span class="na">—</span>'}</td>
+      <td><span class="dato-chip ${dq}">${dl}</span></td>
+    </tr>`;
+  }).join('');
+}
 
-  return (
-    <div className="panel open">
-      <div className="ph">
-        <div>
-          <div className="ph-title">{m.nombre}</div>
-          <div className="ph-sub">
-            <span className={`zch z${m.zona[0]}`}>{ZONA[m.zona]}</span>
-            <span className={`dch ${dq}`}>{dl} · {m.dato_fuente||''}</span>
-            {m.sector_principal && <span style={{fontSize:'11px',color:'rgba(255,255,255,.5)'}}>Sector líder: {m.sector_principal}</span>}
-          </div>
+/* ── Panel detalle ── */
+function openPanel(id){
+  const m=DATA.find(x=>x.id===id);if(!m)return;
+  const prespc=ppc(m.presupuesto_2025,m.poblacion);
+  const pbgpc=m.pbg_corriente_2023?Math.round(m.pbg_corriente_2023*1e6/m.poblacion):null;
+  const pbgpc_cte=m.pbg_constante_2004_2023?Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion):null;
+  const dens=m.superficie_km2?Math.round(m.poblacion/m.superficie_km2):null;
+  const dq=m.dato_calidad==='real'?'dc-real':m.dato_calidad==='aprobado'?'dc-ok':'dc-pend';
+  const dl=m.dato_calidad==='real'?'Real':m.dato_calidad==='aprobado'?'Aprobado':'Pendiente';
+
+  document.getElementById('p-title').textContent=m.nombre;
+  document.getElementById('p-sub').innerHTML=`
+    <span class="zona-chip z${m.zona[0]}" style="font-size:10px">${znMap[m.zona]}</span>
+    <span class="dato-chip ${dq}">${dl} · ${m.dato_fuente||''}</span>
+    ${m.sector_principal?`<span style="color:rgba(255,255,255,.5);font-size:11px">Sector líder: ${m.sector_principal}</span>`:''}
+  `;
+
+  const kpis=[
+    {l:'Población',v:fmtN(m.poblacion),s:'hab. · Censo 2022'},
+    {l:'Superficie',v:m.superficie_km2?fmtN(m.superficie_km2)+' km²':'—',s:dens?fmtN(dens)+' hab/km²':''},
+    {l:'PBG corriente 2023',v:m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—',s:pbgpc?'pc: '+fmtK(pbgpc):''},
+    {l:'PBG cte.2004 (2023)',v:m.pbg_constante_2004_2023?fmtMM(m.pbg_constante_2004_2023):'—',s:pbgpc_cte?'pc: '+fmtK(pbgpc_cte):''},
+    {l:'Presupuesto 2025',v:m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—',s:prespc?'pc: '+fmtK(prespc):''},
+    {l:'Recursos percibidos',v:m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—',s:m.recursos_percibidos_2025&&m.poblacion?'pc: '+fmtK(Math.round(m.recursos_percibidos_2025*1e6/m.poblacion)):''},
+  ];
+
+  const tieneSec=m.secretarias&&m.secretarias.length>0;
+  const tieneTish=m.tish?.escala?.length>0;
+  const secHTML=tieneSec?m.secretarias.map((s,i)=>`
+    <div class="sb">
+      <span class="sb-nm">${s.nombre}</span>
+      <div class="sb-track"><div class="sb-fill" style="width:${s.pct/m.secretarias[0].pct*100}%;background:${COLORS[i%COLORS.length]}22">
+        <span class="sb-pct" style="color:${COLORS[i%COLORS.length]}">${s.pct}%</span>
+      </div></div>
+      ${s.monto_m?`<span class="sb-amt">${s.monto_m>=1000?'$'+(s.monto_m/1000).toFixed(1)+' mm':'$'+Math.round(s.monto_m)+'M'}</span>`:''}
+    </div>`).join(''):`<div class="pend-panel">Adjuntá la rendición de cuentas para ver el desglose por secretaría.</div>`;
+  const tishHTML=tieneTish?`
+    <p style="font-size:10px;color:var(--ink3);margin-bottom:.6rem">${m.tish.fuente||''}</p>
+    <table class="tish-table">
+      <tr><td>Nombre tasa</td><td>${m.tish.nombre_tasa||'TISH'}</td></tr>
+      <tr><td>Alícuota base</td><td>${m.tish.alicuota_base_milesimos}‰</td></tr>
+      ${m.tish.minimo_bimestral_comercio_mf?`<tr><td>Mín. bimestral comercio</td><td>${fmtN(m.tish.minimo_bimestral_comercio_mf)} MF</td></tr>`:''}
+      ${m.tish.minimo_bimestral_industria_mf?`<tr><td>Mín. bimestral industria</td><td>${fmtN(m.tish.minimo_bimestral_industria_mf)} MF</td></tr>`:''}
+      ${(m.tish.escala||[]).map(e=>`<tr><td>Hasta ${e.hasta_mf||e.hasta} MF</td><td>${e.alicuota}‰</td></tr>`).join('')}
+      ${m.tish.recaudado_2025_millones?`<tr><td>Recaudado 2025</td><td>${fmtMM(m.tish.recaudado_2025_millones)}</td></tr>`:''}
+    </table>`:`<div class="pend-panel">${m.tish?.fuente||'Pendiente de carga.'}</div>`;
+
+  document.getElementById('p-body').innerHTML=`
+    <div class="panel-kpis">${kpis.map(k=>`<div class="pk"><div class="pk-lbl">${k.l}</div><div class="pk-val">${k.v}</div><div class="pk-sub">${k.s}</div></div>`).join('')}</div>
+    <div class="panel-2col">
+      <div><div class="panel-sec-title">Gasto por secretaría</div>${secHTML}</div>
+      <div><div class="panel-sec-title">Tasa ${m.tish?.nombre_tasa||'TISH'}</div>${tishHTML}</div>
+    </div>`;
+
+  document.getElementById('panel').classList.add('open');
+  setTimeout(()=>document.getElementById('panel').scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+function closePanel(){document.getElementById('panel').classList.remove('open')}
+
+/* ── TISH cards ── */
+function renderTISH(){
+  const COLORES_TISH=['#0057B8','#E8601C','#00A86B','#7C3AED','#F5A623','#DB2777','#0891B2'];
+  document.getElementById('tish-cards').innerHTML=DATA.map((m,i)=>{
+    const t=m.tish;
+    if(!t?.alicuota_base_milesimos)return`
+      <div style="background:var(--blanco);border-radius:var(--r2);padding:1.25rem;box-shadow:0 2px 8px rgba(0,87,184,.06);border-left:3px solid var(--borde)">
+        <div style="font-weight:700;font-size:13px;color:var(--ink);margin-bottom:.5rem">${m.nombre}</div>
+        <div style="font-size:11px;color:var(--ink3);font-family:'JetBrains Mono',monospace">PENDIENTE</div>
+      </div>`;
+    const c=COLORES_TISH[i%COLORES_TISH.length];
+    return`
+      <div style="background:var(--blanco);border-radius:var(--r2);padding:1.25rem;box-shadow:0 2px 12px rgba(0,87,184,.09);border-left:4px solid ${c}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem">
+          <div style="font-weight:700;font-size:13px;color:var(--ink)">${m.nombre}</div>
+          <span style="background:${c}18;color:${c};font-size:11px;font-weight:700;padding:3px 9px;border-radius:4px;font-family:'JetBrains Mono',monospace">${t.alicuota_base_milesimos}‰</span>
         </div>
-        <button className="p-close" onClick={onClose}>✕ CERRAR</button>
-      </div>
-      <div className="pb">
-        <div className="pk-row">
-          {[
-            {l:'Población', v:fmtN(m.poblacion), s:'Censo 2022'},
-            {l:'Superficie', v:m.superficie_km2?fmtN(m.superficie_km2)+' km²':'—', s:dens?fmtN(dens)+' hab/km²':''},
-            {l:'PBG corriente 2023', v:m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—', s:pbgpc?'pc: '+fmtK(pbgpc):''},
-            {l:'PBG cte.2004', v:m.pbg_constante_2004_2023?fmtMM(m.pbg_constante_2004_2023):'—', s:pbgpc_cte?'pc: '+fmtK(pbgpc_cte):''},
-            {l:'Presupuesto 2025', v:m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—', s:prespc?'pc: '+fmtK(prespc):''},
-            {l:'Rec. percibidos', v:m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—', s:''},
-          ].map((k,i) => (
-            <div key={i} className="pk">
-              <div className="pk-l">{k.l}</div>
-              <div className="pk-v">{k.v}</div>
-              {k.s && <div className="pk-s">{k.s}</div>}
-            </div>
-          ))}
-        </div>
-        <div className="p2">
-          <div>
-            <div className="pst">Gasto por secretaría</div>
-            {tieneSec ? m.secretarias.map((s,i) => (
-              <div key={i} className="sbar">
-                <span className="sbn">{s.nombre}</span>
-                <div className="sbt">
-                  <div className="sbf" style={{width:`${s.pct/m.secretarias[0].pct*100}%`, background:PALETA[i%PALETA.length]+'22'}}>
-                    <span className="sbp" style={{color:PALETA[i%PALETA.length]}}>{s.pct}%</span>
-                  </div>
-                </div>
-                {s.monto_m && <span className="sbm">{s.monto_m>=1000?'$'+(s.monto_m/1000).toFixed(1)+' mm':'$'+Math.round(s.monto_m)+'M'}</span>}
-              </div>
-            )) : <div className="pend">Adjuntá la rendición para ver el desglose.</div>}
-          </div>
-          <div>
-            <div className="pst">Tasa {m.tish?.nombre_tasa||'TISH'}</div>
-            {tieneTish ? (
-              <table className="tt">
-                <tbody>
-                  <tr><td>Nombre</td><td>{m.tish.nombre_tasa}</td></tr>
-                  <tr><td>Alícuota base</td><td>{m.tish.alicuota_base_milesimos}‰</td></tr>
-                  {m.tish.minimo_bimestral_comercio_mf && <tr><td>Mín. comercio</td><td>{fmtN(m.tish.minimo_bimestral_comercio_mf)} MF</td></tr>}
-                  {m.tish.minimo_bimestral_industria_mf && <tr><td>Mín. industria</td><td>{fmtN(m.tish.minimo_bimestral_industria_mf)} MF</td></tr>}
-                  {(m.tish.escala||[]).map((e,i) => <tr key={i}><td>Hasta {e.hasta_mf||e.hasta} MF</td><td>{e.alicuota}‰</td></tr>)}
-                  {m.tish.recaudado_2025_millones && <tr><td>Recaudado 2025</td><td>{fmtMM(m.tish.recaudado_2025_millones)}</td></tr>}
-                </tbody>
-              </table>
-            ) : <div className="pend">{m.tish?.fuente||'Pendiente de carga.'}</div>}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+        <div style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);margin-bottom:.5rem">${t.nombre_tasa||'TISH'}</div>
+        ${(t.escala||[]).map(e=>`<div style="display:flex;justify-content:space-between;font-size:11px;border-bottom:1px solid var(--bg2);padding:3px 0;color:var(--ink2)"><span>Hasta ${e.hasta_mf||e.hasta} MF</span><span style="font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--ink)">${e.alicuota}‰</span></div>`).join('')}
+        ${t.minimo_bimestral_comercio_mf?`<div style="font-size:10px;color:var(--ink3);margin-top:.5rem">Mín. comercio: <strong>${fmtN(t.minimo_bimestral_comercio_mf)} MF</strong> / industria: <strong>${fmtN(t.minimo_bimestral_industria_mf)} MF</strong></div>`:''}
+        <div style="font-size:10px;color:var(--ink3);margin-top:.4rem">${t.fuente||''}</div>
+      </div>`;
+  }).join('');
 }
 
-/* ═══ TABLA ═══ */
-function Tabla({data}) {
-  const [zona, setZona] = useState('todos');
-  const [sort, setSort] = useState('nombre');
-  const [panel, setPanel] = useState(null);
-
-  const lista = data
-    .filter(m => zona==='todos' || m.zona===zona)
-    .sort((a,b) => {
-      if(sort==='nombre') return a.nombre.localeCompare(b.nombre,'es');
-      if(sort==='poblacion') return b.poblacion-a.poblacion;
-      if(sort==='densidad') return (b.superficie_km2?b.poblacion/b.superficie_km2:0)-(a.superficie_km2?a.poblacion/a.superficie_km2:0);
-      if(sort==='pbg_corr') return (b.pbg_corriente_2023||0)-(a.pbg_corriente_2023||0);
-      if(sort==='pbg_pc') return (b.pbg_constante_2004_2023?b.pbg_constante_2004_2023/b.poblacion:0)-(a.pbg_constante_2004_2023?a.pbg_constante_2004_2023/a.poblacion:0);
-      if(sort==='presupuesto') return (b.presupuesto_2025||0)-(a.presupuesto_2025||0);
-      if(sort==='pres_pc') return (b.presupuesto_2025?b.presupuesto_2025/b.poblacion:0)-(a.presupuesto_2025?a.presupuesto_2025/a.poblacion:0);
-      if(sort==='tish') return (b.tish?.alicuota_base_milesimos||0)-(a.tish?.alicuota_base_milesimos||0);
-      return 0;
-    });
-
-  const Th = ({s, children}) => (
-    <th className={`ts ${sort===s?'on':''}`} onClick={() => setSort(s)}>
-      {children} <span className="sa">{sort===s?'▼':'↕'}</span>
-    </th>
-  );
-
-  const openPanel = (m) => {
-    setPanel(panel?.id===m.id ? null : m);
-    setTimeout(() => document.getElementById('panel-anchor')?.scrollIntoView({behavior:'smooth',block:'nearest'}), 50);
-  };
-
-  return (
-    <div className="wrap">
-      <div className="fbar">
-        <span className="fl">Zona</span>
-        {['todos','norte','sur','oeste'].map(z => (
-          <button key={z} className={`pill ${zona===z?'on':''}`} onClick={()=>{setZona(z);setPanel(null)}}>
-            {z==='todos'?'Todos':ZONA[z]}
-          </button>
-        ))}
-        <div className="sep"/>
-        <span className="fl" style={{color:'var(--ink3)'}}>Clic en municipio → detalle</span>
-      </div>
-
-      <div id="panel-anchor"/>
-      {panel && <Panel muni={panel} onClose={()=>setPanel(null)}/>}
-
-      <div className="tw">
-        <table>
-          <thead>
-            <tr>
-              <Th s="nombre">Municipio</Th>
-              <th>Zona</th>
-              <Th s="poblacion">Población</Th>
-              <th>Sup. km²</th>
-              <Th s="densidad">Densidad</Th>
-              <Th s="pbg_corr">PBG corr. 2023</Th>
-              <Th s="pbg_pc">PBG pc cte.04</Th>
-              <th>Sector líder</th>
-              <Th s="presupuesto">Presup. 2025</Th>
-              <Th s="pres_pc">Presup. pc</Th>
-              <th>Rec. percibidos</th>
-              <Th s="tish">TISH</Th>
-              <th>Dato</th>
-            </tr>
-          </thead>
-          <tbody>
-            {lista.map(m => {
-              const prespc = ppc(m.presupuesto_2025, m.poblacion);
-              const pbgpc_cte = m.pbg_constante_2004_2023 ? Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion) : null;
-              const dens = m.superficie_km2 ? Math.round(m.poblacion/m.superficie_km2) : null;
-              const dq = m.dato_calidad==='real'?'dr':m.dato_calidad==='aprobado'?'da':'dp';
-              const dl = m.dato_calidad==='real'?'Real':m.dato_calidad==='aprobado'?'Aprob.':'Pend.';
-              return (
-                <tr key={m.id} onClick={() => openPanel(m)} style={{background:panel?.id===m.id?'#EDF3FF':''}}>
-                  <td className="mn">{m.nombre}</td>
-                  <td><span className={`zch z${m.zona[0]}`}>{ZONA[m.zona]}</span></td>
-                  <td className="n">{fmtN(m.poblacion)}</td>
-                  <td className={m.superficie_km2?'n':'na'}>{m.superficie_km2?fmtN(m.superficie_km2):'—'}</td>
-                  <td className={dens?'n':'na'}>{dens?fmtN(dens):'—'}</td>
-                  <td className={m.pbg_corriente_2023?'n':'na'}>{m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—'}</td>
-                  <td className={pbgpc_cte?'n':'na'}>{pbgpc_cte?fmtK(pbgpc_cte):'—'}</td>
-                  <td style={{fontSize:'11px',color:'var(--ink3)',fontStyle:'italic'}}>{m.sector_principal||'—'}</td>
-                  <td className={m.presupuesto_2025?'n':'na'}>{m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—'}</td>
-                  <td className={prespc?'n':'na'}>{prespc?fmtK(prespc):'—'}</td>
-                  <td className={m.recursos_percibidos_2025?'n':'na'}>{m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'}</td>
-                  <td className={m.tish?.alicuota_base_milesimos!=null?'n':'na'}>{m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'}</td>
-                  <td><span className={`dch ${dq}`}>{dl}</span></td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+/* ── Nav ── */
+function setView(v,btn){
+  ['dashboard','tabla','tish'].forEach(id=>document.getElementById('v-'+id).style.display='none');
+  document.getElementById('v-'+v).style.display='block';
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');
 }
 
-/* ═══ TISH ═══ */
-function TishView({data}) {
-  const conTish = data.filter(m => m.tish?.alicuota_base_milesimos != null);
-  const sinTish = data.filter(m => m.tish?.alicuota_base_milesimos == null);
-  const colores = ['#005EB8','#E05C1A','#00875A','#7C3AED','#F5A623','#DB2777'];
-
-  return (
-    <div className="wrap">
-      <div className="sh">
-        <span className="sh-t">Tasas de Seguridad e Higiene</span>
-        <span className="sh-n">{conTish.length} con dato · {sinTish.length} pendientes</span>
-      </div>
-      <div className="tish-grid">
-        {conTish.map((m,i) => {
-          const c = colores[i%colores.length];
-          return (
-            <div key={m.id} className="tc" style={{borderColor:c}}>
-              <div className="tc-h">
-                <div className="tc-n">{m.nombre}</div>
-                <span className="tc-badge" style={{background:c+'18',color:c}}>{m.tish.alicuota_base_milesimos}‰</span>
-              </div>
-              <div className="tc-sub">{m.tish.nombre_tasa||'TISH'}</div>
-              {(m.tish.escala||[]).map((e,j) => (
-                <div key={j} className="tc-row">
-                  <span>Hasta {e.hasta_mf||e.hasta} MF</span>
-                  <span>{e.alicuota}‰</span>
-                </div>
-              ))}
-              {m.tish.minimo_bimestral_comercio_mf && (
-                <div className="tc-foot">Mín. comercio: <b>{fmtN(m.tish.minimo_bimestral_comercio_mf)} MF</b> · industria: <b>{fmtN(m.tish.minimo_bimestral_industria_mf)} MF</b></div>
-              )}
-              <div className="tc-foot" style={{marginTop:m.tish.minimo_bimestral_comercio_mf?'0':'.4rem'}}>{m.tish.fuente||''}</div>
-            </div>
-          );
-        })}
-        {sinTish.map(m => (
-          <div key={m.id} className="tc" style={{borderColor:'var(--borde)',opacity:.6}}>
-            <div className="tc-n">{m.nombre}</div>
-            <div className="tc-sub" style={{marginTop:'.4rem'}}>PENDIENTE</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+/* ── Filtros tabla ── */
+function fZona(z,btn){
+  zona=z;
+  document.querySelectorAll('.filter-bar .pill').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  renderTable();
 }
 
-/* ═══ APP ═══ */
-function App() {
-  const [data, setData] = useState([]);
-  const [view, setView] = useState('dashboard');
-
-  useEffect(() => {
-    fetch('datos.json').then(r=>r.json()).then(d=>setData(d.municipios)).catch(console.error);
-  }, []);
-
-  if (!data.length) return (
-    <div style={{display:'flex',alignItems:'center',justifyContent:'center',height:'100vh',flexDirection:'column',gap:'1rem'}}>
-      <div style={{width:48,height:48,border:'4px solid #005EB8',borderTopColor:'transparent',borderRadius:'50%',animation:'spin 1s linear infinite'}}/>
-      <p style={{color:'var(--ink3)',fontFamily:'var(--mono)',fontSize:13}}>Cargando datos...</p>
-      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}
-</style>
-    </div>
-  );
-
-  return (
-    <>
-      <Header data={data}/>
-      <Nav view={view} setView={setView}/>
-      {view==='dashboard' && <Dashboard data={data}/>}
-      {view==='tabla' && <Tabla data={data}/>}
-      {view==='tish' && <TishView data={data}/>}
-      <footer>
-        <div className="fi">
-          <span>Observatorio Fiscal del Conurbano · 2025–2026</span>
-          <span>DPE-PBA · RAFAM · INDEC Censo 2022 · HCD Municipales</span>
-        </div>
-      </footer>
-    </>
-  );
+/* ── Sort ── */
+function sortBy(s,btn){
+  sort=s;
+  document.querySelectorAll('th.th-sort').forEach(th=>{th.classList.remove('on');th.querySelector('.sort-arrow').textContent='↕'});
+  btn.classList.add('on');btn.querySelector('.sort-arrow').textContent='▼';
+  renderTable();
 }
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
 </html>
