@@ -1,0 +1,697 @@
+{
+  "meta": {
+    "titulo": "Observatorio Fiscal del Conurbano",
+    "descripcion": "Comparativa de presupuestos, recursos y economía de los 24 partidos del Conurbano Bonaerense",
+    "ultima_actualizacion": "Mayo 2026",
+    "fuentes": {
+      "presupuesto": "RAFAM / HCD Municipales",
+      "poblacion": "INDEC Censo 2022",
+      "pbg": "DPE PBA — PBG por Partido 2023 (datos 2023 preliminares, publicado sept. 2024)",
+      "superficie": "INDEC / IGN"
+    },
+    "nota_pbg": "PBG en millones de pesos. Fuente: DPE-PBA — Excel oficial 'Desagregación municipal del PBG-PBA 2021-2022-2023' (publicado mayo 2026). Corriente=pesos corrientes. Constante=precios constantes de 2004."
+  },
+  "municipios": [
+    {
+      "id": "almirante_brown",
+      "nombre": "Almirante Brown",
+      "zona": "sur",
+      "poblacion": 574410,
+      "superficie_km2": 129,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1758171,
+      "pbg_constante_2004": 6638,
+      "sector_principal": "Industria",
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 743966,
+      "pbg_constante_2004_2023": 6638,
+      "pbg_constante_2004_2022": 6637
+    },
+    {
+      "id": "avellaneda",
+      "nombre": "Avellaneda",
+      "zona": "sur",
+      "poblacion": 369130,
+      "superficie_km2": 55,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1714437,
+      "pbg_constante_2004": null,
+      "sector_principal": "Industria",
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 727422,
+      "pbg_constante_2004_2023": 6606,
+      "pbg_constante_2004_2022": 6502
+    },
+    {
+      "id": "berazategui",
+      "nombre": "Berazategui",
+      "zona": "sur",
+      "poblacion": 370606,
+      "superficie_km2": 190,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1096370,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 470421,
+      "pbg_constante_2004_2023": 4164,
+      "pbg_constante_2004_2022": 4200
+    },
+    {
+      "id": "esteban_echeverria",
+      "nombre": "Esteban Echeverría",
+      "zona": "sur",
+      "poblacion": 319372,
+      "superficie_km2": 120,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 962491,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 422452,
+      "pbg_constante_2004_2023": 3691,
+      "pbg_constante_2004_2022": 3790
+    },
+    {
+      "id": "ezeiza",
+      "nombre": "Ezeiza",
+      "zona": "sur",
+      "poblacion": 196024,
+      "superficie_km2": 228,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 801986,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 334273,
+      "pbg_constante_2004_2023": 3253,
+      "pbg_constante_2004_2022": 2980
+    },
+    {
+      "id": "florencio_varela",
+      "nombre": "Florencio Varela",
+      "zona": "sur",
+      "poblacion": 474141,
+      "superficie_km2": 190,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1217434,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 503749,
+      "pbg_constante_2004_2023": 4664,
+      "pbg_constante_2004_2022": 4596
+    },
+    {
+      "id": "hurlingham",
+      "nombre": "Hurlingham",
+      "zona": "oeste",
+      "poblacion": 185569,
+      "superficie_km2": 35,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 695697,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 279940,
+      "pbg_constante_2004_2023": 2560,
+      "pbg_constante_2004_2022": 2497
+    },
+    {
+      "id": "ituzaingo",
+      "nombre": "Ituzaingó",
+      "zona": "oeste",
+      "poblacion": 181243,
+      "superficie_km2": 38,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 632409,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 274794,
+      "pbg_constante_2004_2023": 2349,
+      "pbg_constante_2004_2022": 2413
+    },
+    {
+      "id": "jose_c_paz",
+      "nombre": "José C. Paz",
+      "zona": "norte",
+      "poblacion": 278356,
+      "superficie_km2": 50,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 959320,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 398647,
+      "pbg_constante_2004_2023": 3596,
+      "pbg_constante_2004_2022": 3569
+    },
+    {
+      "id": "la_matanza",
+      "nombre": "La Matanza",
+      "zona": "oeste",
+      "poblacion": 1775816,
+      "superficie_km2": 323,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 4986948,
+      "pbg_constante_2004": null,
+      "sector_principal": "Industria",
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 2083211,
+      "pbg_constante_2004_2023": 19233,
+      "pbg_constante_2004_2022": 18969
+    },
+    {
+      "id": "lanus",
+      "nombre": "Lanús",
+      "zona": "sur",
+      "poblacion": 459263,
+      "superficie_km2": 45,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1721856,
+      "pbg_constante_2004": null,
+      "sector_principal": "Industria",
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Ord. 13.726 (2023) — valores pendiente carga",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 717593,
+      "pbg_constante_2004_2023": 6445,
+      "pbg_constante_2004_2022": 6427
+    },
+    {
+      "id": "lomas_de_zamora",
+      "nombre": "Lomas de Zamora",
+      "zona": "sur",
+      "poblacion": 678320,
+      "superficie_km2": 89,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 2277721,
+      "pbg_constante_2004": null,
+      "sector_principal": "Industria",
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 952119,
+      "pbg_constante_2004_2023": 8466,
+      "pbg_constante_2004_2022": 8447
+    },
+    {
+      "id": "malvinas_argentinas",
+      "nombre": "Malvinas Argentinas",
+      "zona": "norte",
+      "poblacion": 382759,
+      "superficie_km2": 63,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1401292,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 578660,
+      "pbg_constante_2004_2023": 5229,
+      "pbg_constante_2004_2022": 5220
+    },
+    {
+      "id": "merlo",
+      "nombre": "Merlo",
+      "zona": "oeste",
+      "poblacion": 690837,
+      "superficie_km2": 170,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1672141,
+      "pbg_constante_2004": null,
+      "sector_principal": "Industria",
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 705678,
+      "pbg_constante_2004_2023": 6323,
+      "pbg_constante_2004_2022": 6301
+    },
+    {
+      "id": "moreno",
+      "nombre": "Moreno",
+      "zona": "oeste",
+      "poblacion": 661862,
+      "superficie_km2": 186,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1490136,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 625350,
+      "pbg_constante_2004_2023": 5713,
+      "pbg_constante_2004_2022": 5629
+    },
+    {
+      "id": "moron",
+      "nombre": "Morón",
+      "zona": "oeste",
+      "poblacion": 349545,
+      "superficie_km2": 55,
+      "presupuesto_2025": 177000,
+      "recursos_percibidos_2025": 180500,
+      "pbg_corriente_2023": 1295858,
+      "pbg_constante_2004": null,
+      "sector_principal": "Comercio",
+      "tish": {
+        "alicuota_base_milesimos": 5.0,
+        "minimo_bimestral_modulos": null,
+        "escala": [
+          {
+            "hasta": "ilimitado",
+            "alicuota": 5.0
+          }
+        ],
+        "fuente": "Ordenanza impositiva 2025",
+        "nombre_tasa": "TISH",
+        "recaudado_2025_millones": 48861
+      },
+      "secretarias": [
+        {
+          "nombre": "Obras y Serv. Públicos",
+          "pct": 24.8
+        },
+        {
+          "nombre": "Salud",
+          "pct": 22.4
+        },
+        {
+          "nombre": "Educación",
+          "pct": 13.2
+        },
+        {
+          "nombre": "Seguridad",
+          "pct": 7.9
+        },
+        {
+          "nombre": "Cultura y Deportes",
+          "pct": 4.6
+        },
+        {
+          "nombre": "Desarrollo Social",
+          "pct": 3.7
+        },
+        {
+          "nombre": "Otros",
+          "pct": 23.4
+        }
+      ],
+      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_calidad": "real",
+      "pbg_corriente_2022": 555714,
+      "pbg_constante_2004_2023": 4736,
+      "pbg_constante_2004_2022": 4797
+    },
+    {
+      "id": "quilmes",
+      "nombre": "Quilmes",
+      "zona": "sur",
+      "poblacion": 640907,
+      "superficie_km2": 125,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 2078416,
+      "pbg_constante_2004": null,
+      "sector_principal": "Industria",
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 877321,
+      "pbg_constante_2004_2023": 7742,
+      "pbg_constante_2004_2022": 7781
+    },
+    {
+      "id": "san_fernando",
+      "nombre": "San Fernando",
+      "zona": "norte",
+      "poblacion": 174937,
+      "superficie_km2": 924,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 737629,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 318498,
+      "pbg_constante_2004_2023": 2769,
+      "pbg_constante_2004_2022": 2823
+    },
+    {
+      "id": "san_isidro",
+      "nombre": "San Isidro",
+      "zona": "norte",
+      "poblacion": 295631,
+      "superficie_km2": 48,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1484112,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 642792,
+      "pbg_constante_2004_2023": 5416,
+      "pbg_constante_2004_2022": 5559
+    },
+    {
+      "id": "sanmartin",
+      "nombre": "Gral. San Martín",
+      "zona": "norte",
+      "poblacion": 441793,
+      "superficie_km2": 56,
+      "presupuesto_2025": 57900,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1835619,
+      "pbg_constante_2004": null,
+      "sector_principal": "Industria",
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [
+        {
+          "nombre": "Obras Públicas",
+          "pct": 34.5
+        },
+        {
+          "nombre": "Transporte",
+          "pct": 13.8
+        },
+        {
+          "nombre": "Otros",
+          "pct": 51.7
+        }
+      ],
+      "dato_fuente": "Presupuesto aprobado HCD 2025",
+      "dato_calidad": "real",
+      "pbg_corriente_2022": 771484,
+      "pbg_constante_2004_2023": 6762,
+      "pbg_constante_2004_2022": 6823
+    },
+    {
+      "id": "san_miguel",
+      "nombre": "San Miguel",
+      "zona": "norte",
+      "poblacion": 316905,
+      "superficie_km2": 82,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1043824,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 441405,
+      "pbg_constante_2004_2023": 3878,
+      "pbg_constante_2004_2022": 3862
+    },
+    {
+      "id": "tigre",
+      "nombre": "Tigre",
+      "zona": "norte",
+      "poblacion": 424002,
+      "superficie_km2": 1471,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 2088084,
+      "pbg_constante_2004": null,
+      "sector_principal": "Industria",
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 887069,
+      "pbg_constante_2004_2023": 7785,
+      "pbg_constante_2004_2022": 7872
+    },
+    {
+      "id": "tresdefebrero",
+      "nombre": "Tres de Febrero",
+      "zona": "norte",
+      "poblacion": 368150,
+      "superficie_km2": 46,
+      "presupuesto_2025": 121900,
+      "recursos_percibidos_2025": 68493,
+      "pbg_corriente_2023": 1617624,
+      "pbg_constante_2004": null,
+      "sector_principal": "Industria",
+      "tish": {
+        "alicuota_base_milesimos": 5.0,
+        "minimo_bimestral_comercio_mf": 365,
+        "minimo_bimestral_industria_mf": 520,
+        "escala": [
+          {
+            "hasta_mf": "5.000.000",
+            "alicuota": 5.0
+          },
+          {
+            "hasta_mf": "20.000.000",
+            "alicuota": 6.25
+          },
+          {
+            "hasta_mf": "80.000.000",
+            "alicuota": 7.5
+          },
+          {
+            "hasta_mf": "ilimitado",
+            "alicuota": 8.75
+          }
+        ],
+        "fuente": "Ordenanza Impositiva 2026 (TISHyDP)",
+        "nombre_tasa": "TISHyDP",
+        "recaudado_2025_millones": null
+      },
+      "secretarias": [
+        {
+          "nombre": "Ambiente y Serv. Públicos",
+          "pct": 30.5,
+          "monto_m": 46035
+        },
+        {
+          "nombre": "Capital Humano",
+          "pct": 18.7,
+          "monto_m": 28212
+        },
+        {
+          "nombre": "Obras Públicas",
+          "pct": 12.4,
+          "monto_m": 18653
+        },
+        {
+          "nombre": "Salud",
+          "pct": 7.8,
+          "monto_m": 11709
+        },
+        {
+          "nombre": "Finanzas y Efic.",
+          "pct": 7.6,
+          "monto_m": 11527
+        },
+        {
+          "nombre": "Seguridad",
+          "pct": 6.7,
+          "monto_m": 10118
+        },
+        {
+          "nombre": "Otros (12 sec.)",
+          "pct": 16.3,
+          "monto_m": 24501
+        }
+      ],
+      "dato_fuente": "Ejecución RAFAM 2025 (real)",
+      "dato_calidad": "real",
+      "pbg_corriente_2022": 692692,
+      "pbg_constante_2004_2023": 5963,
+      "pbg_constante_2004_2022": 6121
+    },
+    {
+      "id": "vicente_lopez",
+      "nombre": "Vicente López",
+      "zona": "norte",
+      "poblacion": 275023,
+      "superficie_km2": 33,
+      "presupuesto_2025": null,
+      "recursos_percibidos_2025": null,
+      "pbg_corriente_2023": 1487367,
+      "pbg_constante_2004": null,
+      "sector_principal": null,
+      "tish": {
+        "alicuota_base_milesimos": null,
+        "escala": [],
+        "fuente": "Pendiente",
+        "nombre_tasa": "TISH"
+      },
+      "secretarias": [],
+      "dato_fuente": "Pendiente",
+      "dato_calidad": "pendiente",
+      "pbg_corriente_2022": 633212,
+      "pbg_constante_2004_2023": 5403,
+      "pbg_constante_2004_2022": 5462
+    }
+  ]
+}

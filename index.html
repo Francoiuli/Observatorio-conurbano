@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Observatorio Fiscal del Conurbano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{
+  --bg:#F5F2EC;--bg2:#EDEAE2;--bg3:#E3DFD5;
+  --ink:#1A1814;--ink2:#5A5650;--ink3:#8A8680;
+  --line:#D4D0C8;
+  --norte:#1A4870;--norte-bg:#D8EAF8;
+  --sur:#7A3410;--sur-bg:#F8E8D4;
+  --oeste:#1A5030;--oeste-bg:#D8F0E4;
+  --real-c:#2B7A4B;--real-bg:#D4EBD8;
+  --est-c:#8B6914;--est-bg:#F5E8C4;
+  --pend-c:#5A5650;--pend-bg:#E3DFD5;
+  --r:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+
+/* HEADER */
+header{background:var(--ink);color:var(--bg);padding:1.75rem 2.5rem 1.5rem;border-bottom:2px solid #2B5FA3}
+.hdr{max-width:1280px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+header h1{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:300;letter-spacing:-.02em;line-height:1.15}
+header h1 em{font-style:italic;color:#A8C4E8}
+.hdr-right{text-align:right}
+.hdr-tag{font-family:'DM Mono',monospace;font-size:10px;color:#6A8AAA;letter-spacing:.07em;display:block}
+.badge-fuente{font-family:'DM Mono',monospace;font-size:9px;padding:3px 8px;border-radius:3px;display:inline-block;margin-top:4px}
+.b-real{background:var(--real-bg);color:var(--real-c)}
+.b-est{background:var(--est-bg);color:var(--est-c)}
+.b-pend{background:var(--pend-bg);color:var(--pend-c)}
+
+/* LAYOUT */
+.wrap{max-width:1280px;margin:0 auto;padding:1.5rem 2rem}
+
+/* FILTROS */
+.toolbar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center}
+.tlabel{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;margin-right:.1rem}
+.pill{font-size:12px;padding:4px 13px;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--ink2);cursor:pointer;transition:all .12s;font-family:'DM Sans',sans-serif}
+.pill:hover{border-color:#2B5FA3;color:#2B5FA3}
+.pill.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.sep{width:1px;height:20px;background:var(--line);margin:0 .25rem}
+
+/* MÉTRICAS */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:.75rem;margin-bottom:1.75rem}
+.kpi{background:white;border:1px solid var(--line);border-radius:var(--r);padding:.9rem 1rem}
+.kpi-l{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+.kpi-v{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:600;line-height:1;color:var(--ink)}
+.kpi-s{font-size:11px;color:var(--ink3);margin-top:.25rem}
+
+/* GRÁFICOS */
+.charts{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.75rem}
+.cc{background:white;border:1px solid var(--line);border-radius:var(--r);padding:1.1rem 1.25rem}
+.cc h3{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.875rem}
+.cc.w2{grid-column:span 2}
+.cc.w3{grid-column:1/-1}
+
+/* NOTA DE FUENTE */
+.fnote{background:var(--bg2);border-left:2px solid #2B5FA3;padding:.6rem 1rem;font-size:11px;color:var(--ink3);border-radius:0 var(--r) var(--r) 0;margin-bottom:1.25rem;line-height:1.6}
+.fnote strong{color:var(--ink2)}
+
+/* TABLA */
+.tw{overflow-x:auto;margin-bottom:1.75rem}
+table{width:100%;border-collapse:collapse;font-size:12px;background:white;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+thead tr{background:var(--ink)}
+th{padding:9px 11px;text-align:left;color:var(--bg);font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;font-weight:400}
+tbody tr{border-bottom:1px solid var(--line);cursor:pointer;transition:background .1s}
+tbody tr:hover{background:#F0EDE5}
+tbody tr:last-child{border:none}
+td{padding:8px 11px;vertical-align:middle}
+td.n{font-family:'DM Mono',monospace;font-size:11px;text-align:right;color:var(--ink)}
+td.na{font-family:'DM Mono',monospace;font-size:11px;text-align:right;color:var(--ink3)}
+.zb{display:inline-block;font-size:9px;padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace}
+.zn{background:var(--norte-bg);color:var(--norte)}
+.zs{background:var(--sur-bg);color:var(--sur)}
+.zo{background:var(--oeste-bg);color:var(--oeste)}
+
+/* PANEL DETALLE */
+.panel{display:none;background:white;border:1px solid var(--line);border-radius:var(--r);padding:1.5rem;margin-bottom:1.75rem;position:relative}
+.panel.open{display:block;animation:slideIn .15s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.p-close{position:absolute;top:1rem;right:1rem;background:var(--bg2);border:none;border-radius:3px;padding:4px 10px;cursor:pointer;font-size:11px;color:var(--ink2);font-family:'DM Mono',monospace;letter-spacing:.04em}
+.p-title{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:300;margin-bottom:.2rem}
+.p-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);margin-bottom:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center}
+.p-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.65rem;margin-bottom:1.25rem}
+.pm{background:var(--bg2);border-radius:var(--r);padding:.8rem .9rem}
+.pm-l{font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+.pm-v{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;color:var(--ink)}
+.pm-s{font-size:11px;color:var(--ink3);margin-top:.2rem}
+.p2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.sec-h{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.65rem}
+.sb{display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.sb-name{font-size:10px;color:var(--ink2);width:150px;flex-shrink:0;text-align:right}
+.sb-track{flex:1;background:var(--bg2);border-radius:2px;height:15px;overflow:hidden}
+.sb-fill{height:100%;border-radius:2px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px}
+.tish-t{width:100%;border-collapse:collapse}
+.tish-t td{padding:4px 0;border-bottom:1px solid var(--line);font-size:11px;color:var(--ink2)}
+.tish-t td:last-child{text-align:right;font-family:'DM Mono',monospace;color:var(--ink);border:none}
+.tish-t tr:last-child td{border:none}
+.pend-msg{padding:1rem;background:var(--bg2);border-radius:var(--r);font-size:11px;color:var(--ink3);text-align:center}
+
+/* FOOTER */
+footer{background:var(--ink);color:#5A6A7A;padding:1.25rem 2.5rem;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.03em;margin-top:1rem}
+.f-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+
+@media(max-width:900px){
+  header{padding:1.25rem 1rem}.wrap{padding:1rem}
+  .charts{grid-template-columns:1fr}.cc.w2,.cc.w3{grid-column:1/-1}
+  .p2{grid-template-columns:1fr}.sb-name{width:100px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr">
+    <div>
+      <h1>Observatorio Fiscal<br><em>del Conurbano</em></h1>
+    </div>
+    <div class="hdr-right">
+      <span class="hdr-tag">24 PARTIDOS · GBA · DATOS 2025</span>
+      <span class="hdr-tag" style="margin-top:3px">PRESUPUESTO · PBG · TISH</span>
+      <div style="margin-top:6px;display:flex;gap:5px;justify-content:flex-end;flex-wrap:wrap">
+        <span class="badge-fuente b-real">Real</span>
+        <span class="badge-fuente b-est">Estimado</span>
+        <span class="badge-fuente b-pend">Pendiente</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="toolbar">
+    <span class="tlabel">Zona</span>
+    <button class="pill on" onclick="fZona('todos',this)">Todos</button>
+    <button class="pill" onclick="fZona('norte',this)">Norte</button>
+    <button class="pill" onclick="fZona('sur',this)">Sur</button>
+    <button class="pill" onclick="fZona('oeste',this)">Oeste</button>
+    <div class="sep"></div>
+    <span class="tlabel">Ordenar</span>
+    <button class="pill on" onclick="fSort('nombre',this)">Nombre</button>
+    <button class="pill" onclick="fSort('poblacion',this)">Población</button>
+    <button class="pill" onclick="fSort('pbg_pc',this)">PBG per cápita</button>
+    <button class="pill" onclick="fSort('pres_pc',this)">Presup. per cápita</button>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="fnote">
+    <strong>PBG:</strong> Fuente DPE-PBA — PBG por Partido 2023 (publicado sep. 2024, datos preliminares). Valores corrientes 2023 en millones de pesos. 10 de los 24 partidos del conurbano estaban en el top 14 provincial; el resto está pendiente de carga desde el Excel oficial.
+    &nbsp;·&nbsp; <strong>Presupuesto:</strong> Morón (Rendición 2025), Tres de Febrero (ejecución RAFAM 2025), Gral. San Martín (presupuesto aprobado HCD 2025).
+  </div>
+
+  <div class="charts">
+    <div class="cc">
+      <h3>PBG corriente 2023 — top partidos (M$)</h3>
+      <div style="height:220px;position:relative"><canvas id="c-pbg"></canvas></div>
+    </div>
+    <div class="cc">
+      <h3>PBG per cápita constante 2004 — comparable entre partidos</h3>
+      <div style="height:220px;position:relative"><canvas id="c-pbg-pc"></canvas></div>
+    </div>
+    <div class="cc">
+      <h3>Presupuesto per cápita 2025 ($ por hab.)</h3>
+      <div style="height:220px;position:relative"><canvas id="c-pres-pc"></canvas></div>
+    </div>
+    <div class="cc w3">
+      <h3>Población — Censo 2022 (todos los partidos)</h3>
+      <div style="height:180px;position:relative"><canvas id="c-pop"></canvas></div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel">
+    <button class="p-close" onclick="closePanel()">✕ CERRAR</button>
+    <div id="panel-body"></div>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead>
+        <tr>
+          <th>Municipio</th><th>Zona</th><th>Población</th><th>Sup. km²</th>
+          <th>Densidad</th><th>PBG corriente 2023</th><th>PBG pc cte.2004</th>
+          <th>Sector líder</th><th>Presupuesto 2025</th><th>Presup. pc</th>
+          <th>Rec. percibidos</th><th>Rec. pc</th><th>TISH base</th><th>Dato</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  <div class="f-inner">
+    <span>Observatorio Fiscal del Conurbano · Datos 2025–2026</span>
+    <span>Fuentes: DPE-PBA · RAFAM · INDEC Censo 2022 · HCD Municipales</span>
+  </div>
+</footer>
+
+<script>
+let DATA=[], zona='todos', sort='nombre';
+let cPBG,cPBGpc,cPresPc,cPop;
+const CZONA={norte:'#1A4870',sur:'#7A3410',oeste:'#1A5030'};
+const GC='rgba(0,0,0,0.05)', TC='#8A8680';
+const fmtM=n=>n!=null?(n>=1000?'$'+(n/1000).toLocaleString('es-AR',{maximumFractionDigits:2})+' mil mill.':'$'+Number(n).toLocaleString('es-AR')+'M'):'—';
+const fmtN=n=>n!=null?Number(n).toLocaleString('es-AR'):'—';
+const fmtK=n=>n!=null?'$'+Math.round(n/1000).toLocaleString('es-AR')+'K':'—';
+const ppc=(p,pop)=>(p&&pop)?Math.round(p*1e6/pop):null;
+
+fetch('datos.json')
+  .then(r=>r.json())
+  .then(d=>{DATA=d.municipios;init();})
+  .catch(e=>console.error('Error cargando datos.json:',e));
+
+function init(){renderKPIs();renderCharts();renderTable();}
+
+function renderKPIs(){
+  const conPres=DATA.filter(m=>m.presupuesto_2025);
+  const conPBG=DATA.filter(m=>m.pbg_corriente_2023);
+  const totPob=DATA.reduce((a,m)=>a+m.poblacion,0);
+  const totPres=conPres.reduce((a,m)=>a+m.presupuesto_2025,0);
+  const totPBG=conPBG.reduce((a,m)=>a+m.pbg_corriente_2023,0);
+  document.getElementById('kpis').innerHTML=`
+    <div class="kpi"><div class="kpi-l">Partidos</div><div class="kpi-v">24</div><div class="kpi-s">del Conurbano bonaerense</div></div>
+    <div class="kpi"><div class="kpi-l">Población total</div><div class="kpi-v">${(totPob/1e6).toFixed(1)}M</div><div class="kpi-s">hab. · Censo 2022</div></div>
+    <div class="kpi"><div class="kpi-l">Con presupuesto</div><div class="kpi-v">${conPres.length}/24</div><div class="kpi-s">$${(totPres/1000).toFixed(2)}B total</div></div>
+    <div class="kpi"><div class="kpi-l">Con PBG 2023</div><div class="kpi-v">${conPBG.length}/24</div><div class="kpi-s">$${(totPBG/1e6).toFixed(1)}T corrientes</div></div>
+    <div class="kpi"><div class="kpi-l">Con TISH cargada</div><div class="kpi-v">${DATA.filter(m=>m.tish.alicuota_base_milesimos!=null).length}/24</div><div class="kpi-s">alícuota base disponible</div></div>
+  `;
+}
+
+function renderCharts(){
+  let lista=[...DATA];
+  if(zona!=='todos')lista=lista.filter(m=>m.zona===zona);
+  const opts={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{grid:{color:GC},ticks:{color:TC,font:{size:9},maxRotation:35}},
+             y:{grid:{color:GC},ticks:{color:TC,font:{size:9}}}}};
+  if(cPBG)cPBG.destroy(); if(cPBGpc)cPBGpc.destroy();
+  if(cPresPc)cPresPc.destroy(); if(cPop)cPop.destroy();
+
+  // PBG corriente top
+  const pbgList=[...lista].filter(m=>m.pbg_corriente_2023)
+    .sort((a,b)=>b.pbg_corriente_2023-a.pbg_corriente_2023).slice(0,10);
+  cPBG=new Chart('c-pbg',{type:'bar',data:{
+    labels:pbgList.map(m=>m.nombre),
+    datasets:[{data:pbgList.map(m=>m.pbg_corriente_2023/1000),
+      backgroundColor:pbgList.map(m=>CZONA[m.zona]),borderRadius:3}]
+  },options:{...opts,scales:{x:{grid:{color:GC},ticks:{color:TC,font:{size:9},maxRotation:35}},
+    y:{grid:{color:GC},ticks:{color:TC,font:{size:9},callback:v=>'$'+v.toLocaleString('es-AR')+' mil mill.'}}}}});
+
+  // PBG pc
+  const pbgpcList=[...lista].filter(m=>m.pbg_corriente_2023&&m.poblacion)
+    .map(m=>({...m,pc:m.pbg_constante_2004_2023?Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion):null}))
+    .sort((a,b)=>b.pc-a.pc).slice(0,10);
+  cPBGpc=new Chart('c-pbg-pc',{type:'bar',data:{
+    labels:pbgpcList.map(m=>m.nombre),
+    datasets:[{data:pbgpcList.map(m=>m.pc),
+      backgroundColor:pbgpcList.map(m=>CZONA[m.zona]),borderRadius:3}]
+  },options:{...opts,scales:{x:{grid:{color:GC},ticks:{color:TC,font:{size:9},maxRotation:35}},
+    y:{grid:{color:GC},ticks:{color:TC,font:{size:9},callback:v=>'$'+Math.round(v/1000)+'K'}}}}});
+
+  // Presup pc
+  const prespcList=[...lista].filter(m=>m.presupuesto_2025&&m.poblacion)
+    .map(m=>({...m,pc:Math.round(m.presupuesto_2025*1e6/m.poblacion)}))
+    .sort((a,b)=>b.pc-a.pc);
+  cPresPc=new Chart('c-pres-pc',{type:'bar',data:{
+    labels:prespcList.map(m=>m.nombre),
+    datasets:[{data:prespcList.map(m=>m.pc),
+      backgroundColor:prespcList.map(m=>CZONA[m.zona]),borderRadius:3}]
+  },options:{...opts,scales:{x:{grid:{color:GC},ticks:{color:TC,font:{size:9},maxRotation:35}},
+    y:{grid:{color:GC},ticks:{color:TC,font:{size:9},callback:v=>'$'+Math.round(v/1000)+'K'}}}}});
+
+  // Población
+  const popList=[...lista].sort((a,b)=>b.poblacion-a.poblacion);
+  cPop=new Chart('c-pop',{type:'bar',data:{
+    labels:popList.map(m=>m.nombre),
+    datasets:[{data:popList.map(m=>m.poblacion),
+      backgroundColor:popList.map(m=>CZONA[m.zona]),borderRadius:3}]
+  },options:{...opts,scales:{x:{grid:{color:GC},ticks:{color:TC,font:{size:9},maxRotation:40}},
+    y:{grid:{color:GC},ticks:{color:TC,font:{size:9},callback:v=>Math.round(v/1000)+'k'}}}}});
+}
+
+function renderTable(){
+  let lista=[...DATA];
+  if(zona!=='todos')lista=lista.filter(m=>m.zona===zona);
+  lista.sort((a,b)=>{
+    if(sort==='nombre')return a.nombre.localeCompare(b.nombre,'es');
+    if(sort==='poblacion')return b.poblacion-a.poblacion;
+    if(sort==='pbg_pc'){
+      const pa=a.pbg_corriente_2023?Math.round(a.pbg_corriente_2023*1e6/a.poblacion):0;
+      const pb=b.pbg_corriente_2023?Math.round(b.pbg_corriente_2023*1e6/b.poblacion):0;
+      return pb-pa;
+    }
+    if(sort==='pres_pc'){
+      const pa=a.presupuesto_2025?Math.round(a.presupuesto_2025*1e6/a.poblacion):0;
+      const pb=b.presupuesto_2025?Math.round(b.presupuesto_2025*1e6/b.poblacion):0;
+      return pb-pa;
+    }
+    return 0;
+  });
+  const znMap={norte:'Norte',sur:'Sur',oeste:'Oeste'};
+  document.getElementById('tbody').innerHTML=lista.map(m=>{
+    const prespc=ppc(m.presupuesto_2025,m.poblacion);
+    const recpc=ppc(m.recursos_percibidos_2025,m.poblacion);
+    const pbgpc=m.pbg_corriente_2023?Math.round(m.pbg_corriente_2023*1e6/m.poblacion):null;
+    const pbgpc_cte=m.pbg_constante_2004_2023?Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion):null;
+    const dens=m.superficie_km2?Math.round(m.poblacion/m.superficie_km2):null;
+    const bq=m.dato_calidad==='real'?'b-real':'b-pend';
+    const bl=m.dato_calidad==='real'?'Real':'Pend.';
+    return `<tr onclick="openPanel('${m.id}')">
+      <td style="font-weight:500">${m.nombre}</td>
+      <td><span class="zb z${m.zona[0]}">${znMap[m.zona]}</span></td>
+      <td class="n">${fmtN(m.poblacion)}</td>
+      <td class="n">${m.superficie_km2?fmtN(m.superficie_km2):'<span style="color:var(--ink3)">—</span>'}</td>
+      <td class="n">${dens?fmtN(dens):'<span style="color:var(--ink3)">—</span>'}</td>
+      <td class="n">${m.pbg_corriente_2023?fmtM(m.pbg_corriente_2023):'<span class="na">—</span>'}</td>
+      <td class="n">${pbgpc_cte?'$'+fmtN(pbgpc_cte):'<span class="na">—</span>'}</td>
+      <td style="font-size:11px;color:var(--ink3)">${m.sector_principal||'—'}</td>
+      <td class="n">${m.presupuesto_2025?fmtM(m.presupuesto_2025):'<span class="na">—</span>'}</td>
+      <td class="n">${prespc?'$'+fmtN(prespc):'<span class="na">—</span>'}</td>
+      <td class="n">${m.recursos_percibidos_2025?fmtM(m.recursos_percibidos_2025):'<span class="na">—</span>'}</td>
+      <td class="n">${recpc?'$'+fmtN(recpc):'<span class="na">—</span>'}</td>
+      <td class="n">${m.tish.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'<span class="na">—</span>'}</td>
+      <td><span class="badge-fuente ${bq}">${bl}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function openPanel(id){
+  const m=DATA.find(x=>x.id===id);if(!m)return;
+  const prespc=ppc(m.presupuesto_2025,m.poblacion);
+  const recpc=ppc(m.recursos_percibidos_2025,m.poblacion);
+  const pbgpc=m.pbg_corriente_2023?Math.round(m.pbg_corriente_2023*1e6/m.poblacion):null;
+  const dens=m.superficie_km2?Math.round(m.poblacion/m.superficie_km2):null;
+  const COLORS=['#2B5FA3','#C4541A','#2B7A4B','#8B6914','#5B3FA3','#A33B6B','#3B8BA3','#6B8B3B','#A36B3B','#3B6BA3'];
+  const znMap={norte:'Norte',sur:'Sur',oeste:'Oeste'};
+
+  let secHTML=m.secretarias&&m.secretarias.length?
+    m.secretarias.map((s,i)=>`
+      <div class="sb">
+        <span class="sb-name">${s.nombre}</span>
+        <div class="sb-track">
+          <div class="sb-fill" style="width:${s.pct/m.secretarias[0].pct*100}%;background:${COLORS[i%COLORS.length]}28">
+            <span style="font-size:9px;color:${COLORS[i%COLORS.length]}">${s.pct}%</span>
+          </div>
+        </div>
+        ${s.monto_m?`<span style="font-size:9px;color:var(--ink3);min-width:48px;text-align:right">$${s.monto_m>=1000?(s.monto_m/1000).toFixed(1)+' mil mill.':Math.round(s.monto_m).toLocaleString('es-AR')+' M$'}</span>`:''}
+      </div>`).join('')
+    :`<div class="pend-msg">Adjuntá la rendición de cuentas para ver el desglose.</div>`;
+
+  let tishHTML=m.tish.escala&&m.tish.escala.length?`
+    <p style="font-size:10px;color:var(--ink3);margin-bottom:.5rem">${m.tish.fuente}</p>
+    <table class="tish-t">
+      <tr><td>Nombre tasa</td><td>${m.tish.nombre_tasa}</td></tr>
+      <tr><td>Alícuota base</td><td>${m.tish.alicuota_base_milesimos}‰</td></tr>
+      ${m.tish.minimo_bimestral_comercio_mf?`<tr><td>Mín. bimestral comercio</td><td>${m.tish.minimo_bimestral_comercio_mf} MF</td></tr>`:''}
+      ${m.tish.minimo_bimestral_industria_mf?`<tr><td>Mín. bimestral industria</td><td>${m.tish.minimo_bimestral_industria_mf} MF</td></tr>`:''}
+      ${(m.tish.escala||[]).map(e=>`<tr><td>Hasta ${e.hasta_mf||e.hasta} MF</td><td>${e.alicuota}‰</td></tr>`).join('')}
+      ${m.tish.recaudado_2025_millones?`<tr><td>TISH recaudada 2025</td><td>$${fmtN(m.tish.recaudado_2025_millones)}M</td></tr>`:''}
+    </table>`
+    :`<div class="pend-msg">${m.tish.fuente||'Pendiente de carga.'}</div>`;
+
+  document.getElementById('panel-body').innerHTML=`
+    <div class="p-title">${m.nombre}</div>
+    <div class="p-sub">
+      <span class="zb z${m.zona[0]}">${znMap[m.zona]}</span>
+      <span class="badge-fuente ${m.dato_calidad==='real'?'b-real':'b-pend'}">${m.dato_fuente}</span>
+      ${m.sector_principal?`<span style="font-size:10px;color:var(--ink3)">Sector líder: <strong style="color:var(--ink2)">${m.sector_principal}</strong></span>`:''}
+    </div>
+    <div class="p-grid">
+      <div class="pm"><div class="pm-l">Población</div><div class="pm-v">${fmtN(m.poblacion)}</div><div class="pm-s">Censo 2022</div></div>
+      <div class="pm"><div class="pm-l">Superficie</div><div class="pm-v">${m.superficie_km2?fmtN(m.superficie_km2)+' km²':'—'}</div><div class="pm-s">${dens?fmtN(dens)+' hab/km²':''}</div></div>
+      <div class="pm"><div class="pm-l">PBG corriente 2023</div><div class="pm-v">${m.pbg_corriente_2023?fmtM(m.pbg_corriente_2023):'—'}</div><div class="pm-s">${pbgpc?'Per cápita: $'+fmtN(pbgpc):''}</div></div>
+      ${m.pbg_constante_2004_2023?`<div class="pm"><div class="pm-l">PBG cte. 2004 (2023)</div><div class="pm-v">${fmtM(m.pbg_constante_2004_2023)}</div><div class="pm-s">pc: $${ fmtN(m.pbg_constante_2004_2023?Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion):null)}</div></div>`:''}
+      <div class="pm"><div class="pm-l">Presupuesto 2025</div><div class="pm-v">${m.presupuesto_2025?fmtM(m.presupuesto_2025):'—'}</div><div class="pm-s">${prespc?'Per cápita: $'+fmtN(prespc):''}</div></div>
+      <div class="pm"><div class="pm-l">Recursos percibidos</div><div class="pm-v">${m.recursos_percibidos_2025?fmtM(m.recursos_percibidos_2025):'—'}</div><div class="pm-s">${recpc?'Per cápita: $'+fmtN(recpc):''}</div></div>
+    </div>
+    <div class="p2">
+      <div><div class="sec-h">Gasto por secretaría</div>${secHTML}</div>
+      <div><div class="sec-h">Tasa ${m.tish.nombre_tasa||'TISH'}</div>${tishHTML}</div>
+    </div>
+  `;
+  document.getElementById('panel').classList.add('open');
+  setTimeout(()=>document.getElementById('panel').scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+function closePanel(){document.getElementById('panel').classList.remove('open');}
+
+function fZona(z,btn){
+  zona=z;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  renderCharts();renderTable();
+}
+function fSort(s,btn){
+  sort=s;
+  document.querySelectorAll('.pill').forEach(p=>{if(['Nombre','Población','PBG per cápita','Presup. per cápita'].includes(p.textContent))p.classList.remove('on');});
+  btn.classList.add('on');
+  renderTable();
+}
+</script>
+</body>
+</html>
