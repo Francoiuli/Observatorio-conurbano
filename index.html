@@ -24,6 +24,8 @@ body{background:var(--bg);color:var(--ink);font-family:'Sora',sans-serif;font-si
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--borde);border-radius:3px}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-inner{scrollbar-width:none}
 
 /* HEADER */
 header{background:linear-gradient(135deg,#134E4A 0%,#0F766E 50%,#0D9488 100%);position:relative;overflow:hidden}
@@ -41,7 +43,7 @@ h1 b{color:var(--c4)}
 
 /* NAV */
 .nav{background:#134E4A;border-bottom:3px solid var(--c4);position:sticky;top:0;z-index:300}
-.nav-inner{max-width:1340px;margin:0 auto;padding:0 2.5rem;display:flex;overflow-x:auto}
+.nav-inner{max-width:1340px;margin:0 auto;padding:0 2.5rem;display:flex;flex-wrap:wrap;scrollbar-width:none}.nav-inner::-webkit-scrollbar{display:none}
 .nav-btn{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.95rem 1.5rem;color:rgba(255,255,255,.4);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .15s;white-space:nowrap}
 .nav-btn:hover{color:rgba(255,255,255,.8)}
 .nav-btn.on{color:#fff;border-bottom-color:var(--c4)}
@@ -216,6 +218,12 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 .sect-pct{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--ink)}
 .sect-chart{position:relative;height:200px;margin-top:.5rem}
 #svg-tooltip{position:fixed;pointer-events:none}
+
+#comp-modal.open{display:flex}
+.muni-option{padding:8px 12px;border-radius:var(--r);border:1.5px solid var(--borde);font-size:12px;cursor:pointer;transition:all .12s;text-align:left;background:transparent;font-family:'Sora',sans-serif;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.muni-option:hover{border-color:var(--c1);color:var(--c1)}
+.muni-option.sel{border-color:var(--c1);background:var(--c1);color:#fff;font-weight:600}
+.muni-option .zona-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -237,17 +245,10 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
     <button class="nav-btn" onclick="setView('glosario',this)">¿Qué significa?</button>
     <button class="nav-btn" onclick="setView('tabla',this)">Tabla comparativa</button>
     <button class="nav-btn" onclick="setView('tish',this)">Tasas TISH</button>
-    <button class="nav-btn" id="nav-comp" onclick="setView('comparar',this)" style="display:none">Comparador</button>
   </div>
 </nav>
 
-<div class="comp-bar" id="comp-bar">
-  <span class="comp-bar-label">Comparando</span>
-  <div class="comp-chips" id="comp-chips"></div>
-  <span class="comp-hint" id="comp-hint"></span>
-  <button class="comp-btn" onclick="verComparacion()">Ver comparación →</button>
-  <button class="comp-btn sec" onclick="limpiarComp()">Limpiar</button>
-</div>
+
 
 <!-- DASHBOARD -->
 <div class="wrap on" id="v-dashboard">
@@ -279,16 +280,26 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
     <span class="fl" style="color:var(--ink3);text-transform:none;letter-spacing:0;font-weight:400;font-size:11px">Clic para detalle · ＋ para comparar</span>
   </div>
   <div id="panel-anchor"></div>
+  <!-- Panel comparación — se muestra dentro de la tabla -->
+  <div id="comp-result" style="display:none;background:var(--card);border-radius:var(--r2);box-shadow:0 4px 24px rgba(0,0,0,.12);margin-bottom:1.5rem;overflow:hidden;border-top:4px solid var(--c4)">
+    <div style="background:linear-gradient(130deg,#134E4A,#0F766E);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#fff">Comparación</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px" id="comp-view-title"></div>
+      </div>
+      <button onclick="cerrarComparacion()" style="background:rgba(255,255,255,.15);border:none;border-radius:var(--r);color:#fff;font-size:10px;font-weight:700;padding:5px 12px;cursor:pointer;font-family:'JetBrains Mono',monospace">✕ CERRAR</button>
+    </div>
+    <div style="padding:1.5rem;overflow-x:auto">
+      <div id="comp-content"></div>
+    </div>
+  </div>
   <div class="panel" id="panel"><div class="ph"><div><div class="ph-t" id="p-title"></div><div class="ph-s" id="p-sub"></div></div><button class="p-close" onclick="closePanel()">✕ CERRAR</button></div><div class="pb" id="p-body"></div></div>
   <div class="tw"><table><thead><tr id="thead-row"></tr></thead><tbody id="tbody"></tbody></table></div>
 </div>
 
 
 <!-- COMPARAR -->
-<div class="wrap" id="v-comparar">
-  <div class="sh"><span class="sh-t">Comparador de municipios</span><span class="sh-n" id="comp-view-title"></span></div>
-  <div id="comp-content"></div>
-</div>
+
 
 
 <!-- GLOSARIO -->
@@ -375,6 +386,37 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 </div>
 
 <div id="svg-tooltip" style="position:fixed;background:var(--ink);color:#fff;padding:6px 11px;border-radius:6px;font-size:12px;font-family:'Sora',sans-serif;pointer-events:none;opacity:0;transition:opacity .15s;z-index:9999;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.25)"></div>
+
+<!-- MODAL COMPARADOR -->
+<div id="comp-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center">
+  <div style="background:var(--card);border-radius:var(--r2);padding:2rem;width:min(620px,90vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.3)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+      <div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--ink)">Comparar municipios</div>
+        <div style="font-size:11px;color:var(--ink3);margin-top:3px">Seleccioná entre 2 y 3 partidos</div>
+      </div>
+      <button onclick="cerrarModalComp()" style="background:var(--bg);border:none;border-radius:var(--r);padding:6px 12px;cursor:pointer;font-size:12px;color:var(--ink2)">✕ Cerrar</button>
+    </div>
+    <!-- Seleccionados -->
+    <div id="modal-selec" style="display:flex;gap:.5rem;flex-wrap:wrap;min-height:36px;margin-bottom:1rem;padding:.5rem;background:var(--bg);border-radius:var(--r)">
+      <span id="modal-selec-hint" style="font-size:11px;color:var(--ink3);align-self:center;padding:0 .25rem">Ningún municipio seleccionado todavía</span>
+    </div>
+    <!-- Buscador -->
+    <div style="position:relative;margin-bottom:.875rem">
+      <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--ink3)">🔍</span>
+      <input id="modal-search" type="text" placeholder="Buscar..." oninput="filtrarModal(this.value)"
+        style="width:100%;padding:7px 12px 7px 34px;border:1.5px solid var(--borde);border-radius:99px;font-family:'Sora',sans-serif;font-size:12px;outline:none">
+    </div>
+    <!-- Lista de municipios -->
+    <div id="modal-lista" style="overflow-y:auto;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:.4rem"></div>
+    <!-- Botón comparar -->
+    <div style="margin-top:1.25rem;display:flex;justify-content:flex-end;gap:.75rem">
+      <button onclick="limpiarComp()" style="background:transparent;border:1.5px solid var(--borde);border-radius:99px;padding:7px 18px;font-family:'Sora',sans-serif;font-size:12px;cursor:pointer;color:var(--ink2)">Limpiar</button>
+      <button id="modal-comparar-btn" onclick="ejecutarComparacion()" style="background:var(--c1);color:#fff;border:none;border-radius:99px;padding:7px 22px;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;cursor:pointer;opacity:.4" disabled>Ver comparación →</button>
+    </div>
+  </div>
+</div>
+
 <footer><div class="fi"><span>Observatorio Fiscal del Conurbano · 2025–2026</span><span>DPE-PBA · RAFAM · INDEC Censo 2022 · HCD Municipales</span></div></footer>
 
 <script>
@@ -517,7 +559,6 @@ const COLS = [
   {k:'dens',   l:'Densidad',          sort:'densidad',   num:true},
   {k:'pbgc',   l:'PBG 2023',    sort:'pbg_corr',   num:true},
   {k:'pbgpc',  l:'PBG per cápita',     sort:'pbg_pc',     num:true},
-  {k:'sector', l:'Sector líder',      sort:null,         num:false},
   {k:'pres',   l:'Presup. 2025',      sort:'presupuesto',num:true},
   {k:'prespc', l:'Presup. pc',        sort:'pres_pc',    num:true},
   {k:'rec',    l:'Rec. percibidos',   sort:null,         num:true},
@@ -563,20 +604,13 @@ function renderTable(){
     const dl = m.dato_calidad==='real'?'Real':m.dato_calidad==='aprobado'?'Aprob.':'Pend.';
     const sel = panelId===m.id?'sel':'';
     return `<tr class="${sel}" onclick="openPanel('${m.id}')">
-      <td class="mn" style="display:flex;align-items:center;gap:8px">
-        <span>${m.nombre}</span>
-        <button onclick="event.stopPropagation();toggleComp('${m.id}')" 
-          id="comp-btn-${m.id}"
-          style="background:none;border:1.5px solid var(--borde);border-radius:99px;width:20px;height:20px;cursor:pointer;font-size:11px;line-height:1;color:var(--ink3);flex-shrink:0;transition:all .12s;padding:0"
-          title="Agregar al comparador">＋</button>
-      </td>
+      <td class="mn">${m.nombre}</td>
       <td><span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span></td>
       <td class="n">${fmtN(m.poblacion)}</td>
       <td class="${m.superficie_km2?'n':'na'}">${m.superficie_km2?fmtN(m.superficie_km2):'—'}</td>
       <td class="${dens?'n':'na'}">${dens?fmtN(dens):'—'}</td>
       <td class="${m.pbg_corriente_2023?'n':'na'}">${m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—'}</td>
       <td class="${pbgpc?'n':'na'}">${pbgpc?fmtK(pbgpc):'—'}</td>
-      <td style="font-size:11px;color:var(--ink3);font-style:italic">${m.sector_principal||'—'}</td>
       <td class="${m.presupuesto_2025?'n':'na'}">${m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—'}</td>
       <td class="${prespc?'n':'na'}">${prespc?fmtK(prespc):'—'}</td>
       <td class="${m.recursos_percibidos_2025?'n':'na'}">${m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'}</td>
@@ -707,7 +741,7 @@ function openPanel(id){
   document.getElementById('p-sub').innerHTML=`
     <span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span>
     <span class="dch ${dq}">${dl} · ${m.dato_fuente||''}</span>
-    ${m.sector_principal?`<span style="font-size:11px;color:rgba(255,255,255,.5)">Sector líder: ${m.sector_principal}</span>`:''}`;
+    `;
   const kpis=[
     ['Población',fmtN(m.poblacion),'Censo 2022'],
     ['Superficie',m.superficie_km2?fmtN(m.superficie_km2)+' km²':'—',dens?fmtN(dens)+' hab/km²':''],
@@ -773,6 +807,91 @@ function renderTISH(){
 }
 
 
+// ── MODAL COMPARADOR ──────────────────────────────────────
+function abrirModalComp(){
+  renderModalLista('');
+  actualizarModalSelec();
+  document.getElementById('comp-modal').classList.add('open');
+  document.getElementById('modal-search').value='';
+  document.getElementById('modal-search').focus();
+}
+function cerrarModalComp(){
+  document.getElementById('comp-modal').classList.remove('open');
+}
+function filtrarModal(q){
+  renderModalLista(q.toLowerCase());
+}
+function renderModalLista(q){
+  const lista = DATA.filter(m=> !q || m.nombre.toLowerCase().includes(q));
+  const ZONA_DOT = {norte:'#0F766E',sur:'#DC2626',oeste:'#7C3AED'};
+  document.getElementById('modal-lista').innerHTML = lista.map(m=>{
+    const sel = compIds.includes(m.id);
+    const idx = compIds.indexOf(m.id);
+    const dotCol = ZONA_DOT[m.zona]||'#888';
+    return `<button class="muni-option ${sel?'sel':''}" onclick="toggleCompModal('${m.id}')" id="mopt-${m.id}">
+      <span class="zona-dot" style="background:${sel?'rgba(255,255,255,.7)':dotCol}"></span>
+      ${m.nombre}
+      ${sel?`<span style="margin-left:auto;font-size:10px">${idx+1}°</span>`:''}
+    </button>`;
+  }).join('');
+}
+function toggleCompModal(id){
+  if(compIds.includes(id)){
+    compIds = compIds.filter(x=>x!==id);
+  } else {
+    if(compIds.length>=3){
+      // remover el primero y agregar el nuevo
+      compIds.shift();
+    }
+    compIds.push(id);
+  }
+  actualizarModalSelec();
+  renderModalLista(document.getElementById('modal-search').value.toLowerCase());
+}
+function actualizarModalSelec(){
+  const hint = document.getElementById('modal-selec-hint');
+  const chips = document.getElementById('modal-selec');
+  const btn = document.getElementById('modal-comparar-btn');
+  if(compIds.length===0){
+    chips.innerHTML = '<span id="modal-selec-hint" style="font-size:11px;color:var(--ink3);align-self:center;padding:0 .25rem">Ningún municipio seleccionado todavía</span>';
+    btn.disabled=true; btn.style.opacity='.4';
+    return;
+  }
+  chips.innerHTML = compIds.map((id,i)=>{
+    const m=DATA.find(x=>x.id===id);
+    return `<div style="display:flex;align-items:center;gap:5px;background:${COMP_COLORS[i]}18;border:1px solid ${COMP_COLORS[i]}50;border-radius:99px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--ink)">
+      <span style="width:8px;height:8px;border-radius:50%;background:${COMP_COLORS[i]}"></span>
+      ${m.nombre}
+      <button onclick="toggleCompModal('${id}')" style="background:none;border:none;cursor:pointer;color:var(--ink3);font-size:13px;line-height:1;padding:0;margin-left:2px">✕</button>
+    </div>`;
+  }).join('');
+  btn.disabled = compIds.length<2;
+  btn.style.opacity = compIds.length>=2?'1':'.4';
+}
+function limpiarComp(){
+  compIds=[];
+  actualizarModalSelec();
+  renderModalLista(document.getElementById('modal-search')?.value?.toLowerCase()||'');
+}
+function ejecutarComparacion(){
+  if(compIds.length<2) return;
+  cerrarModalComp();
+  // Ir a la tabla si no estamos ahí
+  if(!document.getElementById('v-tabla').classList.contains('on')){
+    document.querySelectorAll('.wrap').forEach(w=>w.classList.remove('on'));
+    document.getElementById('v-tabla').classList.add('on');
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
+    document.querySelectorAll('.nav-btn').forEach(b=>{if(b.textContent.includes('Tabla'))b.classList.add('on');});
+  }
+  renderComparador();
+  const cr = document.getElementById('comp-result');
+  cr.style.display='block';
+  setTimeout(()=>cr.scrollIntoView({behavior:'smooth',block:'start'}),80);
+}
+function cerrarComparacion(){
+  document.getElementById('comp-result').style.display='none';
+}
+
 // ── BUSCADOR ──────────────────────────────────────────────
 let searchTerm = '';
 function onSearch(val){
@@ -792,71 +911,9 @@ let compIds = [];
 const MAX_COMP = 3;
 const COMP_COLORS = ['#0F766E','#DC2626','#7C3AED'];
 
-function toggleComp(id){
-  if(compIds.includes(id)){
-    compIds = compIds.filter(x=>x!==id);
-  } else {
-    if(compIds.length>=MAX_COMP){alert('Máximo 3 municipios para comparar.');return;}
-    compIds.push(id);
-  }
-  updateCompBar();
-  // Actualizar estilo del botón en la tabla
-  document.querySelectorAll('[id^="comp-btn-"]').forEach(btn=>{
-    const bid = btn.id.replace('comp-btn-','');
-    const idx = compIds.indexOf(bid);
-    if(idx>=0){
-      btn.style.background = COMP_COLORS[idx];
-      btn.style.borderColor = COMP_COLORS[idx];
-      btn.style.color = '#fff';
-      btn.textContent = '✓';
-    } else {
-      btn.style.background = 'none';
-      btn.style.borderColor = 'var(--borde)';
-      btn.style.color = 'var(--ink3)';
-      btn.textContent = '＋';
-    }
-  });
-}
-
-function updateCompBar(){
-  const bar = document.getElementById('comp-bar');
-  const chips = document.getElementById('comp-chips');
-  const hint = document.getElementById('comp-hint');
-  const navComp = document.getElementById('nav-comp');
-  if(compIds.length===0){
-    bar.classList.remove('show');
-    navComp.style.display='none';
-    return;
-  }
-  bar.classList.add('show');
-  navComp.style.display='block';
-  chips.innerHTML = compIds.map((id,i)=>{
-    const m = DATA.find(x=>x.id===id);
-    return `<div class="comp-chip" style="border-color:${COMP_COLORS[i]}40;background:${COMP_COLORS[i]}25">
-      <span style="width:8px;height:8px;border-radius:50%;background:${COMP_COLORS[i]};display:inline-block;flex-shrink:0"></span>
-      ${m.nombre}
-      <button onclick="toggleComp('${id}')">✕</button>
-    </div>`;
-  }).join('');
-  const restantes = MAX_COMP - compIds.length;
-  hint.textContent = restantes > 0 ? `Podés agregar ${restantes} más` : '';
-}
-
-function limpiarComp(){
-  compIds=[];
-  updateCompBar();
-  renderTable();
-}
-
-function verComparacion(){
-  if(compIds.length<2){alert('Seleccioná al menos 2 municipios.');return;}
-  renderComparador();
-  // Activar la vista
-  document.querySelectorAll('.wrap').forEach(w=>w.classList.remove('on'));
-  document.getElementById('v-comparar').classList.add('on');
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
-  document.getElementById('nav-comp').classList.add('on');
-}
+// toggleComp legacy — ahora se usa toggleCompModal
+function toggleComp(id){ toggleCompModal(id); }
+function verComparacion(){ ejecutarComparacion(); }
 
 function renderComparador(){
   const munis = compIds.map(id=>DATA.find(x=>x.id===id));
@@ -868,7 +925,6 @@ function renderComparador(){
     {l:'Densidad hab/km²',fn:m=>m.superficie_km2?fmtN(Math.round(m.poblacion/m.superficie_km2)):'—'},
     {l:'PBG total 2023',fn:m=>m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—', best:m=>m.pbg_corriente_2023||0},
     {l:'PBG per cápita', fn:m=>m.pbg_constante_2004_2023?fmtK(Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)):'—', best:m=>m.pbg_constante_2004_2023?m.pbg_constante_2004_2023/m.poblacion:0},
-    {l:'Sector líder',    fn:m=>m.sector_principal||'—'},
     {l:'Presupuesto 2025',fn:m=>m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—', best:m=>m.presupuesto_2025||0},
     {l:'Presup. pc',      fn:m=>m.presupuesto_2025?fmtK(Math.round(m.presupuesto_2025*1e6/m.poblacion)):'—', best:m=>m.presupuesto_2025?m.presupuesto_2025/m.poblacion:0},
     {l:'Rec. percibidos', fn:m=>m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'},
@@ -893,7 +949,7 @@ function renderComparador(){
     return `<div class="comp-row">
       <div class="comp-row-label">${met.l}</div>
       <div class="comp-row-vals" style="grid-template-columns:${munis.map(()=>'1fr').join(' ')}">
-        ${vals.map((v,i)=>`<div class="comp-cell ${i===bestIdx?'best':''}" style="${i===bestIdx?'color:'+COMP_COLORS[i]+';background:'+COMP_COLORS[i]+'0A':''}">${v}</div>`).join('')}
+        ${vals.map((v,i)=>`<div class="comp-cell ${i===bestIdx?'best':''}" style="${i===bestIdx?'color:'+COMP_COLORS[i]+';background:'+COMP_COLORS[i]+'22;border-left:3px solid '+COMP_COLORS[i]+';font-weight:700':''}">  ${i===bestIdx?'▲ ':''}\${v}</div>`).join('')}
       </div>
     </div>`;
   }).join('');
@@ -907,7 +963,7 @@ function renderComparador(){
     return `<div class="comp-row">
       <div class="comp-row-label">${SECT_LABELS[k]}</div>
       <div class="comp-row-vals" style="grid-template-columns:${munis.map(()=>'1fr').join(' ')}">
-        ${vals.map((v,i)=>`<div class="comp-cell ${i===best&&v>0?'best':''}" style="${i===best&&v>0?'color:'+COMP_COLORS[i]+';background:'+COMP_COLORS[i]+'0A':''}">${v>0?v.toFixed(1)+'%':'—'}</div>`).join('')}
+        ${vals.map((v,i)=>`<div class="comp-cell ${i===best&&v>0?'best':''}" style="${i===best&&v>0?'color:'+COMP_COLORS[i]+';background:'+COMP_COLORS[i]+'22;border-left:3px solid '+COMP_COLORS[i]+';font-weight:700':''}">${v>0?(i===best?'▲ ':'')+v.toFixed(1)+'%':'—'}</div>`).join('')}
       </div>
     </div>`;
   }).join('');
