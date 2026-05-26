@@ -18,7 +18,7 @@
       "zona": "sur",
       "poblacion": 574410,
       "superficie_km2": 129,
-      "presupuesto_2025": null,
+      "presupuesto_2025": 237000,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 1758171,
       "pbg_constante_2004": 6638,
@@ -30,8 +30,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Presupuesto aprobado HCD nov. 2024",
+      "dato_calidad": "aprobado",
       "pbg_corriente_2022": 743966,
       "pbg_constante_2004_2023": 6638,
       "pbg_constante_2004_2022": 6637
@@ -138,7 +138,7 @@
       "zona": "sur",
       "poblacion": 474141,
       "superficie_km2": 190,
-      "presupuesto_2025": null,
+      "presupuesto_2025": 108809,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 1217434,
       "pbg_constante_2004": null,
@@ -150,8 +150,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Presupuesto aprobado HCD 2024 — El Termómetro",
+      "dato_calidad": "aprobado",
       "pbg_corriente_2022": 503749,
       "pbg_constante_2004_2023": 4664,
       "pbg_constante_2004_2022": 4596
@@ -162,7 +162,7 @@
       "zona": "oeste",
       "poblacion": 185569,
       "superficie_km2": 35,
-      "presupuesto_2025": null,
+      "presupuesto_2025": 104000,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 695697,
       "pbg_constante_2004": null,
@@ -174,8 +174,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Rendición 2025 aprobada HCD — Un/Medio",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 279940,
       "pbg_constante_2004_2023": 2560,
       "pbg_constante_2004_2022": 2497
@@ -234,7 +234,7 @@
       "zona": "oeste",
       "poblacion": 1775816,
       "superficie_km2": 323,
-      "presupuesto_2025": null,
+      "presupuesto_2025": 298000,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 4986948,
       "pbg_constante_2004": null,
@@ -246,8 +246,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Presupuesto aprobado 2025 — El1 Digital",
+      "dato_calidad": "aprobado",
       "pbg_corriente_2022": 2083211,
       "pbg_constante_2004_2023": 19233,
       "pbg_constante_2004_2022": 18969
@@ -258,7 +258,7 @@
       "zona": "sur",
       "poblacion": 459263,
       "superficie_km2": 45,
-      "presupuesto_2025": null,
+      "presupuesto_2025": 168362,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 1721856,
       "pbg_constante_2004": null,
@@ -270,8 +270,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Presupuesto aprobado 2025 — Lanús Hoy",
+      "dato_calidad": "aprobado",
       "pbg_corriente_2022": 717593,
       "pbg_constante_2004_2023": 6445,
       "pbg_constante_2004_2022": 6427
@@ -426,7 +426,7 @@
           "pct": 23.4
         }
       ],
-      "dato_fuente": "Rendición de Cuentas 2025",
+      "dato_fuente": "Rendición 2025 — RAFAM",
       "dato_calidad": "real",
       "pbg_corriente_2022": 555714,
       "pbg_constante_2004_2023": 4736,
@@ -438,7 +438,7 @@
       "zona": "sur",
       "poblacion": 640907,
       "superficie_km2": 125,
-      "presupuesto_2025": null,
+      "presupuesto_2025": 398000,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 2078416,
       "pbg_constante_2004": null,
@@ -450,8 +450,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Rendición 2025 aprobada HCD — El Termómetro",
+      "dato_calidad": "real",
       "pbg_corriente_2022": 877321,
       "pbg_constante_2004_2023": 7742,
       "pbg_constante_2004_2022": 7781
@@ -486,7 +486,7 @@
       "zona": "norte",
       "poblacion": 295631,
       "superficie_km2": 48,
-      "presupuesto_2025": null,
+      "presupuesto_2025": 237000,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 1484112,
       "pbg_constante_2004": null,
@@ -498,8 +498,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Presupuesto aprobado HCD 2025 (2026: $340B)",
+      "dato_calidad": "aprobado",
       "pbg_corriente_2022": 642792,
       "pbg_constante_2004_2023": 5416,
       "pbg_constante_2004_2022": 5559
@@ -536,7 +536,7 @@
         }
       ],
       "dato_fuente": "Presupuesto aprobado HCD 2025",
-      "dato_calidad": "real",
+      "dato_calidad": "aprobado",
       "pbg_corriente_2022": 771484,
       "pbg_constante_2004_2023": 6762,
       "pbg_constante_2004_2022": 6823
@@ -571,7 +571,7 @@
       "zona": "norte",
       "poblacion": 424002,
       "superficie_km2": 1471,
-      "presupuesto_2025": null,
+      "presupuesto_2025": 412000,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 2088084,
       "pbg_constante_2004": null,
@@ -583,8 +583,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Presupuesto aprobado HCD dic. 2024 — Zona Norte Diario",
+      "dato_calidad": "aprobado",
       "pbg_corriente_2022": 887069,
       "pbg_constante_2004_2023": 7785,
       "pbg_constante_2004_2022": 7872
@@ -595,7 +595,7 @@
       "zona": "norte",
       "poblacion": 368150,
       "superficie_km2": 46,
-      "presupuesto_2025": 121900,
+      "presupuesto_2025": 150745,
       "recursos_percibidos_2025": 68493,
       "pbg_corriente_2023": 1617624,
       "pbg_constante_2004": null,
@@ -663,7 +663,7 @@
           "monto_m": 24501
         }
       ],
-      "dato_fuente": "Ejecución RAFAM 2025 (real)",
+      "dato_fuente": "Ejecución RAFAM 2025",
       "dato_calidad": "real",
       "pbg_corriente_2022": 692692,
       "pbg_constante_2004_2023": 5963,
@@ -675,7 +675,7 @@
       "zona": "norte",
       "poblacion": 275023,
       "superficie_km2": 33,
-      "presupuesto_2025": null,
+      "presupuesto_2025": 297000,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 1487367,
       "pbg_constante_2004": null,
@@ -687,8 +687,8 @@
         "nombre_tasa": "TISH"
       },
       "secretarias": [],
-      "dato_fuente": "Pendiente",
-      "dato_calidad": "pendiente",
+      "dato_fuente": "Presupuesto aprobado HCD dic. 2024 — La Noticia Web (Salud: 82.6B = 27.77%)",
+      "dato_calidad": "aprobado",
       "pbg_corriente_2022": 633212,
       "pbg_constante_2004_2023": 5403,
       "pbg_constante_2004_2022": 5462
