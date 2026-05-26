@@ -277,7 +277,9 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
       <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
     </div>
     <div class="sep"></div>
-    <span class="fl" style="color:var(--ink3);text-transform:none;letter-spacing:0;font-weight:400;font-size:11px">Clic para detalle · ＋ para comparar</span>
+    <span class="fl" style="color:var(--ink3);text-transform:none;letter-spacing:0;font-weight:400;font-size:11px">Clic en una fila para ver el detalle</span>
+    <div style="flex:1"></div>
+    <button onclick="abrirModalComp()" style="background:var(--c1);color:#fff;border:none;border-radius:99px;padding:6px 18px;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">⚖ Comparar municipios</button>
   </div>
   <div id="panel-anchor"></div>
   <!-- Panel comparación — se muestra dentro de la tabla -->
