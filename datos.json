@@ -17,7 +17,7 @@
       "nombre": "Almirante Brown",
       "zona": "sur",
       "poblacion": 574410,
-      "superficie_km2": 129,
+      "superficie_km2": 129.3,
       "presupuesto_2025": 237000,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 1758171,
@@ -96,6 +96,19 @@
           "millones": 16704,
           "pct": 1.0
         }
+      },
+      "censo_2022": {
+        "pob_2010": 552902,
+        "var_intercensal_pct": 5.8,
+        "varones": 282277,
+        "mujeres": 302550,
+        "indice_masculinidad": 93.3,
+        "total_hogares": 187107,
+        "pct_agua_red": 54.4,
+        "pct_cloaca_red": 40.6,
+        "edad_mediana": 32.5,
+        "superficie_km2_indec": 129.3,
+        "densidad_indec": 4523.0
       }
     },
     {
@@ -103,7 +116,7 @@
       "nombre": "Avellaneda",
       "zona": "sur",
       "poblacion": 369130,
-      "superficie_km2": 55,
+      "superficie_km2": 56.2,
       "presupuesto_2025": 579326,
       "recursos_percibidos_2025": 559760,
       "pbg_corriente_2023": 1714437,
@@ -182,6 +195,19 @@
           "millones": 7346,
           "pct": 0.4
         }
+      },
+      "censo_2022": {
+        "pob_2010": 342677,
+        "var_intercensal_pct": 7.3,
+        "varones": 173733,
+        "mujeres": 193821,
+        "indice_masculinidad": 89.6,
+        "total_hogares": 134851,
+        "pct_agua_red": 96.4,
+        "pct_cloaca_red": 80.3,
+        "edad_mediana": 36.3,
+        "superficie_km2_indec": 56.2,
+        "densidad_indec": 6540.1
       }
     },
     {
@@ -189,7 +215,7 @@
       "nombre": "Berazategui",
       "zona": "sur",
       "poblacion": 370606,
-      "superficie_km2": 190,
+      "superficie_km2": 220.2,
       "presupuesto_2025": 153105,
       "recursos_percibidos_2025": 155732,
       "pbg_corriente_2023": 1096370,
@@ -269,14 +295,27 @@
           "pct": 0.9
         }
       },
-      "saldo_caja_2025": 38488
+      "saldo_caja_2025": 38488,
+      "censo_2022": {
+        "pob_2010": 324244,
+        "var_intercensal_pct": 10.6,
+        "varones": 173376,
+        "mujeres": 185336,
+        "indice_masculinidad": 93.5,
+        "total_hogares": 116419,
+        "pct_agua_red": 89.8,
+        "pct_cloaca_red": 75.9,
+        "edad_mediana": 33.0,
+        "superficie_km2_indec": 220.2,
+        "densidad_indec": 1629.0
+      }
     },
     {
       "id": "esteban_echeverria",
       "nombre": "Esteban Echeverría",
       "zona": "sur",
       "poblacion": 319372,
-      "superficie_km2": 120,
+      "superficie_km2": 121.3,
       "presupuesto_2025": null,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 962491,
@@ -355,6 +394,19 @@
           "millones": 9981,
           "pct": 1.0
         }
+      },
+      "censo_2022": {
+        "pob_2010": 300959,
+        "var_intercensal_pct": 12.5,
+        "varones": 164013,
+        "mujeres": 174467,
+        "indice_masculinidad": 94.0,
+        "total_hogares": 108363,
+        "pct_agua_red": 60.7,
+        "pct_cloaca_red": 49.0,
+        "edad_mediana": 31.3,
+        "superficie_km2_indec": 121.3,
+        "densidad_indec": 2790.4
       }
     },
     {
@@ -362,7 +414,7 @@
       "nombre": "Ezeiza",
       "zona": "sur",
       "poblacion": 196024,
-      "superficie_km2": 228,
+      "superficie_km2": 238.2,
       "presupuesto_2025": 130747,
       "recursos_percibidos_2025": 125761,
       "pbg_corriente_2023": 801986,
@@ -442,14 +494,27 @@
           "pct": 0.8
         }
       },
-      "saldo_caja_2025": 4042
+      "saldo_caja_2025": 4042,
+      "censo_2022": {
+        "pob_2010": 163722,
+        "var_intercensal_pct": 23.1,
+        "varones": 99169,
+        "mujeres": 102342,
+        "indice_masculinidad": 96.9,
+        "total_hogares": 62802,
+        "pct_agua_red": 49.3,
+        "pct_cloaca_red": 35.0,
+        "edad_mediana": 30.1,
+        "superficie_km2_indec": 238.2,
+        "densidad_indec": 846.0
+      }
     },
     {
       "id": "florencio_varela",
       "nombre": "Florencio Varela",
       "zona": "sur",
       "poblacion": 474141,
-      "superficie_km2": 190,
+      "superficie_km2": 189.5,
       "presupuesto_2025": 169995,
       "recursos_percibidos_2025": 154793,
       "pbg_corriente_2023": 1217434,
@@ -529,14 +594,27 @@
           "pct": 1.2
         }
       },
-      "saldo_caja_2025": 5913
+      "saldo_caja_2025": 5913,
+      "censo_2022": {
+        "pob_2010": 426005,
+        "var_intercensal_pct": 16.5,
+        "varones": 246551,
+        "mujeres": 249882,
+        "indice_masculinidad": 98.7,
+        "total_hogares": 146253,
+        "pct_agua_red": 82.9,
+        "pct_cloaca_red": 45.7,
+        "edad_mediana": 29.2,
+        "superficie_km2_indec": 189.5,
+        "densidad_indec": 2619.7
+      }
     },
     {
       "id": "hurlingham",
       "nombre": "Hurlingham",
       "zona": "oeste",
       "poblacion": 185569,
-      "superficie_km2": 35,
+      "superficie_km2": 35.8,
       "presupuesto_2025": 104000,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 695697,
@@ -615,6 +693,19 @@
           "millones": 4849,
           "pct": 0.7
         }
+      },
+      "censo_2022": {
+        "pob_2010": 181241,
+        "var_intercensal_pct": 2.4,
+        "varones": 89070,
+        "mujeres": 96571,
+        "indice_masculinidad": 92.2,
+        "total_hogares": 63547,
+        "pct_agua_red": 44.7,
+        "pct_cloaca_red": 55.5,
+        "edad_mediana": 35.9,
+        "superficie_km2_indec": 35.8,
+        "densidad_indec": 5185.5
       }
     },
     {
@@ -622,7 +713,7 @@
       "nombre": "Ituzaingó",
       "zona": "oeste",
       "poblacion": 181243,
-      "superficie_km2": 38,
+      "superficie_km2": 38.1,
       "presupuesto_2025": 83288,
       "recursos_percibidos_2025": 76887,
       "pbg_corriente_2023": 632409,
@@ -702,14 +793,27 @@
           "pct": 0.6
         }
       },
-      "saldo_caja_2025": 2742
+      "saldo_caja_2025": 2742,
+      "censo_2022": {
+        "pob_2010": 167824,
+        "var_intercensal_pct": 7.4,
+        "varones": 86592,
+        "mujeres": 93640,
+        "indice_masculinidad": 92.5,
+        "total_hogares": 62587,
+        "pct_agua_red": 25.9,
+        "pct_cloaca_red": 38.1,
+        "edad_mediana": 37.5,
+        "superficie_km2_indec": 38.1,
+        "densidad_indec": 4730.5
+      }
     },
     {
       "id": "jose_c_paz",
       "nombre": "José C. Paz",
       "zona": "norte",
       "poblacion": 278356,
-      "superficie_km2": 50,
+      "superficie_km2": 50.2,
       "presupuesto_2025": 159166,
       "recursos_percibidos_2025": 146735,
       "pbg_corriente_2023": 959320,
@@ -789,14 +893,27 @@
           "pct": 1.3
         }
       },
-      "saldo_caja_2025": 4615
+      "saldo_caja_2025": 4615,
+      "censo_2022": {
+        "pob_2010": 265981,
+        "var_intercensal_pct": 22.9,
+        "varones": 159441,
+        "mujeres": 167551,
+        "indice_masculinidad": 95.2,
+        "total_hogares": 98119,
+        "pct_agua_red": 15.0,
+        "pct_cloaca_red": 8.2,
+        "edad_mediana": 29.8,
+        "superficie_km2_indec": 50.2,
+        "densidad_indec": 6513.8
+      }
     },
     {
       "id": "la_matanza",
       "nombre": "La Matanza",
       "zona": "oeste",
       "poblacion": 1775816,
-      "superficie_km2": 323,
+      "superficie_km2": 327.4,
       "presupuesto_2025": 536978,
       "recursos_percibidos_2025": 657710,
       "pbg_corriente_2023": 4986948,
@@ -876,14 +993,27 @@
           "pct": 0.7
         }
       },
-      "saldo_caja_2025": 266497
+      "saldo_caja_2025": 266497,
+      "censo_2022": {
+        "pob_2010": 1775816,
+        "var_intercensal_pct": 3.7,
+        "varones": 887472,
+        "mujeres": 953775,
+        "indice_masculinidad": 93.0,
+        "total_hogares": 576586,
+        "pct_agua_red": 90.5,
+        "pct_cloaca_red": 57.6,
+        "edad_mediana": 31.5,
+        "superficie_km2_indec": 327.4,
+        "densidad_indec": 5623.8
+      }
     },
     {
       "id": "lanus",
       "nombre": "Lanús",
       "zona": "sur",
       "poblacion": 459263,
-      "superficie_km2": 45,
+      "superficie_km2": 50.2,
       "presupuesto_2025": 250087,
       "recursos_percibidos_2025": 233515,
       "pbg_corriente_2023": 1721856,
@@ -959,14 +1089,27 @@
           "pct": 0.6
         }
       },
-      "saldo_caja_2025": 29834
+      "saldo_caja_2025": 29834,
+      "censo_2022": {
+        "pob_2010": 459263,
+        "var_intercensal_pct": 0.4,
+        "varones": 218501,
+        "mujeres": 242766,
+        "indice_masculinidad": 90.0,
+        "total_hogares": 167953,
+        "pct_agua_red": 96.1,
+        "pct_cloaca_red": 56.9,
+        "edad_mediana": 37.3,
+        "superficie_km2_indec": 50.2,
+        "densidad_indec": 9188.6
+      }
     },
     {
       "id": "lomas_de_zamora",
       "nombre": "Lomas de Zamora",
       "zona": "sur",
       "poblacion": 678320,
-      "superficie_km2": 89,
+      "superficie_km2": 88.7,
       "presupuesto_2025": 456000,
       "recursos_percibidos_2025": 456000,
       "pbg_corriente_2023": 2277721,
@@ -1045,6 +1188,19 @@
           "millones": 17723,
           "pct": 0.8
         }
+      },
+      "censo_2022": {
+        "pob_2010": 616279,
+        "var_intercensal_pct": 12.0,
+        "varones": 332391,
+        "mujeres": 358089,
+        "indice_masculinidad": 92.8,
+        "total_hogares": 234615,
+        "pct_agua_red": 94.3,
+        "pct_cloaca_red": 46.3,
+        "edad_mediana": 33.8,
+        "superficie_km2_indec": 88.7,
+        "densidad_indec": 7784.4
       }
     },
     {
@@ -1052,7 +1208,7 @@
       "nombre": "Malvinas Argentinas",
       "zona": "norte",
       "poblacion": 382759,
-      "superficie_km2": 63,
+      "superficie_km2": 62.9,
       "presupuesto_2025": 378963,
       "recursos_percibidos_2025": 330613,
       "pbg_corriente_2023": 1401292,
@@ -1132,14 +1288,27 @@
           "pct": 1.2
         }
       },
-      "saldo_caja_2025": 15145
+      "saldo_caja_2025": 15145,
+      "censo_2022": {
+        "pob_2010": 322375,
+        "var_intercensal_pct": 8.8,
+        "varones": 170521,
+        "mujeres": 180153,
+        "indice_masculinidad": 94.7,
+        "total_hogares": 107589,
+        "pct_agua_red": 13.8,
+        "pct_cloaca_red": 9.2,
+        "edad_mediana": 32.3,
+        "superficie_km2_indec": 62.9,
+        "densidad_indec": 5575.1
+      }
     },
     {
       "id": "merlo",
       "nombre": "Merlo",
       "zona": "oeste",
       "poblacion": 690837,
-      "superficie_km2": 170,
+      "superficie_km2": 174.1,
       "presupuesto_2025": null,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 1672141,
@@ -1218,6 +1387,19 @@
           "millones": 17358,
           "pct": 1.0
         }
+      },
+      "censo_2022": {
+        "pob_2010": 528494,
+        "var_intercensal_pct": 10.2,
+        "varones": 282644,
+        "mujeres": 299842,
+        "indice_masculinidad": 94.3,
+        "total_hogares": 182654,
+        "pct_agua_red": 41.5,
+        "pct_cloaca_red": 39.0,
+        "edad_mediana": 31.2,
+        "superficie_km2_indec": 174.1,
+        "densidad_indec": 3345.7
       }
     },
     {
@@ -1225,7 +1407,7 @@
       "nombre": "Moreno",
       "zona": "oeste",
       "poblacion": 661862,
-      "superficie_km2": 186,
+      "superficie_km2": 186.2,
       "presupuesto_2025": 303972,
       "recursos_percibidos_2025": 273356,
       "pbg_corriente_2023": 1490136,
@@ -1372,14 +1554,27 @@
       "autonomia_pct": 40.6,
       "tish_recaudado_m": 44126.9,
       "tsg_recaudado_m": 22813.0,
-      "saldo_caja_2025": 7086
+      "saldo_caja_2025": 7086,
+      "censo_2022": {
+        "pob_2010": 452505,
+        "var_intercensal_pct": 27.4,
+        "varones": 281921,
+        "mujeres": 294711,
+        "indice_masculinidad": 95.7,
+        "total_hogares": 181244,
+        "pct_agua_red": 35.9,
+        "pct_cloaca_red": 31.8,
+        "edad_mediana": 29.8,
+        "superficie_km2_indec": 186.2,
+        "densidad_indec": 3096.8
+      }
     },
     {
       "id": "moron",
       "nombre": "Morón",
       "zona": "oeste",
       "poblacion": 349545,
-      "superficie_km2": 55,
+      "superficie_km2": 55.1,
       "presupuesto_2025": 202116,
       "recursos_percibidos_2025": 180500,
       "pbg_corriente_2023": 1295858,
@@ -1495,14 +1690,27 @@
           "pct": 0.4
         }
       },
-      "saldo_caja_2025": 4160
+      "saldo_caja_2025": 4160,
+      "censo_2022": {
+        "pob_2010": 321109,
+        "var_intercensal_pct": 3.1,
+        "varones": 156849,
+        "mujeres": 174334,
+        "indice_masculinidad": 90.0,
+        "total_hogares": 128619,
+        "pct_agua_red": 89.5,
+        "pct_cloaca_red": 78.8,
+        "edad_mediana": 39.1,
+        "superficie_km2_indec": 55.1,
+        "densidad_indec": 6010.6
+      }
     },
     {
       "id": "quilmes",
       "nombre": "Quilmes",
       "zona": "sur",
       "poblacion": 640907,
-      "superficie_km2": 125,
+      "superficie_km2": 91.6,
       "presupuesto_2025": 325770,
       "recursos_percibidos_2025": 306363,
       "pbg_corriente_2023": 2078416,
@@ -1582,14 +1790,27 @@
           "pct": 0.7
         }
       },
-      "saldo_caja_2025": 62973
+      "saldo_caja_2025": 62973,
+      "censo_2022": {
+        "pob_2010": 582943,
+        "var_intercensal_pct": 8.7,
+        "varones": 304169,
+        "mujeres": 329222,
+        "indice_masculinidad": 92.4,
+        "total_hogares": 214681,
+        "pct_agua_red": 94.9,
+        "pct_cloaca_red": 77.2,
+        "edad_mediana": 33.6,
+        "superficie_km2_indec": 91.6,
+        "densidad_indec": 6914.7
+      }
     },
     {
       "id": "san_fernando",
       "nombre": "San Fernando",
       "zona": "norte",
       "poblacion": 174937,
-      "superficie_km2": 924,
+      "superficie_km2": 992.8,
       "presupuesto_2025": 148932,
       "recursos_percibidos_2025": 176642,
       "pbg_corriente_2023": 737629,
@@ -1669,14 +1890,27 @@
           "pct": 1.1
         }
       },
-      "saldo_caja_2025": 105299
+      "saldo_caja_2025": 105299,
+      "censo_2022": {
+        "pob_2010": 163240,
+        "var_intercensal_pct": 5.1,
+        "varones": 81789,
+        "mujeres": 89827,
+        "indice_masculinidad": 91.1,
+        "total_hogares": 60344,
+        "pct_agua_red": 96.6,
+        "pct_cloaca_red": 92.4,
+        "edad_mediana": 34.8,
+        "superficie_km2_indec": 992.8,
+        "densidad_indec": 172.9
+      }
     },
     {
       "id": "san_isidro",
       "nombre": "San Isidro",
       "zona": "norte",
       "poblacion": 295631,
-      "superficie_km2": 48,
+      "superficie_km2": 52.4,
       "presupuesto_2025": 324304,
       "recursos_percibidos_2025": 303185,
       "pbg_corriente_2023": 1484112,
@@ -1752,14 +1986,27 @@
           "pct": 0.6
         }
       },
-      "saldo_caja_2025": 26426
+      "saldo_caja_2025": 26426,
+      "censo_2022": {
+        "pob_2010": 292878,
+        "var_intercensal_pct": 1.5,
+        "varones": 139612,
+        "mujeres": 157670,
+        "indice_masculinidad": 88.5,
+        "total_hogares": 110559,
+        "pct_agua_red": 97.9,
+        "pct_cloaca_red": 93.9,
+        "edad_mediana": 40.0,
+        "superficie_km2_indec": 52.4,
+        "densidad_indec": 5673.3
+      }
     },
     {
       "id": "sanmartin",
       "nombre": "Gral. San Martín",
       "zona": "norte",
       "poblacion": 441793,
-      "superficie_km2": 56,
+      "superficie_km2": 56.5,
       "presupuesto_2025": 276003,
       "recursos_percibidos_2025": 275830,
       "pbg_corriente_2023": 1835619,
@@ -1848,14 +2095,27 @@
           "pct": 0.7
         }
       },
-      "saldo_caja_2025": 15926
+      "saldo_caja_2025": 15926,
+      "censo_2022": {
+        "pob_2010": 414196,
+        "var_intercensal_pct": 8.8,
+        "varones": 216389,
+        "mujeres": 234129,
+        "indice_masculinidad": 92.4,
+        "total_hogares": 161480,
+        "pct_agua_red": 97.1,
+        "pct_cloaca_red": 75.2,
+        "edad_mediana": 36.1,
+        "superficie_km2_indec": 56.5,
+        "densidad_indec": 7973.8
+      }
     },
     {
       "id": "san_miguel",
       "nombre": "San Miguel",
       "zona": "norte",
       "poblacion": 316905,
-      "superficie_km2": 82,
+      "superficie_km2": 82.8,
       "presupuesto_2025": null,
       "recursos_percibidos_2025": null,
       "pbg_corriente_2023": 1043824,
@@ -1930,6 +2190,19 @@
           "millones": 10091,
           "pct": 1.0
         }
+      },
+      "censo_2022": {
+        "pob_2010": 276190,
+        "var_intercensal_pct": 19.1,
+        "varones": 158961,
+        "mujeres": 169874,
+        "indice_masculinidad": 93.6,
+        "total_hogares": 109322,
+        "pct_agua_red": 42.8,
+        "pct_cloaca_red": 48.8,
+        "edad_mediana": 32.6,
+        "superficie_km2_indec": 82.8,
+        "densidad_indec": 3971.4
       }
     },
     {
@@ -1937,7 +2210,7 @@
       "nombre": "Tigre",
       "zona": "norte",
       "poblacion": 424002,
-      "superficie_km2": 1471,
+      "superficie_km2": 393.9,
       "presupuesto_2025": 400156,
       "recursos_percibidos_2025": 385841,
       "pbg_corriente_2023": 2088084,
@@ -2017,14 +2290,27 @@
           "pct": 0.9
         }
       },
-      "saldo_caja_2025": 49608
+      "saldo_caja_2025": 49608,
+      "censo_2022": {
+        "pob_2010": 376381,
+        "var_intercensal_pct": 18.7,
+        "varones": 216852,
+        "mujeres": 230097,
+        "indice_masculinidad": 94.2,
+        "total_hogares": 147150,
+        "pct_agua_red": 72.6,
+        "pct_cloaca_red": 34.0,
+        "edad_mediana": 33.2,
+        "superficie_km2_indec": 393.9,
+        "densidad_indec": 1134.7
+      }
     },
     {
       "id": "tresdefebrero",
       "nombre": "Tres de Febrero",
       "zona": "norte",
       "poblacion": 368150,
-      "superficie_km2": 46,
+      "superficie_km2": 45.4,
       "presupuesto_2025": 150745,
       "recursos_percibidos_2025": 154472,
       "pbg_corriente_2023": 1617624,
@@ -2160,14 +2446,27 @@
           "pct": 0.4
         }
       },
-      "saldo_caja_2025": 30734
+      "saldo_caja_2025": 30734,
+      "censo_2022": {
+        "pob_2010": 340071,
+        "var_intercensal_pct": 7.1,
+        "varones": 172962,
+        "mujeres": 191214,
+        "indice_masculinidad": 90.5,
+        "total_hogares": 136658,
+        "pct_agua_red": 96.5,
+        "pct_cloaca_red": 93.6,
+        "edad_mediana": 37.7,
+        "superficie_km2_indec": 45.4,
+        "densidad_indec": 8021.5
+      }
     },
     {
       "id": "vicente_lopez",
       "nombre": "Vicente López",
       "zona": "norte",
       "poblacion": 275023,
-      "superficie_km2": 33,
+      "superficie_km2": 34.5,
       "presupuesto_2025": 318824,
       "recursos_percibidos_2025": 297936,
       "pbg_corriente_2023": 1487367,
@@ -2243,7 +2542,20 @@
           "pct": 0.3
         }
       },
-      "saldo_caja_2025": 27151
+      "saldo_caja_2025": 27151,
+      "censo_2022": {
+        "pob_2010": 269420,
+        "var_intercensal_pct": 4.8,
+        "varones": 131628,
+        "mujeres": 150652,
+        "indice_masculinidad": 87.4,
+        "total_hogares": 114743,
+        "pct_agua_red": 98.6,
+        "pct_cloaca_red": 98.0,
+        "edad_mediana": 41.9,
+        "superficie_km2_indec": 34.5,
+        "densidad_indec": 8182.0
+      }
     }
   ]
 }
