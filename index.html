@@ -390,7 +390,7 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 <div id="svg-tooltip" style="position:fixed;background:var(--ink);color:#fff;padding:6px 11px;border-radius:6px;font-size:12px;font-family:'Sora',sans-serif;pointer-events:none;opacity:0;transition:opacity .15s;z-index:9999;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.25)"></div>
 
 <!-- MODAL COMPARADOR -->
-<div id="comp-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center">
+<div id="comp-modal" style="position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;display:none">
   <div style="background:var(--card);border-radius:var(--r2);padding:2rem;width:min(620px,90vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.3)">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
       <div>
@@ -813,12 +813,12 @@ function renderTISH(){
 function abrirModalComp(){
   renderModalLista('');
   actualizarModalSelec();
-  document.getElementById('comp-modal').classList.add('open');
+  document.getElementById('comp-modal').style.display='flex';
   document.getElementById('modal-search').value='';
   document.getElementById('modal-search').focus();
 }
 function cerrarModalComp(){
-  document.getElementById('comp-modal').classList.remove('open');
+  document.getElementById('comp-modal').style.display='none';
 }
 function filtrarModal(q){
   renderModalLista(q.toLowerCase());
