@@ -519,7 +519,11 @@ function squarify(items, x, y, w, h) {
 function drawTreemap(canvasId, sectores) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
-  const W = canvas.width, H = canvas.height;
+  // Tomar dimensiones reales del elemento renderizado
+  const W = canvas.offsetWidth || 560;
+  const H = canvas.offsetHeight || 300;
+  canvas.width = W;
+  canvas.height = H;
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0,0,W,H);
   const items = Object.entries(sectores)
@@ -527,34 +531,35 @@ function drawTreemap(canvasId, sectores) {
     .map(([k,v])=>({key:k, val:v.pct}))
     .sort((a,b)=>b.val-a.val);
   const rects = squarify(items, 0, 0, W, H);
-  const PAD = 1.5;
+  const PAD = 2;
   rects.forEach(r=>{
     const col = SECT_COLORS_TM[r.key] || '#555';
     const rx = r.x+PAD, ry = r.y+PAD, rw = r.w-PAD*2, rh = r.h-PAD*2;
     if (rw<2||rh<2) return;
+    // Rectángulo sin roundRect (compatibilidad universal)
     ctx.fillStyle = col;
-    ctx.beginPath();
-    ctx.roundRect(rx,ry,rw,rh,3);
-    ctx.fill();
+    ctx.fillRect(rx, ry, rw, rh);
+    // Borde sutil
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(rx, ry, rw, rh);
     const item = items.find(i=>i.key===r.key);
     const label = SECT_LABELS_TM[r.key]||r.key;
     const pct = item ? item.val.toFixed(1)+'%' : '';
     ctx.fillStyle = 'rgba(255,255,255,0.92)';
-    if (rw>60 && rh>28) {
-      ctx.font = `bold ${Math.min(12, rh/3)}px 'Sora',sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      if (rh > 44) {
-        ctx.fillText(label, rx+rw/2, ry+rh/2-8);
-        ctx.font = `${Math.min(11,rh/3.5)}px 'JetBrains Mono',monospace`;
-        ctx.fillText(pct, rx+rw/2, ry+rh/2+9);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    if (rw>65 && rh>32) {
+      ctx.font = `bold ${Math.min(12, rh/3.5)}px sans-serif`;
+      if (rh > 48) {
+        ctx.fillText(label, rx+rw/2, ry+rh/2-9);
+        ctx.font = `${Math.min(11, rh/4)}px monospace`;
+        ctx.fillText(pct, rx+rw/2, ry+rh/2+10);
       } else {
         ctx.fillText(label+' '+pct, rx+rw/2, ry+rh/2);
       }
-    } else if (rw>30 && rh>16) {
-      ctx.font = `bold 10px 'Sora',sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
+    } else if (rw>32 && rh>18) {
+      ctx.font = 'bold 10px monospace';
       ctx.fillText(pct, rx+rw/2, ry+rh/2);
     }
   });
@@ -601,7 +606,7 @@ function openPanel(id){
       <div>
         <div class="pst">Composición del PBG por sector — 2023</div>
         ${tieneSect
-          ? `<canvas id="tm-canvas" width="560" height="300" style="width:100%;height:300px;border-radius:var(--r);display:block"></canvas>
+          ? `<canvas id="tm-canvas" style="width:100%;height:300px;border-radius:var(--r);display:block"></canvas>
              <div style="margin-top:.6rem;line-height:1.8">${legendHTML}</div>`
           : `<div class="pend">Sin datos sectoriales disponibles.</div>`}
       </div>
@@ -614,7 +619,7 @@ function openPanel(id){
   renderTable();
   setTimeout(()=>{
     document.getElementById('panel-anchor').scrollIntoView({behavior:'smooth',block:'nearest'});
-    if(tieneSect) drawTreemap('tm-canvas', m.pbg_sectores_2023);
+    if(tieneSect) setTimeout(()=>drawTreemap('tm-canvas', m.pbg_sectores_2023), 150);
   },80);
 }
 
