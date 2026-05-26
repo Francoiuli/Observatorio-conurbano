@@ -244,6 +244,7 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
     <button class="nav-btn on" onclick="setView('dashboard',this)">Dashboard</button>
     <button class="nav-btn" onclick="setView('glosario',this)">¿Qué significa?</button>
     <button class="nav-btn" onclick="setView('tabla',this)">Tabla comparativa</button>
+    <button class="nav-btn" onclick="setView('demo',this)">Condiciones de vida</button>
     <button class="nav-btn" onclick="setView('tish',this)">Tasas TISH</button>
   </div>
 </nav>
@@ -386,6 +387,71 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
   </div>
 </div>
 
+
+<!-- DEMO -->
+<div class="wrap" id="v-demo">
+
+  <div class="sh" style="margin-bottom:.5rem">
+    <span class="sh-t">Condiciones de vida — Censo 2022</span>
+    <span class="sh-n">Fuente: INDEC · Resultados definitivos · 24 partidos del Conurbano</span>
+  </div>
+  <div style="background:var(--bg2);border-left:3px solid var(--c1);padding:.6rem 1rem;border-radius:0 var(--r) var(--r) 0;font-size:11px;color:var(--ink3);margin-bottom:1.5rem;line-height:1.6">
+    <strong style="color:var(--ink2)">Agua de red pública:</strong> % de hogares con agua de la red pública de distribución (agua corriente). &nbsp;·&nbsp;
+    <strong style="color:var(--ink2)">Red cloacal:</strong> % de hogares con desagüe a red pública. &nbsp;·&nbsp;
+    <strong style="color:var(--ink2)">Índice de masculinidad:</strong> varones cada 100 mujeres. &nbsp;·&nbsp;
+    <strong style="color:var(--ink2)">Edad mediana:</strong> la mitad de la población tiene menos años que este valor.
+  </div>
+
+  <!-- KPIs rápidos -->
+  <div class="kpi-row" id="demo-kpis" style="grid-template-columns:repeat(4,1fr);margin-bottom:2rem"></div>
+
+  <!-- Gráficos -->
+  <div class="cgrid g2" style="margin-bottom:2rem">
+    <div class="cc v2">
+      <div class="cc-t">Crecimiento poblacional 2010–2022 (%)</div>
+      <div class="cc-c md"><div id="c-demo-crec" style="width:100%;height:100%"></div></div>
+    </div>
+    <div class="cc">
+      <div class="cc-t">Edad mediana de la población (años)</div>
+      <div class="cc-c md"><div id="c-demo-edad" style="width:100%;height:100%"></div></div>
+    </div>
+  </div>
+  <div class="cgrid g2" style="margin-bottom:2rem">
+    <div class="cc v3">
+      <div class="cc-t">Acceso al agua de red pública (% hogares)</div>
+      <div class="cc-c md"><div id="c-demo-agua" style="width:100%;height:100%"></div></div>
+    </div>
+    <div class="cc">
+      <div class="cc-t">Acceso a red cloacal (% hogares)</div>
+      <div class="cc-c md"><div id="c-demo-cloaca" style="width:100%;height:100%"></div></div>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="sh"><span class="sh-t">Tabla comparativa completa</span></div>
+  <div class="tw">
+    <table>
+      <thead>
+        <tr>
+          <th class="ts on" onclick="sortDemo('nombre',this)">Municipio <span class="sa">▲</span></th>
+          <th>Zona</th>
+          <th class="ts" onclick="sortDemo('pob',this)">Población 2022 <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('pob10',this)">Población 2010 <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('crec',this)">Crecimiento <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('hogares',this)">Hogares <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('pers_hogar',this)">Pers/hogar <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('edad',this)">Edad mediana <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('masc',this)">Índ. masculin. <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('agua',this)">Agua red % <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('cloaca',this)">Cloaca % <span class="sa">↕</span></th>
+          <th class="ts" onclick="sortDemo('dens',this)">Densidad <span class="sa">↕</span></th>
+        </tr>
+      </thead>
+      <tbody id="demo-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
 <!-- TISH -->
 <div class="wrap" id="v-tish">
   <div class="sh"><span class="sh-t">Tasas de Seguridad e Higiene</span><span class="sh-n">Comparativa de alícuotas entre partidos</span></div>
@@ -446,7 +512,7 @@ const GC = 'rgba(28,25,23,.05)', TC = '#A8A29E';
 fetch('datos.json').then(r=>r.json()).then(d=>{DATA=d.municipios;init();}).catch(e=>{console.error('Error cargando datos.json — verificá que el archivo esté en el repositorio:',e);DATA=[];init();});
 
 function init(){
-  renderHdr(); renderKPIs(); renderCharts(); renderTable(); renderTISH();
+  renderHdr(); renderKPIs(); renderCharts(); renderTable(); renderTISH(); renderDemo();
 }
 
 // ── HEADER ───────────────────────────────────────────────
@@ -861,6 +927,116 @@ function renderTISH(){
   }).join('');
 }
 
+
+
+// ── VISTA DEMO ────────────────────────────────────────────
+let demoSort = 'nombre';
+
+function renderDemo() {
+  const lista = DATA.filter(m => m.censo_2022);
+
+  // KPIs
+  const masCrec = [...lista].sort((a,b)=>(b.censo_2022.var_intercensal_pct||0)-(a.censo_2022.var_intercensal_pct||0))[0];
+  const menosCrec = [...lista].sort((a,b)=>(a.censo_2022.var_intercensal_pct||0)-(b.censo_2022.var_intercensal_pct||0))[0];
+  const masViejo = [...lista].sort((a,b)=>(b.censo_2022.edad_mediana||0)-(a.censo_2022.edad_mediana||0))[0];
+  const masJoven = [...lista].sort((a,b)=>(a.censo_2022.edad_mediana||0)-(b.censo_2022.edad_mediana||0))[0];
+  document.getElementById('demo-kpis').innerHTML = `
+    <div class="kpi c3"><div class="kpi-l">Mayor crecimiento 2010–22</div><div class="kpi-v">+${masCrec?.censo_2022.var_intercensal_pct}%</div><div class="kpi-s">${masCrec?.nombre}</div></div>
+    <div class="kpi c2"><div class="kpi-l">Menor crecimiento 2010–22</div><div class="kpi-v">+${menosCrec?.censo_2022.var_intercensal_pct}%</div><div class="kpi-s">${menosCrec?.nombre}</div></div>
+    <div class="kpi c4"><div class="kpi-l">Población más envejecida</div><div class="kpi-v">${masViejo?.censo_2022.edad_mediana} años</div><div class="kpi-s">${masViejo?.nombre} · edad mediana</div></div>
+    <div class="kpi"><div class="kpi-l">Población más joven</div><div class="kpi-v">${masJoven?.censo_2022.edad_mediana} años</div><div class="kpi-s">${masJoven?.nombre} · edad mediana</div></div>`;
+
+  // Gráficos
+  const porCrec = [...lista].filter(m=>m.censo_2022.var_intercensal_pct!=null)
+    .sort((a,b)=>b.censo_2022.var_intercensal_pct-a.censo_2022.var_intercensal_pct)
+    .map(m=>({label:m.nombre, val:m.censo_2022.var_intercensal_pct, zona:m.zona,
+      tooltip:m.nombre+': +'+m.censo_2022.var_intercensal_pct+'% ('+m.censo_2022.pob_2010?.toLocaleString('es-AR')+' → '+m.poblacion.toLocaleString('es-AR')+')'}));
+  svgBar('c-demo-crec', porCrec, i=>CZONA[i.zona], v=>'+'+v.toFixed(1)+'%');
+
+  const porEdad = [...lista].filter(m=>m.censo_2022.edad_mediana!=null)
+    .sort((a,b)=>b.censo_2022.edad_mediana-a.censo_2022.edad_mediana)
+    .map(m=>({label:m.nombre, val:m.censo_2022.edad_mediana, zona:m.zona,
+      tooltip:m.nombre+': '+m.censo_2022.edad_mediana+' años (mediana)'}));
+  svgBar('c-demo-edad', porEdad, i=>CZONA[i.zona], v=>v.toFixed(1)+' años');
+
+  const porAgua = [...lista].filter(m=>m.censo_2022.pct_agua_red!=null)
+    .sort((a,b)=>b.censo_2022.pct_agua_red-a.censo_2022.pct_agua_red)
+    .map(m=>({label:m.nombre, val:m.censo_2022.pct_agua_red, zona:m.zona,
+      tooltip:m.nombre+': '+m.censo_2022.pct_agua_red+'% de hogares con agua de red'}));
+  svgBar('c-demo-agua', porAgua, _=>'#0891B2', v=>v.toFixed(1)+'%');
+
+  const porCloaca = [...lista].filter(m=>m.censo_2022.pct_cloaca_red!=null)
+    .sort((a,b)=>b.censo_2022.pct_cloaca_red-a.censo_2022.pct_cloaca_red)
+    .map(m=>({label:m.nombre, val:m.censo_2022.pct_cloaca_red, zona:m.zona,
+      tooltip:m.nombre+': '+m.censo_2022.pct_cloaca_red+'% de hogares con red cloacal'}));
+  svgBar('c-demo-cloaca', porCloaca, _=>'#7C3AED', v=>v.toFixed(1)+'%');
+
+  // Tabla
+  renderDemoTable();
+}
+
+function sortDemo(s, btn) {
+  demoSort = s;
+  document.querySelectorAll('#v-demo th.ts').forEach(th=>{
+    th.classList.remove('on');
+    const sa=th.querySelector('.sa'); if(sa) sa.textContent='↕';
+  });
+  btn.classList.add('on');
+  const sa=btn.querySelector('.sa'); if(sa) sa.textContent='▼';
+  renderDemoTable();
+}
+
+function renderDemoTable() {
+  let lista = DATA.filter(m=>m.censo_2022);
+  lista.sort((a,b)=>{
+    const ac=a.censo_2022, bc=b.censo_2022;
+    if(demoSort==='nombre') return a.nombre.localeCompare(b.nombre,'es');
+    if(demoSort==='pob') return b.poblacion-a.poblacion;
+    if(demoSort==='pob10') return (bc.pob_2010||0)-(ac.pob_2010||0);
+    if(demoSort==='crec') return (bc.var_intercensal_pct||0)-(ac.var_intercensal_pct||0);
+    if(demoSort==='hogares') return (bc.total_hogares||0)-(ac.total_hogares||0);
+    if(demoSort==='pers_hogar') {
+      const pa=ac.total_hogares?a.poblacion/ac.total_hogares:0;
+      const pb=bc.total_hogares?b.poblacion/bc.total_hogares:0;
+      return pb-pa;
+    }
+    if(demoSort==='edad') return (bc.edad_mediana||0)-(ac.edad_mediana||0);
+    if(demoSort==='masc') return (bc.indice_masculinidad||0)-(ac.indice_masculinidad||0);
+    if(demoSort==='agua') return (bc.pct_agua_red||0)-(ac.pct_agua_red||0);
+    if(demoSort==='cloaca') return (bc.pct_cloaca_red||0)-(ac.pct_cloaca_red||0);
+    if(demoSort==='dens') return (bc.densidad_indec||0)-(ac.densidad_indec||0);
+    return 0;
+  });
+
+  const fmtPct = v => v!=null ? v.toFixed(1)+'%' : '—';
+  const pctColor = (v, low, high) => {
+    if(v==null) return '';
+    if(v>=high) return 'color:#065F46;background:#D1FAE5';
+    if(v<=low)  return 'color:#991B1B;background:#FEE2E2';
+    return '';
+  };
+
+  document.getElementById('demo-tbody').innerHTML = lista.map(m=>{
+    const c = m.censo_2022;
+    const persHogar = c.total_hogares ? (m.poblacion/c.total_hogares).toFixed(2) : '—';
+    const crec = c.var_intercensal_pct;
+    const crecStyle = crec!=null?(crec>15?'color:#065F46;background:#D1FAE5':crec<5?'color:#92400E;background:#FEF3C7':''):'';
+    return `<tr>
+      <td class="mn">${m.nombre}</td>
+      <td><span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span></td>
+      <td class="n">${fmtN(m.poblacion)}</td>
+      <td class="n">${c.pob_2010?fmtN(c.pob_2010):'—'}</td>
+      <td class="n" style="${crecStyle};border-radius:4px;padding:8px 10px">${crec!=null?'+'+crec+'%':'—'}</td>
+      <td class="n">${c.total_hogares?fmtN(c.total_hogares):'—'}</td>
+      <td class="n">${persHogar}</td>
+      <td class="n">${c.edad_mediana!=null?c.edad_mediana+' años':'—'}</td>
+      <td class="n">${c.indice_masculinidad!=null?c.indice_masculinidad:'—'}</td>
+      <td class="n" style="${pctColor(c.pct_agua_red,50,90)};border-radius:4px;padding:8px 10px">${fmtPct(c.pct_agua_red)}</td>
+      <td class="n" style="${pctColor(c.pct_cloaca_red,40,80)};border-radius:4px;padding:8px 10px">${fmtPct(c.pct_cloaca_red)}</td>
+      <td class="n">${c.densidad_indec?fmtN(Math.round(c.densidad_indec))+' hab/km²':'—'}</td>
+    </tr>`;
+  }).join('');
+}
 
 // ── MODAL COMPARADOR ──────────────────────────────────────
 function abrirModalComp(){
