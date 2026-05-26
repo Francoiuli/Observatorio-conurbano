@@ -126,12 +126,15 @@ h1.hdr-title b{color:var(--c4);font-weight:800}
 .chart-grid.g1{grid-template-columns:1fr}
 .ccard{background:var(--card);border-radius:var(--r2);padding:1.5rem;box-shadow:var(--sh);position:relative;overflow:hidden}
 .ccard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c1),var(--c1l))}
+.ccard-canvas{position:relative;height:270px}
+.ccard-canvas.tall{height:235px}
+
 .ccard.g2{grid-column:span 2}
 .ccard.accent2::before{background:linear-gradient(90deg,var(--c2),var(--c4))}
 .ccard.accent3::before{background:linear-gradient(90deg,var(--c3),var(--c1l))}
 .ccard-t{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:1rem}
-.ccard-canvas{position:relative;height:260px}
-.ccard-canvas.tall{height:230px}
+
+
 
 /* ── FILTROS ── */
 .fbar{background:var(--card);border-radius:var(--r2);padding:1rem 1.25rem;box-shadow:var(--sh);display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem}
@@ -221,6 +224,18 @@ td.na{font-family:var(--mono);font-size:11.5px;text-align:right;color:var(--bord
 footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2rem;font-family:var(--mono);font-size:10px;letter-spacing:.04em}
 .fi{max-width:1340px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
 
+
+@media(min-width:1200px){
+  .chart-grid.g2{grid-template-columns:1fr 1fr}
+  .kpi-row{grid-template-columns:repeat(5,1fr)}
+  .ccard-canvas{height:290px}
+  .ccard-canvas.tall{height:250px}
+}
+@media(min-width:1400px){
+  .ccard-canvas{height:310px}
+  .ccard-canvas.tall{height:270px}
+}
+
 @media(max-width:900px){
   .hdr-inner{grid-template-columns:1fr;padding:1.5rem 1rem}
   .hdr-chips{display:none}
@@ -231,14 +246,6 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2rem;fon
   .sbn{width:110px}
 }
 
-@media(min-width:1200px){
-  .chart-grid.g2{grid-template-columns:1fr 1fr}
-  .kpi-row{grid-template-columns:repeat(5,1fr)}
-  .ccard-canvas{height:280px}
-}
-@media(min-width:1400px){
-  .ccard-canvas{height:300px}
-}
 </style>
 </head>
 <body>
@@ -668,14 +675,6 @@ function App() {
       <div style={{width:48,height:48,border:'4px solid #005EB8',borderTopColor:'transparent',borderRadius:'50%',animation:'spin 1s linear infinite'}}/>
       <p style={{color:'var(--ink3)',fontFamily:'var(--mono)',fontSize:13}}>Cargando datos...</p>
       <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}
-@media(min-width:1200px){
-  .chart-grid.g2{grid-template-columns:1fr 1fr}
-  .kpi-row{grid-template-columns:repeat(5,1fr)}
-  .ccard-canvas{height:280px}
-}
-@media(min-width:1400px){
-  .ccard-canvas{height:300px}
-}
 </style>
     </div>
   );
