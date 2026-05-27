@@ -283,6 +283,7 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
       <!-- Leyenda -->
       <div id="map-legend" style="position:absolute;top:12px;right:12px;background:var(--card);border:1px solid var(--borde);border-radius:var(--r);padding:.6rem .8rem;font-size:10px;z-index:2">
         <div style="font-weight:700;color:var(--ink);margin-bottom:.2rem;font-size:11px" id="legend-title">Vulnerabilidad</div>
+        <div style="font-size:9px;color:var(--ink3);margin-bottom:.4rem;line-height:1.3" id="legend-desc">Mayor = más vulnerable</div>
         <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
           <div style="width:80px;height:10px;border-radius:3px" id="legend-bar"></div>
         </div>
@@ -1198,24 +1199,22 @@ let mapVar = 'vuln';
 let mapSelId = null;
 
 const MAP_VARS = {
-  // color: color puro cuando el valor es ALTO
-  // Si es variable "malo cuando alto" → rojo. Si "bueno cuando alto" → verde/teal
   vuln:     {l:'Vulnerabilidad',    fn:m=>calcVuln(m),
-             color:'#E53E3E', fmt:v=>v+'/100',       desc:'Más rojo = más vulnerable'},
+             colorHigh:'#9B2335', colorLow:'#FDDDE6', fmt:v=>v+'/100'},
   agua:     {l:'Agua de red %',     fn:m=>m.censo_2022?.pct_agua_red??null,
-             color:'#38A169', fmt:v=>v+'%',           desc:'Más verde = más cobertura de agua'},
+             colorHigh:'#1A5C38', colorLow:'#C6F6D5', fmt:v=>v+'%'},
   cloaca:   {l:'Red cloacal %',     fn:m=>m.censo_2022?.pct_cloaca_red??null,
-             color:'#2F855A', fmt:v=>v+'%',           desc:'Más verde = más cobertura cloacal'},
+             colorHigh:'#1A5C38', colorLow:'#C6F6D5', fmt:v=>v+'%'},
   pbgpc:    {l:'PBG por habitante', fn:m=>m.pbg_corriente_2023?Math.round(m.pbg_corriente_2023*1e6/m.poblacion):null,
-             color:'#D69E2E', fmt:v=>'$'+Math.round(v/1000)+'K', desc:'Más intenso = mayor actividad económica'},
+             colorHigh:'#744210', colorLow:'#FEFCBF', fmt:v=>'$'+Math.round(v/1000)+'K'},
   prespc:   {l:'Presup. por hab.',  fn:m=>m.presupuesto_2025?Math.round(m.presupuesto_2025*1e6/m.poblacion):null,
-             color:'#2B6CB0', fmt:v=>'$'+Math.round(v/1000)+'K', desc:'Más azul = mayor gasto por habitante'},
+             colorHigh:'#1A5C38', colorLow:'#C6F6D5', fmt:v=>'$'+Math.round(v/1000)+'K'},
   crec:     {l:'Crecimiento pop.',  fn:m=>m.censo_2022?.var_intercensal_pct??null,
-             color:'#E53E3E', fmt:v=>'+'+v+'%',       desc:'Más rojo = mayor presión demográfica'},
+             colorHigh:'#9B2335', colorLow:'#FDDDE6', fmt:v=>'+'+v+'%'},
   edad:     {l:'Edad mediana',      fn:m=>m.censo_2022?.edad_mediana??null,
-             color:'#805AD5', fmt:v=>v+' años',       desc:'Más violeta = población más envejecida'},
+             colorHigh:'#44337A', colorLow:'#E9D8FD', fmt:v=>v+' años'},
   resultado:{l:'Resultado fiscal',  fn:m=>(m.recursos_percibidos_2025&&m.presupuesto_2025)?m.recursos_percibidos_2025-m.presupuesto_2025:null,
-             color:'#38A169', fmt:v=>(v>=0?'▲ +':'▼ ')+Math.round(Math.abs(v))+'mm', desc:'Más verde = mayor superávit'},
+             colorHigh:'#1A5C38', colorLow:'#FDDDE6', bicolor:true, fmt:v=>(v>=0?'▲ +':'▼ ')+Math.round(Math.abs(v))+'mm'},
 };
 
 function lerp(a,b,t){ return a + (b-a)*t; }
@@ -1241,16 +1240,23 @@ function renderMapa(){
   if(!vals.length) return;
   const min=Math.min(...vals), max=Math.max(...vals);
   const range = max-min || 1;
-  const colorLow  = '#111827';
-  const colorHigh = cfg.color || '#4ECDC4';
+  const colorLow  = cfg.colorLow  || '#C6F6D5';  // clarito
+  const colorHigh = cfg.colorHigh || '#22543D';   // oscuro
 
   DATA.forEach(m=>{
     const el = document.getElementById('map-'+m.id);
     if(!el) return;
     const v = cfg.fn(m);
     if(v==null){ el.style.fill='#1C2A3A'; return; }
-    const t = (v-min)/range;
-    el.style.fill = lerpColor(colorLow, colorHigh, t);
+    let fillColor;
+    if(cfg.bicolor){
+      const absMax = Math.max(...DATA.map(x=>Math.abs(cfg.fn(x)||0)));
+      const t = Math.min(1, Math.abs(v)/(absMax||1));
+      fillColor = v>=0 ? lerpColor('#C6F6D5','#1A5C38',t) : lerpColor('#FDDDE6','#9B2335',t);
+    } else {
+      fillColor = lerpColor(colorLow, colorHigh, (v-min)/range);
+    }
+    el.style.fill = fillColor;
     el.style.stroke = '#0A0D14';
     el.style.strokeWidth = '0.8';
     el.setAttribute('data-val', v);
