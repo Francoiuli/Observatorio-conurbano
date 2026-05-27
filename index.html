@@ -1242,8 +1242,8 @@ function renderMapa(){
   if(!vals.length) return;
   const min=Math.min(...vals), max=Math.max(...vals);
   const range = max-min || 1;
-  const colorLow  = cfg.inv ? '#FF6B6B' : '#162E2D';
-  const colorHigh = cfg.inv ? '#4ECDC4' : '#FF6B6B';
+  const colorLow  = '#111827';
+  const colorHigh = cfg.color || '#4ECDC4';
 
   DATA.forEach(m=>{
     const el = document.getElementById('map-'+m.id);
