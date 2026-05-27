@@ -301,7 +301,7 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
       <div id="comp-content"></div>
     </div>
   </div>
-  <div class="panel" id="panel"><div class="ph"><div><div class="ph-t" id="p-title"></div><div class="ph-s" id="p-sub"></div></div><button class="p-close" onclick="closePanel()">✕ CERRAR</button></div><div class="pb" id="p-body"></div></div>
+  <div class="panel" id="panel"><div class="ph"><div><div class="ph-t" id="p-title"></div><div class="ph-s" id="p-sub"></div></div><button onclick="exportarPanel(panelId)" style="background:rgba(78,205,196,.15);border:1px solid rgba(78,205,196,.3);border-radius:var(--r);color:#4ECDC4;font-size:10px;font-weight:700;padding:6px 14px;cursor:pointer;font-family:'JetBrains Mono',monospace;margin-top:4px">↓ EXPORTAR PDF</button> <button class="p-close" onclick="closePanel()">✕ CERRAR</button></div><div class="pb" id="p-body"></div></div>
   <div class="tw"><table><thead><tr id="thead-row"></tr></thead><tbody id="tbody"></tbody></table></div>
 </div>
 
@@ -368,6 +368,36 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
           <div style="font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem">PBG per cápita</div>
           <div style="font-size:12px;color:var(--ink2);line-height:1.5">Cuánto produce la economía local por cada habitante. Mide el nivel de actividad económica.</div>
         </div>
+      </div>
+    </div>
+
+    
+    <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c2)">
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">🔴 Índice de Vulnerabilidad Municipal</div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
+        Es un número de 0 a 100 que resume en un solo valor cuán vulnerable es la situación de un municipio en términos de acceso a servicios básicos y capacidad económica. <strong>A mayor puntaje, mayor vulnerabilidad.</strong>
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.875rem">Se calcula combinando cuatro dimensiones:</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.875rem">
+        <div style="background:var(--bg2);border-radius:var(--r);padding:.75rem;border-left:3px solid #4ECDC4">
+          <div style="font-size:11px;font-weight:700;color:#4ECDC4;margin-bottom:.3rem">Agua de red pública · 30%</div>
+          <div style="font-size:12px;color:var(--ink2)">Menos hogares con agua corriente = más vulnerabilidad</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:var(--r);padding:.75rem;border-left:3px solid #A29BFE">
+          <div style="font-size:11px;font-weight:700;color:#A29BFE;margin-bottom:.3rem">Red cloacal · 30%</div>
+          <div style="font-size:12px;color:var(--ink2)">Menos hogares con desagüe a red = más vulnerabilidad</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:var(--r);padding:.75rem;border-left:3px solid #FFD93D">
+          <div style="font-size:11px;font-weight:700;color:#FFD93D;margin-bottom:.3rem">PBG per cápita · 25%</div>
+          <div style="font-size:12px;color:var(--ink2)">Menor actividad económica por habitante = más vulnerabilidad</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:var(--r);padding:.75rem;border-left:3px solid #FF6B6B">
+          <div style="font-size:11px;font-weight:700;color:#FF6B6B;margin-bottom:.3rem">Crecimiento poblacional · 15%</div>
+          <div style="font-size:12px;color:var(--ink2)">Mayor crecimiento = más presión sobre la infraestructura existente</div>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink3);line-height:1.6">
+        <strong style="color:var(--ink2)">Cómo leer el índice:</strong> un valor de <strong style="color:#95E77E">0–44 = vulnerabilidad baja</strong> (buenos servicios, economía activa), <strong style="color:#FFD93D">45–69 = media</strong> y <strong style="color:#FF6B6B">70–100 = alta</strong> (serias carencias de infraestructura y/o baja actividad económica). El índice es una herramienta de comparación relativa entre los 24 partidos del Conurbano, no un indicador absoluto de pobreza.
       </div>
     </div>
 
@@ -675,19 +705,26 @@ const COLS = [
   {k:'rec',    l:'Recursos 2025 (mm$)', sort:'recursos',   num:true},
   {k:'recpc',  l:'Recursos por hab.',   sort:'rec_pc',     num:true},
   {k:'result', l:'Resultado fiscal',    sort:'resultado',  num:true},
+  {k:'saldo',  l:'Saldo de caja',        sort:'saldo',      num:true},
+  {k:'vuln',   l:'Vulnerabilidad',       sort:'vuln',       num:true},
 ];
 
 function buildThead(){
   document.getElementById('thead-row').innerHTML = COLS.map(c=>{
     if(!c.sort) return `<th>${c.l}</th>`;
-    return `<th class="ts ${sort===c.sort?'on':''}" onclick="sortBy('${c.sort}',this)">${c.l} <span class="sa">${sort===c.sort?'▼':'↕'}</span></th>`;
+    const isActive = sort===c.sort;
+    const arrow = isActive ? (sortDir===1?'▼':'▲') : '↕';
+    return `<th class="ts ${isActive?'on':''}" onclick="sortBy('${c.sort}',this)">${c.l} <span class="sa">${arrow}</span></th>`;
   }).join('');
 }
 
 function sortBy(s,btn){
-  sort=s;
+  if(sort===s){ sortDir*=-1; }
+  else { sort=s; sortDir=1; }
   document.querySelectorAll('th.ts').forEach(th=>{th.classList.remove('on');const sa=th.querySelector('.sa');if(sa)sa.textContent='↕';});
-  btn.classList.add('on');const sa=btn.querySelector('.sa');if(sa)sa.textContent='▼';
+  btn.classList.add('on');
+  const sa=btn.querySelector('.sa');
+  if(sa) sa.textContent = sortDir===1?'▼':'▲';
   renderTable();
 }
 
@@ -697,22 +734,24 @@ function renderTable(){
   if(zona!=='todos') lista=lista.filter(m=>m.zona===zona);
   if(searchTerm) lista=lista.filter(m=>m.nombre.toLowerCase().includes(searchTerm));
   lista.sort((a,b)=>{
-    if(sort==='nombre')    return a.nombre.localeCompare(b.nombre,'es');
-    if(sort==='poblacion') return b.poblacion-a.poblacion;
-    if(sort==='densidad')  return (b.superficie_km2?b.poblacion/b.superficie_km2:0)-(a.superficie_km2?a.poblacion/a.superficie_km2:0);
-    if(sort==='pbg_corr')  return (b.pbg_corriente_2023||0)-(a.pbg_corriente_2023||0);
-    if(sort==='pbg_pc')    return (b.pbg_constante_2004_2023?b.pbg_constante_2004_2023/b.poblacion:0)-(a.pbg_constante_2004_2023?a.pbg_constante_2004_2023/a.poblacion:0);
-    if(sort==='presupuesto')return (b.presupuesto_2025||0)-(a.presupuesto_2025||0);
-    if(sort==='pres_pc')   return (b.presupuesto_2025?b.presupuesto_2025/b.poblacion:0)-(a.presupuesto_2025?a.presupuesto_2025/a.poblacion:0);
-    if(sort==='recursos')  return (b.recursos_percibidos_2025||0)-(a.recursos_percibidos_2025||0);
-    if(sort==='rec_pc')    return (b.recursos_percibidos_2025?b.recursos_percibidos_2025/b.poblacion:0)-(a.recursos_percibidos_2025?a.recursos_percibidos_2025/a.poblacion:0);
-    if(sort==='resultado') {
-      const ra=(a.recursos_percibidos_2025&&a.presupuesto_2025)?a.recursos_percibidos_2025-a.presupuesto_2025:null;
-      const rb=(b.recursos_percibidos_2025&&b.presupuesto_2025)?b.recursos_percibidos_2025-b.presupuesto_2025:null;
-      return (rb||0)-(ra||0);
+    let r=0;
+    if(sort==='nombre')     r=a.nombre.localeCompare(b.nombre,'es');
+    else if(sort==='poblacion')  r=(a.poblacion||0)-(b.poblacion||0);
+    else if(sort==='densidad')   r=(a.superficie_km2?a.poblacion/a.superficie_km2:0)-(b.superficie_km2?b.poblacion/b.superficie_km2:0);
+    else if(sort==='pbg_corr')   r=(a.pbg_corriente_2023||0)-(b.pbg_corriente_2023||0);
+    else if(sort==='pbg_pc')     r=(a.pbg_corriente_2023?a.pbg_corriente_2023/a.poblacion:0)-(b.pbg_corriente_2023?b.pbg_corriente_2023/b.poblacion:0);
+    else if(sort==='presupuesto')r=(a.presupuesto_2025||0)-(b.presupuesto_2025||0);
+    else if(sort==='pres_pc')    r=(a.presupuesto_2025?a.presupuesto_2025/a.poblacion:0)-(b.presupuesto_2025?b.presupuesto_2025/b.poblacion:0);
+    else if(sort==='recursos')   r=(a.recursos_percibidos_2025||0)-(b.recursos_percibidos_2025||0);
+    else if(sort==='rec_pc')     r=(a.recursos_percibidos_2025?a.recursos_percibidos_2025/a.poblacion:0)-(b.recursos_percibidos_2025?b.recursos_percibidos_2025/b.poblacion:0);
+    else if(sort==='resultado'){
+      const ra=(a.recursos_percibidos_2025&&a.presupuesto_2025)?a.recursos_percibidos_2025-a.presupuesto_2025:0;
+      const rb=(b.recursos_percibidos_2025&&b.presupuesto_2025)?b.recursos_percibidos_2025-b.presupuesto_2025:0;
+      r=ra-rb;
     }
-    if(sort==='tish')      return (b.tish?.alicuota_base_milesimos||0)-(a.tish?.alicuota_base_milesimos||0);
-    return 0;
+    else if(sort==='saldo')  r=(a.saldo_caja_2025||0)-(b.saldo_caja_2025||0);
+    else if(sort==='tish')   r=(a.tish?.alicuota_base_milesimos||0)-(b.tish?.alicuota_base_milesimos||0);
+    return r * sortDir;
   });
   document.getElementById('tbody').innerHTML = lista.map(m=>{
     const prespc = ppc(m.presupuesto_2025,m.poblacion);
@@ -737,6 +776,7 @@ function renderTable(){
       <td style="text-align:right;font-size:12px;font-weight:600;padding:8px 10px;${resBg};border-radius:4px">
         ${resultado!=null?`<div>${resLabel}</div><div style="font-size:11px;font-weight:400">${fmtMM(Math.abs(resultado))}</div>`:'—'}
       </td>
+      <td class="${m.saldo_caja_2025!=null?'n':'na'}">${m.saldo_caja_2025!=null?fmtMM(m.saldo_caja_2025):'—'}</td>
     </tr>`;
   }).join('');
 }
@@ -1151,15 +1191,21 @@ function renderComparador(){
   document.getElementById('comp-view-title').textContent = munis.map(m=>m.nombre).join(' vs ');
 
   const METRICAS = [
-    {l:'Población',       fn:m=>fmtN(m.poblacion)},
-    {l:'Superficie km²',  fn:m=>m.superficie_km2?fmtN(m.superficie_km2):'—'},
-    {l:'Densidad hab/km²',fn:m=>m.superficie_km2?fmtN(Math.round(m.poblacion/m.superficie_km2)):'—'},
-    {l:'PBG total 2023',fn:m=>m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—', best:m=>m.pbg_corriente_2023||0},
-    {l:'PBG per cápita', fn:m=>m.pbg_constante_2004_2023?fmtK(Math.round(m.pbg_constante_2004_2023*1e6/m.poblacion)):'—', best:m=>m.pbg_constante_2004_2023?m.pbg_constante_2004_2023/m.poblacion:0},
-    {l:'Presupuesto 2025',fn:m=>m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—', best:m=>m.presupuesto_2025||0},
-    {l:'Presup. pc',      fn:m=>m.presupuesto_2025?fmtK(Math.round(m.presupuesto_2025*1e6/m.poblacion)):'—', best:m=>m.presupuesto_2025?m.presupuesto_2025/m.poblacion:0},
-    {l:'Rec. percibidos', fn:m=>m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'},
-    {l:'TISH alícuota',   fn:m=>m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'},
+    {l:'Población',           fn:m=>fmtN(m.poblacion)},
+    {l:'Superficie km²',      fn:m=>m.superficie_km2?fmtN(m.superficie_km2):'—'},
+    {l:'Densidad hab/km²',    fn:m=>m.superficie_km2?fmtN(Math.round(m.poblacion/m.superficie_km2)):'—'},
+    {l:'PBG total 2023',      fn:m=>m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—', best:m=>m.pbg_corriente_2023||0},
+    {l:'PBG por habitante',   fn:m=>m.pbg_corriente_2023?fmtK(Math.round(m.pbg_corriente_2023*1e6/m.poblacion)):'—', best:m=>m.pbg_corriente_2023?m.pbg_corriente_2023/m.poblacion:0},
+    {l:'Presupuesto 2025',    fn:m=>m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—', best:m=>m.presupuesto_2025||0},
+    {l:'Presup. por hab.',    fn:m=>m.presupuesto_2025?fmtK(Math.round(m.presupuesto_2025*1e6/m.poblacion)):'—', best:m=>m.presupuesto_2025?m.presupuesto_2025/m.poblacion:0},
+    {l:'Rec. percibidos',     fn:m=>m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—', best:m=>m.recursos_percibidos_2025||0},
+    {l:'Rec. por habitante',  fn:m=>m.recursos_percibidos_2025?fmtK(Math.round(m.recursos_percibidos_2025*1e6/m.poblacion)):'—', best:m=>m.recursos_percibidos_2025?m.recursos_percibidos_2025/m.poblacion:0},
+    {l:'Saldo de caja',       fn:m=>m.saldo_caja_2025!=null?fmtMM(m.saldo_caja_2025):'—', best:m=>m.saldo_caja_2025||0},
+    {l:'Resultado fiscal',    fn:m=>{const r=(m.recursos_percibidos_2025&&m.presupuesto_2025)?m.recursos_percibidos_2025-m.presupuesto_2025:null;return r!=null?(r>=0?'▲ '+fmtMM(r):'▼ '+fmtMM(Math.abs(r))):'—';}, best:m=>(m.recursos_percibidos_2025&&m.presupuesto_2025)?m.recursos_percibidos_2025-m.presupuesto_2025:null},
+    {l:'Índice vulnerabilidad',fn:m=>{const v=calcVuln(m);return v!=null?v+'/100':'—';}, best:m=>m.censo_2022?100-(calcVuln(m)||100):0},
+    {l:'Agua de red %',       fn:m=>m.censo_2022?.pct_agua_red!=null?m.censo_2022.pct_agua_red+'%':'—', best:m=>m.censo_2022?.pct_agua_red||0},
+    {l:'Red cloacal %',       fn:m=>m.censo_2022?.pct_cloaca_red!=null?m.censo_2022.pct_cloaca_red+'%':'—', best:m=>m.censo_2022?.pct_cloaca_red||0},
+    {l:'TISH alícuota',       fn:m=>m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'},
   ];
 
   // Headers de municipios con color
@@ -1252,6 +1298,120 @@ document.addEventListener('mousemove', e => {
     t.style.top  = (e.clientY - 28) + 'px';
   }
 });
+
+
+// ── ÍNDICE DE VULNERABILIDAD ───────────────────────────────
+// Combina 4 dimensiones: agua red, cloaca, PBG per cápita, crecimiento poblacional
+// Escala 0-100 donde 100 = más vulnerable
+function calcVuln(m) {
+  const c = m.censo_2022;
+  if (!c) return null;
+  const agua  = c.pct_agua_red  != null ? c.pct_agua_red  : null;
+  const cloa  = c.pct_cloaca_red != null ? c.pct_cloaca_red : null;
+  const pbgpc = m.pbg_corriente_2023 ? m.pbg_corriente_2023*1e6/m.poblacion : null;
+  const crec  = c.var_intercensal_pct != null ? c.var_intercensal_pct : null;
+  if (agua==null || cloa==null || pbgpc==null || crec==null) return null;
+
+  // Normalizar cada dimensión 0-1 (1=más vulnerable)
+  // Agua: 0% → vuln 1, 100% → vuln 0
+  const vAgua = (100 - agua) / 100;
+  // Cloaca: ídem
+  const vCloa = (100 - cloa) / 100;
+  // PBG pc: máximo observado ~$15M/hab → menor PBG = más vulnerable
+  // Rango aprox: $2M - $15M por habitante
+  const pbgMin = 2e6, pbgMax = 15e6;
+  const vPBG = Math.max(0, Math.min(1, (pbgMax - pbgpc) / (pbgMax - pbgMin)));
+  // Crecimiento: alto crecimiento = más presión sobre infraestructura = más vulnerable
+  // Rango: 0% a 30%
+  const vCrec = Math.max(0, Math.min(1, crec / 30));
+
+  // Ponderación: agua 30%, cloaca 30%, PBG 25%, crecimiento 15%
+  const score = (vAgua * 0.30 + vCloa * 0.30 + vPBG * 0.25 + vCrec * 0.15) * 100;
+  return Math.round(score);
+}
+
+function renderVuln(v) {
+  if (v == null) return '<span style="color:var(--ink3)">—</span>';
+  const color = v >= 70 ? '#FF6B6B' : v >= 45 ? '#FFD93D' : '#95E77E';
+  const label = v >= 70 ? 'Alto' : v >= 45 ? 'Medio' : 'Bajo';
+  const darkBg = v >= 70 ? '#2E1515' : v >= 45 ? '#2A2210' : '#1A2415';
+  return `<div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
+    <div style="display:flex;align-items:center;gap:5px">
+      <div style="width:${v}px;max-width:60px;height:5px;background:${color};border-radius:3px;opacity:.8"></div>
+      <span style="font-size:11px;font-weight:700;color:${color}">${v}</span>
+    </div>
+    <span style="font-size:9px;background:${darkBg};color:${color};padding:1px 6px;border-radius:99px">${label}</span>
+  </div>`;
+}
+
+// ── EXPORTAR PANEL ─────────────────────────────────────────
+function exportarPanel(id) {
+  const m = DATA.find(x=>x.id===id);
+  if (!m) return;
+  const c = m.censo_2022 || {};
+  const vuln = calcVuln(m);
+  const prespc = m.presupuesto_2025?Math.round(m.presupuesto_2025*1e6/m.poblacion):null;
+  const recpc  = m.recursos_percibidos_2025?Math.round(m.recursos_percibidos_2025*1e6/m.poblacion):null;
+  const pbgpc  = m.pbg_corriente_2023?Math.round(m.pbg_corriente_2023*1e6/m.poblacion):null;
+  const resultado = (m.recursos_percibidos_2025!=null&&m.presupuesto_2025!=null)?m.recursos_percibidos_2025-m.presupuesto_2025:null;
+  const resLabel = resultado!=null?(resultado>=0?'SUPERÁVIT':'DÉFICIT'):'—';
+  const resColor = resultado!=null?(resultado>=0?'#4ECDC4':'#FF6B6B'):'#888';
+  const vulnColor = vuln!=null?(vuln>=70?'#FF6B6B':vuln>=45?'#FFD93D':'#95E77E'):'#888';
+  const vulnLabel = vuln!=null?(vuln>=70?'VULNERABILIDAD ALTA':vuln>=45?'VULNERABILIDAD MEDIA':'VULNERABILIDAD BAJA'):'—';
+
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Ficha — ${m.nombre}</title>
+<style>
+  body{font-family:Arial,sans-serif;background:#0F1117;color:#E8E4DC;margin:0;padding:32px}
+  h1{font-size:28px;font-weight:900;color:#4ECDC4;margin:0 0 4px}
+  .sub{font-size:12px;color:#9E9B93;margin-bottom:24px}
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px}
+  .card{background:#1C1F2E;border-radius:10px;padding:16px;border-left:3px solid #4ECDC4}
+  .card.rojo{border-color:#FF6B6B}
+  .card.amber{border-color:#FFD93D}
+  .card.verde{border-color:#95E77E}
+  .card-l{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#9E9B93;margin-bottom:6px}
+  .card-v{font-size:20px;font-weight:800;color:#E8E4DC}
+  .card-s{font-size:10px;color:#5C5A55;margin-top:4px}
+  .result{background:#1C1F2E;border-radius:10px;padding:20px;margin-bottom:16px;text-align:center;border:2px solid ${resColor}}
+  .result-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:${resColor};margin-bottom:4px}
+  .result-val{font-size:32px;font-weight:900;color:${resColor}}
+  .vuln{background:#1C1F2E;border-radius:10px;padding:16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+  .vuln-left{font-size:12px;color:#9E9B93}
+  .vuln-score{font-size:36px;font-weight:900;color:${vulnColor}}
+  footer{font-size:9px;color:#5C5A55;margin-top:32px;border-top:1px solid #2A2D3E;padding-top:12px}
+  @media print{body{background:#fff;color:#111}.card{background:#f5f5f5}.result{background:#f5f5f5}.vuln{background:#f5f5f5}}
+</style></head><body>
+<h1>${m.nombre}</h1>
+<div class="sub">${ZONA[m.zona]} · Observatorio Fiscal del Conurbano · Franco Iuliani · franco.d.iuliani@gmail.com</div>
+
+<div class="grid">
+  <div class="card"><div class="card-l">Población</div><div class="card-v">${m.poblacion.toLocaleString('es-AR')}</div><div class="card-s">Censo 2022</div></div>
+  <div class="card amber"><div class="card-l">PBG total 2023</div><div class="card-v">${m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—'}</div><div class="card-s">${pbgpc?fmtK(pbgpc)+' por hab.':''}</div></div>
+  <div class="card verde"><div class="card-l">Saldo de caja</div><div class="card-v">${m.saldo_caja_2025!=null?fmtMM(m.saldo_caja_2025):'—'}</div><div class="card-s">Cierre 2025</div></div>
+  <div class="card"><div class="card-l">Presupuesto ejecutado</div><div class="card-v">${m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—'}</div><div class="card-s">${prespc?fmtK(prespc)+' por hab.':''}</div></div>
+  <div class="card"><div class="card-l">Recursos percibidos</div><div class="card-v">${m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'}</div><div class="card-s">${recpc?fmtK(recpc)+' por hab.':''}</div></div>
+  <div class="card rojo"><div class="card-l">Agua de red pública</div><div class="card-v">${c.pct_agua_red!=null?c.pct_agua_red+'%':'—'}</div><div class="card-s">Red cloacal: ${c.pct_cloaca_red!=null?c.pct_cloaca_red+'%':'—'}</div></div>
+</div>
+
+<div class="result">
+  <div class="result-label">Resultado fiscal 2025</div>
+  <div class="result-val">${resultado!=null?resLabel+' '+fmtMM(Math.abs(resultado)):'Sin datos'}</div>
+</div>
+
+<div class="vuln">
+  <div class="vuln-left"><strong style="color:#E8E4DC;font-size:14px">${vulnLabel}</strong><br>Índice de Vulnerabilidad Municipal<br><small>Combina acceso a agua, cloaca, PBG per cápita y crecimiento poblacional</small></div>
+  <div class="vuln-score">${vuln!=null?vuln+'/100':'—'}</div>
+</div>
+
+<footer>Observatorio Fiscal del Conurbano · Franco Iuliani · franco.d.iuliani@gmail.com<br>Fuentes: Rendiciones de Cuentas 2025 · DPE-PBA · INDEC Censo 2022 · Todos los valores en millones de pesos</footer>
+</body></html>`;
+
+  const blob = new Blob([html], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const win = window.open(url,'_blank');
+  if(win) setTimeout(()=>win.print(), 800);
+}
 
 // ── NAV / FILTROS ─────────────────────────────────────────
 function setView(v,btn){
