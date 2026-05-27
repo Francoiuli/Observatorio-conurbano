@@ -524,7 +524,7 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
 
 <script>
 // ── DATOS Y HELPERS ──────────────────────────────────────
-let DATA = [], zona = 'todos', sort = 'nombre', panelId = null;
+let DATA = [], zona = 'todos', sort = 'nombre', sortDir = 1, panelId = null;
 let charts = {};  // legacy, ahora SVG puro
 
 const fmtN = n => n != null ? Number(n).toLocaleString('es-AR') : '—';
