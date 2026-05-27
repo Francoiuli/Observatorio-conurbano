@@ -843,7 +843,7 @@
     {
       "id": "jose_c_paz",
       "nombre": "José C. Paz",
-      "zona": "norte",
+      "zona": "oeste",
       "poblacion": 278356,
       "superficie_km2": 50.2,
       "presupuesto_2025": 159166,
@@ -2193,7 +2193,7 @@
     {
       "id": "san_miguel",
       "nombre": "San Miguel",
-      "zona": "norte",
+      "zona": "oeste",
       "poblacion": 316905,
       "superficie_km2": 82.8,
       "presupuesto_2025": null,
@@ -2396,7 +2396,7 @@
     {
       "id": "tresdefebrero",
       "nombre": "Tres de Febrero",
-      "zona": "norte",
+      "zona": "oeste",
       "poblacion": 368150,
       "superficie_km2": 45.4,
       "presupuesto_2025": 150745,
