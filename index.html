@@ -295,6 +295,7 @@ footer{background:var(--c1d);color:rgba(255,255,255,.35);padding:1.5rem 2.5rem;f
         <div style="font-size:13px;font-weight:700;color:#fff">Comparación</div>
         <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px" id="comp-view-title"></div>
       </div>
+      <button onclick="imprimirComparacion()" style="background:rgba(78,205,196,.15);border:1px solid rgba(78,205,196,.3);border-radius:var(--r);color:#4ECDC4;font-size:10px;font-weight:700;padding:5px 12px;cursor:pointer;font-family:'JetBrains Mono',monospace;margin-right:6px">↓ IMPRIMIR</button>
       <button onclick="cerrarComparacion()" style="background:rgba(255,255,255,.15);border:none;border-radius:var(--r);color:#fff;font-size:10px;font-weight:700;padding:5px 12px;cursor:pointer;font-family:'JetBrains Mono',monospace">✕ CERRAR</button>
     </div>
     <div style="padding:1.5rem;overflow-x:auto">
@@ -750,6 +751,7 @@ function renderTable(){
       r=ra-rb;
     }
     else if(sort==='saldo')  r=(a.saldo_caja_2025||0)-(b.saldo_caja_2025||0);
+    else if(sort==='vuln')   r=(calcVuln(a)||0)-(calcVuln(b)||0);
     else if(sort==='tish')   r=(a.tish?.alicuota_base_milesimos||0)-(b.tish?.alicuota_base_milesimos||0);
     return r * sortDir;
   });
@@ -1160,6 +1162,64 @@ function ejecutarComparacion(){
   cr.style.display='block';
   setTimeout(()=>cr.scrollIntoView({behavior:'smooth',block:'start'}),80);
 }
+
+function imprimirComparacion() {
+  const munis = compIds.map(id=>DATA.find(x=>x.id===id)).filter(Boolean);
+  if (!munis.length) return;
+  const COLS_COMP = [
+    {l:'Población', fn:m=>m.poblacion.toLocaleString('es-AR')},
+    {l:'PBG total 2023', fn:m=>m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—'},
+    {l:'PBG por hab.', fn:m=>m.pbg_corriente_2023?fmtK(Math.round(m.pbg_corriente_2023*1e6/m.poblacion)):'—'},
+    {l:'Presup. ejecutado 2025', fn:m=>m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—'},
+    {l:'Presup. por hab.', fn:m=>m.presupuesto_2025?fmtK(Math.round(m.presupuesto_2025*1e6/m.poblacion)):'—'},
+    {l:'Rec. percibidos 2025', fn:m=>m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'},
+    {l:'Rec. por hab.', fn:m=>m.recursos_percibidos_2025?fmtK(Math.round(m.recursos_percibidos_2025*1e6/m.poblacion)):'—'},
+    {l:'Saldo de caja', fn:m=>m.saldo_caja_2025!=null?fmtMM(m.saldo_caja_2025):'—'},
+    {l:'Resultado fiscal', fn:m=>{const r=(m.recursos_percibidos_2025&&m.presupuesto_2025)?m.recursos_percibidos_2025-m.presupuesto_2025:null;return r!=null?(r>=0?'▲ Superávit '+fmtMM(r):'▼ Déficit '+fmtMM(Math.abs(r))):'—';}},
+    {l:'Agua de red %', fn:m=>m.censo_2022?.pct_agua_red!=null?m.censo_2022.pct_agua_red+'%':'—'},
+    {l:'Red cloacal %', fn:m=>m.censo_2022?.pct_cloaca_red!=null?m.censo_2022.pct_cloaca_red+'%':'—'},
+    {l:'Edad mediana', fn:m=>m.censo_2022?.edad_mediana!=null?m.censo_2022.edad_mediana+' años':'—'},
+    {l:'Crecimiento 2010–22', fn:m=>m.censo_2022?.var_intercensal_pct!=null?'+'+m.censo_2022.var_intercensal_pct+'%':'—'},
+    {l:'Índice vulnerabilidad', fn:m=>{const v=calcVuln(m);return v!=null?v+'/100 ('+(v>=70?'Alta':v>=45?'Media':'Baja')+')':'—';}},
+    {l:'TISH alícuota', fn:m=>m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'},
+  ];
+  const colores = ['#4ECDC4','#FF6B6B','#FFD93D'];
+  const headers = munis.map((m,i)=>`<th style="background:${colores[i]}22;color:${colores[i]};border-bottom:3px solid ${colores[i]};padding:10px;text-align:center;font-size:13px">${m.nombre}</th>`).join('');
+  const rows = COLS_COMP.map(col=>{
+    const vals = munis.map(m=>col.fn(m));
+    return `<tr><td style="font-weight:600;color:#444;padding:7px 10px;background:#f8f8f8;font-size:11px">${col.l}</td>${vals.map((v,i)=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee">${v}</td>`).join('')}</tr>`;
+  }).join('');
+
+  const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<title>Comparación · Observatorio Fiscal del Conurbano</title>
+<style>
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#111;padding:28px;font-size:13px}
+  h1{font-size:20px;font-weight:900;color:#0F1117;margin:0 0 4px}
+  .sub{font-size:10px;color:#888;margin-bottom:20px}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th{padding:10px;text-align:center}
+  td{padding:7px 10px}
+  tr:nth-child(even) td:first-child{background:#f0f0f0}
+  tr:hover td{background:#fffbe6}
+  footer{font-size:9px;color:#aaa;margin-top:24px;padding-top:10px;border-top:1px solid #eee}
+  @media print{body{padding:12px}h1{font-size:16px}}
+</style></head><body>
+<h1>Comparación de municipios</h1>
+<div class="sub">Observatorio Fiscal del Conurbano · Franco Iuliani · franco.d.iuliani@gmail.com · ${new Date().toLocaleDateString('es-AR')}</div>
+<table>
+  <thead><tr><th style="text-align:left;padding:10px;background:#f8f8f8;font-size:11px;color:#666">Indicador</th>${headers}</tr></thead>
+  <tbody>${rows}</tbody>
+</table>
+<footer>Fuentes: Rendiciones de Cuentas 2025 · DPE-PBA (PBG 2023) · INDEC Censo 2022 · Ordenanzas impositivas municipales<br>
+Todos los valores en millones de pesos. Índice de vulnerabilidad de elaboración propia.</footer>
+</body></html>`;
+
+  const blob = new Blob([html], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const win = window.open(url,'_blank');
+  if(win) setTimeout(()=>win.print(), 900);
+}
+
 function cerrarComparacion(){
   document.getElementById('comp-result').style.display='none';
 }
@@ -1355,63 +1415,132 @@ function exportarPanel(id) {
   const recpc  = m.recursos_percibidos_2025?Math.round(m.recursos_percibidos_2025*1e6/m.poblacion):null;
   const pbgpc  = m.pbg_corriente_2023?Math.round(m.pbg_corriente_2023*1e6/m.poblacion):null;
   const resultado = (m.recursos_percibidos_2025!=null&&m.presupuesto_2025!=null)?m.recursos_percibidos_2025-m.presupuesto_2025:null;
-  const resLabel = resultado!=null?(resultado>=0?'SUPERÁVIT':'DÉFICIT'):'—';
+  const resLabel = resultado!=null?(resultado>=0?'SUPERÁVIT':'DÉFICIT'):'Sin datos';
   const resColor = resultado!=null?(resultado>=0?'#4ECDC4':'#FF6B6B'):'#888';
   const vulnColor = vuln!=null?(vuln>=70?'#FF6B6B':vuln>=45?'#FFD93D':'#95E77E'):'#888';
-  const vulnLabel = vuln!=null?(vuln>=70?'VULNERABILIDAD ALTA':vuln>=45?'VULNERABILIDAD MEDIA':'VULNERABILIDAD BAJA'):'—';
+  const vulnLabel = vuln!=null?(vuln>=70?'Alta':vuln>=45?'Media':'Baja'):'—';
 
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
-<title>Ficha — ${m.nombre}</title>
+  // Sectores PBG top 5
+  const sect = m.pbg_sectores_2023 || {};
+  const topSect = Object.entries(sect)
+    .filter(([,v])=>v.pct>0).sort((a,b)=>b[1].pct-a[1].pct).slice(0,6)
+    .map(([k,v])=>`<tr><td>${SECT_LABELS_TM[k]||k}</td><td style="text-align:right;font-weight:700">${v.pct.toFixed(1)}%</td></tr>`).join('');
+
+  // Secretarías top 5
+  const secs = (m.secretarias||[]).slice(0,6)
+    .map(s=>`<tr><td>${s.nombre}</td><td style="text-align:right;font-weight:700">${s.pct}%</td></tr>`).join('');
+
+  const SECT_LABELS_TM_LOCAL = {industria:'Industria',comercio:'Comercio',inmobiliario:'Inmobiliario',construccion:'Construcción',transporte:'Transporte',electricidad:'Electricidad',publico:'Sector público',ensenanza:'Enseñanza',salud:'Salud',financiero:'Financiero',comunitarios:'Comunitarios',serv_domestico:'Serv. doméstico',hoteles:'Hoteles',agropecuario:'Agropecuario',pesca:'Pesca',mineria:'Minería'};
+  const topSect2 = Object.entries(sect)
+    .filter(([,v])=>v.pct>0).sort((a,b)=>b[1].pct-a[1].pct).slice(0,6)
+    .map(([k,v])=>`<tr><td>${SECT_LABELS_TM_LOCAL[k]||k}</td><td style="text-align:right;font-weight:700">${v.pct.toFixed(1)}%</td></tr>`).join('');
+
+  const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<title>Ficha — ${m.nombre} · Observatorio Fiscal del Conurbano</title>
 <style>
-  body{font-family:Arial,sans-serif;background:#0F1117;color:#E8E4DC;margin:0;padding:32px}
-  h1{font-size:28px;font-weight:900;color:#4ECDC4;margin:0 0 4px}
-  .sub{font-size:12px;color:#9E9B93;margin-bottom:24px}
-  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px}
-  .card{background:#1C1F2E;border-radius:10px;padding:16px;border-left:3px solid #4ECDC4}
-  .card.rojo{border-color:#FF6B6B}
-  .card.amber{border-color:#FFD93D}
-  .card.verde{border-color:#95E77E}
-  .card-l{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#9E9B93;margin-bottom:6px}
-  .card-v{font-size:20px;font-weight:800;color:#E8E4DC}
-  .card-s{font-size:10px;color:#5C5A55;margin-top:4px}
-  .result{background:#1C1F2E;border-radius:10px;padding:20px;margin-bottom:16px;text-align:center;border:2px solid ${resColor}}
-  .result-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:${resColor};margin-bottom:4px}
-  .result-val{font-size:32px;font-weight:900;color:${resColor}}
-  .vuln{background:#1C1F2E;border-radius:10px;padding:16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
-  .vuln-left{font-size:12px;color:#9E9B93}
-  .vuln-score{font-size:36px;font-weight:900;color:${vulnColor}}
-  footer{font-size:9px;color:#5C5A55;margin-top:32px;border-top:1px solid #2A2D3E;padding-top:12px}
-  @media print{body{background:#fff;color:#111}.card{background:#f5f5f5}.result{background:#f5f5f5}.vuln{background:#f5f5f5}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0F1117;color:#E8E4DC;padding:32px;font-size:13px}
+h1{font-size:26px;font-weight:900;color:#4ECDC4;margin:0 0 4px}
+.zona{display:inline-block;background:#162E2D;color:#4ECDC4;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.sub{font-size:11px;color:#5C5A55;margin-bottom:24px}
+h2{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9E9B93;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid #2A2D3E}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:4px}
+.card{background:#1C1F2E;border-radius:10px;padding:14px;border-left:3px solid #4ECDC4}
+.card.rojo{border-color:#FF6B6B}.card.amber{border-color:#FFD93D}.card.verde{border-color:#95E77E}.card.violet{border-color:#A29BFE}
+.card-l{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#9E9B93;margin-bottom:5px}
+.card-v{font-size:18px;font-weight:800;color:#E8E4DC;line-height:1.1}
+.card-s{font-size:10px;color:#5C5A55;margin-top:4px}
+.result-box{background:#1C1F2E;border-radius:10px;padding:16px;border:2px solid ${resColor};text-align:center;margin-bottom:4px}
+.result-l{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:${resColor};margin-bottom:4px}
+.result-v{font-size:24px;font-weight:900;color:${resColor}}
+.vuln-box{background:#1C1F2E;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.vuln-score{font-size:36px;font-weight:900;color:${vulnColor};line-height:1}
+.vuln-label{display:inline-block;background:${vulnColor}22;color:${vulnColor};padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:11px}
+table td{padding:5px 4px;border-bottom:1px solid #2A2D3E;color:#9E9B93}
+table td:first-child{color:#E8E4DC}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+footer{font-size:9px;color:#3A3D50;margin-top:28px;padding-top:12px;border-top:1px solid #2A2D3E;line-height:1.7}
+@media print{
+  body{background:#fff;color:#111;padding:20px}
+  .card{background:#f5f5f5;border-radius:6px}
+  .result-box,.vuln-box{background:#f5f5f5}
+  table td{color:#444}
+  table td:first-child{color:#111}
+  footer{color:#888}
+}
 </style></head><body>
+
+<span class="zona">${ZONA[m.zona]||m.zona}</span>
 <h1>${m.nombre}</h1>
-<div class="sub">${ZONA[m.zona]} · Observatorio Fiscal del Conurbano · Franco Iuliani · franco.d.iuliani@gmail.com</div>
+<div class="sub">Observatorio Fiscal del Conurbano · Franco Iuliani · franco.d.iuliani@gmail.com · ${new Date().toLocaleDateString('es-AR')}</div>
 
-<div class="grid">
-  <div class="card"><div class="card-l">Población</div><div class="card-v">${m.poblacion.toLocaleString('es-AR')}</div><div class="card-s">Censo 2022</div></div>
-  <div class="card amber"><div class="card-l">PBG total 2023</div><div class="card-v">${m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—'}</div><div class="card-s">${pbgpc?fmtK(pbgpc)+' por hab.':''}</div></div>
-  <div class="card verde"><div class="card-l">Saldo de caja</div><div class="card-v">${m.saldo_caja_2025!=null?fmtMM(m.saldo_caja_2025):'—'}</div><div class="card-s">Cierre 2025</div></div>
+<h2>Datos fiscales 2025</h2>
+<div class="grid3">
   <div class="card"><div class="card-l">Presupuesto ejecutado</div><div class="card-v">${m.presupuesto_2025?fmtMM(m.presupuesto_2025):'—'}</div><div class="card-s">${prespc?fmtK(prespc)+' por hab.':''}</div></div>
-  <div class="card"><div class="card-l">Recursos percibidos</div><div class="card-v">${m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'}</div><div class="card-s">${recpc?fmtK(recpc)+' por hab.':''}</div></div>
-  <div class="card rojo"><div class="card-l">Agua de red pública</div><div class="card-v">${c.pct_agua_red!=null?c.pct_agua_red+'%':'—'}</div><div class="card-s">Red cloacal: ${c.pct_cloaca_red!=null?c.pct_cloaca_red+'%':'—'}</div></div>
+  <div class="card amber"><div class="card-l">Recursos percibidos</div><div class="card-v">${m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'}</div><div class="card-s">${recpc?fmtK(recpc)+' por hab.':''}</div></div>
+  <div class="card verde"><div class="card-l">Saldo de caja — cierre 2025</div><div class="card-v">${m.saldo_caja_2025!=null?fmtMM(m.saldo_caja_2025):'—'}</div><div class="card-s">Disponibilidades al 31/12</div></div>
+</div>
+<div class="result-box">
+  <div class="result-l">Resultado fiscal 2025 (recursos − gasto)</div>
+  <div class="result-v">${resultado!=null?resLabel+' · '+fmtMM(Math.abs(resultado)):'Sin datos suficientes'}</div>
 </div>
 
-<div class="result">
-  <div class="result-label">Resultado fiscal 2025</div>
-  <div class="result-val">${resultado!=null?resLabel+' '+fmtMM(Math.abs(resultado)):'Sin datos'}</div>
+<h2>Economía local</h2>
+<div class="grid3">
+  <div class="card violet"><div class="card-l">PBG total 2023</div><div class="card-v">${m.pbg_corriente_2023?fmtMM(m.pbg_corriente_2023):'—'}</div><div class="card-s">${pbgpc?fmtK(pbgpc)+' por hab.':''}</div></div>
+  <div class="card violet"><div class="card-l">Presup. vigente 2025</div><div class="card-v">${m.presupuesto_vigente_2025?fmtMM(m.presupuesto_vigente_2025):'—'}</div><div class="card-s">Crédito aprobado</div></div>
+  <div class="card amber"><div class="card-l">TISH alícuota base</div><div class="card-v">${m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'}</div><div class="card-s">${m.tish?.nombre_tasa||'Tasa de Inspección'}</div></div>
 </div>
 
-<div class="vuln">
-  <div class="vuln-left"><strong style="color:#E8E4DC;font-size:14px">${vulnLabel}</strong><br>Índice de Vulnerabilidad Municipal<br><small>Combina acceso a agua, cloaca, PBG per cápita y crecimiento poblacional</small></div>
-  <div class="vuln-score">${vuln!=null?vuln+'/100':'—'}</div>
+<div class="two-col" style="margin-top:12px">
+  <div>
+    <h2>Composición del PBG por sector</h2>
+    <table><tbody>${topSect2||'<tr><td>Sin datos</td></tr>'}</tbody></table>
+  </div>
+  <div>
+    <h2>Gasto por secretaría</h2>
+    <table><tbody>${secs||'<tr><td>Sin datos disponibles</td></tr>'}</tbody></table>
+  </div>
 </div>
 
-<footer>Observatorio Fiscal del Conurbano · Franco Iuliani · franco.d.iuliani@gmail.com<br>Fuentes: Rendiciones de Cuentas 2025 · DPE-PBA · INDEC Censo 2022 · Todos los valores en millones de pesos</footer>
+<h2>Datos demográficos — Censo 2022</h2>
+<div class="grid3">
+  <div class="card"><div class="card-l">Población total</div><div class="card-v">${m.poblacion.toLocaleString('es-AR')}</div><div class="card-s">Censo 2022 · ${c.pob_2010?'2010: '+c.pob_2010.toLocaleString('es-AR'):''}</div></div>
+  <div class="card"><div class="card-l">Crecimiento intercensal</div><div class="card-v">${c.var_intercensal_pct!=null?'+'+c.var_intercensal_pct+'%':'—'}</div><div class="card-s">Variación 2010–2022</div></div>
+  <div class="card"><div class="card-l">Hogares</div><div class="card-v">${c.total_hogares?c.total_hogares.toLocaleString('es-AR'):'—'}</div><div class="card-s">${c.total_hogares?'≈ '+(m.poblacion/c.total_hogares).toFixed(1)+' pers/hogar':''}</div></div>
+</div>
+<div class="grid3" style="margin-top:12px">
+  <div class="card rojo"><div class="card-l">Agua de red pública</div><div class="card-v">${c.pct_agua_red!=null?c.pct_agua_red+'%':'—'}</div><div class="card-s">% de hogares</div></div>
+  <div class="card rojo"><div class="card-l">Red cloacal</div><div class="card-v">${c.pct_cloaca_red!=null?c.pct_cloaca_red+'%':'—'}</div><div class="card-s">% de hogares</div></div>
+  <div class="card"><div class="card-l">Edad mediana</div><div class="card-v">${c.edad_mediana!=null?c.edad_mediana+' años':'—'}</div><div class="card-s">Índice masc.: ${c.indice_masculinidad||'—'}</div></div>
+</div>
+
+<h2>Índice de vulnerabilidad</h2>
+<div class="vuln-box">
+  <div>
+    <div style="font-size:13px;font-weight:700;color:#E8E4DC;margin-bottom:4px">Vulnerabilidad de Infraestructura Municipal</div>
+    <div style="font-size:11px;color:#9E9B93;max-width:380px">Combina acceso a agua (30%), red cloacal (30%), PBG per cápita (25%) y crecimiento poblacional (15%). Elaboración propia.</div>
+    <div class="vuln-label">${vulnLabel}</div>
+  </div>
+  <div style="text-align:right">
+    <div class="vuln-score">${vuln!=null?vuln:'—'}</div>
+    <div style="font-size:10px;color:#5C5A55">sobre 100</div>
+  </div>
+</div>
+
+<footer>
+  <strong>Observatorio Fiscal del Conurbano</strong> · Franco Iuliani · Asesor Legislativo · franco.d.iuliani@gmail.com<br>
+  Fuentes: Rendiciones de Cuentas Municipales 2025 · DPE-PBA (PBG 2023) · INDEC Censo Nacional 2022 · Ordenanzas impositivas municipales<br>
+  Todos los valores monetarios expresados en millones de pesos. Índice de vulnerabilidad de elaboración propia, no es un indicador oficial.
+</footer>
 </body></html>`;
 
   const blob = new Blob([html], {type:'text/html'});
   const url = URL.createObjectURL(blob);
   const win = window.open(url,'_blank');
-  if(win) setTimeout(()=>win.print(), 800);
+  if(win) setTimeout(()=>win.print(), 900);
 }
 
 // ── NAV / FILTROS ─────────────────────────────────────────
