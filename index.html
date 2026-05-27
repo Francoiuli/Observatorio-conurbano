@@ -1199,15 +1199,24 @@ let mapVar = 'vuln';
 let mapSelId = null;
 
 const MAP_VARS = {
-  // color: base del color monocromático — bajo=oscuro, alto=intenso
-  vuln:     {l:'Vulnerabilidad',     fn:m=>calcVuln(m),   color:'#FF6B6B', fmt:v=>v+'/100', desc:'Mayor número = más vulnerable'},
-  agua:     {l:'Agua de red %',      fn:m=>m.censo_2022?.pct_agua_red??null,  color:'#4ECDC4', fmt:v=>v+'%', desc:'% hogares con agua corriente'},
-  cloaca:   {l:'Red cloacal %',      fn:m=>m.censo_2022?.pct_cloaca_red??null, color:'#A29BFE', fmt:v=>v+'%', desc:'% hogares con desagüe a red'},
-  pbgpc:    {l:'PBG por habitante',  fn:m=>m.pbg_corriente_2023?Math.round(m.pbg_corriente_2023*1e6/m.poblacion):null, color:'#FFD93D', fmt:v=>'$'+Math.round(v/1000)+'K', desc:'Producto bruto por habitante'},
-  prespc:   {l:'Presup. por hab.',   fn:m=>m.presupuesto_2025?Math.round(m.presupuesto_2025*1e6/m.poblacion):null, color:'#95E77E', fmt:v=>'$'+Math.round(v/1000)+'K', desc:'Gasto municipal por habitante'},
-  crec:     {l:'Crecimiento pop.',   fn:m=>m.censo_2022?.var_intercensal_pct??null, color:'#FF9F43', fmt:v=>'+'+v+'%', desc:'Crecimiento intercensal 2010–2022'},
-  edad:     {l:'Edad mediana',       fn:m=>m.censo_2022?.edad_mediana??null, color:'#74B9FF', fmt:v=>v+' años', desc:'Edad que divide la población en dos mitades iguales'},
-  resultado:{l:'Resultado fiscal',   fn:m=>(m.recursos_percibidos_2025&&m.presupuesto_2025)?m.recursos_percibidos_2025-m.presupuesto_2025:null, color:'#4ECDC4', fmt:v=>(v>=0?'▲ +':'▼ ')+Math.round(Math.abs(v))+'mm', desc:'Recursos percibidos menos gasto ejecutado'},
+  // color: color puro cuando el valor es ALTO
+  // Si es variable "malo cuando alto" → rojo. Si "bueno cuando alto" → verde/teal
+  vuln:     {l:'Vulnerabilidad',    fn:m=>calcVuln(m),
+             color:'#E53E3E', fmt:v=>v+'/100',       desc:'Más rojo = más vulnerable'},
+  agua:     {l:'Agua de red %',     fn:m=>m.censo_2022?.pct_agua_red??null,
+             color:'#38A169', fmt:v=>v+'%',           desc:'Más verde = más cobertura de agua'},
+  cloaca:   {l:'Red cloacal %',     fn:m=>m.censo_2022?.pct_cloaca_red??null,
+             color:'#2F855A', fmt:v=>v+'%',           desc:'Más verde = más cobertura cloacal'},
+  pbgpc:    {l:'PBG por habitante', fn:m=>m.pbg_corriente_2023?Math.round(m.pbg_corriente_2023*1e6/m.poblacion):null,
+             color:'#D69E2E', fmt:v=>'$'+Math.round(v/1000)+'K', desc:'Más intenso = mayor actividad económica'},
+  prespc:   {l:'Presup. por hab.',  fn:m=>m.presupuesto_2025?Math.round(m.presupuesto_2025*1e6/m.poblacion):null,
+             color:'#2B6CB0', fmt:v=>'$'+Math.round(v/1000)+'K', desc:'Más azul = mayor gasto por habitante'},
+  crec:     {l:'Crecimiento pop.',  fn:m=>m.censo_2022?.var_intercensal_pct??null,
+             color:'#E53E3E', fmt:v=>'+'+v+'%',       desc:'Más rojo = mayor presión demográfica'},
+  edad:     {l:'Edad mediana',      fn:m=>m.censo_2022?.edad_mediana??null,
+             color:'#805AD5', fmt:v=>v+' años',       desc:'Más violeta = población más envejecida'},
+  resultado:{l:'Resultado fiscal',  fn:m=>(m.recursos_percibidos_2025&&m.presupuesto_2025)?m.recursos_percibidos_2025-m.presupuesto_2025:null,
+             color:'#38A169', fmt:v=>(v>=0?'▲ +':'▼ ')+Math.round(Math.abs(v))+'mm', desc:'Más verde = mayor superávit'},
 };
 
 function lerp(a,b,t){ return a + (b-a)*t; }
