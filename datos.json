@@ -99,7 +99,7 @@
       },
       "censo_2022": {
         "pob_2010": 552902,
-        "var_intercensal_pct": 5.8,
+        "var_intercensal_pct": 3.9,
         "varones": 282277,
         "mujeres": 302550,
         "indice_masculinidad": 93.3,
@@ -198,7 +198,7 @@
       },
       "censo_2022": {
         "pob_2010": 342677,
-        "var_intercensal_pct": 7.3,
+        "var_intercensal_pct": 7.7,
         "varones": 173733,
         "mujeres": 193821,
         "indice_masculinidad": 89.6,
@@ -297,8 +297,8 @@
       },
       "saldo_caja_2025": 38488,
       "censo_2022": {
-        "pob_2010": 324244,
-        "var_intercensal_pct": 10.6,
+        "pob_2010": 320224,
+        "var_intercensal_pct": 15.7,
         "varones": 173376,
         "mujeres": 185336,
         "indice_masculinidad": 93.5,
@@ -397,7 +397,7 @@
       },
       "censo_2022": {
         "pob_2010": 300959,
-        "var_intercensal_pct": 12.5,
+        "var_intercensal_pct": 6.1,
         "varones": 164013,
         "mujeres": 174467,
         "indice_masculinidad": 94.0,
@@ -497,7 +497,7 @@
       "saldo_caja_2025": 4042,
       "censo_2022": {
         "pob_2010": 163722,
-        "var_intercensal_pct": 23.1,
+        "var_intercensal_pct": 19.7,
         "varones": 99169,
         "mujeres": 102342,
         "indice_masculinidad": 96.9,
@@ -597,7 +597,7 @@
       "saldo_caja_2025": 5913,
       "censo_2022": {
         "pob_2010": 426005,
-        "var_intercensal_pct": 16.5,
+        "var_intercensal_pct": 11.3,
         "varones": 246551,
         "mujeres": 249882,
         "indice_masculinidad": 98.7,
@@ -695,8 +695,8 @@
         }
       },
       "censo_2022": {
-        "pob_2010": 181241,
-        "var_intercensal_pct": 2.4,
+        "pob_2010": 172245,
+        "var_intercensal_pct": 7.7,
         "varones": 89070,
         "mujeres": 96571,
         "indice_masculinidad": 92.2,
@@ -796,7 +796,7 @@
       "saldo_caja_2025": 2742,
       "censo_2022": {
         "pob_2010": 167824,
-        "var_intercensal_pct": 7.4,
+        "var_intercensal_pct": 8.0,
         "varones": 86592,
         "mujeres": 93640,
         "indice_masculinidad": 92.5,
@@ -896,7 +896,7 @@
       "saldo_caja_2025": 4615,
       "censo_2022": {
         "pob_2010": 265981,
-        "var_intercensal_pct": 22.9,
+        "var_intercensal_pct": 4.7,
         "varones": 159441,
         "mujeres": 167551,
         "indice_masculinidad": 95.2,
@@ -912,7 +912,7 @@
       "id": "la_matanza",
       "nombre": "La Matanza",
       "zona": "oeste",
-      "poblacion": 1775816,
+      "poblacion": 1838399,
       "superficie_km2": 327.4,
       "presupuesto_2025": 536978,
       "recursos_percibidos_2025": 657710,
@@ -996,7 +996,7 @@
       "saldo_caja_2025": 266497,
       "censo_2022": {
         "pob_2010": 1775816,
-        "var_intercensal_pct": 3.7,
+        "var_intercensal_pct": 3.5,
         "varones": 887472,
         "mujeres": 953775,
         "indice_masculinidad": 93.0,
@@ -1012,7 +1012,7 @@
       "id": "lanus",
       "nombre": "Lanús",
       "zona": "sur",
-      "poblacion": 459263,
+      "poblacion": 451025,
       "superficie_km2": 50.2,
       "presupuesto_2025": 250087,
       "recursos_percibidos_2025": 233515,
@@ -1092,7 +1092,7 @@
       "saldo_caja_2025": 29834,
       "censo_2022": {
         "pob_2010": 459263,
-        "var_intercensal_pct": 0.4,
+        "var_intercensal_pct": -1.8,
         "varones": 218501,
         "mujeres": 242766,
         "indice_masculinidad": 90.0,
@@ -1191,7 +1191,7 @@
       },
       "censo_2022": {
         "pob_2010": 616279,
-        "var_intercensal_pct": 12.0,
+        "var_intercensal_pct": 10.1,
         "varones": 332391,
         "mujeres": 358089,
         "indice_masculinidad": 92.8,
@@ -1291,7 +1291,7 @@
       "saldo_caja_2025": 15145,
       "censo_2022": {
         "pob_2010": 322375,
-        "var_intercensal_pct": 8.8,
+        "var_intercensal_pct": 18.7,
         "varones": 170521,
         "mujeres": 180153,
         "indice_masculinidad": 94.7,
@@ -1390,7 +1390,7 @@
       },
       "censo_2022": {
         "pob_2010": 528494,
-        "var_intercensal_pct": 10.2,
+        "var_intercensal_pct": 30.7,
         "varones": 282644,
         "mujeres": 299842,
         "indice_masculinidad": 94.3,
@@ -1557,7 +1557,7 @@
       "saldo_caja_2025": 7086,
       "censo_2022": {
         "pob_2010": 452505,
-        "var_intercensal_pct": 27.4,
+        "var_intercensal_pct": 46.3,
         "varones": 281921,
         "mujeres": 294711,
         "indice_masculinidad": 95.7,
@@ -1693,7 +1693,7 @@
       "saldo_caja_2025": 4160,
       "censo_2022": {
         "pob_2010": 321109,
-        "var_intercensal_pct": 3.1,
+        "var_intercensal_pct": 8.9,
         "varones": 156849,
         "mujeres": 174334,
         "indice_masculinidad": 90.0,
@@ -1793,7 +1793,7 @@
       "saldo_caja_2025": 62973,
       "censo_2022": {
         "pob_2010": 582943,
-        "var_intercensal_pct": 8.7,
+        "var_intercensal_pct": 9.9,
         "varones": 304169,
         "mujeres": 329222,
         "indice_masculinidad": 92.4,
@@ -1893,7 +1893,7 @@
       "saldo_caja_2025": 105299,
       "censo_2022": {
         "pob_2010": 163240,
-        "var_intercensal_pct": 5.1,
+        "var_intercensal_pct": 7.2,
         "varones": 81789,
         "mujeres": 89827,
         "indice_masculinidad": 91.1,
@@ -1988,8 +1988,8 @@
       },
       "saldo_caja_2025": 26426,
       "censo_2022": {
-        "pob_2010": 292878,
-        "var_intercensal_pct": 1.5,
+        "pob_2010": 291505,
+        "var_intercensal_pct": 1.4,
         "varones": 139612,
         "mujeres": 157670,
         "indice_masculinidad": 88.5,
@@ -2098,7 +2098,7 @@
       "saldo_caja_2025": 15926,
       "censo_2022": {
         "pob_2010": 414196,
-        "var_intercensal_pct": 8.8,
+        "var_intercensal_pct": 6.7,
         "varones": 216389,
         "mujeres": 234129,
         "indice_masculinidad": 92.4,
@@ -2193,7 +2193,7 @@
       },
       "censo_2022": {
         "pob_2010": 276190,
-        "var_intercensal_pct": 19.1,
+        "var_intercensal_pct": 14.7,
         "varones": 158961,
         "mujeres": 169874,
         "indice_masculinidad": 93.6,
@@ -2293,7 +2293,7 @@
       "saldo_caja_2025": 49608,
       "censo_2022": {
         "pob_2010": 376381,
-        "var_intercensal_pct": 18.7,
+        "var_intercensal_pct": 12.7,
         "varones": 216852,
         "mujeres": 230097,
         "indice_masculinidad": 94.2,
@@ -2449,7 +2449,7 @@
       "saldo_caja_2025": 30734,
       "censo_2022": {
         "pob_2010": 340071,
-        "var_intercensal_pct": 7.1,
+        "var_intercensal_pct": 8.3,
         "varones": 172962,
         "mujeres": 191214,
         "indice_masculinidad": 90.5,
@@ -2545,7 +2545,7 @@
       "saldo_caja_2025": 27151,
       "censo_2022": {
         "pob_2010": 269420,
-        "var_intercensal_pct": 4.8,
+        "var_intercensal_pct": 2.1,
         "varones": 131628,
         "mujeres": 150652,
         "indice_masculinidad": 87.4,
