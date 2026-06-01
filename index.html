@@ -446,17 +446,55 @@ footer a:hover{color:rgba(94,234,212,.85)}
 
 <nav class="nav">
   <div class="nav-inner">
-    <button class="nav-btn on" onclick="setView('dashboard',this)">Dashboard</button>
-    <button class="nav-btn" onclick="setView('mapa',this);renderMapa()">Mapa</button>
-    <button class="nav-btn" onclick="setView('glosario',this)">¿Qué significa?</button>
+    <button class="nav-btn on" onclick="setView('dashboard',this)">Inicio</button>
     <button class="nav-btn" onclick="setView('tabla',this)">Tabla comparativa</button>
+    <button class="nav-btn" onclick="setView('captacion',this);renderCaptacion()">Captación fiscal</button>
     <button class="nav-btn" onclick="setView('demo',this)">Condiciones de vida</button>
+    <button class="nav-btn" onclick="setView('mapa',this);renderMapa()">Mapa</button>
     <button class="nav-btn" onclick="setView('tish',this)">Tasas TISH</button>
+    <button class="nav-btn" onclick="setView('glosario',this)">Variables</button>
   </div>
 </nav>
 
 
 
+
+
+<!-- CAPTACIÓN FISCAL -->
+<div class="wrap" id="v-captacion">
+  <div class="sh">
+    <span class="sh-t">Captación fiscal</span>
+    <span class="sh-n">PBG por habitante vs Presupuesto por habitante · 24 partidos del Conurbano</span>
+  </div>
+
+  <div style="background:#DBEAFE;border-left:3px solid #2563EB;border-radius:0 var(--r) var(--r) 0;padding:.875rem 1.25rem;margin-bottom:1.5rem;font-size:12px;line-height:1.7;color:#1E40AF">
+    <strong>¿Qué mide este análisis?</strong> La <em>captación fiscal</em> es el porcentaje del PBG (riqueza generada en el municipio) que se transforma en gasto público municipal. Un municipio en el cuadrante derecho inferior tiene capacidad económica que no se refleja en su gasto. Un municipio que se encuentra en el cuadrante superior izquierdo gasta más de lo que su economía local generaría. <strong>Las líneas punteadas marcan el promedio del conurbano</strong> en cada eje.
+  </div>
+
+  <div class="cgrid g1" style="margin-bottom:1.5rem">
+    <div class="cc">
+      <div class="cc-t">Dispersión: PBG por habitante vs Presupuesto por habitante</div>
+      <div id="c-scatter" style="width:100%;min-height:380px"></div>
+    </div>
+  </div>
+
+  <div class="sh"><span class="sh-t">Ranking de captación</span><span class="sh-n">Ordenado de mayor a menor captación fiscal</span></div>
+  <div class="tw">
+    <table id="tbl-captac">
+      <thead>
+        <tr>
+          <th style="width:28px">#</th>
+          <th>Municipio</th>
+          <th style="text-align:center">Zona</th>
+          <th style="text-align:right">PBG por hab.</th>
+          <th style="text-align:right">Presup. por hab.</th>
+          <th style="text-align:right">Captación %</th>
+        </tr>
+      </thead>
+      <tbody id="tbody-captac"></tbody>
+    </table>
+  </div>
+</div>
 
 <!-- MAPA -->
 <div class="wrap" id="v-mapa">
@@ -570,25 +608,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <div class="cc v2"><div class="cc-t">PBG total — participación por municipio</div><div id="donut-pbg" style="min-height:300px"></div></div>
     <div class="cc v2"><div class="cc-t">PBG per cápita — comparativa</div><div class="cc-c md"><div id="c-pbg-pc" style="width:100%;height:100%"></div></div></div>
   </div>
-  <div class="sh"><span class="sh-t">Captación fiscal</span><span class="sh-n">Presupuesto pc vs PBG pc — qué porcentaje de la riqueza local captura el municipio como gasto</span></div>
-  <div class="cgrid g1" style="margin-bottom:2rem"><div class="cc"><div class="cc-t">Dispersión: PBG por habitante vs Presupuesto por habitante</div><div id="c-scatter" style="width:100%;min-height:360px"></div>
-      <!-- Tabla de captación -->
-      <div style="margin-top:1.25rem;overflow-x:auto">
-        <table style="width:100%;border-collapse:collapse;font-size:12px" id="tbl-captac">
-          <thead>
-            <tr>
-              <th style="text-align:left;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;width:28px">#</th>
-              <th style="text-align:left;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Municipio</th>
-              <th style="text-align:center;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Zona</th>
-              <th style="text-align:right;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">PBG por hab.</th>
-              <th style="text-align:right;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Presup. por hab.</th>
-              <th style="text-align:right;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Captación %</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-captac"></tbody>
-        </table>
-      </div>
-    </div></div></div>
+
   <div class="sh"><span class="sh-t">Demografía</span><span class="sh-n">INDEC Censo 2022</span></div>
   <div class="cgrid g1"><div class="cc"><div class="cc-t">Población — 24 partidos del Conurbano bonaerense</div><div class="cc-c md"><div id="c-pop" style="width:100%;height:100%"></div></div></div></div>
 </div>
@@ -1030,6 +1050,11 @@ function svgDonut(containerId, items, total, fmtVal) {
 // ── SCATTER PLOT PBG vs PRESUPUESTO per cápita ──────────────────────────────
 function scatterOver(el,e){el.setAttribute('r','9');showTip(e,el.dataset.tip);}
 function scatterOut(el){el.setAttribute('r','6.5');hideTip();}
+
+
+function renderCaptacion() {
+  renderScatter();
+}
 
 function renderScatter() {
   const el = document.getElementById('c-scatter');
