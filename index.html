@@ -229,7 +229,7 @@ h1 b{
 
 /* ─── TABLA ──────────────────────────────────────── */
 .tw{overflow-x:auto;border-radius:var(--r3);box-shadow:var(--sh);border:1px solid var(--borde)}
-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;background:var(--card);font-family:'Inter',sans-serif}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;background:var(--card);font-family:'Inter',sans-serif}
 thead th{
   background:var(--navy);color:rgba(226,232,240,.85);
   padding:10px 12px;text-align:left;
@@ -248,10 +248,10 @@ tbody tr:hover{background:#F0FDF4}
 tbody tr:nth-child(even){background:var(--card2)}
 tbody tr:nth-child(even):hover{background:#F0FDF4}
 tbody tr.sel{background:var(--teal-l)!important}
-td{padding:10px 12px;vertical-align:middle;color:var(--ink)}
-td.mn{font-weight:600;font-size:13px;color:var(--navy)}
-td.n{font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right;font-weight:500;color:var(--ink2)}
-td.na{font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right;color:var(--mist)}
+td{padding:7px 8px;vertical-align:middle;color:var(--ink)}
+td.mn{font-weight:600;font-size:12px;color:var(--navy)}
+td.n{font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right;font-weight:500;color:var(--ink2)}
+td.na{font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right;color:var(--mist)}
 .zch{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.05em}
 .zn{background:var(--teal-l);color:var(--teal-d)}
 .zs{background:var(--red-l);color:var(--red)}
@@ -420,7 +420,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
 
   <div style="display:grid;grid-template-columns:1fr 280px;gap:1.5rem;align-items:start">
     <!-- SVG Mapa -->
-    <div style="background:var(--bg2);border-radius:var(--r2);padding:1rem;border:1px solid var(--borde);position:relative">
+    <div style="background:var(--card2);border-radius:var(--r2);padding:1rem;border:1px solid var(--borde);position:relative">
       <!-- Leyenda -->
       <div id="map-legend" style="position:absolute;top:12px;right:12px;background:var(--card);border:1px solid var(--borde);border-radius:var(--r);padding:.6rem .8rem;font-size:10px;z-index:2">
         <div style="font-weight:700;color:var(--ink);margin-bottom:.2rem;font-size:11px" id="legend-title">Vulnerabilidad</div>
@@ -537,7 +537,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
   <div id="panel-anchor"></div>
   <!-- Panel comparación — se muestra dentro de la tabla -->
   <div id="comp-result" style="display:none;background:var(--card);border-radius:var(--r2);box-shadow:0 4px 24px rgba(0,0,0,.5);margin-bottom:1.5rem;overflow:hidden;border-top:2px solid var(--c4)">
-    <div style="background:linear-gradient(130deg,#060810,#101525);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between">
+    <div style="background:var(--navy);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between">
       <div>
         <div style="font-size:13px;font-weight:700;color:#fff">Comparación</div>
         <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px" id="comp-view-title"></div>
@@ -782,7 +782,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
 
 <!-- MODAL COMPARADOR -->
 <div id="comp-modal" style="position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;display:none">
-  <div style="background:#1C1F2E;border-radius:var(--r2);padding:2rem;border:1px solid var(--borde);width:min(620px,90vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.3)">
+  <div style="background:var(--card);border-radius:var(--r2);padding:2rem;border:1px solid var(--borde);width:min(620px,90vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(15,23,42,.2)">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
       <div>
         <div style="font-size:1.1rem;font-weight:700;color:var(--ink)">Comparar municipios</div>
@@ -877,15 +877,15 @@ function svgBar(containerId, items, colorFn, labelFn) {
   let s = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" style="display:block;overflow:visible">`;
 
   // Fondo
-  s += `<rect x="${PLEFT}" y="${PTOP}" width="${cW}" height="${cH}" fill="#13151E" rx="4"/>`;
+  s += `<rect x="${PLEFT}" y="${PTOP}" width="${cW}" height="${cH}" fill="#F8FAFC" rx="4"/>`;
 
   // Líneas guía + labels eje Y
   [0, 0.25, 0.5, 0.75, 1].forEach(f => {
     const y = PTOP + cH * (1 - f);
-    s += `<line x1="${PLEFT}" y1="${y}" x2="${W-PRIGHT}" y2="${y}" stroke="${f===0?'#2A2D3E':'#1E2130'}" stroke-width="${f===0?1.5:1}"/>`;
+    s += `<line x1="${PLEFT}" y1="${y}" x2="${W-PRIGHT}" y2="${y}" stroke="${f===0?'#CBD5E1':'#E2E8F0'}" stroke-width="${f===0?1.5:1}"/>`;
     if (f > 0) {
       const lbl = labelFn(max * f);
-      s += `<text x="${PLEFT-6}" y="${y+3}" text-anchor="end" fill="#5C5A55" font-size="10" font-family="sans-serif">${lbl}</text>`;
+      s += `<text x="${PLEFT-6}" y="${y+3}" text-anchor="end" fill="#94A3B8" font-size="10" font-family="sans-serif">${lbl}</text>`;
     }
   });
 
@@ -906,7 +906,7 @@ function svgBar(containerId, items, colorFn, labelFn) {
     // Label eje X rotado
     const lx = x + bw / 2;
     const ly = PTOP + cH + 10;
-    s += `<text transform="translate(${lx},${ly}) rotate(-42)" text-anchor="end" fill="#6B6860" font-size="9.5" font-family="sans-serif">${item.label}</text>`;
+    s += `<text transform="translate(${lx},${ly}) rotate(-42)" text-anchor="end" fill="#64748B" font-size="9.5" font-family="sans-serif">${item.label}</text>`;
   });
 
   s += '</svg>';
@@ -1060,7 +1060,7 @@ function renderTable(){
     // Resultado fiscal
     const resultado = (m.recursos_percibidos_2025!=null && m.presupuesto_2025!=null)
       ? m.recursos_percibidos_2025 - m.presupuesto_2025 : null;
-    const resBg = resultado!=null?(resultado>=0?'background:#162E2D;color:#4ECDC4':'background:#2E1515;color:#FF6B6B'):'';
+    const resBg = resultado!=null?(resultado>=0?'background:#D1FAE5;color:#065F46':'background:#FEE2E2;color:#991B1B'):'';
     const resLabel = resultado!=null?(resultado>=0?'▲ Superávit':'▼ Déficit'):'—';
     return `<tr class="${sel}" onclick="openPanel('${m.id}')">
       <td class="mn">${m.nombre}</td>
@@ -1073,10 +1073,10 @@ function renderTable(){
       <td class="${prespc?'n':'na'}">${prespc?fmtK(prespc):'—'}</td>
       <td class="${m.recursos_percibidos_2025?'n':'na'}">${m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'}</td>
       <td class="${recpc?'n':'na'}">${recpc?fmtK(recpc):'—'}</td>
-      <td style="text-align:right;font-size:12px;font-weight:600;padding:8px 10px;${resBg};border-radius:4px">
+      <td style="text-align:right;font-size:11px;font-weight:600;padding:7px 8px;${resBg};border-radius:4px">
         ${resultado!=null?`<div>${resLabel}</div><div style="font-size:11px;font-weight:400">${fmtMM(Math.abs(resultado))}</div>`:'—'}
       </td>
-      <td style="text-align:right;padding:8px 10px;font-size:12px">${(()=>{
+      <td style="text-align:right;padding:7px 8px;font-size:11px">${(()=>{
         if(!m.recursos_percibidos_2025||!m.presupuesto_2025) return '<span style="color:var(--ink3)">—</span>';
         const res = m.recursos_percibidos_2025 - m.presupuesto_2025;
         const pct = (res / m.recursos_percibidos_2025 * 100).toFixed(1);
@@ -1359,8 +1359,8 @@ function renderDemoTable() {
   const fmtPct = v => v!=null ? v.toFixed(1)+'%' : '—';
   const pctColor = (v, low, high) => {
     if(v==null) return '';
-    if(v>=high) return 'color:#4ECDC4;background:#162E2D';
-    if(v<=low)  return 'color:#FF6B6B;background:#2E1515';
+    if(v>=high) return 'color:#065F46;background:#D1FAE5';
+    if(v<=low)  return 'color:#991B1B;background:#FEE2E2';
     return '';
   };
 
@@ -1368,7 +1368,7 @@ function renderDemoTable() {
     const c = m.censo_2022;
     const persHogar = c.total_hogares ? (m.poblacion/c.total_hogares).toFixed(2) : '—';
     const crec = c.var_intercensal_pct;
-    const crecStyle = crec!=null?(crec>15?'color:#95E77E;background:#1A2415':crec<5?'color:#FFD93D;background:#2A2210':''):'';
+    const crecStyle = crec!=null?(crec>15?'color:#065F46;background:#D1FAE5':crec<5?'color:#92400E;background:#FEF3C7':''):'';
     return `<tr>
       <td class="mn">${m.nombre}</td>
       <td><span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span></td>
@@ -1440,7 +1440,7 @@ function renderMapa(){
     const el = document.getElementById('map-'+m.id);
     if(!el) return;
     const v = cfg.fn(m);
-    if(v==null){ el.style.fill='#1C2A3A'; return; }
+    if(v==null){ el.style.fill='#E2E8F0'; el.style.stroke='#fff'; return; }
     let fillColor;
     if(cfg.bicolor){
       const absMax = Math.max(...DATA.map(x=>Math.abs(cfg.fn(x)||0)));
@@ -1492,7 +1492,7 @@ function mapClick(id){
       <div style="font-size:15px;font-weight:800;color:var(--ink)">${m.nombre}</div>
       <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center"><span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span>${m.intendente?`<span style="font-size:12px;font-weight:600;color:var(--ink)">${m.intendente.nombre}</span>`:''}</div>
     </div>
-    ${vuln!=null?`<div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg2);border-radius:var(--r);padding:.6rem .875rem;margin-bottom:.75rem">
+    ${vuln!=null?`<div style="display:flex;justify-content:space-between;align-items:center;background:var(--card2);border:1px solid var(--borde);border-radius:var(--r);padding:.6rem .875rem;margin-bottom:.75rem">
       <span style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em">Vulnerabilidad</span>
       <span style="font-size:18px;font-weight:900;color:${vulnColor}">${vuln}<span style="font-size:10px;font-weight:400">/100</span></span>
     </div>`:''}
