@@ -356,19 +356,78 @@ footer a:hover{color:rgba(94,234,212,.85)}
   .cgrid.g2{grid-template-columns:1fr}
 }
 @media(max-width:768px){
-  .hdr-inner{grid-template-columns:1fr;padding:1.5rem 1rem}
+  /* Header */
+  .hdr-inner{grid-template-columns:1fr;padding:1.25rem 1rem}
   .hdr-chips{display:none}
-  .wrap{padding:1rem}
-  .kpi-row{grid-template-columns:1fr 1fr}
+  h1{font-size:1.5rem}
+  .hdr-desc{font-size:12px}
+
+  /* Nav */
+  .nav-inner{padding:0 .5rem}
+  .nav-btn{font-size:10px;padding:.75rem .75rem}
+
+  /* Wrap */
+  .wrap{padding:1rem .875rem}
+
+  /* KPIs */
+  .kpi-row{grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem}
+  .kpi{padding:1rem 1.125rem}
+  .kpi-v{font-size:1.35rem}
+
+  /* Charts */
+  .cgrid{gap:.75rem}
+  .cc{padding:1rem 1.125rem}
+  .cc-c{height:220px}
+  .cc-c.md{height:180px}
+
+  /* Tabla */
+  .tw{border-radius:var(--r)}
+  table{font-size:11px}
+  thead th{padding:6px 6px;font-size:8.5px}
+  td{padding:6px 6px}
+  td.mn{font-size:11px}
+  td.n,td.na{font-size:10px}
+
+  /* Panel */
   .p2{grid-template-columns:1fr}
-  .sbn{width:110px}
-  .nav-inner{padding:0 1rem}
-  .pb{padding:1rem}
   .ph{padding:1rem}
+  .ph-t{font-size:1.1rem}
+  .pb{padding:1rem}
   .pk-row{grid-template-columns:1fr 1fr}
+  .sbn{width:100px;font-size:10px}
+
+  /* Filtros */
+  .fbar{padding:.625rem .875rem;gap:.375rem}
+  .pill{font-size:10px;padding:4px 10px}
+
+  /* Mapa */
+  #v-mapa > div:last-child{grid-template-columns:1fr!important}
+  #map-panel{display:none}
+  .mapa-lbl{font-size:6.5px}
+
+  /* Comparador */
+  .comp-row-label{width:130px;font-size:10px}
+  .comp-cell{font-size:11px;padding:.5rem .5rem}
+
+  /* Demo tabla */
+  .tgrid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:480px){
   .kpi-row{grid-template-columns:1fr}
+  .kpi-v{font-size:1.2rem}
+  .pk-row{grid-template-columns:1fr 1fr}
+  .tgrid{grid-template-columns:1fr}
+  .nav-btn{font-size:9.5px;padding:.75rem .5rem;letter-spacing:.03em}
+
+  /* Tabla: ocultar columnas menos importantes en mobile muy chico */
+  .tw th:nth-child(n+8), .tw td:nth-child(n+8){display:none}
+
+  /* Mapa: SVG scrolleable */
+  .mapa-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  /* Header más compacto */
+  h1{font-size:1.3rem}
+  .hdr-pill{font-size:9px}
 }
 </style>
 </head>
@@ -420,7 +479,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
 
   <div style="display:grid;grid-template-columns:1fr 280px;gap:1.5rem;align-items:start">
     <!-- SVG Mapa -->
-    <div style="background:var(--card2);border-radius:var(--r2);padding:1rem;border:1px solid var(--borde);position:relative">
+    <div class="mapa-wrap" style="background:var(--card2);border-radius:var(--r2);padding:1rem;border:1px solid var(--borde);position:relative;min-width:0">
       <!-- Leyenda -->
       <div id="map-legend" style="position:absolute;top:12px;right:12px;background:var(--card);border:1px solid var(--borde);border-radius:var(--r);padding:.6rem .8rem;font-size:10px;z-index:2">
         <div style="font-weight:700;color:var(--ink);margin-bottom:.2rem;font-size:11px" id="legend-title">Vulnerabilidad</div>
