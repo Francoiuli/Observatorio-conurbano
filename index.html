@@ -570,6 +570,8 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <div class="cc v2"><div class="cc-t">PBG total — participación por municipio</div><div id="donut-pbg" style="min-height:300px"></div></div>
     <div class="cc v2"><div class="cc-t">PBG per cápita — comparativa</div><div class="cc-c md"><div id="c-pbg-pc" style="width:100%;height:100%"></div></div></div>
   </div>
+  <div class="sh"><span class="sh-t">Captación fiscal</span><span class="sh-n">Presupuesto pc vs PBG pc — qué porcentaje de la riqueza local captura el municipio como gasto</span></div>
+  <div class="cgrid g1" style="margin-bottom:2rem"><div class="cc"><div class="cc-t">Dispersión: PBG por habitante vs Presupuesto por habitante</div><div id="c-scatter" style="width:100%;min-height:320px"></div></div></div>
   <div class="sh"><span class="sh-t">Demografía</span><span class="sh-n">INDEC Censo 2022</span></div>
   <div class="cgrid g1"><div class="cc"><div class="cc-t">Población — 24 partidos del Conurbano bonaerense</div><div class="cc-c md"><div id="c-pop" style="width:100%;height:100%"></div></div></div></div>
 </div>
@@ -1007,7 +1009,96 @@ function svgDonut(containerId, items, total, fmtVal) {
   </div>`;
 }
 
+
+// ── SCATTER PLOT PBG vs PRESUPUESTO per cápita ──────────────────────────────
+function renderScatter() {
+  const el = document.getElementById('c-scatter');
+  if (!el) return;
+
+  const lista = DATA.filter(m => m.pbg_corriente_2023 && m.presupuesto_2025);
+  if (!lista.length) { el.innerHTML='<div class="pend">Sin datos</div>'; return; }
+
+  const W=el.offsetWidth||600, H=320;
+  const PL=70, PR=20, PT=20, PB=55;
+  const cW=W-PL-PR, cH=H-PT-PB;
+
+  // Calcular valores
+  const pts = lista.map(m=>({
+    m,
+    x: Math.round(m.pbg_corriente_2023*1e6/m.poblacion),    // PBG pc
+    y: Math.round(m.presupuesto_2025*1e6/m.poblacion),       // Presup pc
+    zona: m.zona,
+    nombre: m.nombre,
+    ratio: (m.presupuesto_2025/m.pbg_corriente_2023*100).toFixed(1)
+  }));
+
+  const maxX = Math.max(...pts.map(p=>p.x)) * 1.08;
+  const maxY = Math.max(...pts.map(p=>p.y)) * 1.08;
+  const minX = 0, minY = 0;
+
+  // Promedios
+  const avgX = pts.reduce((s,p)=>s+p.x,0)/pts.length;
+  const avgY = pts.reduce((s,p)=>s+p.y,0)/pts.length;
+
+  function sx(v){ return PL + (v-minX)/(maxX-minX)*cW; }
+  function sy(v){ return PT + cH - (v-minY)/(maxY-minY)*cH; }
+  function fmtK2(v){ return '$'+Math.round(v/1000).toLocaleString('es-AR')+'K'; }
+
+  // Líneas de cuadrícula
+  let svg = '<svg width="100%" height="'+H+'" viewBox="0 0 '+W+' '+H+'" style="display:block;overflow:visible">';
+
+  // Fondo cuadrantes
+  const mx = sx(avgX), my = sy(avgY);
+  svg += '<rect x="'+PL+'" y="'+PT+'" width="'+(mx-PL)+'" height="'+(my-PT)+'" fill="#FEF3C7" opacity="0.4"/>'; // bajo PBG, alto presup
+  svg += '<rect x="'+mx+'" y="'+PT+'" width="'+(PL+cW-mx)+'" height="'+(my-PT)+'" fill="#D1FAE5" opacity="0.4"/>'; // alto PBG, alto presup
+  svg += '<rect x="'+PL+'" y="'+my+'" width="'+(mx-PL)+'" height="'+(PT+cH-my)+'" fill="#FEE2E2" opacity="0.4"/>'; // bajo PBG, bajo presup
+  svg += '<rect x="'+mx+'" y="'+my+'" width="'+(PL+cW-mx)+'" height="'+(PT+cH-my)+'" fill="#F0FDF4" opacity="0.4"/>'; // alto PBG, bajo presup
+
+  // Etiquetas cuadrantes
+  const ql=10;
+  svg += '<text x="'+(PL+ql)+'" y="'+(PT+14)+'" font-size="9" fill="#D97706" font-family="Inter,sans-serif" font-weight="600">Alto gasto · bajo PBG</text>';
+  svg += '<text x="'+(mx+ql)+'" y="'+(PT+14)+'" font-size="9" fill="#059669" font-family="Inter,sans-serif" font-weight="600">Alto gasto · alto PBG</text>';
+  svg += '<text x="'+(PL+ql)+'" y="'+(PT+cH-6)+'" font-size="9" fill="#DC2626" font-family="Inter,sans-serif" font-weight="600">Bajo gasto · bajo PBG</text>';
+  svg += '<text x="'+(mx+ql)+'" y="'+(PT+cH-6)+'" font-size="9" fill="#0D9488" font-family="Inter,sans-serif" font-weight="600">Bajo gasto · alto PBG</text>';
+
+  // Líneas de cuadrícula
+  for(let i=0;i<=5;i++){
+    const yv=minY+(maxY-minY)*i/5, xpos=sy(yv);
+    svg+='<line x1="'+PL+'" y1="'+xpos+'" x2="'+(PL+cW)+'" y2="'+xpos+'" stroke="#E2E8F0" stroke-width="1"/>';
+    svg+='<text x="'+(PL-6)+'" y="'+(xpos+4)+'" font-size="9" fill="#94A3B8" text-anchor="end" font-family="Inter,sans-serif">'+fmtK2(yv)+'</text>';
+  }
+  for(let i=0;i<=5;i++){
+    const xv=minX+(maxX-minX)*i/5, xpos=sx(xv);
+    svg+='<line x1="'+xpos+'" y1="'+PT+'" x2="'+xpos+'" y2="'+(PT+cH)+'" stroke="#E2E8F0" stroke-width="1"/>';
+    svg+='<text x="'+xpos+'" y="'+(PT+cH+14)+'" font-size="9" fill="#94A3B8" text-anchor="middle" font-family="Inter,sans-serif">'+fmtK2(xv)+'</text>';
+  }
+
+  // Líneas de promedio
+  svg+='<line x1="'+mx+'" y1="'+PT+'" x2="'+mx+'" y2="'+(PT+cH)+'" stroke="#64748B" stroke-width="1" stroke-dasharray="4,3"/>';
+  svg+='<line x1="'+PL+'" y1="'+my+'" x2="'+(PL+cW)+'" y2="'+my+'" stroke="#64748B" stroke-width="1" stroke-dasharray="4,3"/>';
+
+  // Borde
+  svg+='<rect x="'+PL+'" y="'+PT+'" width="'+cW+'" height="'+cH+'" fill="none" stroke="#CBD5E1" stroke-width="1"/>';
+
+  // Puntos
+  const colores = {norte:'#0D9488', sur:'#DC2626', oeste:'#059669'};
+  pts.forEach(p=>{
+    const cx=sx(p.x), cy=sy(p.y);
+    const col=colores[p.zona]||'#64748B';
+    const tip=p.nombre+': PBG pc '+fmtK2(p.x)+' · Presup pc '+fmtK2(p.y)+' · Captación '+p.ratio+'%';
+    svg+='<circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="7" fill="'+col+'" fill-opacity="0.85" stroke="white" stroke-width="1.5" style="cursor:pointer" data-tip="'+tip.replace(/"/g,"&quot;").replace(/'/g,"&#39;")+'" onmouseenter="showTip(event,this.dataset.tip)" onmouseleave="hideTip()"/>';
+  });
+
+  // Ejes
+  svg+='<text x="'+(PL+cW/2)+'" y="'+(H-4)+'" font-size="10" fill="#475569" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600">PBG por habitante →</text>';
+  svg+='<text x="14" y="'+(PT+cH/2)+'" font-size="10" fill="#475569" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" transform="rotate(-90,14,'+(PT+cH/2)+')">Presupuesto por hab. →</text>';
+
+  svg+='</svg>';
+  el.innerHTML=svg;
+}
+
 function renderCharts(){
+  renderScatter();
   let lista = [...DATA];
   if(zona!=='todos') lista = lista.filter(m=>m.zona===zona);
 
@@ -1055,6 +1146,7 @@ const COLS = [
   {k:'prespc', l:'Presup. por hab.',    sort:'pres_pc',    num:true},
   {k:'rec',    l:'Recursos 2025 (mm$)', sort:'recursos',   num:true},
   {k:'recpc',  l:'Recursos por hab.',   sort:'rec_pc',     num:true},
+  {k:'captac', l:'Captación fiscal %',  sort:'captac',     num:true},
   {k:'result', l:'Resultado fiscal',    sort:'resultado',  num:true},
   {k:'ratio',  l:'Resultado s/ingresos',sort:'ratio',     num:true},
   {k:'saldo',  l:'Saldo de caja',        sort:'saldo',      num:true},
@@ -1132,6 +1224,9 @@ function renderTable(){
       ? m.recursos_percibidos_2025 - m.presupuesto_2025 : null;
     const resBg = resultado!=null?(resultado>=0?'background:#D1FAE5;color:#065F46':'background:#FEE2E2;color:#991B1B'):'';
     const resLabel = resultado!=null?(resultado>=0?'▲ Superávit':'▼ Déficit'):'—';
+    const captac = m.pbg_corriente_2023&&m.presupuesto_2025 ? (m.presupuesto_2025/m.pbg_corriente_2023*100) : null;
+    const captacStr = captac ? captac.toFixed(1)+'%' : '—';
+    const captacCol = captac ? (captac>15?'#DC2626':captac>8?'#D97706':'#059669') : 'var(--ink3)';
     return `<tr class="${sel}" onclick="openPanel('${m.id}')">
       <td style="text-align:center;font-size:11px;font-weight:700;color:var(--mist);padding:7px 6px;width:28px">${idx+1}</td>
       <td class="mn">${m.nombre}</td>
@@ -1837,6 +1932,7 @@ function renderComparador(){
     {l:'Agua de red %',       fn:m=>m.censo_2022?.pct_agua_red!=null?m.censo_2022.pct_agua_red+'%':'—', best:m=>m.censo_2022?.pct_agua_red||0},
     {l:'Red cloacal %',       fn:m=>m.censo_2022?.pct_cloaca_red!=null?m.censo_2022.pct_cloaca_red+'%':'—', best:m=>m.censo_2022?.pct_cloaca_red||0},
     {l:'TISH alícuota',       fn:m=>m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'},
+    {l:'Captación fiscal %',  fn:m=>m.pbg_corriente_2023&&m.presupuesto_2025?(m.presupuesto_2025/m.pbg_corriente_2023*100).toFixed(1)+'%':'—'},
     {l:'Gasto corriente',     fn:m=>m.gasto_corriente_2025?fmtMM(m.gasto_corriente_2025):'—'},
     {l:'Gasto de capital',    fn:m=>m.gasto_capital_2025?fmtMM(m.gasto_capital_2025):'—', best:m=>m.gasto_capital_2025||0},
     {l:'% capital s/devengado',fn:m=>{const gc=m.gasto_corriente_2025,gk=m.gasto_capital_2025;return gc&&gk?(gk/(gc+gk)*100).toFixed(1)+'%':'—';}, best:m=>m.gasto_corriente_2025&&m.gasto_capital_2025?m.gasto_capital_2025/(m.gasto_corriente_2025+m.gasto_capital_2025):0},
