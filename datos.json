@@ -217,7 +217,9 @@
         "nombre": "Jorge Ferraresi",
         "partido": "Fuerza Patria"
       },
-      "saldo_caja_2025": 6843
+      "saldo_caja_2025": 6843,
+      "gasto_corriente_2025": 256358,
+      "gasto_capital_2025": 78917
     },
     {
       "id": "berazategui",
@@ -321,7 +323,9 @@
       "intendente": {
         "nombre": "Juan José Mussi",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 130578,
+      "gasto_capital_2025": 16638
     },
     {
       "id": "esteban_echeverria",
@@ -528,7 +532,9 @@
       "intendente": {
         "nombre": "Gastón Granados",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 112943,
+      "gasto_capital_2025": 16626
     },
     {
       "id": "florencio_varela",
@@ -632,7 +638,9 @@
       "intendente": {
         "nombre": "Andrés Watson",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 135265,
+      "gasto_capital_2025": 18974
     },
     {
       "id": "hurlingham",
@@ -839,7 +847,9 @@
       "intendente": {
         "nombre": "Pablo Descalzo",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 77260,
+      "gasto_capital_2025": 1725
     },
     {
       "id": "jose_c_paz",
@@ -943,7 +953,9 @@
       "intendente": {
         "nombre": "Mario Ishii",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 138069,
+      "gasto_capital_2025": 20197
     },
     {
       "id": "la_matanza",
@@ -1047,7 +1059,9 @@
       "intendente": {
         "nombre": "Fernando Espinoza",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 445215,
+      "gasto_capital_2025": 71698
     },
     {
       "id": "lanus",
@@ -1147,7 +1161,9 @@
       "intendente": {
         "nombre": "Julián Álvarez",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 209106,
+      "gasto_capital_2025": 26909
     },
     {
       "id": "lomas_de_zamora",
@@ -1354,7 +1370,9 @@
       "intendente": {
         "nombre": "Leo Nardini",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 266068,
+      "gasto_capital_2025": 63341
     },
     {
       "id": "merlo",
@@ -1628,7 +1646,9 @@
       "intendente": {
         "nombre": "Mariel Fernández",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 252927,
+      "gasto_capital_2025": 37543
     },
     {
       "id": "moron",
@@ -1768,7 +1788,9 @@
       "intendente": {
         "nombre": "Lucas Ghi",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 189159,
+      "gasto_capital_2025": 5002
     },
     {
       "id": "quilmes",
@@ -1872,7 +1894,9 @@
       "intendente": {
         "nombre": "Mayra Mendoza",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 267673,
+      "gasto_capital_2025": 49493
     },
     {
       "id": "san_fernando",
@@ -1976,7 +2000,9 @@
       "intendente": {
         "nombre": "Juan Andreotti",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 125176,
+      "gasto_capital_2025": 16383
     },
     {
       "id": "san_isidro",
@@ -2076,7 +2102,9 @@
       "intendente": {
         "nombre": "Ramón Lanús",
         "partido": "PRO / Juntos"
-      }
+      },
+      "gasto_corriente_2025": 251404,
+      "gasto_capital_2025": 57832
     },
     {
       "id": "sanmartin",
@@ -2189,7 +2217,9 @@
       "intendente": {
         "nombre": "Fernando Moreira",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 260023,
+      "gasto_capital_2025": 8531
     },
     {
       "id": "san_miguel",
@@ -2392,7 +2422,9 @@
       "intendente": {
         "nombre": "Julio Zamora",
         "partido": "Fuerza Patria"
-      }
+      },
+      "gasto_corriente_2025": 332238,
+      "gasto_capital_2025": 55314
     },
     {
       "id": "tresdefebrero",
@@ -2552,7 +2584,9 @@
       "intendente": {
         "nombre": "Rodrigo Aybar",
         "partido": "La Libertad Avanza (interino)"
-      }
+      },
+      "gasto_corriente_2025": 129215,
+      "gasto_capital_2025": 15397
     },
     {
       "id": "vicente_lopez",
@@ -2652,7 +2686,9 @@
       "intendente": {
         "nombre": "Soledad Martínez",
         "partido": "PRO / Juntos"
-      }
+      },
+      "gasto_corriente_2025": 279878,
+      "gasto_capital_2025": 25312
     }
   ]
 }
