@@ -1853,6 +1853,9 @@ function renderComparador(){
     {l:'Agua de red %',       fn:m=>m.censo_2022?.pct_agua_red!=null?m.censo_2022.pct_agua_red+'%':'—', best:m=>m.censo_2022?.pct_agua_red||0},
     {l:'Red cloacal %',       fn:m=>m.censo_2022?.pct_cloaca_red!=null?m.censo_2022.pct_cloaca_red+'%':'—', best:m=>m.censo_2022?.pct_cloaca_red||0},
     {l:'TISH alícuota',       fn:m=>m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'},
+    {l:'Gasto corriente',     fn:m=>m.gasto_corriente_2025?fmtMM(m.gasto_corriente_2025):'—'},
+    {l:'Gasto de capital',    fn:m=>m.gasto_capital_2025?fmtMM(m.gasto_capital_2025):'—', best:m=>m.gasto_capital_2025||0},
+    {l:'% capital s/devengado',fn:m=>{const gc=m.gasto_corriente_2025,gk=m.gasto_capital_2025;return gc&&gk?(gk/(gc+gk)*100).toFixed(1)+'%':'—';}, best:m=>m.gasto_corriente_2025&&m.gasto_capital_2025?m.gasto_capital_2025/(m.gasto_corriente_2025+m.gasto_capital_2025):0},
   ];
 
   // Headers de municipios con color
