@@ -1289,7 +1289,8 @@ let demoSort = 'nombre', demoSortDir = 1;
 function renderDemo() {
   const lista = DATA.filter(m => m.censo_2022);
 
-  document.getElementById('demo-kpis').innerHTML = '';
+  const demoKpis = document.getElementById('demo-kpis');
+  if(demoKpis) demoKpis.innerHTML = '';
 
   // Gráficos
   const porCrec = [...lista].filter(m=>m.censo_2022.var_intercensal_pct!=null)
