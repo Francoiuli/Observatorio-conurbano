@@ -1202,6 +1202,36 @@ function drawTreemap(containerId, sectores) {
     <div>${legend}${items.length>8?`<div style="font-size:10px;color:var(--ink3);margin-top:4px">+ ${items.length-8} sectores menores</div>`:''}</div>`;
 }
 
+
+function svgDonutGasto(gc, gk, gd) {
+  // gd = servicio de deuda (amortización) = presupuesto total - corriente - capital
+  const total = gc + gk + (gd||0);
+  const R = 60, r = 36, CX = 70, CY = 70;
+
+  function arc(startA, endA, color) {
+    if(Math.abs(endA-startA) < 0.001) return '';
+    const x1=CX+R*Math.cos(startA), y1=CY+R*Math.sin(startA);
+    const x2=CX+R*Math.cos(endA),   y2=CY+R*Math.sin(endA);
+    const ix1=CX+r*Math.cos(startA),iy1=CY+r*Math.sin(startA);
+    const ix2=CX+r*Math.cos(endA),  iy2=CY+r*Math.sin(endA);
+    const large = (endA-startA) > Math.PI ? 1 : 0;
+    return '<path d="M'+x1.toFixed(1)+','+y1.toFixed(1)+' A'+R+','+R+' 0 '+large+',1 '+x2.toFixed(1)+','+y2.toFixed(1)+' L'+ix2.toFixed(1)+','+iy2.toFixed(1)+' A'+r+','+r+' 0 '+large+',0 '+ix1.toFixed(1)+','+iy1.toFixed(1)+' Z" fill="'+color+'" stroke="white" stroke-width="2"/>';
+  }
+
+  const a1 = -Math.PI/2;
+  const a2 = a1 + (gc/total) * 2 * Math.PI;
+  const a3 = a2 + (gk/total) * 2 * Math.PI;
+  const a4 = a3 + ((gd||0)/total) * 2 * Math.PI;
+
+  return '<svg viewBox="0 0 140 140" style="width:130px;height:130px;flex-shrink:0">'+
+    arc(a1, a2, '#0D9488')+
+    arc(a2, a3, '#D97706')+
+    (gd>0 ? arc(a3, a4, '#94A3B8') : '')+
+    '<text x="'+CX+'" y="'+(CY-6)+'" text-anchor="middle" font-size="10" font-weight="800" fill="#0F172A" font-family="sans-serif">'+Math.round(gc/total*100)+'%</text>'+
+    '<text x="'+CX+'" y="'+(CY+7)+'" text-anchor="middle" font-size="7.5" fill="#64748B" font-family="sans-serif">corriente</text>'+
+  '</svg>';
+}
+
 function openPanel(id){
   if(panelId===id){closePanel();return;}
   panelId=id;
@@ -1250,8 +1280,37 @@ function openPanel(id){
           : `<div class="pend">Sin datos sectoriales disponibles.</div>`}
       </div>
       <div>
-        <div class="pst">Gasto por secretaría</div>
-        ${secHTML}
+        <div class="pst">Composición del gasto 2025</div>
+        ${(()=>{
+          const gc = m.gasto_corriente_2025;
+          const gk = m.gasto_capital_2025;
+          const gtotal = gc && gk ? gc + gk : null;
+          const pctK = gtotal ? (gk/gtotal*100).toFixed(1) : null;
+          const pctC = gtotal ? (gc/gtotal*100).toFixed(1) : null;
+          if(!gtotal) return '<div class="pend">Sin datos de composición del gasto disponibles</div>';
+          return '<div style="display:flex;align-items:center;gap:1rem">'+
+            svgDonutGasto(gc,gk)+
+            '<div style="flex:1">'+
+              '<div style="margin-bottom:.75rem">'+
+                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">'+
+                  '<div style="width:10px;height:10px;border-radius:2px;background:#0D9488"></div>'+
+                  '<span style="font-size:11px;color:var(--ink2)">Gasto corriente</span>'+
+                '</div>'+
+                '<div style="font-size:1rem;font-weight:800;color:var(--navy);font-family:\'JetBrains Mono\',monospace">'+fmtMM(gc)+'</div>'+
+                '<div style="font-size:10px;color:var(--mist)">'+pctC+'% del total</div>'+
+              '</div>'+
+              '<div style="margin-bottom:.75rem">'+
+                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">'+
+                  '<div style="width:10px;height:10px;border-radius:2px;background:#D97706"></div>'+
+                  '<span style="font-size:11px;color:var(--ink2)">Gasto de capital</span>'+
+                '</div>'+
+                '<div style="font-size:1rem;font-weight:800;color:var(--navy);font-family:\'JetBrains Mono\',monospace">'+fmtMM(gk)+'</div>'+
+                '<div style="font-size:10px;color:var(--mist)">'+pctK+'% del total</div>'+
+              '</div>'+
+              '<div style="font-size:9px;color:var(--ink3);border-top:1px solid var(--borde);padding-top:.4rem;line-height:1.5">Excluye servicio de deuda. Fuente: CAIF 2025</div>'+
+            '</div>'+
+          '</div>';
+        })()}
       </div>
     </div>`;
   document.getElementById('panel').classList.add('open');
