@@ -724,8 +724,6 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <strong style="color:var(--ink2)">Edad mediana:</strong> la mitad de la población tiene menos años que este valor.
   </div>
 
-  <!-- KPIs rápidos -->
-  <div class="kpi-row" id="demo-kpis" style="grid-template-columns:repeat(4,1fr);margin-bottom:2rem"></div>
 
   <!-- Gráficos -->
   <div class="cgrid g2" style="margin-bottom:2rem">
@@ -998,7 +996,7 @@ const COLS = [
   {k:'rec',    l:'Recursos 2025 (mm$)', sort:'recursos',   num:true},
   {k:'recpc',  l:'Recursos por hab.',   sort:'rec_pc',     num:true},
   {k:'result', l:'Resultado fiscal',    sort:'resultado',  num:true},
-  {k:'ratio',  l:'% def./recursos',    sort:'ratio',      num:true},
+  {k:'ratio',  l:'Resultado s/ingresos',sort:'ratio',     num:true},
   {k:'saldo',  l:'Saldo de caja',        sort:'saldo',      num:true},
   {k:'vuln',   l:'Vulnerabilidad',       sort:'vuln',       num:true},
 ];
@@ -1080,10 +1078,15 @@ function renderTable(){
       </td>
       <td style="text-align:right;padding:8px 10px;font-size:12px">${(()=>{
         if(!m.recursos_percibidos_2025||!m.presupuesto_2025) return '<span style="color:var(--ink3)">—</span>';
-        if(m.presupuesto_2025<=m.recursos_percibidos_2025) return '<span style="color:#4ECDC4;font-weight:600">✓ Superávit</span>';
-        const pct=((m.presupuesto_2025-m.recursos_percibidos_2025)/m.recursos_percibidos_2025*100).toFixed(1);
-        const col=pct>15?'#FF6B6B':pct>8?'#FFD93D':'#FF9F43';
-        return `<span style="color:${col};font-weight:700">${pct}%</span>`;
+        const res = m.recursos_percibidos_2025 - m.presupuesto_2025;
+        const pct = (res / m.recursos_percibidos_2025 * 100).toFixed(1);
+        if(res >= 0){
+          return `<span style="color:#059669;font-weight:700">+${pct}%</span>`;
+        } else {
+          const absPct = Math.abs(pct);
+          const col = absPct>15?'#DC2626':absPct>8?'#D97706':'#EA580C';
+          return `<span style="color:${col};font-weight:700">-${absPct}%</span>`;
+        }
       })()}</td>
       <td class="${m.saldo_caja_2025!=null?'n':'na'}">${m.saldo_caja_2025!=null?fmtMM(m.saldo_caja_2025):'—'}</td>
       <td style="padding:8px 10px">${renderVuln(calcVuln(m))}</td>
@@ -1286,16 +1289,7 @@ let demoSort = 'nombre', demoSortDir = 1;
 function renderDemo() {
   const lista = DATA.filter(m => m.censo_2022);
 
-  // KPIs
-  const masCrec = [...lista].sort((a,b)=>(b.censo_2022.var_intercensal_pct||0)-(a.censo_2022.var_intercensal_pct||0))[0];
-  const menosCrec = [...lista].sort((a,b)=>(a.censo_2022.var_intercensal_pct||0)-(b.censo_2022.var_intercensal_pct||0))[0];
-  const masViejo = [...lista].sort((a,b)=>(b.censo_2022.edad_mediana||0)-(a.censo_2022.edad_mediana||0))[0];
-  const masJoven = [...lista].sort((a,b)=>(a.censo_2022.edad_mediana||0)-(b.censo_2022.edad_mediana||0))[0];
-  document.getElementById('demo-kpis').innerHTML = `
-    <div class="kpi c3"><div class="kpi-l">Mayor crecimiento 2010–22</div><div class="kpi-v">+${masCrec?.censo_2022.var_intercensal_pct}%</div><div class="kpi-s">${masCrec?.nombre}</div></div>
-    <div class="kpi c2"><div class="kpi-l">Menor crecimiento 2010–22</div><div class="kpi-v">+${menosCrec?.censo_2022.var_intercensal_pct}%</div><div class="kpi-s">${menosCrec?.nombre}</div></div>
-    <div class="kpi c4"><div class="kpi-l">Población más envejecida</div><div class="kpi-v">${masViejo?.censo_2022.edad_mediana} años</div><div class="kpi-s">${masViejo?.nombre} · edad mediana</div></div>
-    <div class="kpi"><div class="kpi-l">Población más joven</div><div class="kpi-v">${masJoven?.censo_2022.edad_mediana} años</div><div class="kpi-s">${masJoven?.nombre} · edad mediana</div></div>`;
+  document.getElementById('demo-kpis').innerHTML = '';
 
   // Gráficos
   const porCrec = [...lista].filter(m=>m.censo_2022.var_intercensal_pct!=null)
