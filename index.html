@@ -1316,10 +1316,6 @@ function openPanel(id){
     ['Recursos percibidos',m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—',''],
     ...(m.saldo_caja_2025!=null?[['Saldo de caja — cierre 2025',fmtMM(m.saldo_caja_2025),'disponibilidades 31/12']]:[]),
   ];
-  const tieneSec=m.secretarias?.length>0;
-  const secHTML=tieneSec
-    ?m.secretarias.map((s,i)=>`<div class="sbar"><span class="sbn">${s.nombre}</span><div class="sbt"><div class="sbf" style="width:${s.pct/m.secretarias[0].pct*100}%;background:${PAL[i%PAL.length]}22"><span class="sbp" style="color:${PAL[i%PAL.length]}">${s.pct}%</span></div></div>${s.monto_m?`<span class="sbm">${s.monto_m>=1000?'$'+Math.round(s.monto_m/1000).toLocaleString('es-AR')+' mil mill.':'$'+Math.round(s.monto_m).toLocaleString('es-AR')+' mill.'}</span>`:''}</div>`).join('')
-    :`<div class="pend">Adjuntá la rendición para ver el desglose.</div>`;
 
   const tieneSect = m.pbg_sectores_2023 && Object.keys(m.pbg_sectores_2023).length>0;
   const legendHTML = tieneSect
@@ -2020,9 +2016,11 @@ function exportarPanel(id) {
     .filter(([,v])=>v.pct>0).sort((a,b)=>b[1].pct-a[1].pct).slice(0,6)
     .map(([k,v])=>`<tr><td>${SECT_LABELS_TM[k]||k}</td><td style="text-align:right;font-weight:700">${v.pct.toFixed(1)}%</td></tr>`).join('');
 
-  // Secretarías top 5
-  const secs = (m.secretarias||[]).slice(0,6)
-    .map(s=>`<tr><td>${s.nombre}</td><td style="text-align:right;font-weight:700">${s.pct}%</td></tr>`).join('');
+  // Gasto corriente y capital
+  const gc2 = m.gasto_corriente_2025;
+  const gk2 = m.gasto_capital_2025;
+  const gd2 = (m.presupuesto_2025 && gc2 && gk2 && m.presupuesto_2025 > gc2+gk2) ? m.presupuesto_2025 - gc2 - gk2 : 0;
+  const gtot2 = (gc2||0) + (gk2||0) + gd2;
 
   const SECT_LABELS_TM_LOCAL = {industria:'Industria',comercio:'Comercio',inmobiliario:'Inmobiliario',construccion:'Construcción',transporte:'Transporte',electricidad:'Electricidad',publico:'Sector público',ensenanza:'Enseñanza',salud:'Salud',financiero:'Financiero',comunitarios:'Comunitarios',serv_domestico:'Serv. doméstico',hoteles:'Hoteles',agropecuario:'Agropecuario',pesca:'Pesca',mineria:'Minería'};
   const topSect2 = Object.entries(sect)
@@ -2106,8 +2104,14 @@ footer{font-size:9px;color:#3A3D50;margin-top:28px;padding-top:12px;border-top:1
     <table><tbody>${topSect2||'<tr><td>Sin datos</td></tr>'}</tbody></table>
   </div>
   <div>
-    <h2>Gasto por secretaría</h2>
-    <table><tbody>${secs||'<tr><td>Sin datos disponibles</td></tr>'}</tbody></table>
+    <h2>Composición del gasto 2025</h2>
+    ${gc2&&gk2 ? `<table><tbody>
+      <tr><td style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:2px;background:#0D9488;display:inline-block"></span>Gasto corriente</td><td style="text-align:right;font-weight:700">${fmtMM(gc2)} <span style="font-weight:400;font-size:10px;color:#888">(${(gc2/gtot2*100).toFixed(1)}%)</span></td></tr>
+      <tr><td style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:2px;background:#D97706;display:inline-block"></span>Gasto de capital</td><td style="text-align:right;font-weight:700">${fmtMM(gk2)} <span style="font-weight:400;font-size:10px;color:#888">(${(gk2/gtot2*100).toFixed(1)}%)</span></td></tr>
+      ${gd2>0?`<tr><td style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:2px;background:#94A3B8;display:inline-block"></span>Amortización de deuda</td><td style="text-align:right;font-weight:700">${fmtMM(gd2)} <span style="font-weight:400;font-size:10px;color:#888">(${(gd2/gtot2*100).toFixed(1)}%)</span></td></tr>`:''}
+    </tbody></table>
+    <div style="font-size:9px;color:#94A3B8;margin-top:6px">Amortización = cancelación de deuda de ejercicios anteriores · Fuente: CAIF 2025</div>` 
+    : '<p style="color:#94A3B8;font-size:11px">Sin datos disponibles</p>'}
   </div>
 </div>
 
