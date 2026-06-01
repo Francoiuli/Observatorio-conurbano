@@ -1285,29 +1285,42 @@ function openPanel(id){
           const gc = m.gasto_corriente_2025;
           const gk = m.gasto_capital_2025;
           const gtotal = gc && gk ? gc + gk : null;
-          const pctK = gtotal ? (gk/gtotal*100).toFixed(1) : null;
-          const pctC = gtotal ? (gc/gtotal*100).toFixed(1) : null;
           if(!gtotal) return '<div class="pend">Sin datos de composición del gasto disponibles</div>';
+          const gd = (m.presupuesto_2025 && m.presupuesto_2025 > gtotal) ? m.presupuesto_2025 - gtotal : 0;
+          const grandTotal = gtotal + gd;
+          const pctC = (gc/grandTotal*100).toFixed(1);
+          const pctK = (gk/grandTotal*100).toFixed(1);
+          const pctD = gd>0 ? (gd/grandTotal*100).toFixed(1) : null;
           return '<div style="display:flex;align-items:center;gap:1rem">'+
-            svgDonutGasto(gc,gk)+
+            svgDonutGasto(gc,gk,gd)+
             '<div style="flex:1">'+
-              '<div style="margin-bottom:.75rem">'+
-                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">'+
+              '<div style="margin-bottom:.6rem">'+
+                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">'+
                   '<div style="width:10px;height:10px;border-radius:2px;background:#0D9488"></div>'+
                   '<span style="font-size:11px;color:var(--ink2)">Gasto corriente</span>'+
                 '</div>'+
-                '<div style="font-size:1rem;font-weight:800;color:var(--navy);font-family:\'JetBrains Mono\',monospace">'+fmtMM(gc)+'</div>'+
-                '<div style="font-size:10px;color:var(--mist)">'+pctC+'% del total</div>'+
+                '<div style="font-size:.95rem;font-weight:800;color:var(--navy);font-family:\'JetBrains Mono\',monospace">'+fmtMM(gc)+'</div>'+
+                '<div style="font-size:10px;color:var(--mist)">'+pctC+'% del devengado</div>'+
               '</div>'+
-              '<div style="margin-bottom:.75rem">'+
-                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">'+
+              '<div style="margin-bottom:.6rem">'+
+                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">'+
                   '<div style="width:10px;height:10px;border-radius:2px;background:#D97706"></div>'+
                   '<span style="font-size:11px;color:var(--ink2)">Gasto de capital</span>'+
                 '</div>'+
-                '<div style="font-size:1rem;font-weight:800;color:var(--navy);font-family:\'JetBrains Mono\',monospace">'+fmtMM(gk)+'</div>'+
-                '<div style="font-size:10px;color:var(--mist)">'+pctK+'% del total</div>'+
+                '<div style="font-size:.95rem;font-weight:800;color:var(--navy);font-family:\'JetBrains Mono\',monospace">'+fmtMM(gk)+'</div>'+
+                '<div style="font-size:10px;color:var(--mist)">'+pctK+'% del devengado</div>'+
               '</div>'+
-              '<div style="font-size:9px;color:var(--ink3);border-top:1px solid var(--borde);padding-top:.4rem;line-height:1.5">Excluye servicio de deuda. Fuente: CAIF 2025</div>'+
+              (gd>0 ?
+                '<div style="margin-bottom:.6rem">'+
+                  '<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">'+
+                    '<div style="width:10px;height:10px;border-radius:2px;background:#94A3B8"></div>'+
+                    '<span style="font-size:11px;color:var(--ink2)">Amortización de deuda</span>'+
+                  '</div>'+
+                  '<div style="font-size:.95rem;font-weight:800;color:var(--navy);font-family:\'JetBrains Mono\',monospace">'+fmtMM(gd)+'</div>'+
+                  '<div style="font-size:10px;color:var(--mist)">'+pctD+'% del devengado</div>'+
+                '</div>'
+              : '')+
+              '<div style="font-size:9px;color:var(--ink3);border-top:1px solid var(--borde);padding-top:.4rem;line-height:1.5">Amortización = cancelación de deuda de ejercicios anteriores. Fuente: CAIF 2025</div>'+
             '</div>'+
           '</div>';
         })()}
@@ -1681,7 +1694,10 @@ function imprimirComparacion() {
     {l:'Edad mediana', fn:m=>m.censo_2022?.edad_mediana!=null?m.censo_2022.edad_mediana+' años':'—'},
     {l:'Crecimiento 2010–22', fn:m=>m.censo_2022?.var_intercensal_pct!=null?'+'+m.censo_2022.var_intercensal_pct+'%':'—'},
     {l:'Índice vulnerabilidad', fn:m=>{const v=calcVuln(m);return v!=null?v+'/100 ('+(v>=70?'Alta':v>=45?'Media':'Baja')+')':'—';}},
-    {l:'TISH alícuota', fn:m=>m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'},
+    {l:'Gasto corriente',      fn:m=>m.gasto_corriente_2025?fmtMM(m.gasto_corriente_2025):'—'},
+    {l:'Gasto de capital',     fn:m=>m.gasto_capital_2025?fmtMM(m.gasto_capital_2025):'—',  best:m=>m.gasto_capital_2025||0},
+    {l:'% capital s/devengado',fn:m=>{const gc=m.gasto_corriente_2025,gk=m.gasto_capital_2025;return gc&&gk?(gk/(gc+gk)*100).toFixed(1)+'%':'—';}, best:m=>m.gasto_corriente_2025&&m.gasto_capital_2025?m.gasto_capital_2025/(m.gasto_corriente_2025+m.gasto_capital_2025):0},
+    {l:'TISH alícuota',        fn:m=>m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'},
   ];
   const colores = ['#4ECDC4','#FF6B6B','#FFD93D'];
   const headers = munis.map((m,i)=>`<th style="background:${colores[i]}22;color:${colores[i]};border-bottom:3px solid ${colores[i]};padding:10px;text-align:center;font-size:13px">${m.nombre}</th>`).join('');
