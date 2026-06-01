@@ -253,7 +253,7 @@ td.mn{font-weight:600;font-size:12px;color:var(--navy)}
 td.n{font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right;font-weight:500;color:var(--ink2)}
 td.na{font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right;color:var(--mist)}
 .zch{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.05em}
-.zn{background:var(--teal-l);color:var(--teal-d)}
+.zn{background:#DBEAFE;color:#1E40AF}
 .zs{background:var(--red-l);color:var(--red)}
 .zo{background:var(--green-l);color:var(--green)}
 .dch{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;font-family:'JetBrains Mono',monospace}
@@ -571,7 +571,24 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <div class="cc v2"><div class="cc-t">PBG per cápita — comparativa</div><div class="cc-c md"><div id="c-pbg-pc" style="width:100%;height:100%"></div></div></div>
   </div>
   <div class="sh"><span class="sh-t">Captación fiscal</span><span class="sh-n">Presupuesto pc vs PBG pc — qué porcentaje de la riqueza local captura el municipio como gasto</span></div>
-  <div class="cgrid g1" style="margin-bottom:2rem"><div class="cc"><div class="cc-t">Dispersión: PBG por habitante vs Presupuesto por habitante</div><div id="c-scatter" style="width:100%;min-height:320px"></div></div></div>
+  <div class="cgrid g1" style="margin-bottom:2rem"><div class="cc"><div class="cc-t">Dispersión: PBG por habitante vs Presupuesto por habitante</div><div id="c-scatter" style="width:100%;min-height:360px"></div>
+      <!-- Tabla de captación -->
+      <div style="margin-top:1.25rem;overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:12px" id="tbl-captac">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;width:28px">#</th>
+              <th style="text-align:left;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Municipio</th>
+              <th style="text-align:center;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Zona</th>
+              <th style="text-align:right;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">PBG por hab.</th>
+              <th style="text-align:right;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Presup. por hab.</th>
+              <th style="text-align:right;padding:6px 10px;background:#0F172A;color:rgba(226,232,240,.85);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Captación %</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-captac"></tbody>
+        </table>
+      </div>
+    </div></div></div>
   <div class="sh"><span class="sh-t">Demografía</span><span class="sh-n">INDEC Censo 2022</span></div>
   <div class="cgrid g1"><div class="cc"><div class="cc-t">Población — 24 partidos del Conurbano bonaerense</div><div class="cc-c md"><div id="c-pop" style="width:100%;height:100%"></div></div></div></div>
 </div>
@@ -886,7 +903,7 @@ const fmtMM = n => {
 const fmtK = n => n ? '$' + Math.round(n).toLocaleString('es-AR') : '—';
 const ppc = (p,pop) => (p && pop) ? Math.round(p*1e6/pop) : null;
 const ZONA = {norte:'Norte', sur:'Sur', oeste:'Oeste'};
-const CZONA = {norte:'#0D9488', sur:'#DC2626', oeste:'#059669'};
+const CZONA = {norte:'#2563EB', sur:'#DC2626', oeste:'#059669'};
 const PAL = ['#0D9488','#DC2626','#059669','#D97706','#2563EB','#7C3AED','#EA580C','#0891B2','#065F46','#92400E','#1D4ED8','#6D28D9'];
 const GC = 'rgba(255,255,255,.06)', TC = '#5C5A55';
 
@@ -1032,16 +1049,18 @@ function renderScatter() {
     ratio: (m.presupuesto_2025/m.pbg_corriente_2023*100).toFixed(1)
   }));
 
-  const maxX=Math.max(...pts.map(p=>p.x))*1.1;
-  const maxY=Math.max(...pts.map(p=>p.y))*1.1;
+  const maxX=Math.max(...pts.map(p=>p.x))*1.08;
+  const maxY=Math.max(...pts.map(p=>p.y))*1.08;
+  const minX=Math.min(...pts.map(p=>p.x))*0.75;
+  const minY2=Math.min(...pts.map(p=>p.y))*0.75;
   const avgX=pts.reduce((s,p)=>s+p.x,0)/pts.length;
   const avgY=pts.reduce((s,p)=>s+p.y,0)/pts.length;
 
-  function sx(v){ return PL+(v/(maxX))*cW; }
-  function sy(v){ return PT+cH-(v/(maxY))*cH; }
+  function sx(v){ return PL+(v-minX)/(maxX-minX)*cW; }
+  function sy(v){ return PT+cH-(v-minY2)/(maxY-minY2)*cH; }
   function fmtK2(v){ return '$'+Math.round(v/1000).toLocaleString('es-AR')+'K'; }
 
-  const COLS={norte:'#0D9488',sur:'#DC2626',oeste:'#059669'};
+  const COLS={norte:'#2563EB',sur:'#DC2626',oeste:'#059669'};
   const ZONA_L={norte:'Norte',sur:'Sur',oeste:'Oeste'};
 
   let svg='<svg width="100%" height="'+H+'" viewBox="0 0 '+W+' '+H+'" style="display:block;overflow:visible;font-family:Inter,sans-serif">';
@@ -1058,10 +1077,10 @@ function renderScatter() {
   svg+='<text x="'+(mx+8)+'" y="'+(PT+cH-5)+'" font-size="8.5" fill="#0D9488" font-weight="600">Bajo gasto · alto PBG</text>';
 
   for(let i=0;i<=5;i++){
-    const yv=(maxY)*i/5, yp=sy(yv);
+    const yv=minY2+(maxY-minY2)*i/5, yp=sy(yv);
     svg+='<line x1="'+PL+'" y1="'+yp+'" x2="'+(PL+cW)+'" y2="'+yp+'" stroke="#E2E8F0" stroke-width="1"/>';
     svg+='<text x="'+(PL-5)+'" y="'+(yp+4)+'" font-size="9" fill="#94A3B8" text-anchor="end">'+fmtK2(yv)+'</text>';
-    const xv=(maxX)*i/5, xp=sx(xv);
+    const xv=minX+(maxX-minX)*i/5, xp=sx(xv);
     svg+='<line x1="'+xp+'" y1="'+PT+'" x2="'+xp+'" y2="'+(PT+cH)+'" stroke="#E2E8F0" stroke-width="1"/>';
     svg+='<text x="'+xp+'" y="'+(PT+cH+13)+'" font-size="9" fill="#94A3B8" text-anchor="middle">'+fmtK2(xv)+'</text>';
   }
@@ -1093,6 +1112,27 @@ function renderScatter() {
 
   svg+='</svg>';
   el.innerHTML=svg;
+
+  // Tabla de captación
+  const tbodyCap = document.getElementById('tbody-captac');
+  if(tbodyCap){
+    const sorted = [...pts].filter(p=>p.ratio).sort((a,b)=>b.ratio-a.ratio);
+    const COLS2={norte:'#2563EB',sur:'#DC2626',oeste:'#059669'};
+    const ZONA_L2={norte:'Norte',sur:'Sur',oeste:'Oeste'};
+    tbodyCap.innerHTML = sorted.map((p,i)=>{
+      const pct=parseFloat(p.ratio);
+      const col=pct>15?'#DC2626':pct>8?'#D97706':'#059669';
+      const bg=i%2===0?'#fff':'#F8FAFC';
+      return '<tr style="background:'+bg+';border-bottom:1px solid #E2E8F0">'+
+        '<td style="padding:5px 10px;color:#94A3B8;font-size:11px;font-weight:700">'+(i+1)+'</td>'+
+        '<td style="padding:5px 10px;font-weight:600;font-size:12px;color:#0F172A">'+p.nombre+'</td>'+
+        '<td style="padding:5px 10px;text-align:center"><span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:'+(COLS2[p.zona]||'#888')+'22;color:'+(COLS2[p.zona]||'#888')+'">'+ZONA_L2[p.zona]+'</span></td>'+
+        '<td style="padding:5px 10px;text-align:right;font-family:JetBrains Mono,monospace;font-size:11px;color:#475569">$'+Math.round(p.x/1000).toLocaleString('es-AR')+'K</td>'+
+        '<td style="padding:5px 10px;text-align:right;font-family:JetBrains Mono,monospace;font-size:11px;color:#475569">$'+Math.round(p.y/1000).toLocaleString('es-AR')+'K</td>'+
+        '<td style="padding:5px 10px;text-align:right;font-weight:700;color:'+col+'">'+p.ratio+'%</td>'+
+      '</tr>';
+    }).join('');
+  }
 }
 
 function renderCharts(){
