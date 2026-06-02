@@ -1134,7 +1134,11 @@ function renderScatter() {
   const dx1=sx(diagX1), dy1=sy(diagY1);
   const dx2=sx(diagX2), dy2=sy(Math.min(diagY2, maxY));
   const avgPct = (avgY/avgX*100).toFixed(1);
+  const diagTip = 'Captación promedio del conurbano: '+avgPct+'% — los municipios sobre esta línea captan más que el promedio en relación a su PBG; los que están debajo, menos';
+  const diagTipEnc = diagTip.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   svg+='<line x1="'+dx1.toFixed(1)+'" y1="'+dy1.toFixed(1)+'" x2="'+dx2.toFixed(1)+'" y2="'+Math.max(PT, dy2).toFixed(1)+'" stroke="#64748B" stroke-width="1.5" stroke-dasharray="6,3"/>';
+  // Línea invisible más gruesa para facilitar el hover
+  svg+='<line x1="'+dx1.toFixed(1)+'" y1="'+dy1.toFixed(1)+'" x2="'+dx2.toFixed(1)+'" y2="'+Math.max(PT, dy2).toFixed(1)+'" stroke="transparent" stroke-width="12" style="cursor:help" data-tip="'+diagTipEnc+'" onmouseenter="showTip(event,this.dataset.tip)" onmouseleave="hideTip()"/>';
   svg+='<text x="'+(dx2-4).toFixed(1)+'" y="'+(Math.max(PT,dy2)-6).toFixed(1)+'" font-size="8.5" fill="#64748B" text-anchor="end" font-weight="600">Captación promedio '+avgPct+'%</text>';
   svg+='<rect x="'+PL+'" y="'+PT+'" width="'+cW+'" height="'+cH+'" fill="none" stroke="#CBD5E1" stroke-width="1"/>';
 
