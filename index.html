@@ -526,6 +526,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <button class="pill" onclick="setMapVar('prespc',this)">Presup. por hab.</button>
     <button class="pill" onclick="setMapVar('crec',this)">Crecimiento pop.</button>
     <button class="pill" onclick="setMapVar('edad',this)">Edad mediana</button>
+    <button class="pill" onclick="setMapVar('recprop',this)">Rec. propios %</button>
     <button class="pill" onclick="setMapVar('resultado',this)">Resultado fiscal</button>
   </div>
 
@@ -1235,6 +1236,7 @@ const COLS = [
   {k:'prespc', l:'Presup. por hab.',    sort:'pres_pc',    num:true},
   {k:'rec',    l:'Recursos 2025 (mm$)', sort:'recursos',   num:true},
   {k:'recpc',  l:'Recursos por hab.',   sort:'rec_pc',     num:true},
+  {k:'recprop',l:'Rec. propios %',       sort:'recprop',    num:true},
   {k:'captac', l:'Captación fiscal %',  sort:'captac',     num:true},
   {k:'result', l:'Resultado fiscal',    sort:'resultado',  num:true},
   {k:'ratio',  l:'Resultado s/ingresos',sort:'ratio',     num:true},
@@ -1251,6 +1253,7 @@ function buildThead(){
     prespc:'Presupuesto ejecutado por habitante',
     rec:'Recursos efectivamente recaudados en 2025 en millones de pesos',
     recpc:'Recursos percibidos por habitante',
+    recprop:'Porcentaje de los recursos percibidos que provienen de recaudación propia municipal (TISH, tasas, ABL). El resto es coparticipación provincial o nacional',
     captac:'Porcentaje del PBG que representa el presupuesto. Cuánta riqueza local captura el municipio como gasto público',
     result:'Recursos percibidos menos presupuesto ejecutado. Superávit si recaudó más; déficit si gastó más',
     ratio:'Resultado fiscal como % de los recursos. Permite comparar entre municipios de distinto tamaño',
@@ -1331,6 +1334,11 @@ function renderTable(){
     const resBg = resultado!=null?(resultado>=0?'background:#D1FAE5;color:#065F46':'background:#FEE2E2;color:#991B1B'):'';
     const resLabel = resultado!=null?(resultado>=0?'▲ Superávit':'▼ Déficit'):'—';
     const captac = m.pbg_corriente_2023&&m.presupuesto_2025 ? (m.presupuesto_2025/m.pbg_corriente_2023*100) : null;
+    const recpropPct = m.rec_municipal_2025&&m.rec_provincial_2025
+      ? m.rec_municipal_2025/(m.rec_municipal_2025+m.rec_provincial_2025+(m.rec_nacional_2025||0))*100
+      : null;
+    const recpropStr = recpropPct ? recpropPct.toFixed(1)+'%' : '—';
+    const recpropCol = recpropPct ? (recpropPct>55?'#059669':recpropPct>35?'#D97706':'#DC2626') : 'var(--ink3)';
     const captacStr = captac ? captac.toFixed(1)+'%' : '—';
     const captacCol = captac ? (captac>15?'#DC2626':captac>8?'#D97706':'#059669') : 'var(--ink3)';
     return `<tr class="${sel}" onclick="openPanel('${m.id}')">
@@ -1578,7 +1586,33 @@ function openPanel(id){
               : '')+
               '<div style="font-size:9px;color:var(--ink3);border-top:1px solid var(--borde);padding-top:.4rem;line-height:1.5">Amortización = cancelación de deuda de ejercicios anteriores. Fuente: CAIF 2025</div>'+
             '</div>'+
-          '</div>';
+          '</div>'+
+          (m.rec_municipal_2025&&m.rec_provincial_2025?(()=>{
+            const nac=(m.rec_nacional_2025||0);
+            const tot=m.rec_municipal_2025+m.rec_provincial_2025+nac;
+            const pM=(m.rec_municipal_2025/tot*100).toFixed(1);
+            const pP=(m.rec_provincial_2025/tot*100).toFixed(1);
+            const pN=nac?(nac/tot*100).toFixed(1):null;
+            return '<div style="margin-top:1rem;padding-top:.875rem;border-top:1px solid var(--borde)">'+
+              '<div class="pst" style="margin-bottom:.5rem"><span>💰</span>Origen de los recursos 2025</div>'+
+              '<div style="display:flex;flex-direction:column;gap:5px">'+
+                '<div style="display:flex;align-items:center;gap:8px">'+
+                  '<div style="width:10px;height:10px;border-radius:2px;background:#059669;flex-shrink:0"></div>'+
+                  '<span style="flex:1;font-size:11px;color:var(--ink2)">Recursos propios</span>'+
+                  '<span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:700;color:#059669">'+pM+'%</span>'+
+                '</div>'+
+                '<div style="display:flex;align-items:center;gap:8px">'+
+                  '<div style="width:10px;height:10px;border-radius:2px;background:#2563EB;flex-shrink:0"></div>'+
+                  '<span style="flex:1;font-size:11px;color:var(--ink2)">Copart. provincial</span>'+
+                  '<span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:700;color:#2563EB">'+pP+'%</span>'+
+                '</div>'+
+                (pN?'<div style="display:flex;align-items:center;gap:8px">'+
+                  '<div style="width:10px;height:10px;border-radius:2px;background:#64748B;flex-shrink:0"></div>'+
+                  '<span style="flex:1;font-size:11px;color:var(--ink2)">Copart. nacional</span>'+
+                  '<span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:700;color:#64748B">'+pN+'%</span>'+
+                '</div>':'')+
+              '</div></div>';
+          })():'');
         })()}
       </div>
     </div>`;
@@ -1735,6 +1769,8 @@ const MAP_VARS = {
              colorHigh:'#9B2335', colorLow:'#FDDDE6', fmt:v=>'+'+v+'%'},
   edad:     {l:'Edad mediana',      fn:m=>m.censo_2022?.edad_mediana??null,
              colorHigh:'#44337A', colorLow:'#E9D8FD', fmt:v=>v+' años'},
+  recprop:  {l:'Rec. propios %',    fn:m=>m.rec_municipal_2025&&m.rec_provincial_2025?parseFloat((m.rec_municipal_2025/(m.rec_municipal_2025+m.rec_provincial_2025+(m.rec_nacional_2025||0))*100).toFixed(1)):null,
+             colorHigh:'#1A5C38', colorLow:'#C6F6D5', fmt:v=>v.toFixed(1)+'%'},
   resultado:{l:'Resultado fiscal',  fn:m=>(m.recursos_percibidos_2025&&m.presupuesto_2025)?m.recursos_percibidos_2025-m.presupuesto_2025:null,
              colorHigh:'#1A5C38', colorLow:'#FDDDE6', bicolor:true, fmt:v=>(v>=0?'▲ +':'▼ ')+Math.round(Math.abs(v))+'mm'},
 };
@@ -2053,6 +2089,7 @@ function renderComparador(){
     {l:'Red cloacal %',       fn:m=>m.censo_2022?.pct_cloaca_red!=null?m.censo_2022.pct_cloaca_red+'%':'—', best:m=>m.censo_2022?.pct_cloaca_red||0},
     {l:'TISH alícuota',       fn:m=>m.tish?.alicuota_base_milesimos!=null?m.tish.alicuota_base_milesimos+'‰':'—'},
     {l:'Captación fiscal %',  fn:m=>m.pbg_corriente_2023&&m.presupuesto_2025?(m.presupuesto_2025/m.pbg_corriente_2023*100).toFixed(1)+'%':'—'},
+    {l:'Rec. propios %',      fn:m=>m.rec_municipal_2025&&m.rec_provincial_2025?(m.rec_municipal_2025/(m.rec_municipal_2025+m.rec_provincial_2025+(m.rec_nacional_2025||0))*100).toFixed(1)+'%':'—', best:m=>m.rec_municipal_2025&&m.rec_provincial_2025?m.rec_municipal_2025/(m.rec_municipal_2025+m.rec_provincial_2025+(m.rec_nacional_2025||0)):0},
     {l:'Gasto corriente',     fn:m=>m.gasto_corriente_2025?fmtMM(m.gasto_corriente_2025):'—'},
     {l:'Gasto de capital',    fn:m=>m.gasto_capital_2025?fmtMM(m.gasto_capital_2025):'—', best:m=>m.gasto_capital_2025||0},
     {l:'% capital s/devengado',fn:m=>{const gc=m.gasto_corriente_2025,gk=m.gasto_capital_2025;return gc&&gk?(gk/(gc+gk)*100).toFixed(1)+'%':'—';}, best:m=>m.gasto_corriente_2025&&m.gasto_capital_2025?m.gasto_capital_2025/(m.gasto_corriente_2025+m.gasto_capital_2025):0},
