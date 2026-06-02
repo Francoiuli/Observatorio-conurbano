@@ -232,9 +232,9 @@ h1 b{
 table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;background:var(--card);font-family:'Inter',sans-serif}
 thead th{
   background:var(--navy);color:rgba(226,232,240,.85);
-  padding:10px 12px;text-align:left;
-  font-family:'Inter',sans-serif;font-size:10px;font-weight:600;
-  letter-spacing:.06em;text-transform:uppercase;white-space:normal;line-height:1.35
+  padding:6px 6px;text-align:left;
+  font-family:'Inter',sans-serif;font-size:8.5px;font-weight:600;
+  letter-spacing:.04em;text-transform:uppercase;white-space:normal;line-height:1.3
 }
 thead th:first-child{border-radius:var(--r3) 0 0 0}
 thead th:last-child{border-radius:0 var(--r3) 0 0}
@@ -418,9 +418,6 @@ footer a:hover{color:rgba(94,234,212,.85)}
   .pk-row{grid-template-columns:1fr 1fr}
   .tgrid{grid-template-columns:1fr}
   .nav-btn{font-size:9.5px;padding:.75rem .5rem;letter-spacing:.03em}
-
-  /* Tabla: ocultar columnas menos importantes en mobile muy chico */
-  .tw th:nth-child(n+8), .tw td:nth-child(n+8){display:none}
 
   /* Mapa: SVG scrolleable */
   .mapa-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -1342,7 +1339,7 @@ function renderTable(){
     const captacStr = captac ? captac.toFixed(1)+'%' : '—';
     const captacCol = captac ? (captac>15?'#DC2626':captac>8?'#D97706':'#059669') : 'var(--ink3)';
     return `<tr class="${sel}" onclick="openPanel('${m.id}')">
-      <td style="text-align:center;font-size:11px;font-weight:700;color:var(--mist);padding:7px 6px;width:28px">${idx+1}</td>
+      <td style="text-align:center;font-size:10px;font-weight:700;color:var(--mist);padding:6px 5px;width:22px">${idx+1}</td>
       <td class="mn">${m.nombre}</td>
       <td style="font-size:12px;color:var(--ink2)">${m.intendente?`<div style="font-weight:600;color:var(--ink)">${m.intendente.nombre}</div><div style="font-size:10px;color:var(--ink3);margin-top:2px">${m.intendente.partido}</div>`:'—'}</td>
       <td><span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span></td>
@@ -1353,12 +1350,14 @@ function renderTable(){
       <td class="${prespc?'n':'na'}">${prespc?fmtK(prespc):'—'}</td>
       <td class="${m.recursos_percibidos_2025?'n':'na'}">${m.recursos_percibidos_2025?fmtMM(m.recursos_percibidos_2025):'—'}</td>
       <td class="${recpc?'n':'na'}">${recpc?fmtK(recpc):'—'}</td>
-      <td style="text-align:right;font-size:11px;font-weight:600;padding:7px 8px;${resBg};border-radius:4px">
+      <td style="text-align:right;padding:6px 6px;font-size:10px;font-weight:700;color:${recpropCol}">${recpropStr}</td>
+      <td style="text-align:right;padding:6px 6px;font-size:10px;font-weight:700;color:${captacCol}">${captacStr}</td>
+      <td style="text-align:right;font-size:10px;font-weight:600;padding:6px 6px;${resBg};border-radius:4px">
         ${resultado!=null?`<div>${resLabel}</div><div style="font-size:11px;font-weight:400">${fmtMM(Math.abs(resultado))}</div>`:'—'}
       </td>
-      <td style="text-align:right;padding:7px 8px;font-size:11px">${fmtRatio(m)}</td>
+      <td style="text-align:right;padding:6px 6px;font-size:10px">${fmtRatio(m)}</td>
       <td class="${m.saldo_caja_2025!=null?'n':'na'}">${m.saldo_caja_2025!=null?fmtMM(m.saldo_caja_2025):'—'}</td>
-      <td style="padding:8px 10px">${renderVuln(calcVuln(m))}</td>
+      <td style="padding:6px 5px">${renderVuln(calcVuln(m))}</td>
     </tr>`;
   }).join('');
 }
@@ -1593,25 +1592,21 @@ function openPanel(id){
             const pM=(m.rec_municipal_2025/tot*100).toFixed(1);
             const pP=(m.rec_provincial_2025/tot*100).toFixed(1);
             const pN=nac?(nac/tot*100).toFixed(1):null;
+            const bar=(pct,col,label,mm)=>'<div style="margin-bottom:6px">'+
+              '<div style="display:flex;justify-content:space-between;margin-bottom:3px">'+
+                '<span style="font-size:11px;color:var(--ink2)">'+label+'</span>'+
+                '<span style="font-size:11px;font-weight:700;color:'+col+';font-family:\'JetBrains Mono\',monospace">'+pct+'% · '+fmtMM(mm)+'</span>'+
+              '</div>'+
+              '<div style="background:var(--bg2);border-radius:3px;height:8px;overflow:hidden">'+
+                '<div style="width:'+pct+'%;height:100%;background:'+col+';border-radius:3px;transition:width .4s ease"></div>'+
+              '</div>'+
+            '</div>';
             return '<div style="margin-top:1rem;padding-top:.875rem;border-top:1px solid var(--borde)">'+
-              '<div class="pst" style="margin-bottom:.5rem"><span>💰</span>Origen de los recursos 2025</div>'+
-              '<div style="display:flex;flex-direction:column;gap:5px">'+
-                '<div style="display:flex;align-items:center;gap:8px">'+
-                  '<div style="width:10px;height:10px;border-radius:2px;background:#059669;flex-shrink:0"></div>'+
-                  '<span style="flex:1;font-size:11px;color:var(--ink2)">Recursos propios</span>'+
-                  '<span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:700;color:#059669">'+pM+'%</span>'+
-                '</div>'+
-                '<div style="display:flex;align-items:center;gap:8px">'+
-                  '<div style="width:10px;height:10px;border-radius:2px;background:#2563EB;flex-shrink:0"></div>'+
-                  '<span style="flex:1;font-size:11px;color:var(--ink2)">Copart. provincial</span>'+
-                  '<span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:700;color:#2563EB">'+pP+'%</span>'+
-                '</div>'+
-                (pN?'<div style="display:flex;align-items:center;gap:8px">'+
-                  '<div style="width:10px;height:10px;border-radius:2px;background:#64748B;flex-shrink:0"></div>'+
-                  '<span style="flex:1;font-size:11px;color:var(--ink2)">Copart. nacional</span>'+
-                  '<span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:700;color:#64748B">'+pN+'%</span>'+
-                '</div>':'')+
-              '</div></div>';
+              '<div class="pst" style="margin-bottom:.75rem"><span>💰</span>Origen de los recursos 2025</div>'+
+              bar(pM,'#059669','Recursos propios (municipal)',m.rec_municipal_2025)+
+              bar(pP,'#2563EB','Coparticipación provincial',m.rec_provincial_2025)+
+              (pN?bar(pN,'#94A3B8','Coparticipación nacional',nac):'')+
+            '</div>';
           })():'');
         })()}
       </div>
