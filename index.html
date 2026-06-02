@@ -429,6 +429,20 @@ footer a:hover{color:rgba(94,234,212,.85)}
   h1{font-size:1.3rem}
   .hdr-pill{font-size:9px}
 }
+
+.th-tip{position:relative;cursor:help}
+.th-tip .tip-box{
+  display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:#0F172A;color:#E2E8F0;font-size:11px;font-weight:400;
+  line-height:1.5;padding:8px 12px;border-radius:8px;
+  width:220px;z-index:500;box-shadow:0 8px 24px rgba(0,0,0,.3);
+  letter-spacing:0;text-transform:none;text-align:left;white-space:normal
+}
+.th-tip:hover .tip-box{display:block}
+.th-tip .tip-box::before{
+  content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-bottom-color:#0F172A
+}
 </style>
 </head>
 <body>
@@ -468,7 +482,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
   </div>
 
   <div style="background:#DBEAFE;border-left:3px solid #2563EB;border-radius:0 var(--r) var(--r) 0;padding:.875rem 1.25rem;margin-bottom:1.5rem;font-size:12px;line-height:1.7;color:#1E40AF">
-    <strong>¿Qué mide este análisis?</strong> La <em>captación fiscal</em> es el porcentaje del PBG (riqueza generada en el municipio) que se transforma en gasto público municipal. Un municipio en el cuadrante derecho inferior tiene capacidad económica que no se refleja en su gasto. Un municipio que se encuentra en el cuadrante superior izquierdo gasta más de lo que su economía local generaría. <strong>Las líneas punteadas marcan el promedio del conurbano</strong> en cada eje.
+    <strong>¿Qué mide este análisis?</strong> La <em>captación fiscal</em> es el porcentaje del PBG (riqueza generada en el municipio) que se transforma en gasto público municipal. Un municipio en el cuadrante derecho inferior tiene capacidad económica que no se refleja en su gasto. Un municipio que se encuentra en el cuadrante superior izquierdo gasta más de lo que su economía local generaría. <strong>La línea diagonal punteada indica la captación promedio del conurbano</strong>: los municipios por encima gastan más que el promedio en relación a su PBG, los que están por debajo gastan menos.
   </div>
 
   <div class="cgrid g1" style="margin-bottom:1.5rem">
@@ -1110,8 +1124,20 @@ function renderScatter() {
     svg+='<text x="'+xp+'" y="'+(PT+cH+13)+'" font-size="9" fill="#94A3B8" text-anchor="middle">'+fmtK2(xv)+'</text>';
   }
 
-  svg+='<line x1="'+mx+'" y1="'+PT+'" x2="'+mx+'" y2="'+(PT+cH)+'" stroke="#64748B" stroke-width="1" stroke-dasharray="4,3"/>';
-  svg+='<line x1="'+PL+'" y1="'+my+'" x2="'+(PL+cW)+'" y2="'+my+'" stroke="#64748B" stroke-width="1" stroke-dasharray="4,3"/>';
+  // Línea diagonal: captación promedio del conurbano
+  // La pendiente = avgY/avgX (presup pc / pbg pc = % captación promedio)
+  // Línea: y_screen = f(x_screen) siguiendo y_data = slope * x_data
+  const slope = avgY / avgX;
+  // Calcular los extremos de la línea diagonal dentro del área del gráfico
+  // x va de minX a maxX, calculamos y correspondiente
+  const diagX1 = minX, diagY1 = slope * minX;
+  const diagX2 = maxX, diagY2 = slope * maxX;
+  // Clipear al área del gráfico
+  const dx1=sx(diagX1), dy1=sy(diagY1);
+  const dx2=sx(diagX2), dy2=sy(Math.min(diagY2, maxY));
+  const avgPct = (avgY/avgX*100).toFixed(1);
+  svg+='<line x1="'+dx1.toFixed(1)+'" y1="'+dy1.toFixed(1)+'" x2="'+dx2.toFixed(1)+'" y2="'+Math.max(PT, dy2).toFixed(1)+'" stroke="#64748B" stroke-width="1.5" stroke-dasharray="6,3"/>';
+  svg+='<text x="'+(dx2-4).toFixed(1)+'" y="'+(Math.max(PT,dy2)-6).toFixed(1)+'" font-size="8.5" fill="#64748B" text-anchor="end" font-weight="600">Captación promedio '+avgPct+'%</text>';
   svg+='<rect x="'+PL+'" y="'+PT+'" width="'+cW+'" height="'+cH+'" fill="none" stroke="#CBD5E1" stroke-width="1"/>';
 
   pts.forEach(p=>{
@@ -1217,11 +1243,28 @@ const COLS = [
 ];
 
 function buildThead(){
+  const COL_TIPS = {
+    pop:'Población total según Censo 2022 (INDEC)',
+    pbgc:'PBG 2023 en millones de pesos corrientes. Valor total de bienes y servicios producidos. Fuente: DPE-PBA',
+    pbgpc:'PBG dividido por habitantes. Nivel de actividad económica por persona',
+    pres:'Gasto devengado total en 2025 en millones de pesos. Fuente: RAFAM',
+    prespc:'Presupuesto ejecutado por habitante',
+    rec:'Recursos efectivamente recaudados en 2025 en millones de pesos',
+    recpc:'Recursos percibidos por habitante',
+    captac:'Porcentaje del PBG que representa el presupuesto. Cuánta riqueza local captura el municipio como gasto público',
+    result:'Recursos percibidos menos presupuesto ejecutado. Superávit si recaudó más; déficit si gastó más',
+    ratio:'Resultado fiscal como % de los recursos. Permite comparar entre municipios de distinto tamaño',
+    saldo:'Disponibilidades líquidas al 31/12/2025. No necesariamente de libre disponibilidad',
+    vuln:'Índice 0-100 (elaboración propia): agua 30% + cloaca 30% + PBG pc 25% + crecimiento 15%. Mayor = más vulnerable',
+  };
   document.getElementById('thead-row').innerHTML = COLS.map(c=>{
-    if(!c.sort) return `<th>${c.l}</th>`;
+    if(!c.sort) return '<th>'+c.l+'</th>';
     const isActive = sort===c.sort;
     const arrow = isActive ? (sortDir===1?'▼':'▲') : '↕';
-    return `<th class="ts ${isActive?'on':''}" onclick="sortBy('${c.sort}',this)">${c.l} <span class="sa">${arrow}</span></th>`;
+    const tip = COL_TIPS[c.k] || '';
+    const tipHtml = tip ? '<span class="tip-box">'+tip+'</span>' : '';
+    const thClass = 'ts th-tip' + (isActive?' on':'');
+    return `<th class="${thClass}" onclick="sortBy('${c.sort}',this)">${c.l}${tip?' <span style="opacity:.5;font-size:9px">?</span>':''} <span class="sa">${arrow}</span>${tipHtml}</th>`;
   }).join('');
 }
 
@@ -1931,6 +1974,20 @@ function imprimirComparacion() {
   tr:nth-child(even) td:first-child{background:#f8f8f8}
   footer{font-size:9px;color:#aaa;margin-top:24px;padding-top:10px;border-top:1px solid #eee}
   @media print{body{padding:12px}h1{font-size:16px}}
+
+.th-tip{position:relative;cursor:help}
+.th-tip .tip-box{
+  display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:#0F172A;color:#E2E8F0;font-size:11px;font-weight:400;
+  line-height:1.5;padding:8px 12px;border-radius:8px;
+  width:220px;z-index:500;box-shadow:0 8px 24px rgba(0,0,0,.3);
+  letter-spacing:0;text-transform:none;text-align:left;white-space:normal
+}
+.th-tip:hover .tip-box{display:block}
+.th-tip .tip-box::before{
+  content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-bottom-color:#0F172A
+}
 </style></head><body>
 <h1>Comparación de municipios</h1>
 <div class="sub">Observatorio Fiscal del Conurbano · Franco Iuliani · franco.d.iuliani@gmail.com · ${new Date().toLocaleDateString('es-AR')}</div>
@@ -2247,6 +2304,20 @@ footer{font-size:9px;color:#3A3D50;margin-top:28px;padding-top:12px;border-top:1
 .mapa-pol:hover{opacity:.85;stroke:#4ECDC4;stroke-width:2}
 .mapa-pol.selected{stroke:#FFD93D;stroke-width:2.5}
 .mapa-lbl{font-family:'Sora',sans-serif;font-size:8px;fill:#9E9B93;text-anchor:middle;pointer-events:none;font-weight:600}
+
+.th-tip{position:relative;cursor:help}
+.th-tip .tip-box{
+  display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:#0F172A;color:#E2E8F0;font-size:11px;font-weight:400;
+  line-height:1.5;padding:8px 12px;border-radius:8px;
+  width:220px;z-index:500;box-shadow:0 8px 24px rgba(0,0,0,.3);
+  letter-spacing:0;text-transform:none;text-align:left;white-space:normal
+}
+.th-tip:hover .tip-box{display:block}
+.th-tip .tip-box::before{
+  content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-bottom-color:#0F172A
+}
 </style></head><body>
 
 <div style="display:grid;grid-template-columns:1fr 200px;gap:20px;align-items:start;margin-bottom:20px">
