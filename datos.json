@@ -640,7 +640,10 @@
         "partido": "Fuerza Patria"
       },
       "gasto_corriente_2025": 135265,
-      "gasto_capital_2025": 18974
+      "gasto_capital_2025": 18974,
+      "rec_municipal_2025": 48248,
+      "rec_provincial_2025": 106280,
+      "rec_nacional_2025": 264
     },
     {
       "id": "hurlingham",
@@ -1061,7 +1064,10 @@
         "partido": "Fuerza Patria"
       },
       "gasto_corriente_2025": 445215,
-      "gasto_capital_2025": 71698
+      "gasto_capital_2025": 71698,
+      "rec_municipal_2025": 297132,
+      "rec_provincial_2025": 360578,
+      "rec_nacional_2025": null
     },
     {
       "id": "lanus",
@@ -1163,7 +1169,10 @@
         "partido": "Fuerza Patria"
       },
       "gasto_corriente_2025": 209106,
-      "gasto_capital_2025": 26909
+      "gasto_capital_2025": 26909,
+      "rec_municipal_2025": 127821,
+      "rec_provincial_2025": 94887,
+      "rec_nacional_2025": 10807
     },
     {
       "id": "lomas_de_zamora",
@@ -1372,7 +1381,10 @@
         "partido": "Fuerza Patria"
       },
       "gasto_corriente_2025": 266068,
-      "gasto_capital_2025": 63341
+      "gasto_capital_2025": 63341,
+      "rec_municipal_2025": 173173,
+      "rec_provincial_2025": 150874,
+      "rec_nacional_2025": 6566
     },
     {
       "id": "merlo",
@@ -1648,7 +1660,10 @@
         "partido": "Fuerza Patria"
       },
       "gasto_corriente_2025": 252927,
-      "gasto_capital_2025": 37543
+      "gasto_capital_2025": 37543,
+      "rec_municipal_2025": 121496,
+      "rec_provincial_2025": 151321,
+      "rec_nacional_2025": 539
     },
     {
       "id": "moron",
@@ -2104,7 +2119,10 @@
         "partido": "PRO / Juntos"
       },
       "gasto_corriente_2025": 251404,
-      "gasto_capital_2025": 57832
+      "gasto_capital_2025": 57832,
+      "rec_municipal_2025": 207969,
+      "rec_provincial_2025": 87694,
+      "rec_nacional_2025": 7522
     },
     {
       "id": "sanmartin",
@@ -2424,7 +2442,10 @@
         "partido": "Fuerza Patria"
       },
       "gasto_corriente_2025": 332238,
-      "gasto_capital_2025": 55314
+      "gasto_capital_2025": 55314,
+      "rec_municipal_2025": 44142,
+      "rec_provincial_2025": 252403,
+      "rec_nacional_2025": 213
     },
     {
       "id": "tresdefebrero",
