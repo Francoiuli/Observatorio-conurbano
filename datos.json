@@ -2613,7 +2613,10 @@
         "partido": "La Libertad Avanza (interino)"
       },
       "gasto_corriente_2025": 129215,
-      "gasto_capital_2025": 15397
+      "gasto_capital_2025": 15397,
+      "rec_municipal_2025": 93298,
+      "rec_provincial_2025": 60869,
+      "rec_nacional_2025": 305
     },
     {
       "id": "vicente_lopez",
@@ -2715,7 +2718,10 @@
         "partido": "PRO / Juntos"
       },
       "gasto_corriente_2025": 279878,
-      "gasto_capital_2025": 25312
+      "gasto_capital_2025": 25312,
+      "rec_municipal_2025": 221560,
+      "rec_provincial_2025": 76377,
+      "rec_nacional_2025": 0
     }
   ]
 }
