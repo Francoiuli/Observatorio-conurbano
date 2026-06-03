@@ -1805,7 +1805,10 @@
         "partido": "Fuerza Patria"
       },
       "gasto_corriente_2025": 189159,
-      "gasto_capital_2025": 5002
+      "gasto_capital_2025": 5002,
+      "rec_municipal_2025": 107793,
+      "rec_provincial_2025": 70914,
+      "rec_nacional_2025": 1793
     },
     {
       "id": "quilmes",
