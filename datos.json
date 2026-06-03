@@ -2237,7 +2237,10 @@
         "partido": "Fuerza Patria"
       },
       "gasto_corriente_2025": 260023,
-      "gasto_capital_2025": 8531
+      "gasto_capital_2025": 8531,
+      "rec_municipal_2025": 162433,
+      "rec_provincial_2025": 117809,
+      "rec_nacional_2025": 106
     },
     {
       "id": "san_miguel",
