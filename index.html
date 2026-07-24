@@ -5,73 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Observatorio Fiscal del Conurbano</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════
    OBSERVATORIO FISCAL DEL CONURBANO
-   Diseño UI/UX — Sistema de diseño institucional
-   Paleta: Navy profundo · Slate · Teal de acento
+   Sistema de diseño — publicación institucional
+   Papel cálido · tinta · un solo acento (ladrillo)
 ═══════════════════════════════════════════════════ */
 
 :root{
-  /* Colores primarios */
-  --navy:    #0F172A;   /* Fondo oscuro, autoridad */
-  --navy2:   #1E293B;   /* Cards oscuras, paneles */
-  --navy3:   #334155;   /* Bordes, separadores */
-  --slate:   #64748B;   /* Texto secundario */
-  --mist:    #94A3B8;   /* Texto terciario, placeholders */
+  /* Tinta oscura (fondos oscuros: header, nav, footer, thead) */
+  --navy:    #1A1815;
+  --navy2:   #262420;
+  --navy3:   #4A4740;
+  --slate:   #6B6860;
+  --mist:    #9A9484;
 
-  /* Superficie (modo claro) */
-  --bg:      #F1F5F9;   /* Fondo general */
-  --bg2:     #E2E8F0;   /* Fondo alternativo */
-  --card:    #FFFFFF;   /* Tarjetas */
-  --card2:   #F8FAFC;   /* Tarjetas secundarias */
+  /* Superficie */
+  --bg:      #F5F2EB;   /* papel */
+  --bg2:     #EBE6D9;   /* papel, un tono más */
+  --card:    #FFFFFF;
+  --card2:   #FBFAF6;
 
   /* Texto */
-  --ink:     #0F172A;   /* Texto primario */
-  --ink2:    #475569;   /* Texto secundario */
-  --ink3:    #94A3B8;   /* Texto terciario */
+  --ink:     #1A1815;
+  --ink2:    #55524A;
+  --ink3:    #9A9484;
 
-  /* Acento principal: teal institucional */
-  --teal:    #0D9488;
-  --teal-l:  #CCFBF1;
-  --teal-d:  #065F56;
+  /* Acento único: ladrillo/oxblood institucional */
+  --teal:    #7A2E2A;
+  --teal-l:  #F1E3DF;
+  --teal-d:  #4A1C19;
 
-  /* Acentos secundarios */
-  --amber:   #D97706;
-  --amber-l: #FEF3C7;
-  --red:     #DC2626;
-  --red-l:   #FEE2E2;
-  --green:   #059669;
-  --green-l: #D1FAE5;
-  --violet:  #7C3AED;
-  --violet-l:#EDE9FE;
-  --blue:    #2563EB;
-  --blue-l:  #DBEAFE;
+  /* Acentos secundarios (desaturados, uso puntual) */
+  --amber:   #8A6D22;
+  --amber-l: #F2EAD3;
+  --red:     #8C3A2E;
+  --red-l:   #F2E1DB;
+  --green:   #3F6E4A;
+  --green-l: #E4EDE3;
+  --violet:  #55524A;
+  --violet-l:#EDEBE3;
+  --blue:    #3B5B6B;
+  --blue-l:  #E2EAEC;
 
   /* Zonas */
-  --norte:   #0D9488;
-  --sur:     #DC2626;
-  --oeste:   #059669;
+  --norte:   #3F6E4A;
+  --sur:     #8C3A2E;
+  --oeste:   #8A6D22;
 
   /* Variables UI */
-  --c1:      #0D9488;
-  --c1d:     #0F172A;
-  --c1l:     #5EEAD4;
-  --c2:      #DC2626;
-  --c3:      #059669;
-  --c4:      #D97706;
-  --borde:   #E2E8F0;
+  --c1:      #7A2E2A;
+  --c1d:     #1A1815;
+  --c1l:     #A8645C;
+  --c2:      #8C3A2E;
+  --c3:      #3F6E4A;
+  --c4:      #8A6D22;
+  --borde:   #DCD6C6;
 
-  /* Sombras */
-  --sh:  0 1px 3px rgba(15,23,42,.06), 0 4px 16px rgba(15,23,42,.06);
-  --sh2: 0 4px 24px rgba(15,23,42,.12), 0 1px 4px rgba(15,23,42,.08);
-  --sh3: 0 20px 60px rgba(15,23,42,.18);
+  /* Sombras: hairlines, no cards flotantes */
+  --sh:  0 1px 0 rgba(26,24,21,.05);
+  --sh2: 0 1px 0 rgba(26,24,21,.08);
+  --sh3: 0 8px 28px rgba(26,24,21,.14);
 
-  /* Radios */
-  --r:  8px;
-  --r2: 12px;
-  --r3: 16px;
+  /* Radios: casi rectos */
+  --r:  2px;
+  --r2: 3px;
+  --r3: 3px;
 }
 
 /* ─── RESET ─────────────────────────────────────── */
@@ -82,24 +82,15 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
 /* ─── SCROLLBAR ──────────────────────────────────── */
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--bg2)}
-::-webkit-scrollbar-thumb{background:var(--navy3);border-radius:99px}
+::-webkit-scrollbar-thumb{background:var(--navy3);border-radius:2px}
 ::-webkit-scrollbar-thumb:hover{background:var(--slate)}
 .nav-inner::-webkit-scrollbar{display:none}
 .nav-inner{scrollbar-width:none}
 
 /* ─── HEADER ─────────────────────────────────────── */
 header{
-  background: linear-gradient(135deg, #0F172A 0%, #1E293B 60%, #0F2535 100%);
-  position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06)
-}
-header::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 50% at 20% 50%, rgba(13,148,136,.12), transparent),
-             radial-gradient(ellipse 60% 80% at 80% 20%, rgba(37,99,235,.08), transparent);
-}
-header::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(13,148,136,.4),transparent)
+  background: var(--navy);
+  position:relative;overflow:hidden;border-bottom:1px solid var(--teal-d)
 }
 .hdr-inner{
   max-width:1340px;margin:0 auto;
@@ -108,86 +99,77 @@ header::after{
   align-items:center;position:relative;z-index:1
 }
 .hdr-pill{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(13,148,136,.15);
-  border:1px solid rgba(13,148,136,.3);
-  border-radius:99px;padding:4px 12px;
-  font-size:10px;font-weight:600;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--teal-l);margin-bottom:.875rem
+  display:inline-flex;align-items:center;gap:8px;
+  border-bottom:1px solid rgba(241,227,223,.35);
+  padding:0 0 5px;
+  font-size:10px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(241,227,223,.75);margin-bottom:1rem
 }
-.hdr-pill::before{content:'';width:5px;height:5px;border-radius:50%;background:#5EEAD4;flex-shrink:0}
+.hdr-pill::before{content:'';width:5px;height:5px;background:var(--c1l);flex-shrink:0}
 h1{
-  font-size:clamp(1.6rem,3vw,2.5rem);font-weight:800;
-  color:#fff;line-height:1.1;letter-spacing:-.04em
+  font-family:'Source Serif 4',Georgia,serif;
+  font-size:clamp(1.7rem,3vw,2.6rem);font-weight:600;
+  color:#fff;line-height:1.08;letter-spacing:-.01em
 }
-h1 b{
-  background:linear-gradient(135deg,#5EEAD4,#0D9488);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text
-}
-.hdr-desc{font-size:13px;color:rgba(148,163,184,.8);margin-top:.5rem;font-weight:400;letter-spacing:.01em}
+h1 b{font-weight:700;color:#fff}
+.hdr-desc{font-size:13px;color:rgba(245,242,235,.62);margin-top:.6rem;font-weight:400;letter-spacing:.01em}
 .hdr-chips{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
 .hdr-chip{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:var(--r2);padding:.65rem 1.25rem;
+  border:1px solid rgba(245,242,235,.16);
+  padding:.65rem 1.25rem;
   text-align:right;min-width:140px;
-  backdrop-filter:blur(12px);
-  transition:background .2s
+  transition:border-color .2s
 }
-.hdr-chip:hover{background:rgba(255,255,255,.1)}
+.hdr-chip:hover{border-color:rgba(245,242,235,.32)}
 .hdr-chip-v{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:600;color:#fff;line-height:1}
-.hdr-chip-l{font-size:9px;color:rgba(148,163,184,.6);text-transform:uppercase;letter-spacing:.1em;margin-top:3px}
+.hdr-chip-l{font-size:9px;color:rgba(245,242,235,.5);text-transform:uppercase;letter-spacing:.1em;margin-top:3px}
 
 /* ─── NAV ────────────────────────────────────────── */
 .nav{
-  background:rgba(15,23,42,.97);
-  border-bottom:1px solid rgba(255,255,255,.06);
-  position:sticky;top:0;z-index:300;
-  backdrop-filter:blur(20px)
+  background:var(--navy);
+  border-bottom:1px solid rgba(245,242,235,.1);
+  position:sticky;top:0;z-index:300
 }
 .nav-inner{max-width:1340px;margin:0 auto;padding:0 2.5rem;display:flex;flex-wrap:nowrap;overflow-x:auto}
 .nav-btn{
   font-family:'Inter',sans-serif;font-size:11px;font-weight:600;
   letter-spacing:.06em;text-transform:uppercase;
-  padding:.875rem 1.25rem;color:rgba(148,163,184,.6);
+  padding:.875rem 1.25rem;color:rgba(245,242,235,.5);
   border:none;background:none;cursor:pointer;
   border-bottom:2px solid transparent;
   margin-bottom:-1px;white-space:nowrap;
   transition:color .15s,border-color .15s
 }
-.nav-btn:hover{color:rgba(226,232,240,.9)}
-.nav-btn.on{color:#fff;border-bottom-color:var(--teal)}
+.nav-btn:hover{color:rgba(245,242,235,.85)}
+.nav-btn.on{color:#fff;border-bottom-color:var(--c1l)}
 
 /* ─── WRAP ───────────────────────────────────────── */
 .wrap{max-width:1340px;margin:0 auto;padding:2rem 2.5rem;display:none}
 .wrap.on{display:block}
 
 /* ─── SECTION HEADER ─────────────────────────────── */
-.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
+.sh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem;border-bottom:1px solid var(--borde);padding-bottom:.6rem}
 .sh-t{
-  font-size:11px;font-weight:700;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--slate);
-  display:flex;align-items:center;gap:8px
+  font-family:'Source Serif 4',Georgia,serif;
+  font-size:16px;font-weight:600;letter-spacing:-.01em;
+  color:var(--ink);
+  display:flex;align-items:baseline;gap:8px
 }
-.sh-t::before{content:'';width:3px;height:12px;background:var(--teal);border-radius:99px;flex-shrink:0}
-.sh-n{font-size:11px;color:var(--mist)}
+.sh-n{font-size:11px;color:var(--ink3)}
 
 /* ─── KPIs ───────────────────────────────────────── */
-.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-bottom:2rem;background:var(--borde);border:1px solid var(--borde)}
 .kpi{
-  background:var(--card);border-radius:var(--r3);
-  padding:1.5rem 1.75rem;box-shadow:var(--sh);
-  border:1px solid var(--borde);border-left:3px solid var(--teal);
-  transition:transform .2s ease,box-shadow .2s ease
+  background:var(--card);
+  padding:1.5rem 1.75rem;
+  border-left:2px solid var(--teal)
 }
-.kpi:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
 .kpi.c2{border-left-color:var(--red)}
 .kpi.c3{border-left-color:var(--violet)}
 .kpi.c4{border-left-color:var(--amber)}
 .kpi.c5{border-left-color:var(--blue)}
 .kpi-l{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mist);margin-bottom:.625rem}
-.kpi-v{font-family:'JetBrains Mono',monospace;font-size:1.75rem;font-weight:700;color:var(--ink);line-height:1;letter-spacing:-.02em}
+.kpi-v{font-family:'JetBrains Mono',monospace;font-size:1.75rem;font-weight:600;color:var(--ink);line-height:1;letter-spacing:-.01em}
 .kpi-s{font-size:11px;color:var(--ink3);margin-top:.375rem}
 
 /* ─── CHART GRID ─────────────────────────────────── */
@@ -195,94 +177,91 @@ h1 b{
 .cgrid.g1{grid-template-columns:1fr}
 .cgrid.g2{grid-template-columns:1fr 1fr}
 .cc{
-  background:var(--card);border-radius:var(--r3);
-  padding:1.5rem 1.75rem;box-shadow:var(--sh);
+  background:var(--card);
+  padding:1.5rem 1.75rem;
   border:1px solid var(--borde);position:relative;overflow:hidden
 }
 .cc::before{
   content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--teal),var(--c1l))
+  background:var(--teal)
 }
-.cc.v2::before{background:linear-gradient(90deg,var(--green),var(--teal))}
-.cc.v3::before{background:linear-gradient(90deg,var(--red),var(--amber))}
+.cc.v2::before{background:var(--green)}
+.cc.v3::before{background:var(--red)}
 .cc-t{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mist);margin-bottom:1.125rem}
 .cc-c{position:relative;height:280px}
 .cc-c.md{height:230px}
 
 /* ─── FILTROS ────────────────────────────────────── */
 .fbar{
-  background:var(--card);border-radius:var(--r3);
-  padding:.875rem 1.25rem;box-shadow:var(--sh);
+  background:var(--card);
+  padding:.75rem 1.25rem;
   border:1px solid var(--borde);
-  display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem
+  display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem
 }
 .fl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mist)}
 .pill{
-  font-size:11px;font-weight:500;padding:5px 14px;
-  border-radius:99px;border:1.5px solid var(--borde);
-  background:transparent;color:var(--slate);
+  font-size:12px;font-weight:500;padding:4px 0;
+  border:none;border-bottom:1.5px solid transparent;
+  background:transparent;color:var(--ink2);
   cursor:pointer;transition:all .15s ease;font-family:'Inter',sans-serif
 }
-.pill:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-l)}
-.pill.on{background:var(--teal);color:#fff;border-color:var(--teal);font-weight:600}
+.pill:hover{color:var(--teal);border-bottom-color:var(--borde)}
+.pill.on{color:var(--teal);font-weight:600;border-bottom-color:var(--teal)}
 .sep{width:1px;height:18px;background:var(--borde)}
 
 /* ─── TABLA ──────────────────────────────────────── */
-.tw{overflow-x:auto;border-radius:var(--r3);box-shadow:var(--sh);border:1px solid var(--borde)}
+.tw{overflow-x:auto;border:1px solid var(--borde)}
 table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;background:var(--card);font-family:'Inter',sans-serif}
 thead th{
-  background:var(--navy);color:rgba(226,232,240,.85);
+  background:var(--navy);color:rgba(245,242,235,.82);
   padding:6px 6px;text-align:left;
   font-family:'Inter',sans-serif;font-size:8.5px;font-weight:600;
   letter-spacing:.04em;text-transform:uppercase;white-space:normal;line-height:1.3
 }
-thead th:first-child{border-radius:var(--r3) 0 0 0}
-thead th:last-child{border-radius:0 var(--r3) 0 0}
 thead th.ts{cursor:pointer;user-select:none;transition:background .15s}
-thead th.ts:hover{background:#1E293B}
-thead th.ts.on{background:#1E293B;color:var(--teal-l)}
+thead th.ts:hover{background:var(--navy2)}
+thead th.ts.on{background:var(--navy2);color:var(--c1l)}
 .sa{margin-left:3px;opacity:.4}
 .ts.on .sa{opacity:1}
 tbody tr{border-bottom:1px solid var(--borde);transition:background .12s ease;cursor:pointer}
-tbody tr:hover{background:#F0FDF4}
+tbody tr:hover{background:var(--bg2)}
 tbody tr:nth-child(even){background:var(--card2)}
-tbody tr:nth-child(even):hover{background:#F0FDF4}
+tbody tr:nth-child(even):hover{background:var(--bg2)}
 tbody tr.sel{background:var(--teal-l)!important}
 td{padding:7px 8px;vertical-align:middle;color:var(--ink)}
 td.mn{font-weight:600;font-size:12px;color:var(--navy)}
 td.n{font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right;font-weight:500;color:var(--ink2)}
 td.na{font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right;color:var(--mist)}
-.zch{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.05em}
-.zn{background:#DBEAFE;color:#1E40AF}
+.zch{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;letter-spacing:.05em}
+.zn{background:var(--blue-l);color:var(--blue)}
 .zs{background:var(--red-l);color:var(--red)}
 .zo{background:var(--green-l);color:var(--green)}
-.dch{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.06em;font-family:'JetBrains Mono',monospace}
+.dch{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;letter-spacing:.06em;font-family:'JetBrains Mono',monospace}
 .dr{background:var(--teal-l);color:var(--teal-d)}
 .da{background:var(--amber-l);color:var(--amber)}
 .dp{background:var(--bg2);color:var(--mist)}
 
 /* ─── PANEL DETALLE ──────────────────────────────── */
-.panel{display:none;border-radius:var(--r3);background:var(--card);box-shadow:var(--sh3);margin-bottom:1.5rem;overflow:hidden;border:1px solid var(--borde);border-top:3px solid var(--teal);animation:pIn .22s ease}
+.panel{display:none;background:var(--card);margin-bottom:1.5rem;overflow:hidden;border:1px solid var(--borde);border-top:2px solid var(--teal)}
 .panel.open{display:block}
-@keyframes pIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 .ph{background:var(--navy);padding:1.5rem 2rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
-.ph-t{font-size:1.3rem;font-weight:800;color:#fff;letter-spacing:-.03em}
+.ph-t{font-family:'Source Serif 4',Georgia,serif;font-size:1.3rem;font-weight:600;color:#fff;letter-spacing:-.01em}
 .ph-s{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem;align-items:center}
-.p-close{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:var(--r);color:rgba(226,232,240,.8);font-size:10px;font-weight:600;letter-spacing:.06em;padding:6px 14px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:background .15s}
-.p-close:hover{background:rgba(255,255,255,.2);color:#fff}
+.p-close{background:transparent;border:1px solid rgba(245,242,235,.25);color:rgba(245,242,235,.8);font-size:10px;font-weight:600;letter-spacing:.06em;padding:6px 14px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:border-color .15s}
+.p-close:hover{border-color:rgba(245,242,235,.5);color:#fff}
 .pb{padding:1.75rem 2rem}
-.pk-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.75rem;margin-bottom:1.5rem}
-.pk{background:var(--card2);border:1px solid var(--borde);border-radius:var(--r2);padding:.875rem 1rem}
+.pk-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;margin-bottom:1.5rem;background:var(--borde);border:1px solid var(--borde)}
+.pk{background:var(--card2);padding:.875rem 1rem}
 .pk-l{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mist);margin-bottom:.35rem}
 .pk-v{font-family:'JetBrains Mono',monospace;font-size:1.15rem;font-weight:700;color:var(--navy);line-height:1}
 .pk-s{font-size:10px;color:var(--ink3);margin-top:.25rem}
 .p2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
 .pst{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mist);margin-bottom:.875rem;display:flex;align-items:center;gap:6px}
-.pst::before{content:'';width:3px;height:10px;background:var(--teal);border-radius:99px}
+.pst::before{content:'';width:3px;height:10px;background:var(--teal)}
 .sbar{display:flex;align-items:center;gap:8px;margin-bottom:5px}
 .sbn{font-size:11px;color:var(--ink2);width:155px;flex-shrink:0;text-align:right;font-weight:500}
-.sbt{flex:1;background:var(--bg2);border-radius:3px;height:17px;overflow:hidden}
-.sbf{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:5px}
+.sbt{flex:1;background:var(--bg2);height:16px;overflow:hidden}
+.sbf{height:100%;display:flex;align-items:center;justify-content:flex-end;padding-right:5px}
 .sbp{font-size:9px;font-weight:700}
 .sbm{font-size:9.5px;color:var(--mist);min-width:50px;text-align:right;font-family:'JetBrains Mono',monospace}
 .tt{width:100%;border-collapse:collapse}
@@ -290,45 +269,44 @@ td.na{font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right;col
 .tt tr:last-child{border:none}
 .tt td{padding:5px 2px;font-size:12px;color:var(--ink2)}
 .tt td:last-child{text-align:right;font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--navy)}
-.pend{background:var(--card2);border:1px dashed var(--borde);border-radius:var(--r2);padding:1.25rem;text-align:center;font-size:12px;color:var(--mist)}
+.pend{background:var(--card2);border:1px dashed var(--borde);padding:1.25rem;text-align:center;font-size:12px;color:var(--mist)}
 
 /* ─── TISH ───────────────────────────────────────── */
-.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem}
-.tc{background:var(--card);border-radius:var(--r3);padding:1.25rem;box-shadow:var(--sh);border:1px solid var(--borde);border-left:3px solid var(--teal);transition:transform .2s ease,box-shadow .2s ease}
-.tc:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1px;background:var(--borde);border:1px solid var(--borde)}
+.tc{background:var(--card);padding:1.25rem;border-left:2px solid var(--teal)}
 .tc-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem}
 .tc-n{font-weight:700;font-size:13px;color:var(--navy)}
-.tc-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;font-family:'JetBrains Mono',monospace}
+.tc-badge{font-size:11px;font-weight:700;padding:3px 8px;font-family:'JetBrains Mono',monospace}
 .tc-sub{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mist);margin-bottom:.5rem}
 .tc-row{display:flex;justify-content:space-between;font-size:11px;border-bottom:1px solid var(--borde);padding:4px 0;color:var(--ink2)}
 .tc-row span:last-child{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--navy)}
 .tc-foot{font-size:9.5px;color:var(--mist);margin-top:.5rem}
 
 /* ─── FOOTER ─────────────────────────────────────── */
-footer{background:var(--navy);color:rgba(148,163,184,.5);padding:1.5rem 2.5rem;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.02em;margin-top:3rem;border-top:1px solid rgba(255,255,255,.06)}
-footer a{color:rgba(94,234,212,.5);text-decoration:none;transition:color .15s}
-footer a:hover{color:rgba(94,234,212,.85)}
+footer{background:var(--navy);color:rgba(245,242,235,.5);padding:1.5rem 2.5rem;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.02em;margin-top:3rem;border-top:1px solid rgba(245,242,235,.1)}
+footer a{color:rgba(168,100,92,.85);text-decoration:none;transition:color .15s}
+footer a:hover{color:#fff}
 .fi{max-width:1340px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
 
 /* ─── BUSCADOR ───────────────────────────────────── */
 .search-wrap{position:relative;flex:1;min-width:200px}
-.search-input{width:100%;padding:7px 12px 7px 34px;border:1.5px solid var(--borde);border-radius:99px;font-family:'Inter',sans-serif;font-size:12px;color:var(--ink);background:var(--card);outline:none;transition:border-color .15s,box-shadow .15s}
-.search-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,148,136,.12)}
+.search-input{width:100%;padding:7px 12px 7px 30px;border:none;border-bottom:1.5px solid var(--borde);font-family:'Inter',sans-serif;font-size:12px;color:var(--ink);background:transparent;outline:none;transition:border-color .15s}
+.search-input:focus{border-color:var(--teal)}
 .search-input::placeholder{color:var(--mist)}
-.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--mist);pointer-events:none}
+.search-icon{position:absolute;left:2px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--mist);pointer-events:none}
 .search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--mist);cursor:pointer;font-size:13px;display:none}
 
 /* ─── COMPARADOR MODAL ───────────────────────────── */
 #comp-modal.open{display:flex}
-.muni-option{padding:8px 12px;border-radius:var(--r);border:1.5px solid var(--borde);font-size:12px;cursor:pointer;transition:all .15s ease;text-align:left;background:var(--card2);font-family:'Inter',sans-serif;color:var(--ink2);display:flex;align-items:center;gap:6px}
-.muni-option:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-l)}
+.muni-option{padding:8px 12px;border:1px solid var(--borde);font-size:12px;cursor:pointer;transition:all .15s ease;text-align:left;background:var(--card2);font-family:'Inter',sans-serif;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.muni-option:hover{border-color:var(--teal);color:var(--teal)}
 .muni-option.sel{border-color:var(--teal);background:var(--teal);color:#fff;font-weight:600}
-.muni-option .zona-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.muni-option .zona-dot{width:6px;height:6px;flex-shrink:0}
 
 /* ─── COMPARADOR RESULTADO ───────────────────────── */
-.comp-card{background:var(--card2);border-radius:var(--r3);padding:1.25rem;box-shadow:var(--sh);border:1px solid var(--borde)}
+.comp-card{background:var(--card2);padding:1.25rem;border:1px solid var(--borde)}
 .comp-card-title{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mist);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-.comp-card-title::before{content:'';width:3px;height:11px;background:var(--amber);border-radius:99px}
+.comp-card-title::before{content:'';width:3px;height:11px;background:var(--amber)}
 .comp-row{display:flex;align-items:stretch;border-bottom:1px solid var(--borde)}
 .comp-row:last-child{border:none}
 .comp-row-label{font-size:11px;color:var(--slate);width:170px;flex-shrink:0;padding:.6rem 0;font-weight:500}
@@ -337,18 +315,18 @@ footer a:hover{color:rgba(94,234,212,.85)}
 
 /* ─── MAPA ───────────────────────────────────────── */
 .mapa-pol{fill:#CBD5E1;stroke:#fff;stroke-width:1;cursor:pointer;transition:all .2s ease}
-.mapa-pol:hover{stroke:#0D9488;stroke-width:2;filter:brightness(0.9)}
-.mapa-pol.selected{stroke:#D97706;stroke-width:2.5}
+.mapa-pol:hover{stroke:var(--teal);stroke-width:2;filter:brightness(0.9)}
+.mapa-pol.selected{stroke:var(--amber);stroke-width:2.5}
 .mapa-lbl{font-family:'Inter',sans-serif;font-size:7.5px;fill:#475569;text-anchor:middle;pointer-events:none;font-weight:600}
 
 /* ─── MISC ───────────────────────────────────────── */
 .comp-bar{display:none}
 .comp-bar.show{display:flex}
-.comp-bar-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)}
-.comp-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:600;color:#fff}
-.comp-chip button{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:13px;line-height:1;padding:0}
-.comp-btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:6px 18px;border-radius:99px;border:1.5px solid var(--amber);background:var(--amber);color:#fff;cursor:pointer}
-.comp-hint{font-size:10px;color:rgba(255,255,255,.35)}
+.comp-bar-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,242,235,.5)}
+.comp-chip{display:flex;align-items:center;gap:6px;background:rgba(245,242,235,.1);border:1px solid rgba(245,242,235,.2);padding:4px 12px;font-size:11px;font-weight:600;color:#fff}
+.comp-chip button{background:none;border:none;color:rgba(245,242,235,.6);cursor:pointer;font-size:13px;line-height:1;padding:0}
+.comp-btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:6px 18px;border:1.5px solid var(--amber);background:var(--amber);color:#fff;cursor:pointer}
+.comp-hint{font-size:10px;color:rgba(245,242,235,.35)}
 #svg-tooltip{position:fixed;pointer-events:none}
 
 /* ─── RESPONSIVE ─────────────────────────────────── */
@@ -430,15 +408,15 @@ footer a:hover{color:rgba(94,234,212,.85)}
 .th-tip{position:relative;cursor:help}
 .th-tip .tip-box{
   display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);
-  background:#0F172A;color:#E2E8F0;font-size:11px;font-weight:400;
-  line-height:1.5;padding:8px 12px;border-radius:8px;
-  width:220px;z-index:500;box-shadow:0 8px 24px rgba(0,0,0,.3);
+  background:#1A1815;color:#F5F2EB;font-size:11px;font-weight:400;
+  line-height:1.5;padding:8px 12px;
+  width:220px;z-index:500;
   letter-spacing:0;text-transform:none;text-align:left;white-space:normal
 }
 .th-tip:hover .tip-box{display:block}
 .th-tip .tip-box::before{
   content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
-  border:5px solid transparent;border-bottom-color:#0F172A
+  border:5px solid transparent;border-bottom-color:#1A1815
 }
 </style>
 </head>
@@ -635,14 +613,14 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <button class="pill" onclick="fZona('oeste',this)">Oeste</button>
     <div class="sep"></div>
     <div class="search-wrap">
-      <span class="search-icon">🔍</span>
+      <span class="search-icon"></span>
       <input class="search-input" id="search-input" type="text" placeholder="Buscar municipio..." oninput="onSearch(this.value)">
       <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
     </div>
     <div class="sep"></div>
     <span class="fl" style="color:var(--ink3);text-transform:none;letter-spacing:0;font-weight:400;font-size:11px">Clic en una fila para ver el detalle</span>
     <div style="flex:1"></div>
-    <button onclick="abrirModalComp('fiscal')" style="background:var(--c1);color:#fff;border:none;border-radius:99px;padding:6px 18px;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">⚖ Comparar municipios</button>
+    <button onclick="abrirModalComp('fiscal')" style="background:var(--c1);color:#fff;border:none;border-radius:2px;padding:6px 18px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">Comparar municipios</button>
   </div>
   <div id="panel-anchor"></div>
   <!-- Panel comparación — se muestra dentro de la tabla -->
@@ -674,7 +652,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <div class="sh" style="margin-bottom:1.5rem"><span class="sh-t">¿Qué significa cada dato?</span></div>
 
     <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c1)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">💰 Presupuesto municipal</div>
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">Presupuesto municipal</div>
       <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
         Es el plan de gastos que aprueba el Concejo Deliberante al inicio del año. Indica cuánto <strong>planifica gastar</strong> el municipio en cada área: salud, seguridad, obras públicas, etc.
       </p>
@@ -687,7 +665,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
     </div>
 
     <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c3)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">📊 PBG — Producto Bruto Geográfico</div>
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">PBG — Producto Bruto Geográfico</div>
       <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
         Es el equivalente local del PBI (Producto Bruto Interno), pero a nivel de cada partido. Mide el valor de <strong>todo lo que se produce</strong> en ese municipio en un año: lo que fabrican las industrias, lo que venden los comercios, los servicios de salud, educación, etc.
       </p>
@@ -700,7 +678,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
     </div>
 
     <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c4)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">🏪 TISH — Tasa de Inspección de Seguridad e Higiene</div>
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">TISH — Tasa de Inspección de Seguridad e Higiene</div>
       <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
         Es la tasa más importante que pagan los comercios, industrias y empresas a cada municipio. La pagan por el "derecho" a funcionar bajo la habilitación municipal. Es la <strong>principal fuente de ingresos propios</strong> de la mayoría de los municipios del conurbano.
       </p>
@@ -713,7 +691,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
     </div>
 
     <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c2)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">👤 Los indicadores "per cápita"</div>
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">Los indicadores "per cápita"</div>
       <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
         "Per cápita" significa <strong>"por habitante"</strong>. Se divide el total por la cantidad de personas del municipio. Sirve para comparar municipios de distinto tamaño: no es lo mismo gastar $500.000 millones en La Matanza (1,7 millones de habitantes) que en Vicente López (275.000 habitantes).
       </p>
@@ -731,7 +709,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
 
     
     <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c2)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">🔴 Índice de Vulnerabilidad Municipal</div>
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">Índice de Vulnerabilidad Municipal</div>
       <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
         Es un número de 0 a 100 que resume en un solo valor cuán vulnerable es la situación de un municipio en términos de acceso a servicios básicos y capacidad económica. <strong>A mayor puntaje, mayor vulnerabilidad.</strong>
       </p>
@@ -761,7 +739,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
 
 
     <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c2)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">📊 Resultado fiscal y deuda flotante</div>
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">Resultado fiscal y deuda flotante</div>
       <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
         El <strong>resultado fiscal</strong> es la diferencia entre los <strong>recursos percibidos</strong> (lo que el municipio efectivamente recaudó) y el <strong>gasto ejecutado</strong> (lo que efectivamente gastó) en el año.
       </p>
@@ -784,7 +762,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
     </div>
 
     <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--c4)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">🏦 Saldo de caja</div>
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">Saldo de caja</div>
       <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
         Es el dinero disponible en las cuentas del municipio al cierre del ejercicio (31 de diciembre). Refleja las <strong>disponibilidades líquidas</strong> — lo que hay en el banco.
       </p>
@@ -794,7 +772,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
     </div>
 
     <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid var(--norte)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">🗺️ Mapa interactivo</div>
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">️ Mapa interactivo</div>
       <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
         El mapa permite visualizar cualquier variable con una escala de color monocromática: <strong>el tono más oscuro indica el valor más alto</strong>, el más clarito el más bajo. Hacé click sobre cualquier partido para ver sus indicadores principales.
       </p>
@@ -804,7 +782,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
     </div>
 
     <div style="background:var(--card);border-radius:var(--r2);padding:1.5rem 1.75rem;box-shadow:var(--sh);border-left:4px solid var(--ink3)">
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">📌 Sobre los datos</div>
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">Sobre los datos</div>
       <div style="font-size:13px;color:var(--ink2);line-height:1.7">
         <p style="margin-bottom:.5rem">Los datos de este observatorio provienen de fuentes oficiales:</p>
         <ul style="padding-left:1.25rem;display:flex;flex-direction:column;gap:.3rem">
@@ -887,29 +865,29 @@ footer a:hover{color:rgba(94,234,212,.85)}
   <div class="sh"><span class="sh-t">Seguridad ciudadana — SNIC 2025</span><span class="sh-n">3 dimensiones · 9 categorías de delito · Tasa cada 100.000 habitantes · 24 partidos del Conurbano</span></div>
 
   <div style="background:var(--card);border-radius:var(--r2);padding:1.25rem 1.5rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid #DC2626">
-    <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">🚨 Metodología: 3 dimensiones en vez de un solo número</div>
+    <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">Metodología: 3 dimensiones en vez de un solo número</div>
     <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
       Sumar directamente las tasas de 9 delitos muy distintos en volumen sesga el resultado hacia el delito más frecuente (robos y hurtos), tapando la señal de los delitos graves pero poco frecuentes (homicidios). Por eso separamos el "núcleo duro" del SNIC en <strong>3 dimensiones</strong> que no se mezclan entre sí:
     </p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.6rem;margin-bottom:.875rem">
       <div style="background:var(--bg2);border-radius:var(--r);padding:.75rem;border-left:3px solid #DC2626">
-        <div style="font-size:11px;font-weight:700;color:#DC2626;margin-bottom:.3rem">🔴 Violencia grave</div>
+        <div style="font-size:11px;font-weight:700;color:#DC2626;margin-bottom:.3rem">Violencia grave</div>
         <div style="font-size:12px;color:var(--ink2)">Homicidios dolosos (consumados y tentativa) + robos agravados por lesión o muerte (consumados y tentativa). El indicador más confiable, por su baja "cifra negra" — pero también el de menor volumen, así que interpretalo con cautela donde los conteos sean bajos.</div>
       </div>
       <div style="background:var(--bg2);border-radius:var(--r);padding:.75rem;border-left:3px solid #D97706">
-        <div style="font-size:11px;font-weight:700;color:#D97706;margin-bottom:.3rem">🟠 Delitos contra la propiedad</div>
+        <div style="font-size:11px;font-weight:700;color:#D97706;margin-bottom:.3rem">Delitos contra la propiedad</div>
         <div style="font-size:12px;color:var(--ink2)">Robos, tentativas de robo y hurtos (sin considerar los agravados). El grupo de mayor volumen, más sensible a variaciones en la tasa de denuncia (seguros, trámites) que a la criminalidad real.</div>
       </div>
       <div style="background:var(--bg2);border-radius:var(--r);padding:.75rem;border-left:3px solid #7C3AED">
-        <div style="font-size:11px;font-weight:700;color:#7C3AED;margin-bottom:.3rem">🟣 Conflictividad interpersonal</div>
+        <div style="font-size:11px;font-weight:700;color:#7C3AED;margin-bottom:.3rem">Conflictividad interpersonal</div>
         <div style="font-size:12px;color:var(--ink2)">Amenazas y lesiones dolosas. Delitos "sin robo de por medio", más asociados a violencia social o doméstica que a inseguridad callejera.</div>
       </div>
     </div>
     <div style="background:var(--bg);border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink3);line-height:1.6;margin-bottom:.875rem">
       <strong style="color:var(--ink2)">Qué NO mide este tablero:</strong> son delitos <em>denunciados</em> ante el SNIC, no una medición de inseguridad real ni percibida (para eso hacen falta encuestas de victimización, que no bajan a nivel municipio). Las categorías de bajo conteo absoluto (homicidios, robos agravados) pueden mostrar variaciones porcentuales grandes de un año a otro con apenas 2 o 3 hechos de diferencia — la tasa "cada 100.000 hab." normaliza por población, no por volumen de casos. <strong style="color:var(--ink2)">Fuente:</strong> SNIC — Ministerio de Seguridad de la Nación, año 2025.
     </div>
-    <div style="background:#0369A10d;border:1px solid #0369A140;border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink2);line-height:1.6">
-      <strong style="color:#0369A1">🚗 Dato complementario: robo de autos (DNRPA)</strong> — a partir de los trámites de denuncia de robo/hurto y recupero del Registro Nacional de la Propiedad del Automotor (año 2025 completo), agregamos la <strong>tasa de robo de autos cada 100.000 hab.</strong> y el <strong>% de recupero</strong> por municipio. Es información complementaria: <strong>no está sumada al núcleo duro ni a los subíndices</strong>, porque se superpone parcialmente con la categoría "Robos" del SNIC (mide trámites registrales, no hechos policiales) y contarla dos veces distorsionaría la comparación.
+    <div style="background:#3B5B6B0d;border:1px solid #3B5B6B40;border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink2);line-height:1.6">
+      <strong style="color:#3B5B6B">Dato complementario: robo de autos (DNRPA)</strong> — a partir de los trámites de denuncia de robo/hurto y recupero del Registro Nacional de la Propiedad del Automotor (año 2025 completo), agregamos la <strong>tasa de robo de autos cada 100.000 hab.</strong> y el <strong>% de recupero</strong> por municipio. Es información complementaria: <strong>no está sumada al núcleo duro ni a los subíndices</strong>, porque se superpone parcialmente con la categoría "Robos" del SNIC (mide trámites registrales, no hechos policiales) y contarla dos veces distorsionaría la comparación.
     </div>
   </div>
 
@@ -921,14 +899,14 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <button class="pill" onclick="fZonaSeg('oeste',this)">Oeste</button>
     <div class="sep"></div>
     <div class="search-wrap">
-      <span class="search-icon">🔍</span>
+      <span class="search-icon"></span>
       <input class="search-input" id="seg-search-input" type="text" placeholder="Buscar municipio..." oninput="onSearchSeg(this.value)">
       <button class="search-clear" id="seg-search-clear" onclick="clearSearchSeg()">✕</button>
     </div>
     <div class="sep"></div>
     <span class="fl" style="color:var(--ink3);text-transform:none;letter-spacing:0;font-weight:400;font-size:11px">Clic en una fila de la tabla para ver el detalle</span>
     <div style="flex:1"></div>
-    <button onclick="abrirModalComp('seguridad')" style="background:var(--c1);color:#fff;border:none;border-radius:99px;padding:6px 18px;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">⚖ Comparar municipios</button>
+    <button onclick="abrirModalComp('seguridad')" style="background:var(--c1);color:#fff;border:none;border-radius:2px;padding:6px 18px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">Comparar municipios</button>
   </div>
 
   <!-- Panel comparación seguridad — se muestra dentro de la pestaña -->
@@ -955,7 +933,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <button class="pill" onclick="setSegChartVar('propiedad',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#D97706;margin-right:5px"></span>Delitos contra la propiedad</button>
     <button class="pill" onclick="setSegChartVar('conflictividad',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#7C3AED;margin-right:5px"></span>Conflictividad interpersonal</button>
     <div class="sep"></div>
-    <button class="pill" onclick="setSegChartVar('dnrpa_autos',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#0369A1;margin-right:5px"></span>🚗 Robo de autos (DNRPA, complementario)</button>
+    <button class="pill" onclick="setSegChartVar('dnrpa_autos',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#3B5B6B;margin-right:5px"></span>Robo de autos (DNRPA, complementario)</button>
   </div>
   <div class="cgrid g1" style="margin-bottom:1.5rem">
     <div class="cc"><div class="cc-t" id="seg-chart-title">Violencia grave cada 100.000 hab. — 24 partidos del Conurbano</div><div class="cc-c md"><div id="c-seg-nucleo" style="width:100%;height:100%"></div></div></div>
@@ -980,7 +958,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <button class="pill" onclick="setMapVarSeg('18',this)">Tent. robo agrav. (les./muertes)</button>
     <button class="pill" onclick="setMapVarSeg('19',this)">Hurtos</button>
     <div class="sep"></div>
-    <button class="pill" onclick="setMapVarSeg('dnrpa_autos',this)" style="color:#0369A1"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#0369A1;margin-right:5px"></span>🚗 Robo de autos (DNRPA, complementario)</button>
+    <button class="pill" onclick="setMapVarSeg('dnrpa_autos',this)" style="color:#3B5B6B"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#3B5B6B;margin-right:5px"></span>Robo de autos (DNRPA, complementario)</button>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 280px;gap:1.5rem;align-items:start">
@@ -1073,7 +1051,7 @@ footer a:hover{color:rgba(94,234,212,.85)}
 </div>
 
 
-<div id="svg-tooltip" style="position:fixed;background:#E8E4DC;color:#0F1117;padding:7px 13px;border-radius:6px;font-size:12px;font-weight:600;font-family:'Sora',sans-serif;pointer-events:none;opacity:0;transition:opacity .15s;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.6)"></div>
+<div id="svg-tooltip" style="position:fixed;background:#1A1815;color:#F5F2EB;padding:7px 13px;font-size:12px;font-weight:600;font-family:'Inter',sans-serif;pointer-events:none;opacity:0;transition:opacity .15s;z-index:9999;white-space:nowrap"></div>
 
 <!-- MODAL COMPARADOR -->
 <div id="comp-modal" style="position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;display:none">
@@ -1091,16 +1069,16 @@ footer a:hover{color:rgba(94,234,212,.85)}
     </div>
     <!-- Buscador -->
     <div style="position:relative;margin-bottom:.875rem">
-      <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--ink3)">🔍</span>
+      <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--ink3)"></span>
       <input id="modal-search" type="text" placeholder="Buscar..." oninput="filtrarModal(this.value)"
-        style="width:100%;padding:7px 12px 7px 34px;border:1.5px solid var(--borde);border-radius:99px;font-family:'Sora',sans-serif;font-size:12px;outline:none">
+        style="width:100%;padding:7px 12px 7px 34px;border:1.5px solid var(--borde);border-radius:2px;font-family:'Inter',sans-serif;font-size:12px;outline:none">
     </div>
     <!-- Lista de municipios -->
     <div id="modal-lista" style="overflow-y:auto;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:.4rem"></div>
     <!-- Botón comparar -->
     <div style="margin-top:1.25rem;display:flex;justify-content:flex-end;gap:.75rem">
-      <button onclick="limpiarComp()" style="background:transparent;border:1.5px solid var(--borde);border-radius:99px;padding:7px 18px;font-family:'Sora',sans-serif;font-size:12px;cursor:pointer;color:var(--ink2)">Limpiar</button>
-      <button id="modal-comparar-btn" onclick="ejecutarComparacionRouter()" style="background:var(--c1);color:#fff;border:none;border-radius:99px;padding:7px 22px;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;cursor:pointer;opacity:.4" disabled>Ver comparación →</button>
+      <button onclick="limpiarComp()" style="background:transparent;border:1.5px solid var(--borde);border-radius:2px;padding:7px 18px;font-family:'Inter',sans-serif;font-size:12px;cursor:pointer;color:var(--ink2)">Limpiar</button>
+      <button id="modal-comparar-btn" onclick="ejecutarComparacionRouter()" style="background:var(--c1);color:#fff;border:none;border-radius:2px;padding:7px 22px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;cursor:pointer;opacity:.4" disabled>Ver comparación →</button>
     </div>
   </div>
 </div>
@@ -1788,7 +1766,7 @@ function openPanel(id){
               '</div>'+
             '</div>';
             return '<div style="margin-top:1rem;padding-top:.875rem;border-top:1px solid var(--borde)">'+
-              '<div class="pst" style="margin-bottom:.75rem"><span>💰</span>Origen de los recursos 2025</div>'+
+              '<div class="pst" style="margin-bottom:.75rem"><span></span>Origen de los recursos 2025</div>'+
               bar(pM,'#059669','Recursos propios (municipal)',m.rec_municipal_2025)+
               bar(pP,'#2563EB','Coparticipación provincial',m.rec_provincial_2025)+
               (pN?bar(pN,'#94A3B8','Coparticipación nacional',nac):'')+
@@ -1827,16 +1805,16 @@ const SEG_LABELS_SHORT = {
 const SEG_BAJO_CONTEO = ['1','2','17','18']; // categorías con pocos hechos absolutos: interpretar con cautela
 
 const SEG_SUBGRUPOS = {
-  violencia_grave: {l:'Violencia grave', short:'Violencia grave', color:'#DC2626', light:'#FEE2E2', codigos:['1','2','17','18'],
+  violencia_grave: {l:'Violencia grave', short:'Violencia grave', color:'#7A2E2A', light:'#F1E3DF', codigos:['1','2','17','18'],
     desc:'Homicidios dolosos + robos agravados por lesión/muerte (consumados y tentativa)'},
-  propiedad: {l:'Delitos contra la propiedad', short:'Propiedad', color:'#D97706', light:'#FEF3C7', codigos:['15','16','19'],
+  propiedad: {l:'Delitos contra la propiedad', short:'Propiedad', color:'#8A6D22', light:'#F2EAD3', codigos:['15','16','19'],
     desc:'Robos, tentativas de robo y hurtos'},
-  conflictividad: {l:'Conflictividad interpersonal', short:'Conflictividad', color:'#7C3AED', light:'#EDE9FE', codigos:['13','5'],
+  conflictividad: {l:'Conflictividad interpersonal', short:'Conflictividad', color:'#55524A', light:'#EDEBE3', codigos:['13','5'],
     desc:'Amenazas y lesiones dolosas'}
 };
 const SEG_SUBORDEN = ['violencia_grave','propiedad','conflictividad'];
 
-const DNRPA_COLOR = '#0369A1'; // azul, deliberadamente distinto de los rojos del núcleo duro
+const DNRPA_COLOR = '#3B5B6B'; // azul, deliberadamente distinto de los rojos del núcleo duro
 function segAutos(m){ return m.seguridad_snic_2025?.dnrpa_autos_2025?.tasa_c100k ?? null; }
 function segAutosHechos(m){ return m.seguridad_snic_2025?.dnrpa_autos_2025?.hechos_robos ?? null; }
 function segAutosRecuperoPct(m){ return m.seguridad_snic_2025?.dnrpa_autos_2025?.tasa_recupero_pct ?? null; }
@@ -1898,8 +1876,8 @@ function renderSeguridad(){
         ${SEG_CODES.map(cod=>`<div class="tc-row">${SEG_BAJO_CONTEO.includes(cod)?'<span style="display:flex;align-items:center;gap:3px">'+SEG_LABELS_SHORT[cod]+'<span title="Conteo absoluto bajo: interpretar con cautela" style="color:var(--ink3);cursor:help">†</span></span>':`<span>${SEG_LABELS_SHORT[cod]}</span>`}<span>${fmtN(segTasa(m,cod))}</span></div>`).join('')}
         <div class="tc-foot">${fmtH(s.total_hechos_nucleo_duro)} hechos totales (9 categorías) · SNIC ${s.anio} · † conteo bajo</div>
         ${s.dnrpa_autos_2025?`<div style="margin-top:.6rem;padding-top:.6rem;border-top:1px dashed var(--borde);display:flex;justify-content:space-between;align-items:center">
-          <span style="font-size:10px;color:#0369A1;display:flex;align-items:center;gap:4px">🚗 Robo autos (DNRPA) <span title="Complementario, no sumado al núcleo duro" style="color:var(--ink3);cursor:help">ⓘ</span></span>
-          <span style="font-size:11px;font-weight:700;color:#0369A1">${fmtN(segAutos(m))} <span style="font-weight:400;color:var(--ink3)">· ${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'% recup.':'s/d'}</span></span>
+          <span style="font-size:10px;color:#3B5B6B;display:flex;align-items:center;gap:4px">Robo autos (DNRPA) <span title="Complementario, no sumado al núcleo duro" style="color:var(--ink3);cursor:help">ⓘ</span></span>
+          <span style="font-size:11px;font-weight:700;color:#3B5B6B">${fmtN(segAutos(m))} <span style="font-weight:400;color:var(--ink3)">· ${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'% recup.':'s/d'}</span></span>
         </div>`:''}
       </div>`;
     }).join('') || `<div class="pend">Ningún municipio coincide con el filtro</div>`;
@@ -1910,7 +1888,7 @@ function renderSeguridad(){
 
 const SEG_CHART_CFG = {
   ...SEG_SUBGRUPOS,
-  dnrpa_autos: {l:'Robo de autos (DNRPA, complementario)', short:'Robo de autos', color:'#0369A1', light:'#EFF6FF'}
+  dnrpa_autos: {l:'Robo de autos (DNRPA, complementario)', short:'Robo de autos', color:'#3B5B6B', light:'#E2EAEC'}
 };
 function segChartVal(m,key){ return key==='dnrpa_autos' ? segAutos(m) : segSub(m,key); }
 function segChartHechos(m,key){ return key==='dnrpa_autos' ? segAutosHechos(m) : segSubHechos(m,key); }
@@ -1949,8 +1927,8 @@ function renderSegTabla(){
     + SEG_SUBORDEN.map(key=>`<th class="ts${segSort===key?' on':''}" onclick="sortSeg('${key}',this)" style="color:${SEG_SUBGRUPOS[key].color}">${SEG_SUBGRUPOS[key].short} <span class="sa">↕</span></th>`).join('')
     + SEG_CODES.map(cod=>`<th class="ts${segSort===cod?' on':''}" onclick="sortSeg('${cod}',this)">${SEG_LABELS_SHORT[cod]}${SEG_BAJO_CONTEO.includes(cod)?'†':''} <span class="sa">↕</span></th>`).join('')
     + `<th class="ts${segSort==='total'?' on':''}" onclick="sortSeg('total',this)">Suma total (ref.) <span class="sa">↕</span></th>`
-    + `<th class="ts${segSort==='dnrpa_autos'?' on':''}" onclick="sortSeg('dnrpa_autos',this)" style="color:#0369A1;border-left:2px solid #0369A140" title="Complementario: no forma parte del núcleo duro">🚗 Robo autos (DNRPA) <span class="sa">↕</span></th>`
-    + `<th class="ts${segSort==='dnrpa_recupero'?' on':''}" onclick="sortSeg('dnrpa_recupero',this)" style="color:#0369A1" title="Complementario: % de autos robados que fueron recuperados">% recuperado <span class="sa">↕</span></th>`;
+    + `<th class="ts${segSort==='dnrpa_autos'?' on':''}" onclick="sortSeg('dnrpa_autos',this)" style="color:#3B5B6B;border-left:2px solid #3B5B6B40" title="Complementario: no forma parte del núcleo duro">Robo autos (DNRPA) <span class="sa">↕</span></th>`
+    + `<th class="ts${segSort==='dnrpa_recupero'?' on':''}" onclick="sortSeg('dnrpa_recupero',this)" style="color:#3B5B6B" title="Complementario: % de autos robados que fueron recuperados">% recuperado <span class="sa">↕</span></th>`;
 
   const lista=segFiltrada();
   lista.sort((a,b)=>{
@@ -1970,8 +1948,8 @@ function renderSegTabla(){
       + SEG_SUBORDEN.map(key=>`<td style="font-weight:700;color:${SEG_SUBGRUPOS[key].color}">${fmtN(segSub(m,key))}</td>`).join('')
       + SEG_CODES.map(cod=>`<td>${fmtN(segTasa(m,cod))}</td>`).join('')
       + `<td style="color:var(--ink3)">${fmtN(segTasaTotal(m))}</td>`
-      + `<td style="color:#0369A1;font-weight:600;border-left:2px solid #0369A140">${fmtN(segAutos(m))}</td>`
-      + `<td style="color:#0369A1">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}</td></tr>`;
+      + `<td style="color:#3B5B6B;font-weight:600;border-left:2px solid #3B5B6B40">${fmtN(segAutos(m))}</td>`
+      + `<td style="color:#3B5B6B">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}</td></tr>`;
   }).join('') || `<tr><td colspan="17" style="text-align:center;color:var(--ink3);padding:1rem">Ningún municipio coincide con el filtro</td></tr>`;
 }
 
@@ -2015,13 +1993,13 @@ function openPanelSeg(id){
   </div>
   <div style="font-size:10px;color:var(--ink3);margin-top:1rem">† conteo bajo, interpretar con cautela · Fuente: ${s.fuente} · Año ${s.anio}</div>
   ${s.dnrpa_autos_2025?`<div style="margin-top:1.25rem;padding-top:1rem;border-top:1px dashed var(--borde)">
-    <div style="font-size:10px;color:#0369A1;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">🚗 Robo de autos (DNRPA) — dato complementario, no incluido en el núcleo duro</div>
+    <div style="font-size:10px;color:#3B5B6B;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">Robo de autos (DNRPA) — dato complementario, no incluido en el núcleo duro</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem">
-      <div style="background:#0369A10d;border:1px solid #0369A140;border-radius:var(--r);padding:.75rem .875rem">
+      <div style="background:#3B5B6B0d;border:1px solid #3B5B6B40;border-radius:var(--r);padding:.75rem .875rem">
         <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">Tasa c/100k hab.</div>
         <div style="font-size:18px;font-weight:800;color:var(--ink)">${fmtN(segAutos(m))}<span style="font-size:10px;font-weight:400;color:var(--ink3)"> · ${fmtH(segAutosHechos(m))} denuncias</span></div>
       </div>
-      <div style="background:#0369A10d;border:1px solid #0369A140;border-radius:var(--r);padding:.75rem .875rem">
+      <div style="background:#3B5B6B0d;border:1px solid #3B5B6B40;border-radius:var(--r);padding:.75rem .875rem">
         <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">% recuperados</div>
         <div style="font-size:18px;font-weight:800;color:var(--ink)">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}<span style="font-size:10px;font-weight:400;color:var(--ink3)"> · ${fmtH(segAutosRecuperoHechos(m))} recuperos</span></div>
       </div>
@@ -2073,11 +2051,11 @@ function ejecutarComparacionSeg(){
     + totVals.map(v=>`<td style="padding:8px 10px;text-align:center;font-size:12px;border-left:1px solid var(--borde);color:var(--ink3)">${fmtN(v)}</td>`).join('')
     + `</tr>`;
 
-  const dnrpaRow = `<tr style="background:#0369A10d;border-top:2px solid #0369A140"><td style="font-weight:700;color:#0369A1;padding:8px 10px;font-size:11px">🚗 Robo de autos (DNRPA, complementario)</td>`
-    + munis.map(m=>`<td style="padding:8px 10px;text-align:center;font-size:12px;border-left:1px solid var(--borde);color:#0369A1;font-weight:700">${fmtN(segAutos(m))}</td>`).join('')
+  const dnrpaRow = `<tr style="background:#3B5B6B0d;border-top:2px solid #3B5B6B40"><td style="font-weight:700;color:#3B5B6B;padding:8px 10px;font-size:11px">Robo de autos (DNRPA, complementario)</td>`
+    + munis.map(m=>`<td style="padding:8px 10px;text-align:center;font-size:12px;border-left:1px solid var(--borde);color:#3B5B6B;font-weight:700">${fmtN(segAutos(m))}</td>`).join('')
     + `</tr>`;
-  const recupRow = `<tr style="background:#0369A10d"><td style="font-weight:700;color:#0369A1;padding:8px 10px;font-size:11px">% de autos recuperados</td>`
-    + munis.map(m=>`<td style="padding:8px 10px;text-align:center;font-size:12px;border-left:1px solid var(--borde);color:#0369A1">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}</td>`).join('')
+  const recupRow = `<tr style="background:#3B5B6B0d"><td style="font-weight:700;color:#3B5B6B;padding:8px 10px;font-size:11px">% de autos recuperados</td>`
+    + munis.map(m=>`<td style="padding:8px 10px;text-align:center;font-size:12px;border-left:1px solid var(--borde);color:#3B5B6B">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}</td>`).join('')
     + `</tr>`;
 
   document.getElementById('comp-content-seg').innerHTML = `<div style="font-size:11px;color:var(--ink3);margin-bottom:.75rem">Tasas cada 100.000 hab. · <span style="color:#059669;font-weight:700">✓ verde</span> = mejor situación relativa (menor tasa) en cada fila · † conteo bajo, interpretar con cautela · SNIC 2025</div>
@@ -2105,8 +2083,8 @@ function imprimirComparacionSeg(){
     return `<tr><td style="font-weight:600;color:#444;padding:7px 10px;background:#f8f8f8;font-size:11px">${SEG_LABELS[cod]}${SEG_BAJO_CONTEO.includes(cod)?' †':''}</td>${vals.map(v=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee">${v}</td>`).join('')}</tr>`;
   }).join('');
   const totRow = `<tr><td style="font-weight:600;color:#999;padding:7px 10px;background:#f8f8f8;font-size:11px">Suma total (referencia)</td>${munis.map(m=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee;color:#999">${fmtN(segTasaTotal(m))}</td>`).join('')}</tr>`;
-  const dnrpaRow = `<tr><td style="font-weight:800;color:#0369A1;padding:7px 10px;background:#f0f7ff;font-size:11px">🚗 Robo de autos (DNRPA, complementario)</td>${munis.map(m=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee;color:#0369A1;font-weight:800">${fmtN(segAutos(m))}</td>`).join('')}</tr>`;
-  const recupRow = `<tr><td style="font-weight:600;color:#0369A1;padding:7px 10px;background:#f0f7ff;font-size:11px">% de autos recuperados</td>${munis.map(m=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee;color:#0369A1">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}</td>`).join('')}</tr>`;
+  const dnrpaRow = `<tr><td style="font-weight:800;color:#3B5B6B;padding:7px 10px;background:#e9eef0;font-size:11px">Robo de autos (DNRPA, complementario)</td>${munis.map(m=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee;color:#3B5B6B;font-weight:800">${fmtN(segAutos(m))}</td>`).join('')}</tr>`;
+  const recupRow = `<tr><td style="font-weight:600;color:#3B5B6B;padding:7px 10px;background:#e9eef0;font-size:11px">% de autos recuperados</td>${munis.map(m=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee;color:#3B5B6B">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}</td>`).join('')}</tr>`;
 
   const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
 <title>Comparación Seguridad · Observatorio Fiscal del Conurbano</title>
@@ -2145,8 +2123,8 @@ SEG_SUBORDEN.forEach(key=>{
   MAP_VARS_SEG[key] = { l:SEG_SUBGRUPOS[key].l, fn:m=>segSub(m,key), fmt:v=>fmtN(v) };
 });
 MAP_VARS_SEG['dnrpa_autos'] = { l:'Robo de autos (DNRPA, complementario)', fn:m=>segAutos(m), fmt:v=>fmtN(v) };
-const SEG_COLOR_LOW = '#FEF1F1', SEG_COLOR_HIGH = '#7F1D1D'; // monocromático en rojos: claro → oscuro
-const DNRPA_COLOR_LOW = '#EFF6FF', DNRPA_COLOR_HIGH = '#1E3A8A'; // monocromático en azules, para diferenciarlo visualmente del núcleo duro
+const SEG_COLOR_LOW = '#F1E3DF', SEG_COLOR_HIGH = '#4A1C19'; // monocromático en rojos: claro → oscuro
+const DNRPA_COLOR_LOW = '#E2EAEC', DNRPA_COLOR_HIGH = '#22343C'; // monocromático en azules, para diferenciarlo visualmente del núcleo duro
 
 function setMapVarSeg(v,btn){
   mapVarSeg=v;
@@ -2229,7 +2207,7 @@ function mapClickSeg(id){
     </div>
     <div style="font-size:10px;color:var(--ink3);margin-top:.75rem">${fmtH(s.total_hechos_nucleo_duro)} hechos totales en 2025 (suma de referencia) · † conteo bajo, interpretar con cautela · Fuente: ${s.fuente}</div>
     ${s.dnrpa_autos_2025?`<div style="margin-top:.875rem;padding-top:.875rem;border-top:1px dashed var(--borde)">
-      <div style="font-size:10px;color:#0369A1;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem">🚗 Robo de autos (DNRPA, complementario)</div>
+      <div style="font-size:10px;color:#3B5B6B;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem">Robo de autos (DNRPA, complementario)</div>
       <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0">
         <span style="color:var(--ink3)">Tasa c/100k hab.</span><span style="color:var(--ink);font-weight:700">${fmtN(segAutos(m))}</span>
       </div>
@@ -2475,7 +2453,7 @@ function mapClick(id){
       </div>`).join('')}
     </div>
     <button onclick="openPanel('${id}');setView('tabla',document.querySelector('.nav-btn:nth-child(3)'))" 
-      style="width:100%;margin-top:.875rem;background:var(--c1);color:#0F1117;border:none;border-radius:var(--r);padding:8px;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;cursor:pointer">
+      style="width:100%;margin-top:.875rem;background:var(--c1);color:#F5F2EB;border:none;border-radius:var(--r);padding:8px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;cursor:pointer">
       Ver detalle completo →
     </button>`;
 }
@@ -2541,7 +2519,7 @@ function actualizarModalSelec(){
   }
   chips.innerHTML = compIds.map((id,i)=>{
     const m=DATA.find(x=>x.id===id);
-    return `<div style="display:flex;align-items:center;gap:5px;background:${COMP_COLORS[i]}18;border:1px solid ${COMP_COLORS[i]}50;border-radius:99px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--ink)">
+    return `<div style="display:flex;align-items:center;gap:5px;background:${COMP_COLORS[i]}18;border:1px solid ${COMP_COLORS[i]}50;border-radius:2px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--ink)">
       <span style="width:8px;height:8px;border-radius:50%;background:${COMP_COLORS[i]}"></span>
       ${m.nombre}
       <button onclick="toggleCompModal('${id}')" style="background:none;border:none;cursor:pointer;color:var(--ink3);font-size:13px;line-height:1;padding:0;margin-left:2px">✕</button>
@@ -2738,7 +2716,7 @@ function renderComparador(){
   document.getElementById('comp-content').innerHTML = `
     <div class="comp-card">
       <div class="comp-card-title">Indicadores fiscales y económicos</div>
-      <div style="font-size:10px;color:var(--ink3);margin-bottom:.75rem;background:var(--bg);padding:.4rem .75rem;border-radius:var(--r);display:inline-block">📌 Todos los valores monetarios están expresados en <strong>millones de pesos</strong></div>
+      <div style="font-size:10px;color:var(--ink3);margin-bottom:.75rem;background:var(--bg);padding:.4rem .75rem;border-radius:var(--r);display:inline-block">Todos los valores monetarios están expresados en <strong>millones de pesos</strong></div>
       ${headersHTML}${rowsHTML}
     </div>
     <div class="comp-card" style="margin-top:1rem">
@@ -2851,7 +2829,7 @@ function renderVuln(v) {
       <div style="width:${v}px;max-width:60px;height:5px;background:${color};border-radius:3px;opacity:.8"></div>
       <span style="font-size:11px;font-weight:700;color:${color}">${v}</span>
     </div>
-    <span style="font-size:9px;background:${darkBg};color:${color};padding:1px 6px;border-radius:99px">${label}</span>
+    <span style="font-size:9px;background:${darkBg};color:${color};padding:1px 6px;border-radius:2px">${label}</span>
   </div>`;
 }
 
@@ -2910,7 +2888,7 @@ function exportarPanel(id) {
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0F1117;color:#E8E4DC;padding:32px;font-size:13px}
 h1{font-size:26px;font-weight:900;color:#4ECDC4;margin:0 0 4px}
-.zona{display:inline-block;background:#162E2D;color:#4ECDC4;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.zona{display:inline-block;background:#162E2D;color:#4ECDC4;padding:3px 10px;border-radius:2px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
 .sub{font-size:11px;color:#5C5A55;margin-bottom:24px}
 h2{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9E9B93;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid #2A2D3E}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px}
@@ -2925,7 +2903,7 @@ h2{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;c
 .result-v{font-size:24px;font-weight:900;color:${resColor}}
 .vuln-box{background:#1C1F2E;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
 .vuln-score{font-size:36px;font-weight:900;color:${vulnColor};line-height:1}
-.vuln-label{display:inline-block;background:${vulnColor}22;color:${vulnColor};padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;margin-top:4px}
+.vuln-label{display:inline-block;background:${vulnColor}22;color:${vulnColor};padding:3px 10px;border-radius:2px;font-size:10px;font-weight:700;margin-top:4px}
 table{width:100%;border-collapse:collapse;font-size:11px}
 table td{padding:5px 4px;border-bottom:1px solid #2A2D3E;color:#9E9B93}
 table td:first-child{color:#E8E4DC}
@@ -2943,7 +2921,7 @@ footer{font-size:9px;color:#3A3D50;margin-top:28px;padding-top:12px;border-top:1
 .mapa-pol{fill:#1C2A3A;stroke:#2A2D3E;stroke-width:1.5;cursor:pointer;transition:opacity .15s}
 .mapa-pol:hover{opacity:.85;stroke:#4ECDC4;stroke-width:2}
 .mapa-pol.selected{stroke:#FFD93D;stroke-width:2.5}
-.mapa-lbl{font-family:'Sora',sans-serif;font-size:8px;fill:#9E9B93;text-anchor:middle;pointer-events:none;font-weight:600}
+.mapa-lbl{font-family:'Inter',sans-serif;font-size:8px;fill:#9E9B93;text-anchor:middle;pointer-events:none;font-weight:600}
 
 .th-tip{position:relative;cursor:help}
 .th-tip .tip-box{
