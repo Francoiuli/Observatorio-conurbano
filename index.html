@@ -1039,7 +1039,7 @@ footer a:hover{color:#fff}
   </div>
 
   <div class="sh" style="margin-top:2rem"><span class="sh-t">Tabla completa</span><span class="sh-n">Tasas cada 100.000 hab. por categoría — ordenable por columna · clic en una fila para ver el detalle</span></div>
-  <div class="panel" id="panel-seg"><div class="ph"><div><div class="ph-t" id="p-title-seg"></div><div class="ph-s" id="p-sub-seg"></div></div><button class="p-close" onclick="closePanelSeg()">✕ CERRAR</button></div><div class="pb" id="p-body-seg"></div></div>
+  <div class="panel" id="panel-seg"><div class="ph"><div><div class="ph-t" id="p-title-seg"></div><div class="ph-s" id="p-sub-seg"></div></div><div style="display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap"><button class="p-close" onclick="descargarInformeSegWord(segPanelId)">↓ WORD</button><button class="p-close" onclick="descargarInformeSegExcel(segPanelId)">↓ EXCEL</button><button class="p-close" onclick="closePanelSeg()">✕ CERRAR</button></div></div><div class="pb" id="p-body-seg"></div></div>
   <div class="tw">
     <table>
       <thead>
@@ -1085,6 +1085,7 @@ footer a:hover{color:#fff}
 
 <footer><div class="fi"><span>Observatorio Fiscal del Conurbano · <strong>Franco Iuliani</strong> · <a href="mailto:franco.d.iuliani@gmail.com" style="color:rgba(78,205,196,.6);text-decoration:none">franco.d.iuliani@gmail.com</a></span><span>DPE-PBA · RAFAM · INDEC Censo 2022 · HCD Municipales</span></div></footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 // ── DATOS Y HELPERS ──────────────────────────────────────
 let DATA = [], zona = 'todos', sort = 'nombre', sortDir = 1, panelId = null;
@@ -2016,6 +2017,122 @@ function closePanelSeg(){
   renderSegTabla();
 }
 
+// ── DESCARGA DE INFORME POR MUNICIPIO (SEGURIDAD) ──────────
+function descargarInformeSegWord(id){
+  const m = DATA.find(x=>x.id===id);
+  const s = m?.seguridad_snic_2025;
+  if(!m || !s){ alert('Elegí un municipio en la tabla antes de descargar el informe.'); return; }
+  const fecha = new Date().toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'});
+  const da = s.dnrpa_autos_2025;
+
+  const filaSub = key=>{
+    const g = SEG_SUBGRUPOS[key];
+    return `<tr><td style="padding:6px 10px;border:1px solid #DCD6C6">${g.l}</td><td style="padding:6px 10px;border:1px solid #DCD6C6;text-align:right;font-weight:700">${fmtN(segSub(m,key))}</td><td style="padding:6px 10px;border:1px solid #DCD6C6;text-align:right;color:#6B6860">${fmtH(segSubHechos(m,key))}</td></tr>`;
+  };
+  const filaCod = cod=>`<tr><td style="padding:5px 10px;border:1px solid #DCD6C6">${SEG_LABELS[cod]}${SEG_BAJO_CONTEO.includes(cod)?' †':''}</td><td style="padding:5px 10px;border:1px solid #DCD6C6;text-align:right">${fmtN(segTasa(m,cod))}</td><td style="padding:5px 10px;border:1px solid #DCD6C6;text-align:right;color:#6B6860">${fmtH(s.hechos?.[cod])}</td></tr>`;
+
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <style>
+    body{font-family:Georgia,'Times New Roman',serif;color:#1A1815;font-size:11pt;line-height:1.5}
+    h1{font-size:18pt;font-weight:700;margin:0 0 4px}
+    .sub{font-family:Arial,sans-serif;font-size:9pt;color:#6B6860;margin-bottom:22px}
+    h2{font-family:Arial,sans-serif;font-size:11pt;text-transform:uppercase;letter-spacing:1px;color:#55524A;border-bottom:1px solid #DCD6C6;padding-bottom:4px;margin:22px 0 10px}
+    table{border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:10pt}
+    th{background:#1A1815;color:#F5F2EB;padding:6px 10px;text-align:left;font-size:9pt;text-transform:uppercase;letter-spacing:.5px}
+    td{font-family:Arial,sans-serif}
+    footer{font-family:Arial,sans-serif;font-size:8pt;color:#9A9484;margin-top:26px;border-top:1px solid #DCD6C6;padding-top:10px}
+  </style></head><body>
+  <h1>Informe de seguridad ciudadana — ${m.nombre}</h1>
+  <div class="sub">Observatorio Fiscal del Conurbano · Zona ${ZONA[m.zona]} · Generado el ${fecha}</div>
+
+  <h2>Las 3 dimensiones</h2>
+  <table>
+    <tr><th>Dimensión</th><th style="text-align:right">Tasa c/100k hab.</th><th style="text-align:right">Hechos 2025</th></tr>
+    ${SEG_SUBORDEN.map(filaSub).join('')}
+  </table>
+
+  <h2>Desglose por categoría (SNIC 2025)</h2>
+  <table>
+    <tr><th>Categoría</th><th style="text-align:right">Tasa c/100k hab.</th><th style="text-align:right">Hechos 2025</th></tr>
+    ${SEG_CODES.map(filaCod).join('')}
+  </table>
+  <p style="font-family:Arial,sans-serif;font-size:8pt;color:#9A9484">† conteo bajo: interpretar con cautela · Suma de referencia (no comparable entre categorías de distinto volumen): ${fmtH(s.total_hechos_nucleo_duro)} hechos, ${fmtN(s.tasa_nucleo_duro_c100k)} c/100k hab.</p>
+
+  ${da?`<h2>Complementario: robo de autos (DNRPA 2025)</h2>
+  <table>
+    <tr><th>Indicador</th><th style="text-align:right">Valor</th></tr>
+    <tr><td style="padding:6px 10px;border:1px solid #DCD6C6">Tasa cada 100.000 hab.</td><td style="padding:6px 10px;border:1px solid #DCD6C6;text-align:right;font-weight:700">${fmtN(segAutos(m))}</td></tr>
+    <tr><td style="padding:6px 10px;border:1px solid #DCD6C6">Denuncias de robo/hurto</td><td style="padding:6px 10px;border:1px solid #DCD6C6;text-align:right">${fmtH(segAutosHechos(m))}</td></tr>
+    <tr><td style="padding:6px 10px;border:1px solid #DCD6C6">Recuperos</td><td style="padding:6px 10px;border:1px solid #DCD6C6;text-align:right">${fmtH(segAutosRecuperoHechos(m))}</td></tr>
+    <tr><td style="padding:6px 10px;border:1px solid #DCD6C6">% recuperado</td><td style="padding:6px 10px;border:1px solid #DCD6C6;text-align:right">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}</td></tr>
+  </table>
+  <p style="font-family:Arial,sans-serif;font-size:8pt;color:#9A9484">Dato complementario: no forma parte de las sumas del núcleo duro ni de los subíndices (se superpone parcialmente con la categoría "Robos" del SNIC).</p>`:''}
+
+  <footer>Fuente: ${s.fuente}${da?' · '+da.fuente:''}. Tasas cada 100.000 habitantes, año 2025. Observatorio Fiscal del Conurbano — Franco Iuliani.</footer>
+  </body></html>`;
+
+  const blob = new Blob(['\ufeff', html], {type:'application/msword'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `seguridad-${id}-2025.doc`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+}
+
+function descargarInformeSegExcel(id){
+  const m = DATA.find(x=>x.id===id);
+  const s = m?.seguridad_snic_2025;
+  if(!m || !s){ alert('Elegí un municipio en la tabla antes de descargar el informe.'); return; }
+  if(typeof XLSX==='undefined'){ alert('No se pudo cargar el generador de Excel. Revisá tu conexión e intentá de nuevo.'); return; }
+  const da = s.dnrpa_autos_2025;
+
+  const wb = XLSX.utils.book_new();
+
+  const resumen = [
+    ['Informe de seguridad ciudadana', m.nombre],
+    ['Zona', ZONA[m.zona]],
+    ['Población', m.poblacion],
+    ['Año', s.anio],
+    [],
+    ['Dimensión', 'Tasa c/100k hab.', 'Hechos 2025'],
+    ...SEG_SUBORDEN.map(key=>[SEG_SUBGRUPOS[key].l, segSub(m,key), segSubHechos(m,key)]),
+    [],
+    ['Suma de referencia (no comparable entre categorías)', s.tasa_nucleo_duro_c100k, s.total_hechos_nucleo_duro],
+  ];
+  const wsResumen = XLSX.utils.aoa_to_sheet(resumen);
+  wsResumen['!cols'] = [{wch:42},{wch:16},{wch:14}];
+  XLSX.utils.book_append_sheet(wb, wsResumen, 'Resumen');
+
+  const detalle = [
+    ['Categoría (SNIC 2025)', 'Tasa c/100k hab.', 'Hechos 2025', 'Conteo bajo'],
+    ...SEG_CODES.map(cod=>[SEG_LABELS[cod], segTasa(m,cod), s.hechos?.[cod]??null, SEG_BAJO_CONTEO.includes(cod)?'Sí':'No']),
+  ];
+  const wsDetalle = XLSX.utils.aoa_to_sheet(detalle);
+  wsDetalle['!cols'] = [{wch:38},{wch:16},{wch:14},{wch:12}];
+  XLSX.utils.book_append_sheet(wb, wsDetalle, 'Detalle SNIC');
+
+  if(da){
+    const autos = [
+      ['Robo de autos (DNRPA 2025) — dato complementario'],
+      [],
+      ['Indicador','Valor'],
+      ['Tasa cada 100.000 hab.', segAutos(m)],
+      ['Denuncias de robo/hurto', segAutosHechos(m)],
+      ['Recuperos', segAutosRecuperoHechos(m)],
+      ['% recuperado', segAutosRecuperoPct(m)],
+      [],
+      ['Nota', 'No forma parte de las sumas del núcleo duro ni de los subíndices'],
+      ['Fuente', da.fuente],
+    ];
+    const wsAutos = XLSX.utils.aoa_to_sheet(autos);
+    wsAutos['!cols'] = [{wch:42},{wch:50}];
+    XLSX.utils.book_append_sheet(wb, wsAutos, 'DNRPA autos');
+  }
+
+  XLSX.writeFile(wb, `seguridad-${id}-2025.xlsx`);
+}
+
 // ── COMPARADOR DE SEGURIDAD ────────────────────────────────
 function ejecutarComparacionSeg(){
   if(compIds.length<2) return;
@@ -2188,6 +2305,10 @@ function mapClickSeg(id){
     <div style="border-bottom:1px solid var(--borde);padding-bottom:.875rem;margin-bottom:.875rem">
       <div style="font-size:15px;font-weight:800;color:var(--ink)">${m.nombre}</div>
       <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center"><span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span></div>
+      <div style="margin-top:.6rem;display:flex;gap:6px">
+        <button onclick="descargarInformeSegWord('${id}')" style="flex:1;background:transparent;border:1px solid var(--borde);color:var(--ink2);font-size:9.5px;font-weight:700;padding:5px 8px;cursor:pointer;font-family:'Inter',sans-serif">↓ WORD</button>
+        <button onclick="descargarInformeSegExcel('${id}')" style="flex:1;background:transparent;border:1px solid var(--borde);color:var(--ink2);font-size:9.5px;font-weight:700;padding:5px 8px;cursor:pointer;font-family:'Inter',sans-serif">↓ EXCEL</button>
+      </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:.875rem">
       ${SEG_SUBORDEN.map(key=>{
