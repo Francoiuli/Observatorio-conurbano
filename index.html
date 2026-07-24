@@ -1106,6 +1106,7 @@ let DATA = [], zona = 'todos', sort = 'nombre', sortDir = 1, panelId = null;
 let charts = {};  // legacy, ahora SVG puro
 
 const fmtN = n => n != null ? Number(n).toLocaleString('es-AR') : '—';
+const fmtH = n => n != null ? Number(n).toLocaleString('es-AR') : 's/d'; // hechos: puede faltar si datos.json está desactualizado
 const fmtMM = n => {
   if (!n) return '—';
   return '$' + Math.round(n).toLocaleString('es-AR') + ' millones';
@@ -1882,7 +1883,7 @@ function renderSeguridad(){
         </div>
         <div class="tc-sub">Desglose por categoría</div>
         ${SEG_CODES.map(cod=>`<div class="tc-row">${SEG_BAJO_CONTEO.includes(cod)?'<span style="display:flex;align-items:center;gap:3px">'+SEG_LABELS_SHORT[cod]+'<span title="Conteo absoluto bajo: interpretar con cautela" style="color:var(--ink3);cursor:help">†</span></span>':`<span>${SEG_LABELS_SHORT[cod]}</span>`}<span>${fmtN(segTasa(m,cod))}</span></div>`).join('')}
-        <div class="tc-foot">${s.total_hechos_nucleo_duro.toLocaleString('es-AR')} hechos totales (9 categorías) · SNIC ${s.anio} · † conteo bajo</div>
+        <div class="tc-foot">${fmtH(s.total_hechos_nucleo_duro)} hechos totales (9 categorías) · SNIC ${s.anio} · † conteo bajo</div>
       </div>`;
     }).join('') || `<div class="pend">Ningún municipio coincide con el filtro</div>`;
 
@@ -1910,7 +1911,7 @@ function renderSegChart(lista){
     return {
       label: m.nombre.length>12 ? m.nombre.slice(0,11)+'…' : m.nombre,
       val: segSub(m,segChartVar),
-      tooltip: m.nombre+': '+fmtN(segSub(m,segChartVar))+' c/100k hab. ('+hechos.toLocaleString('es-AR')+' hechos)'
+      tooltip: m.nombre+': '+fmtN(segSub(m,segChartVar))+' c/100k hab. ('+fmtH(hechos)+' hechos)'
     };
   });
   svgBar('c-seg-nucleo', items, item=>lerpColor(g.light, g.color, item.val/max), v=>fmtN(Math.round(v)));
@@ -1957,7 +1958,7 @@ function openPanelSeg(id){
   const s = m?.seguridad_snic_2025;
   if(!s) return;
   document.getElementById('p-title-seg').textContent = m.nombre;
-  document.getElementById('p-sub-seg').innerHTML = `<span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span><span style="font-size:12px;color:rgba(226,232,240,.75)">${s.total_hechos_nucleo_duro.toLocaleString('es-AR')} hechos totales en 2025 (9 categorías)</span>`;
+  document.getElementById('p-sub-seg').innerHTML = `<span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span><span style="font-size:12px;color:rgba(226,232,240,.75)">${fmtH(s.total_hechos_nucleo_duro)} hechos totales en 2025 (9 categorías)</span>`;
   document.getElementById('p-body-seg').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem;margin-bottom:1.25rem">
     ${SEG_SUBORDEN.map(key=>{
       const g=SEG_SUBGRUPOS[key];
@@ -1965,7 +1966,7 @@ function openPanelSeg(id){
         <div style="font-size:10px;color:${g.color};font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">${g.short}</div>
         <div style="display:flex;justify-content:space-between;align-items:baseline">
           <span style="font-size:20px;font-weight:800;color:var(--ink)">${fmtN(segSub(m,key))}</span>
-          <span style="font-size:10px;color:var(--ink3)">c/100k · ${segSubHechos(m,key).toLocaleString('es-AR')} hechos</span>
+          <span style="font-size:10px;color:var(--ink3)">c/100k · ${fmtH(segSubHechos(m,key))} hechos</span>
         </div>
       </div>`;
     }).join('')}
@@ -1976,7 +1977,7 @@ function openPanelSeg(id){
       <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">${SEG_LABELS[cod]}${SEG_BAJO_CONTEO.includes(cod)?' †':''}</div>
       <div style="display:flex;justify-content:space-between;align-items:baseline">
         <span style="font-size:16px;font-weight:800;color:var(--ink)">${fmtN(segTasa(m,cod))}</span>
-        <span style="font-size:10px;color:var(--ink3)">c/100k · ${s.hechos[cod].toLocaleString('es-AR')} hechos</span>
+        <span style="font-size:10px;color:var(--ink3)">c/100k · ${fmtH(s.hechos?.[cod])} hechos</span>
       </div>
     </div>`).join('')}
   </div>
@@ -2130,7 +2131,7 @@ function mapHoverSeg(e,id){
   if(mapVarSeg==='total'){ hechos=s.total_hechos_nucleo_duro; tasa=s.tasa_nucleo_duro_c100k; }
   else if(SEG_SUBGRUPOS[mapVarSeg]){ hechos=segSubHechos(m,mapVarSeg); tasa=segSub(m,mapVarSeg); }
   else { hechos=s.hechos[mapVarSeg]; tasa=s.tasas_c100k[mapVarSeg]; }
-  showTip(e, `${m.nombre}: ${hechos.toLocaleString('es-AR')} hechos · ${fmtN(tasa)} c/100k hab.`);
+  showTip(e, `${m.nombre}: ${fmtH(hechos)} hechos · ${fmtN(tasa)} c/100k hab.`);
 }
 
 function mapClickSeg(id){
@@ -2162,7 +2163,7 @@ function mapClickSeg(id){
         <span style="color:var(--ink);font-weight:600">${fmtN(segTasa(m,cod))}</span>
       </div>`).join('')}
     </div>
-    <div style="font-size:10px;color:var(--ink3);margin-top:.75rem">${s.total_hechos_nucleo_duro.toLocaleString('es-AR')} hechos totales en 2025 (suma de referencia) · † conteo bajo, interpretar con cautela · Fuente: ${s.fuente}</div>
+    <div style="font-size:10px;color:var(--ink3);margin-top:.75rem">${fmtH(s.total_hechos_nucleo_duro)} hechos totales en 2025 (suma de referencia) · † conteo bajo, interpretar con cautela · Fuente: ${s.fuente}</div>
   `;
 }
 
