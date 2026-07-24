@@ -932,6 +932,11 @@ footer a:hover{color:rgba(94,234,212,.85)}
   <div class="sh"><span class="sh-t">Comparativa por municipio</span><span class="sh-n">Tasa del núcleo duro (los 9 delitos combinados) cada 100.000 hab.</span></div>
   <div class="tgrid" id="seg-cards"></div>
 
+  <div class="sh" style="margin-top:2rem"><span class="sh-t">Gráfico comparativo</span><span class="sh-n">Tasa núcleo duro cada 100.000 hab. · de mayor a menor</span></div>
+  <div class="cgrid g1" style="margin-bottom:1.5rem">
+    <div class="cc"><div class="cc-t">Tasa núcleo duro cada 100.000 hab. — 24 partidos del Conurbano</div><div class="cc-c md"><div id="c-seg-nucleo" style="width:100%;height:100%"></div></div></div>
+  </div>
+
   <div class="sh" style="margin-top:2rem"><span class="sh-t">Mapa por tipo de delito</span><span class="sh-n">Elegí un delito · a mayor intensidad de color, mayor tasa cada 100.000 hab.</span></div>
 
   <!-- Selector de delito -->
@@ -1838,7 +1843,25 @@ function renderSeguridad(){
       </div>`;
     }).join('') || `<div class="pend">Ningún municipio coincide con el filtro</div>`;
 
+  renderSegChart(lista);
   renderSegTabla();
+}
+
+function renderSegChart(lista){
+  const el = document.getElementById('c-seg-nucleo');
+  if(!el) return;
+  if(!lista.length){ el.innerHTML = '<div class="pend">Ningún municipio coincide con el filtro</div>'; return; }
+  const ordenada = [...lista].sort((a,b)=>segTasaTotal(b)-segTasaTotal(a));
+  const max = Math.max(...ordenada.map(segTasaTotal));
+  const items = ordenada.map(m=>{
+    const s=m.seguridad_snic_2025;
+    return {
+      label: m.nombre.length>12 ? m.nombre.slice(0,11)+'…' : m.nombre,
+      val: s.tasa_nucleo_duro_c100k,
+      tooltip: m.nombre+': '+fmtN(s.tasa_nucleo_duro_c100k)+' c/100k hab. ('+s.total_hechos_nucleo_duro.toLocaleString('es-AR')+' hechos)'
+    };
+  });
+  svgBar('c-seg-nucleo', items, item=>lerpColor('#FCA5A5','#7F1D1D',item.val/max), v=>fmtN(Math.round(v)));
 }
 
 function renderSegTabla(){
