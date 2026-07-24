@@ -905,8 +905,11 @@ footer a:hover{color:rgba(94,234,212,.85)}
         <div style="font-size:12px;color:var(--ink2)">Amenazas y lesiones dolosas. Delitos "sin robo de por medio", más asociados a violencia social o doméstica que a inseguridad callejera.</div>
       </div>
     </div>
-    <div style="background:var(--bg);border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink3);line-height:1.6">
+    <div style="background:var(--bg);border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink3);line-height:1.6;margin-bottom:.875rem">
       <strong style="color:var(--ink2)">Qué NO mide este tablero:</strong> son delitos <em>denunciados</em> ante el SNIC, no una medición de inseguridad real ni percibida (para eso hacen falta encuestas de victimización, que no bajan a nivel municipio). Las categorías de bajo conteo absoluto (homicidios, robos agravados) pueden mostrar variaciones porcentuales grandes de un año a otro con apenas 2 o 3 hechos de diferencia — la tasa "cada 100.000 hab." normaliza por población, no por volumen de casos. <strong style="color:var(--ink2)">Fuente:</strong> SNIC — Ministerio de Seguridad de la Nación, año 2025.
+    </div>
+    <div style="background:#0369A10d;border:1px solid #0369A140;border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink2);line-height:1.6">
+      <strong style="color:#0369A1">🚗 Dato complementario: robo de autos (DNRPA)</strong> — a partir de los trámites de denuncia de robo/hurto y recupero del Registro Nacional de la Propiedad del Automotor (año 2025 completo), agregamos la <strong>tasa de robo de autos cada 100.000 hab.</strong> y el <strong>% de recupero</strong> por municipio. Es información complementaria: <strong>no está sumada al núcleo duro ni a los subíndices</strong>, porque se superpone parcialmente con la categoría "Robos" del SNIC (mide trámites registrales, no hechos policiales) y contarla dos veces distorsionaría la comparación.
     </div>
   </div>
 
@@ -951,6 +954,8 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <button class="pill on" onclick="setSegChartVar('violencia_grave',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#DC2626;margin-right:5px"></span>Violencia grave</button>
     <button class="pill" onclick="setSegChartVar('propiedad',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#D97706;margin-right:5px"></span>Delitos contra la propiedad</button>
     <button class="pill" onclick="setSegChartVar('conflictividad',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#7C3AED;margin-right:5px"></span>Conflictividad interpersonal</button>
+    <div class="sep"></div>
+    <button class="pill" onclick="setSegChartVar('dnrpa_autos',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#0369A1;margin-right:5px"></span>🚗 Robo de autos (DNRPA, complementario)</button>
   </div>
   <div class="cgrid g1" style="margin-bottom:1.5rem">
     <div class="cc"><div class="cc-t" id="seg-chart-title">Violencia grave cada 100.000 hab. — 24 partidos del Conurbano</div><div class="cc-c md"><div id="c-seg-nucleo" style="width:100%;height:100%"></div></div></div>
@@ -974,6 +979,8 @@ footer a:hover{color:rgba(94,234,212,.85)}
     <button class="pill" onclick="setMapVarSeg('17',this)">Robos agravados (les./muertes)</button>
     <button class="pill" onclick="setMapVarSeg('18',this)">Tent. robo agrav. (les./muertes)</button>
     <button class="pill" onclick="setMapVarSeg('19',this)">Hurtos</button>
+    <div class="sep"></div>
+    <button class="pill" onclick="setMapVarSeg('dnrpa_autos',this)" style="color:#0369A1"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#0369A1;margin-right:5px"></span>🚗 Robo de autos (DNRPA, complementario)</button>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 280px;gap:1.5rem;align-items:start">
@@ -1829,6 +1836,12 @@ const SEG_SUBGRUPOS = {
 };
 const SEG_SUBORDEN = ['violencia_grave','propiedad','conflictividad'];
 
+const DNRPA_COLOR = '#0369A1'; // azul, deliberadamente distinto de los rojos del núcleo duro
+function segAutos(m){ return m.seguridad_snic_2025?.dnrpa_autos_2025?.tasa_c100k ?? null; }
+function segAutosHechos(m){ return m.seguridad_snic_2025?.dnrpa_autos_2025?.hechos_robos ?? null; }
+function segAutosRecuperoPct(m){ return m.seguridad_snic_2025?.dnrpa_autos_2025?.tasa_recupero_pct ?? null; }
+function segAutosRecuperoHechos(m){ return m.seguridad_snic_2025?.dnrpa_autos_2025?.hechos_recuperos ?? null; }
+
 let segSort='total', segSortDir=-1;
 let zonaSeg='todos', searchTermSeg='', segPanelId=null;
 let segChartVar='violencia_grave';
@@ -1884,6 +1897,10 @@ function renderSeguridad(){
         <div class="tc-sub">Desglose por categoría</div>
         ${SEG_CODES.map(cod=>`<div class="tc-row">${SEG_BAJO_CONTEO.includes(cod)?'<span style="display:flex;align-items:center;gap:3px">'+SEG_LABELS_SHORT[cod]+'<span title="Conteo absoluto bajo: interpretar con cautela" style="color:var(--ink3);cursor:help">†</span></span>':`<span>${SEG_LABELS_SHORT[cod]}</span>`}<span>${fmtN(segTasa(m,cod))}</span></div>`).join('')}
         <div class="tc-foot">${fmtH(s.total_hechos_nucleo_duro)} hechos totales (9 categorías) · SNIC ${s.anio} · † conteo bajo</div>
+        ${s.dnrpa_autos_2025?`<div style="margin-top:.6rem;padding-top:.6rem;border-top:1px dashed var(--borde);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:10px;color:#0369A1;display:flex;align-items:center;gap:4px">🚗 Robo autos (DNRPA) <span title="Complementario, no sumado al núcleo duro" style="color:var(--ink3);cursor:help">ⓘ</span></span>
+          <span style="font-size:11px;font-weight:700;color:#0369A1">${fmtN(segAutos(m))} <span style="font-weight:400;color:var(--ink3)">· ${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'% recup.':'s/d'}</span></span>
+        </div>`:''}
       </div>`;
     }).join('') || `<div class="pend">Ningún municipio coincide con el filtro</div>`;
 
@@ -1891,11 +1908,18 @@ function renderSeguridad(){
   renderSegTabla();
 }
 
+const SEG_CHART_CFG = {
+  ...SEG_SUBGRUPOS,
+  dnrpa_autos: {l:'Robo de autos (DNRPA, complementario)', short:'Robo de autos', color:'#0369A1', light:'#EFF6FF'}
+};
+function segChartVal(m,key){ return key==='dnrpa_autos' ? segAutos(m) : segSub(m,key); }
+function segChartHechos(m,key){ return key==='dnrpa_autos' ? segAutosHechos(m) : segSubHechos(m,key); }
+
 function setSegChartVar(key,btn){
   segChartVar=key;
   document.querySelectorAll('#seg-chart-vars .pill').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  document.getElementById('seg-chart-title').textContent = SEG_SUBGRUPOS[key].l+' cada 100.000 hab. — 24 partidos del Conurbano';
+  document.getElementById('seg-chart-title').textContent = SEG_CHART_CFG[key].l+' cada 100.000 hab. — 24 partidos del Conurbano';
   renderSegChart(segFiltrada());
 }
 
@@ -1903,18 +1927,19 @@ function renderSegChart(lista){
   const el = document.getElementById('c-seg-nucleo');
   if(!el) return;
   if(!lista.length){ el.innerHTML = '<div class="pend">Ningún municipio coincide con el filtro</div>'; return; }
-  const g = SEG_SUBGRUPOS[segChartVar];
-  const ordenada = [...lista].sort((a,b)=>segSub(b,segChartVar)-segSub(a,segChartVar));
-  const max = Math.max(...ordenada.map(m=>segSub(m,segChartVar)));
+  const g = SEG_CHART_CFG[segChartVar];
+  const ordenada = [...lista].sort((a,b)=>(segChartVal(b,segChartVar)??0)-(segChartVal(a,segChartVar)??0));
+  const max = Math.max(...ordenada.map(m=>segChartVal(m,segChartVar)??0)) || 1;
   const items = ordenada.map(m=>{
-    const hechos = segSubHechos(m,segChartVar);
+    const hechos = segChartHechos(m,segChartVar);
+    const val = segChartVal(m,segChartVar);
     return {
       label: m.nombre.length>12 ? m.nombre.slice(0,11)+'…' : m.nombre,
-      val: segSub(m,segChartVar),
-      tooltip: m.nombre+': '+fmtN(segSub(m,segChartVar))+' c/100k hab. ('+fmtH(hechos)+' hechos)'
+      val: val,
+      tooltip: m.nombre+': '+fmtN(val)+' c/100k hab. ('+fmtH(hechos)+' hechos)'
     };
   });
-  svgBar('c-seg-nucleo', items, item=>lerpColor(g.light, g.color, item.val/max), v=>fmtN(Math.round(v)));
+  svgBar('c-seg-nucleo', items, item=>lerpColor(g.light, g.color, (item.val??0)/max), v=>fmtN(Math.round(v)));
 }
 
 function renderSegTabla(){
@@ -1923,13 +1948,17 @@ function renderSegTabla(){
     + `<th class="ts${segSort==='nombre'?' on':''}" onclick="sortSeg('nombre',this)">Municipio <span class="sa">↕</span></th>`
     + SEG_SUBORDEN.map(key=>`<th class="ts${segSort===key?' on':''}" onclick="sortSeg('${key}',this)" style="color:${SEG_SUBGRUPOS[key].color}">${SEG_SUBGRUPOS[key].short} <span class="sa">↕</span></th>`).join('')
     + SEG_CODES.map(cod=>`<th class="ts${segSort===cod?' on':''}" onclick="sortSeg('${cod}',this)">${SEG_LABELS_SHORT[cod]}${SEG_BAJO_CONTEO.includes(cod)?'†':''} <span class="sa">↕</span></th>`).join('')
-    + `<th class="ts${segSort==='total'?' on':''}" onclick="sortSeg('total',this)">Suma total (ref.) <span class="sa">↕</span></th>`;
+    + `<th class="ts${segSort==='total'?' on':''}" onclick="sortSeg('total',this)">Suma total (ref.) <span class="sa">↕</span></th>`
+    + `<th class="ts${segSort==='dnrpa_autos'?' on':''}" onclick="sortSeg('dnrpa_autos',this)" style="color:#0369A1;border-left:2px solid #0369A140" title="Complementario: no forma parte del núcleo duro">🚗 Robo autos (DNRPA) <span class="sa">↕</span></th>`
+    + `<th class="ts${segSort==='dnrpa_recupero'?' on':''}" onclick="sortSeg('dnrpa_recupero',this)" style="color:#0369A1" title="Complementario: % de autos robados que fueron recuperados">% recuperado <span class="sa">↕</span></th>`;
 
   const lista=segFiltrada();
   lista.sort((a,b)=>{
     let av,bv;
     if(segSort==='nombre'){av=a.nombre;bv=b.nombre;return segSortDir*av.localeCompare(bv);}
     else if(segSort==='total'){av=segTasaTotal(a);bv=segTasaTotal(b);}
+    else if(segSort==='dnrpa_autos'){av=segAutos(a);bv=segAutos(b);}
+    else if(segSort==='dnrpa_recupero'){av=segAutosRecuperoPct(a);bv=segAutosRecuperoPct(b);}
     else if(SEG_SUBGRUPOS[segSort]){av=segSub(a,segSort);bv=segSub(b,segSort);}
     else{av=segTasa(a,segSort);bv=segTasa(b,segSort);}
     return segSortDir*((av??0)-(bv??0));
@@ -1940,8 +1969,10 @@ function renderSegTabla(){
     return `<tr class="${sel}" onclick="openPanelSeg('${m.id}')"><td style="text-align:center;font-size:10px;font-weight:700;color:var(--mist)">${idx+1}</td><td class="mn">${m.nombre}</td>`
       + SEG_SUBORDEN.map(key=>`<td style="font-weight:700;color:${SEG_SUBGRUPOS[key].color}">${fmtN(segSub(m,key))}</td>`).join('')
       + SEG_CODES.map(cod=>`<td>${fmtN(segTasa(m,cod))}</td>`).join('')
-      + `<td style="color:var(--ink3)">${fmtN(segTasaTotal(m))}</td></tr>`;
-  }).join('') || `<tr><td colspan="15" style="text-align:center;color:var(--ink3);padding:1rem">Ningún municipio coincide con el filtro</td></tr>`;
+      + `<td style="color:var(--ink3)">${fmtN(segTasaTotal(m))}</td>`
+      + `<td style="color:#0369A1;font-weight:600;border-left:2px solid #0369A140">${fmtN(segAutos(m))}</td>`
+      + `<td style="color:#0369A1">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}</td></tr>`;
+  }).join('') || `<tr><td colspan="17" style="text-align:center;color:var(--ink3);padding:1rem">Ningún municipio coincide con el filtro</td></tr>`;
 }
 
 function sortSeg(key,th){
@@ -1982,7 +2013,21 @@ function openPanelSeg(id){
       </div>
     </div>`).join('')}
   </div>
-  <div style="font-size:10px;color:var(--ink3);margin-top:1rem">† conteo bajo, interpretar con cautela · Fuente: ${s.fuente} · Año ${s.anio}</div>`;
+  <div style="font-size:10px;color:var(--ink3);margin-top:1rem">† conteo bajo, interpretar con cautela · Fuente: ${s.fuente} · Año ${s.anio}</div>
+  ${s.dnrpa_autos_2025?`<div style="margin-top:1.25rem;padding-top:1rem;border-top:1px dashed var(--borde)">
+    <div style="font-size:10px;color:#0369A1;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">🚗 Robo de autos (DNRPA) — dato complementario, no incluido en el núcleo duro</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem">
+      <div style="background:#0369A10d;border:1px solid #0369A140;border-radius:var(--r);padding:.75rem .875rem">
+        <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">Tasa c/100k hab.</div>
+        <div style="font-size:18px;font-weight:800;color:var(--ink)">${fmtN(segAutos(m))}<span style="font-size:10px;font-weight:400;color:var(--ink3)"> · ${fmtH(segAutosHechos(m))} denuncias</span></div>
+      </div>
+      <div style="background:#0369A10d;border:1px solid #0369A140;border-radius:var(--r);padding:.75rem .875rem">
+        <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">% recuperados</div>
+        <div style="font-size:18px;font-weight:800;color:var(--ink)">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}<span style="font-size:10px;font-weight:400;color:var(--ink3)"> · ${fmtH(segAutosRecuperoHechos(m))} recuperos</span></div>
+      </div>
+    </div>
+    <div style="font-size:9.5px;color:var(--ink3);margin-top:.5rem">${s.dnrpa_autos_2025.fuente}</div>
+  </div>`:''}`;
   document.getElementById('panel-seg').classList.add('open');
   renderSegTabla();
   document.getElementById('panel-seg').scrollIntoView({behavior:'smooth',block:'nearest'});
@@ -2028,8 +2073,15 @@ function ejecutarComparacionSeg(){
     + totVals.map(v=>`<td style="padding:8px 10px;text-align:center;font-size:12px;border-left:1px solid var(--borde);color:var(--ink3)">${fmtN(v)}</td>`).join('')
     + `</tr>`;
 
+  const dnrpaRow = `<tr style="background:#0369A10d;border-top:2px solid #0369A140"><td style="font-weight:700;color:#0369A1;padding:8px 10px;font-size:11px">🚗 Robo de autos (DNRPA, complementario)</td>`
+    + munis.map(m=>`<td style="padding:8px 10px;text-align:center;font-size:12px;border-left:1px solid var(--borde);color:#0369A1;font-weight:700">${fmtN(segAutos(m))}</td>`).join('')
+    + `</tr>`;
+  const recupRow = `<tr style="background:#0369A10d"><td style="font-weight:700;color:#0369A1;padding:8px 10px;font-size:11px">% de autos recuperados</td>`
+    + munis.map(m=>`<td style="padding:8px 10px;text-align:center;font-size:12px;border-left:1px solid var(--borde);color:#0369A1">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}</td>`).join('')
+    + `</tr>`;
+
   document.getElementById('comp-content-seg').innerHTML = `<div style="font-size:11px;color:var(--ink3);margin-bottom:.75rem">Tasas cada 100.000 hab. · <span style="color:#059669;font-weight:700">✓ verde</span> = mejor situación relativa (menor tasa) en cada fila · † conteo bajo, interpretar con cautela · SNIC 2025</div>
-  <table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:10px;font-size:11px;color:var(--ink3)">Categoría</th>${headers}</tr></thead><tbody>${subRows}${rows}${totRow}</tbody></table>`;
+  <table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:10px;font-size:11px;color:var(--ink3)">Categoría</th>${headers}</tr></thead><tbody>${subRows}${rows}${totRow}${dnrpaRow}${recupRow}</tbody></table>`;
 
   const cr = document.getElementById('comp-result-seg');
   cr.style.display='block';
@@ -2053,6 +2105,8 @@ function imprimirComparacionSeg(){
     return `<tr><td style="font-weight:600;color:#444;padding:7px 10px;background:#f8f8f8;font-size:11px">${SEG_LABELS[cod]}${SEG_BAJO_CONTEO.includes(cod)?' †':''}</td>${vals.map(v=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee">${v}</td>`).join('')}</tr>`;
   }).join('');
   const totRow = `<tr><td style="font-weight:600;color:#999;padding:7px 10px;background:#f8f8f8;font-size:11px">Suma total (referencia)</td>${munis.map(m=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee;color:#999">${fmtN(segTasaTotal(m))}</td>`).join('')}</tr>`;
+  const dnrpaRow = `<tr><td style="font-weight:800;color:#0369A1;padding:7px 10px;background:#f0f7ff;font-size:11px">🚗 Robo de autos (DNRPA, complementario)</td>${munis.map(m=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee;color:#0369A1;font-weight:800">${fmtN(segAutos(m))}</td>`).join('')}</tr>`;
+  const recupRow = `<tr><td style="font-weight:600;color:#0369A1;padding:7px 10px;background:#f0f7ff;font-size:11px">% de autos recuperados</td>${munis.map(m=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee;color:#0369A1">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}</td>`).join('')}</tr>`;
 
   const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
 <title>Comparación Seguridad · Observatorio Fiscal del Conurbano</title>
@@ -2070,9 +2124,9 @@ function imprimirComparacionSeg(){
 <div class="sub">Observatorio Fiscal del Conurbano · Franco Iuliani · franco.d.iuliani@gmail.com · ${new Date().toLocaleDateString('es-AR')}</div>
 <table>
   <thead><tr><th style="text-align:left;padding:10px;background:#f8f8f8;font-size:11px;color:#666">Categoría (tasa c/100k hab.)</th>${headers}</tr></thead>
-  <tbody>${subRows}${rows}${totRow}</tbody>
+  <tbody>${subRows}${rows}${totRow}${dnrpaRow}${recupRow}</tbody>
 </table>
-<footer>Fuente: SNIC (Sistema Nacional de Información Criminal) — Ministerio de Seguridad de la Nación, año 2025. Tasas cada 100.000 habitantes.</footer>
+<footer>Fuente: SNIC (Sistema Nacional de Información Criminal) — Ministerio de Seguridad de la Nación, año 2025. Robo de autos: DNRPA, año 2025 (dato complementario, no incluido en las sumas del núcleo duro). Tasas cada 100.000 habitantes.</footer>
 </body></html>`;
 
   const blob = new Blob([html], {type:'text/html'});
@@ -2090,7 +2144,9 @@ SEG_CODES.forEach(cod=>{
 SEG_SUBORDEN.forEach(key=>{
   MAP_VARS_SEG[key] = { l:SEG_SUBGRUPOS[key].l, fn:m=>segSub(m,key), fmt:v=>fmtN(v) };
 });
+MAP_VARS_SEG['dnrpa_autos'] = { l:'Robo de autos (DNRPA, complementario)', fn:m=>segAutos(m), fmt:v=>fmtN(v) };
 const SEG_COLOR_LOW = '#FEF1F1', SEG_COLOR_HIGH = '#7F1D1D'; // monocromático en rojos: claro → oscuro
+const DNRPA_COLOR_LOW = '#EFF6FF', DNRPA_COLOR_HIGH = '#1E3A8A'; // monocromático en azules, para diferenciarlo visualmente del núcleo duro
 
 function setMapVarSeg(v,btn){
   mapVarSeg=v;
@@ -2102,6 +2158,8 @@ function setMapVarSeg(v,btn){
 function renderMapaSeg(){
   if(!DATA.length) return;
   const cfg = MAP_VARS_SEG[mapVarSeg];
+  const esAutos = mapVarSeg==='dnrpa_autos';
+  const colorLow = esAutos?DNRPA_COLOR_LOW:SEG_COLOR_LOW, colorHigh = esAutos?DNRPA_COLOR_HIGH:SEG_COLOR_HIGH;
   const vals = DATA.map(m=>cfg.fn(m)).filter(v=>v!=null);
   if(!vals.length) return;
   const min=Math.min(...vals), max=Math.max(...vals);
@@ -2112,14 +2170,14 @@ function renderMapaSeg(){
     if(!el) return;
     const v = cfg.fn(m);
     if(v==null){ el.style.fill='#334155'; el.style.stroke='#0A0D14'; return; }
-    el.style.fill = lerpColor(SEG_COLOR_LOW, SEG_COLOR_HIGH, (v-min)/range);
+    el.style.fill = lerpColor(colorLow, colorHigh, (v-min)/range);
     el.style.stroke = '#0A0D14';
     el.style.strokeWidth = '0.8';
     el.setAttribute('data-val', v);
   });
 
   document.getElementById('seg-legend-title').textContent = cfg.l;
-  document.getElementById('seg-legend-bar').style.background = `linear-gradient(90deg,${SEG_COLOR_LOW},${SEG_COLOR_HIGH})`;
+  document.getElementById('seg-legend-bar').style.background = `linear-gradient(90deg,${colorLow},${colorHigh})`;
   document.getElementById('seg-legend-min').textContent = cfg.fmt(min);
   document.getElementById('seg-legend-max').textContent = cfg.fmt(max);
 }
@@ -2128,6 +2186,11 @@ function mapHoverSeg(e,id){
   const m = DATA.find(x=>x.id===id);
   if(!m || !m.seguridad_snic_2025){ showTip(e, (m?m.nombre:id)+': sin dato'); return; }
   const s = m.seguridad_snic_2025;
+  if(mapVarSeg==='dnrpa_autos'){
+    const hechos = segAutosHechos(m), tasa = segAutos(m), recup = segAutosRecuperoPct(m);
+    showTip(e, `${m.nombre}: ${fmtH(hechos)} robos de autos · ${fmtN(tasa)} c/100k hab. · ${recup!=null?fmtN(recup)+'% recuperados':'s/d recupero'}`);
+    return;
+  }
   let hechos, tasa;
   if(mapVarSeg==='total'){ hechos=s.total_hechos_nucleo_duro; tasa=s.tasa_nucleo_duro_c100k; }
   else if(SEG_SUBGRUPOS[mapVarSeg]){ hechos=segSubHechos(m,mapVarSeg); tasa=segSub(m,mapVarSeg); }
@@ -2165,6 +2228,16 @@ function mapClickSeg(id){
       </div>`).join('')}
     </div>
     <div style="font-size:10px;color:var(--ink3);margin-top:.75rem">${fmtH(s.total_hechos_nucleo_duro)} hechos totales en 2025 (suma de referencia) · † conteo bajo, interpretar con cautela · Fuente: ${s.fuente}</div>
+    ${s.dnrpa_autos_2025?`<div style="margin-top:.875rem;padding-top:.875rem;border-top:1px dashed var(--borde)">
+      <div style="font-size:10px;color:#0369A1;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem">🚗 Robo de autos (DNRPA, complementario)</div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0">
+        <span style="color:var(--ink3)">Tasa c/100k hab.</span><span style="color:var(--ink);font-weight:700">${fmtN(segAutos(m))}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0">
+        <span style="color:var(--ink3)">% recuperados</span><span style="color:var(--ink);font-weight:700">${segAutosRecuperoPct(m)!=null?fmtN(segAutosRecuperoPct(m))+'%':'s/d'}</span>
+      </div>
+      <div style="font-size:9.5px;color:var(--ink3);margin-top:.4rem">${fmtH(segAutosHechos(m))} denuncias · ${fmtH(segAutosRecuperoHechos(m))} recuperos en 2025 · no incluido en el núcleo duro</div>
+    </div>`:''}
   `;
 }
 
