@@ -140,7 +140,36 @@
           "19": 341.0
         },
         "total_hechos_nucleo_duro": 12500,
-        "tasa_nucleo_duro_c100k": 2176.1
+        "tasa_nucleo_duro_c100k": 2176.1,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 423,
+            "tasa_c100k": 73.6
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 6244,
+            "tasa_c100k": 1087.0
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 5833,
+            "tasa_c100k": 1015.5
+          }
+        }
       }
     },
     {
@@ -274,7 +303,36 @@
           "19": 512.6
         },
         "total_hechos_nucleo_duro": 8480,
-        "tasa_nucleo_duro_c100k": 2297.3
+        "tasa_nucleo_duro_c100k": 2297.3,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 183,
+            "tasa_c100k": 49.6
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 4888,
+            "tasa_c100k": 1324.2
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 3409,
+            "tasa_c100k": 923.5
+          }
+        }
       }
     },
     {
@@ -408,7 +466,36 @@
           "19": 350.5
         },
         "total_hechos_nucleo_duro": 7300,
-        "tasa_nucleo_duro_c100k": 1969.7
+        "tasa_nucleo_duro_c100k": 1969.7,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 217,
+            "tasa_c100k": 58.6
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 3443,
+            "tasa_c100k": 929.0
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 3640,
+            "tasa_c100k": 982.2
+          }
+        }
       }
     },
     {
@@ -539,7 +626,36 @@
           "19": 419.6
         },
         "total_hechos_nucleo_duro": 7837,
-        "tasa_nucleo_duro_c100k": 2453.9
+        "tasa_nucleo_duro_c100k": 2453.9,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 264,
+            "tasa_c100k": 82.7
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 3914,
+            "tasa_c100k": 1225.5
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 3659,
+            "tasa_c100k": 1145.7
+          }
+        }
       }
     },
     {
@@ -673,7 +789,36 @@
           "19": 638.2
         },
         "total_hechos_nucleo_duro": 5036,
-        "tasa_nucleo_duro_c100k": 2569.1
+        "tasa_nucleo_duro_c100k": 2569.1,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 80,
+            "tasa_c100k": 40.8
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 2211,
+            "tasa_c100k": 1127.9
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 2745,
+            "tasa_c100k": 1400.3
+          }
+        }
       }
     },
     {
@@ -810,7 +955,36 @@
           "19": 268.1
         },
         "total_hechos_nucleo_duro": 9099,
-        "tasa_nucleo_duro_c100k": 1919.0
+        "tasa_nucleo_duro_c100k": 1919.0,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 282,
+            "tasa_c100k": 59.5
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 3383,
+            "tasa_c100k": 713.5
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 5434,
+            "tasa_c100k": 1146.1
+          }
+        }
       }
     },
     {
@@ -941,7 +1115,36 @@
           "19": 264.6
         },
         "total_hechos_nucleo_duro": 2842,
-        "tasa_nucleo_duro_c100k": 1531.5
+        "tasa_nucleo_duro_c100k": 1531.5,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 79,
+            "tasa_c100k": 42.6
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 1455,
+            "tasa_c100k": 784.1
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 1308,
+            "tasa_c100k": 704.9
+          }
+        }
       }
     },
     {
@@ -1075,7 +1278,36 @@
           "19": 571.1
         },
         "total_hechos_nucleo_duro": 3683,
-        "tasa_nucleo_duro_c100k": 2032.1
+        "tasa_nucleo_duro_c100k": 2032.1,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 114,
+            "tasa_c100k": 62.9
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 2465,
+            "tasa_c100k": 1360.1
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 1104,
+            "tasa_c100k": 609.1
+          }
+        }
       }
     },
     {
@@ -1209,7 +1441,36 @@
           "19": 405.6
         },
         "total_hechos_nucleo_duro": 6942,
-        "tasa_nucleo_duro_c100k": 2493.9
+        "tasa_nucleo_duro_c100k": 2493.9,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 245,
+            "tasa_c100k": 88.0
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 3846,
+            "tasa_c100k": 1381.7
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 2851,
+            "tasa_c100k": 1024.2
+          }
+        }
       }
     },
     {
@@ -1346,7 +1607,36 @@
           "19": 410.6
         },
         "total_hechos_nucleo_duro": 33479,
-        "tasa_nucleo_duro_c100k": 1821.1
+        "tasa_nucleo_duro_c100k": 1821.1,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 1020,
+            "tasa_c100k": 55.5
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 24144,
+            "tasa_c100k": 1313.3
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 8315,
+            "tasa_c100k": 452.3
+          }
+        }
       }
     },
     {
@@ -1479,7 +1769,36 @@
           "19": 585.1
         },
         "total_hechos_nucleo_duro": 12131,
-        "tasa_nucleo_duro_c100k": 2629.9
+        "tasa_nucleo_duro_c100k": 2629.9,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 640,
+            "tasa_c100k": 138.7
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 7076,
+            "tasa_c100k": 1534.0
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 4415,
+            "tasa_c100k": 957.1
+          }
+        }
       }
     },
     {
@@ -1610,7 +1929,36 @@
           "19": 446.5
         },
         "total_hechos_nucleo_duro": 14245,
-        "tasa_nucleo_duro_c100k": 2100.0
+        "tasa_nucleo_duro_c100k": 2100.0,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 500,
+            "tasa_c100k": 73.7
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 8082,
+            "tasa_c100k": 1191.5
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 5663,
+            "tasa_c100k": 834.9
+          }
+        }
       }
     },
     {
@@ -1747,7 +2095,36 @@
           "19": 336.0
         },
         "total_hechos_nucleo_duro": 7044,
-        "tasa_nucleo_duro_c100k": 1840.3
+        "tasa_nucleo_duro_c100k": 1840.3,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 252,
+            "tasa_c100k": 65.8
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 3926,
+            "tasa_c100k": 1025.7
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 2866,
+            "tasa_c100k": 748.8
+          }
+        }
       }
     },
     {
@@ -1878,7 +2255,36 @@
           "19": 271.9
         },
         "total_hechos_nucleo_duro": 9492,
-        "tasa_nucleo_duro_c100k": 1629.6
+        "tasa_nucleo_duro_c100k": 1629.6,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 472,
+            "tasa_c100k": 81.0
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 5232,
+            "tasa_c100k": 898.2
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 3788,
+            "tasa_c100k": 650.3
+          }
+        }
       }
     },
     {
@@ -2082,7 +2488,36 @@
           "19": 276.3
         },
         "total_hechos_nucleo_duro": 10446,
-        "tasa_nucleo_duro_c100k": 1811.6
+        "tasa_nucleo_duro_c100k": 1811.6,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 332,
+            "tasa_c100k": 57.6
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 5081,
+            "tasa_c100k": 881.2
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 5033,
+            "tasa_c100k": 872.8
+          }
+        }
       }
     },
     {
@@ -2255,7 +2690,36 @@
           "19": 694.6
         },
         "total_hechos_nucleo_duro": 7884,
-        "tasa_nucleo_duro_c100k": 2255.5
+        "tasa_nucleo_duro_c100k": 2255.5,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 126,
+            "tasa_c100k": 36.0
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 6081,
+            "tasa_c100k": 1739.7
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 1677,
+            "tasa_c100k": 479.8
+          }
+        }
       }
     },
     {
@@ -2389,7 +2853,36 @@
           "19": 351.7
         },
         "total_hechos_nucleo_duro": 12699,
-        "tasa_nucleo_duro_c100k": 1981.4
+        "tasa_nucleo_duro_c100k": 1981.4,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 644,
+            "tasa_c100k": 100.5
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 7924,
+            "tasa_c100k": 1236.4
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 4131,
+            "tasa_c100k": 644.6
+          }
+        }
       }
     },
     {
@@ -2523,7 +3016,36 @@
           "19": 323.5
         },
         "total_hechos_nucleo_duro": 2887,
-        "tasa_nucleo_duro_c100k": 1650.3
+        "tasa_nucleo_duro_c100k": 1650.3,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 58,
+            "tasa_c100k": 33.2
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 1342,
+            "tasa_c100k": 767.1
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 1487,
+            "tasa_c100k": 850.0
+          }
+        }
       }
     },
     {
@@ -2656,7 +3178,36 @@
           "19": 501.0
         },
         "total_hechos_nucleo_duro": 4576,
-        "tasa_nucleo_duro_c100k": 1547.9
+        "tasa_nucleo_duro_c100k": 1547.9,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 98,
+            "tasa_c100k": 33.1
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 3092,
+            "tasa_c100k": 1045.9
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 1386,
+            "tasa_c100k": 468.8
+          }
+        }
       }
     },
     {
@@ -2802,7 +3353,36 @@
           "19": 575.2
         },
         "total_hechos_nucleo_duro": 10384,
-        "tasa_nucleo_duro_c100k": 2350.4
+        "tasa_nucleo_duro_c100k": 2350.4,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 280,
+            "tasa_c100k": 63.4
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 6804,
+            "tasa_c100k": 1540.1
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 3300,
+            "tasa_c100k": 747.0
+          }
+        }
       }
     },
     {
@@ -2929,7 +3509,36 @@
           "19": 332.6
         },
         "total_hechos_nucleo_duro": 4655,
-        "tasa_nucleo_duro_c100k": 1468.9
+        "tasa_nucleo_duro_c100k": 1468.9,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 79,
+            "tasa_c100k": 24.9
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 2004,
+            "tasa_c100k": 632.4
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 2572,
+            "tasa_c100k": 811.6
+          }
+        }
       }
     },
     {
@@ -3066,7 +3675,36 @@
           "19": 392.2
         },
         "total_hechos_nucleo_duro": 6970,
-        "tasa_nucleo_duro_c100k": 1643.9
+        "tasa_nucleo_duro_c100k": 1643.9,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 119,
+            "tasa_c100k": 28.1
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 3237,
+            "tasa_c100k": 763.4
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 3614,
+            "tasa_c100k": 852.4
+          }
+        }
       }
     },
     {
@@ -3259,7 +3897,36 @@
           "19": 466.7
         },
         "total_hechos_nucleo_duro": 7027,
-        "tasa_nucleo_duro_c100k": 1908.7
+        "tasa_nucleo_duro_c100k": 1908.7,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 130,
+            "tasa_c100k": 35.3
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 4796,
+            "tasa_c100k": 1302.7
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 2101,
+            "tasa_c100k": 570.7
+          }
+        }
       }
     },
     {
@@ -3392,7 +4059,36 @@
           "19": 394.5
         },
         "total_hechos_nucleo_duro": 3139,
-        "tasa_nucleo_duro_c100k": 1141.4
+        "tasa_nucleo_duro_c100k": 1141.4,
+        "subindices": {
+          "violencia_grave": {
+            "codigos": [
+              "1",
+              "2",
+              "17",
+              "18"
+            ],
+            "hechos": 56,
+            "tasa_c100k": 20.4
+          },
+          "propiedad": {
+            "codigos": [
+              "15",
+              "16",
+              "19"
+            ],
+            "hechos": 2148,
+            "tasa_c100k": 781.0
+          },
+          "conflictividad": {
+            "codigos": [
+              "13",
+              "5"
+            ],
+            "hechos": 935,
+            "tasa_c100k": 340.0
+          }
+        }
       }
     }
   ]
