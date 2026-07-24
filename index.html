@@ -1039,7 +1039,7 @@ footer a:hover{color:#fff}
   </div>
 
   <div class="sh" style="margin-top:2rem"><span class="sh-t">Tabla completa</span><span class="sh-n">Tasas cada 100.000 hab. por categoría — ordenable por columna · clic en una fila para ver el detalle</span></div>
-  <div class="panel" id="panel-seg"><div class="ph"><div><div class="ph-t" id="p-title-seg"></div><div class="ph-s" id="p-sub-seg"></div></div><div style="display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap"><button class="p-close" onclick="descargarInformeSegWord(segPanelId)">↓ WORD</button><button class="p-close" onclick="descargarInformeSegExcel(segPanelId)">↓ EXCEL</button><button class="p-close" onclick="closePanelSeg()">✕ CERRAR</button></div></div><div class="pb" id="p-body-seg"></div></div>
+  <div class="panel" id="panel-seg"><div class="ph"><div><div class="ph-t" id="p-title-seg"></div><div class="ph-s" id="p-sub-seg"></div></div><div style="display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap"><button class="p-close" onclick="descargarInformeSegPDF(segPanelId)">↓ PDF</button><button class="p-close" onclick="descargarInformeSegExcel(segPanelId)">↓ EXCEL</button><button class="p-close" onclick="closePanelSeg()">✕ CERRAR</button></div></div><div class="pb" id="p-body-seg"></div></div>
   <div class="tw">
     <table>
       <thead>
@@ -2018,7 +2018,7 @@ function closePanelSeg(){
 }
 
 // ── DESCARGA DE INFORME POR MUNICIPIO (SEGURIDAD) ──────────
-function descargarInformeSegWord(id){
+function descargarInformeSegPDF(id){
   const m = DATA.find(x=>x.id===id);
   const s = m?.seguridad_snic_2025;
   if(!m || !s){ alert('Elegí un municipio en la tabla antes de descargar el informe.'); return; }
@@ -2031,16 +2031,19 @@ function descargarInformeSegWord(id){
   };
   const filaCod = cod=>`<tr><td style="padding:5px 10px;border:1px solid #DCD6C6">${SEG_LABELS[cod]}${SEG_BAJO_CONTEO.includes(cod)?' †':''}</td><td style="padding:5px 10px;border:1px solid #DCD6C6;text-align:right">${fmtN(segTasa(m,cod))}</td><td style="padding:5px 10px;border:1px solid #DCD6C6;text-align:right;color:#6B6860">${fmtH(s.hechos?.[cod])}</td></tr>`;
 
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+  <title>Informe de seguridad — ${m.nombre} · Observatorio Fiscal del Conurbano</title>
   <style>
-    body{font-family:Georgia,'Times New Roman',serif;color:#1A1815;font-size:11pt;line-height:1.5}
-    h1{font-size:18pt;font-weight:700;margin:0 0 4px}
-    .sub{font-family:Arial,sans-serif;font-size:9pt;color:#6B6860;margin-bottom:22px}
-    h2{font-family:Arial,sans-serif;font-size:11pt;text-transform:uppercase;letter-spacing:1px;color:#55524A;border-bottom:1px solid #DCD6C6;padding-bottom:4px;margin:22px 0 10px}
-    table{border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:10pt}
+    *{box-sizing:border-box}
+    body{font-family:Georgia,'Times New Roman',serif;color:#1A1815;font-size:12pt;line-height:1.5;padding:32px;max-width:820px;margin:0 auto}
+    h1{font-size:20pt;font-weight:700;margin:0 0 4px}
+    .sub{font-family:Arial,sans-serif;font-size:9.5pt;color:#6B6860;margin-bottom:24px}
+    h2{font-family:Arial,sans-serif;font-size:11pt;text-transform:uppercase;letter-spacing:1px;color:#55524A;border-bottom:1px solid #DCD6C6;padding-bottom:4px;margin:24px 0 10px}
+    table{border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:10.5pt}
     th{background:#1A1815;color:#F5F2EB;padding:6px 10px;text-align:left;font-size:9pt;text-transform:uppercase;letter-spacing:.5px}
     td{font-family:Arial,sans-serif}
     footer{font-family:Arial,sans-serif;font-size:8pt;color:#9A9484;margin-top:26px;border-top:1px solid #DCD6C6;padding-top:10px}
+    @media print{body{padding:12px}}
   </style></head><body>
   <h1>Informe de seguridad ciudadana — ${m.nombre}</h1>
   <div class="sub">Observatorio Fiscal del Conurbano · Zona ${ZONA[m.zona]} · Generado el ${fecha}</div>
@@ -2071,13 +2074,11 @@ function descargarInformeSegWord(id){
   <footer>Fuente: ${s.fuente}${da?' · '+da.fuente:''}. Tasas cada 100.000 habitantes, año 2025. Observatorio Fiscal del Conurbano — Franco Iuliani.</footer>
   </body></html>`;
 
-  const blob = new Blob(['\ufeff', html], {type:'application/msword'});
+  const blob = new Blob([html], {type:'text/html'});
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `seguridad-${id}-2025.doc`;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  const win = window.open(url, '_blank');
+  if(win) setTimeout(()=>win.print(), 700);
+  setTimeout(()=>URL.revokeObjectURL(url), 3000);
 }
 
 function descargarInformeSegExcel(id){
@@ -2306,7 +2307,7 @@ function mapClickSeg(id){
       <div style="font-size:15px;font-weight:800;color:var(--ink)">${m.nombre}</div>
       <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center"><span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span></div>
       <div style="margin-top:.6rem;display:flex;gap:6px">
-        <button onclick="descargarInformeSegWord('${id}')" style="flex:1;background:transparent;border:1px solid var(--borde);color:var(--ink2);font-size:9.5px;font-weight:700;padding:5px 8px;cursor:pointer;font-family:'Inter',sans-serif">↓ WORD</button>
+        <button onclick="descargarInformeSegPDF('${id}')" style="flex:1;background:transparent;border:1px solid var(--borde);color:var(--ink2);font-size:9.5px;font-weight:700;padding:5px 8px;cursor:pointer;font-family:'Inter',sans-serif">↓ PDF</button>
         <button onclick="descargarInformeSegExcel('${id}')" style="flex:1;background:transparent;border:1px solid var(--borde);color:var(--ink2);font-size:9.5px;font-weight:700;padding:5px 8px;cursor:pointer;font-family:'Inter',sans-serif">↓ EXCEL</button>
       </div>
     </div>
