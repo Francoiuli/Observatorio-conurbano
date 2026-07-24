@@ -884,15 +884,29 @@ footer a:hover{color:rgba(94,234,212,.85)}
 
 <!-- SEGURIDAD -->
 <div class="wrap" id="v-seguridad">
-  <div class="sh"><span class="sh-t">Seguridad ciudadana — SNIC 2025</span><span class="sh-n">Núcleo duro de 9 delitos · Tasa cada 100.000 habitantes · 24 partidos del Conurbano</span></div>
+  <div class="sh"><span class="sh-t">Seguridad ciudadana — SNIC 2025</span><span class="sh-n">3 dimensiones · 9 categorías de delito · Tasa cada 100.000 habitantes · 24 partidos del Conurbano</span></div>
 
   <div style="background:var(--card);border-radius:var(--r2);padding:1.25rem 1.5rem;box-shadow:var(--sh);margin-bottom:1.25rem;border-left:4px solid #DC2626">
-    <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">🚨 ¿Qué es el "núcleo duro" de delitos?</div>
+    <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:.5rem">🚨 Metodología: 3 dimensiones en vez de un solo número</div>
     <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:.75rem">
-      Son las <strong>9 categorías del SNIC</strong> (Sistema Nacional de Información Criminal) más asociadas a la inseguridad percibida por los vecinos: homicidios dolosos (consumados y tentativa), lesiones dolosas, amenazas, robos y sus tentativas (incluyendo los agravados por lesiones o muertes) y hurtos.
+      Sumar directamente las tasas de 9 delitos muy distintos en volumen sesga el resultado hacia el delito más frecuente (robos y hurtos), tapando la señal de los delitos graves pero poco frecuentes (homicidios). Por eso separamos el "núcleo duro" del SNIC en <strong>3 dimensiones</strong> que no se mezclan entre sí:
     </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.6rem;margin-bottom:.875rem">
+      <div style="background:var(--bg2);border-radius:var(--r);padding:.75rem;border-left:3px solid #DC2626">
+        <div style="font-size:11px;font-weight:700;color:#DC2626;margin-bottom:.3rem">🔴 Violencia grave</div>
+        <div style="font-size:12px;color:var(--ink2)">Homicidios dolosos (consumados y tentativa) + robos agravados por lesión o muerte (consumados y tentativa). El indicador más confiable, por su baja "cifra negra" — pero también el de menor volumen, así que interpretalo con cautela donde los conteos sean bajos.</div>
+      </div>
+      <div style="background:var(--bg2);border-radius:var(--r);padding:.75rem;border-left:3px solid #D97706">
+        <div style="font-size:11px;font-weight:700;color:#D97706;margin-bottom:.3rem">🟠 Delitos contra la propiedad</div>
+        <div style="font-size:12px;color:var(--ink2)">Robos, tentativas de robo y hurtos (sin considerar los agravados). El grupo de mayor volumen, más sensible a variaciones en la tasa de denuncia (seguros, trámites) que a la criminalidad real.</div>
+      </div>
+      <div style="background:var(--bg2);border-radius:var(--r);padding:.75rem;border-left:3px solid #7C3AED">
+        <div style="font-size:11px;font-weight:700;color:#7C3AED;margin-bottom:.3rem">🟣 Conflictividad interpersonal</div>
+        <div style="font-size:12px;color:var(--ink2)">Amenazas y lesiones dolosas. Delitos "sin robo de por medio", más asociados a violencia social o doméstica que a inseguridad callejera.</div>
+      </div>
+    </div>
     <div style="background:var(--bg);border-radius:var(--r);padding:.875rem 1rem;font-size:12px;color:var(--ink3);line-height:1.6">
-      <strong style="color:var(--ink2)">¿Por qué "cada 100.000 habitantes"?</strong> Permite comparar municipios de distinto tamaño: 3.000 robos en La Matanza (1,8 millones de hab.) no es comparable a 3.000 robos en San Fernando (175.000 hab.). La tasa normaliza esa diferencia. <strong style="color:var(--ink2)">Fuente:</strong> SNIC — Ministerio de Seguridad de la Nación, año 2025.
+      <strong style="color:var(--ink2)">Qué NO mide este tablero:</strong> son delitos <em>denunciados</em> ante el SNIC, no una medición de inseguridad real ni percibida (para eso hacen falta encuestas de victimización, que no bajan a nivel municipio). Las categorías de bajo conteo absoluto (homicidios, robos agravados) pueden mostrar variaciones porcentuales grandes de un año a otro con apenas 2 o 3 hechos de diferencia — la tasa "cada 100.000 hab." normaliza por población, no por volumen de casos. <strong style="color:var(--ink2)">Fuente:</strong> SNIC — Ministerio de Seguridad de la Nación, año 2025.
     </div>
   </div>
 
@@ -932,16 +946,25 @@ footer a:hover{color:rgba(94,234,212,.85)}
   <div class="sh"><span class="sh-t">Comparativa por municipio</span><span class="sh-n">Tasa del núcleo duro (los 9 delitos combinados) cada 100.000 hab.</span></div>
   <div class="tgrid" id="seg-cards"></div>
 
-  <div class="sh" style="margin-top:2rem"><span class="sh-t">Gráfico comparativo</span><span class="sh-n">Tasa núcleo duro cada 100.000 hab. · de mayor a menor</span></div>
+  <div class="sh" style="margin-top:2rem"><span class="sh-t">Gráfico comparativo</span><span class="sh-n">Elegí una dimensión · de mayor a menor tasa cada 100.000 hab.</span></div>
+  <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem" id="seg-chart-vars">
+    <button class="pill on" onclick="setSegChartVar('violencia_grave',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#DC2626;margin-right:5px"></span>Violencia grave</button>
+    <button class="pill" onclick="setSegChartVar('propiedad',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#D97706;margin-right:5px"></span>Delitos contra la propiedad</button>
+    <button class="pill" onclick="setSegChartVar('conflictividad',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#7C3AED;margin-right:5px"></span>Conflictividad interpersonal</button>
+  </div>
   <div class="cgrid g1" style="margin-bottom:1.5rem">
-    <div class="cc"><div class="cc-t">Tasa núcleo duro cada 100.000 hab. — 24 partidos del Conurbano</div><div class="cc-c md"><div id="c-seg-nucleo" style="width:100%;height:100%"></div></div></div>
+    <div class="cc"><div class="cc-t" id="seg-chart-title">Violencia grave cada 100.000 hab. — 24 partidos del Conurbano</div><div class="cc-c md"><div id="c-seg-nucleo" style="width:100%;height:100%"></div></div></div>
   </div>
 
   <div class="sh" style="margin-top:2rem"><span class="sh-t">Mapa por tipo de delito</span><span class="sh-n">Elegí un delito · a mayor intensidad de color, mayor tasa cada 100.000 hab.</span></div>
 
   <!-- Selector de delito -->
   <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.25rem" id="seg-map-vars">
-    <button class="pill on" onclick="setMapVarSeg('total',this)">Núcleo duro (total)</button>
+    <button class="pill on" onclick="setMapVarSeg('violencia_grave',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#DC2626;margin-right:5px"></span>Violencia grave</button>
+    <button class="pill" onclick="setMapVarSeg('propiedad',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#D97706;margin-right:5px"></span>Delitos contra la propiedad</button>
+    <button class="pill" onclick="setMapVarSeg('conflictividad',this)"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#7C3AED;margin-right:5px"></span>Conflictividad interpersonal</button>
+    <div class="sep"></div>
+    <button class="pill" onclick="setMapVarSeg('total',this)">Suma total (ref.)</button>
     <button class="pill" onclick="setMapVarSeg('1',this)">Homicidios dolosos</button>
     <button class="pill" onclick="setMapVarSeg('2',this)">Homicidios (tentativa)</button>
     <button class="pill" onclick="setMapVarSeg('5',this)">Lesiones dolosas</button>
@@ -1793,11 +1816,26 @@ const SEG_LABELS_SHORT = {
   '1':'Hom. dolosos', '2':'Hom. (tent.)', '5':'Lesiones', '13':'Amenazas',
   '15':'Robos', '16':'Tent. robo', '17':'Rob. agrav.', '18':'Tent. rob. agrav.', '19':'Hurtos'
 };
+const SEG_BAJO_CONTEO = ['1','2','17','18']; // categorías con pocos hechos absolutos: interpretar con cautela
+
+const SEG_SUBGRUPOS = {
+  violencia_grave: {l:'Violencia grave', short:'Violencia grave', color:'#DC2626', light:'#FEE2E2', codigos:['1','2','17','18'],
+    desc:'Homicidios dolosos + robos agravados por lesión/muerte (consumados y tentativa)'},
+  propiedad: {l:'Delitos contra la propiedad', short:'Propiedad', color:'#D97706', light:'#FEF3C7', codigos:['15','16','19'],
+    desc:'Robos, tentativas de robo y hurtos'},
+  conflictividad: {l:'Conflictividad interpersonal', short:'Conflictividad', color:'#7C3AED', light:'#EDE9FE', codigos:['13','5'],
+    desc:'Amenazas y lesiones dolosas'}
+};
+const SEG_SUBORDEN = ['violencia_grave','propiedad','conflictividad'];
+
 let segSort='total', segSortDir=-1;
 let zonaSeg='todos', searchTermSeg='', segPanelId=null;
+let segChartVar='violencia_grave';
 
 function segTasaTotal(m){ return m.seguridad_snic_2025?.tasa_nucleo_duro_c100k ?? null; }
 function segTasa(m,cod){ return m.seguridad_snic_2025?.tasas_c100k?.[cod] ?? null; }
+function segSub(m,key){ return m.seguridad_snic_2025?.subindices?.[key]?.tasa_c100k ?? null; }
+function segSubHechos(m,key){ return m.seguridad_snic_2025?.subindices?.[key]?.hechos ?? null; }
 function segFiltrada(){
   let lista=[...DATA].filter(m=>m.seguridad_snic_2025);
   if(zonaSeg!=='todos') lista=lista.filter(m=>m.zona===zonaSeg);
@@ -1824,22 +1862,27 @@ function clearSearchSeg(){
 }
 
 function renderSeguridad(){
-  const listaTotal=[...DATA].filter(m=>m.seguridad_snic_2025);
-  const max = Math.max(...listaTotal.map(segTasaTotal));
   const lista = segFiltrada();
 
   document.getElementById('seg-cards').innerHTML = [...lista]
-    .sort((a,b)=>segTasaTotal(b)-segTasaTotal(a))
+    .sort((a,b)=>segSub(b,'violencia_grave')-segSub(a,'violencia_grave'))
     .map(m=>{
       const s=m.seguridad_snic_2025;
-      const t=s.tasa_nucleo_duro_c100k;
-      const pct=t/max;
-      const c = pct>=.75?'#DC2626':pct>=.5?'#FD9A44':pct>=.25?'#FFD93D':'#4ECDC4';
-      return `<div class="tc" style="border-color:${c}">
-        <div class="tc-h"><div class="tc-n">${m.nombre}</div><span class="tc-badge" style="background:${c}18;color:${c}">${fmtN(t)}</span></div>
-        <div class="tc-sub">Tasa núcleo duro · c/100k hab.</div>
-        ${SEG_CODES.map(cod=>`<div class="tc-row"><span>${SEG_LABELS_SHORT[cod]}</span><span>${fmtN(segTasa(m,cod))}</span></div>`).join('')}
-        <div class="tc-foot">${s.total_hechos_nucleo_duro.toLocaleString('es-AR')} hechos totales · SNIC ${s.anio}</div>
+      return `<div class="tc" style="border-color:${SEG_SUBGRUPOS.violencia_grave.color}">
+        <div class="tc-h"><div class="tc-n">${m.nombre}</div><span class="tc-badge" style="background:${SEG_SUBGRUPOS.violencia_grave.color}18;color:${SEG_SUBGRUPOS.violencia_grave.color}">${fmtN(segSub(m,'violencia_grave'))}</span></div>
+        <div class="tc-sub">Violencia grave · c/100k hab.</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin:.5rem 0 .75rem">
+          ${SEG_SUBORDEN.map(key=>{
+            const g=SEG_SUBGRUPOS[key];
+            return `<div style="display:flex;justify-content:space-between;align-items:center;font-size:11px">
+              <span style="display:flex;align-items:center;gap:5px;color:var(--ink2)"><span style="width:7px;height:7px;border-radius:50%;background:${g.color};flex-shrink:0"></span>${g.short}</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:${g.color}">${fmtN(segSub(m,key))}</span>
+            </div>`;
+          }).join('')}
+        </div>
+        <div class="tc-sub">Desglose por categoría</div>
+        ${SEG_CODES.map(cod=>`<div class="tc-row">${SEG_BAJO_CONTEO.includes(cod)?'<span style="display:flex;align-items:center;gap:3px">'+SEG_LABELS_SHORT[cod]+'<span title="Conteo absoluto bajo: interpretar con cautela" style="color:var(--ink3);cursor:help">†</span></span>':`<span>${SEG_LABELS_SHORT[cod]}</span>`}<span>${fmtN(segTasa(m,cod))}</span></div>`).join('')}
+        <div class="tc-foot">${s.total_hechos_nucleo_duro.toLocaleString('es-AR')} hechos totales (9 categorías) · SNIC ${s.anio} · † conteo bajo</div>
       </div>`;
     }).join('') || `<div class="pend">Ningún municipio coincide con el filtro</div>`;
 
@@ -1847,34 +1890,45 @@ function renderSeguridad(){
   renderSegTabla();
 }
 
+function setSegChartVar(key,btn){
+  segChartVar=key;
+  document.querySelectorAll('#seg-chart-vars .pill').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('seg-chart-title').textContent = SEG_SUBGRUPOS[key].l+' cada 100.000 hab. — 24 partidos del Conurbano';
+  renderSegChart(segFiltrada());
+}
+
 function renderSegChart(lista){
   const el = document.getElementById('c-seg-nucleo');
   if(!el) return;
   if(!lista.length){ el.innerHTML = '<div class="pend">Ningún municipio coincide con el filtro</div>'; return; }
-  const ordenada = [...lista].sort((a,b)=>segTasaTotal(b)-segTasaTotal(a));
-  const max = Math.max(...ordenada.map(segTasaTotal));
+  const g = SEG_SUBGRUPOS[segChartVar];
+  const ordenada = [...lista].sort((a,b)=>segSub(b,segChartVar)-segSub(a,segChartVar));
+  const max = Math.max(...ordenada.map(m=>segSub(m,segChartVar)));
   const items = ordenada.map(m=>{
-    const s=m.seguridad_snic_2025;
+    const hechos = segSubHechos(m,segChartVar);
     return {
       label: m.nombre.length>12 ? m.nombre.slice(0,11)+'…' : m.nombre,
-      val: s.tasa_nucleo_duro_c100k,
-      tooltip: m.nombre+': '+fmtN(s.tasa_nucleo_duro_c100k)+' c/100k hab. ('+s.total_hechos_nucleo_duro.toLocaleString('es-AR')+' hechos)'
+      val: segSub(m,segChartVar),
+      tooltip: m.nombre+': '+fmtN(segSub(m,segChartVar))+' c/100k hab. ('+hechos.toLocaleString('es-AR')+' hechos)'
     };
   });
-  svgBar('c-seg-nucleo', items, item=>lerpColor('#FCA5A5','#7F1D1D',item.val/max), v=>fmtN(Math.round(v)));
+  svgBar('c-seg-nucleo', items, item=>lerpColor(g.light, g.color, item.val/max), v=>fmtN(Math.round(v)));
 }
 
 function renderSegTabla(){
   const thead=document.getElementById('seg-thead-row');
   thead.innerHTML = `<th class="ts${segSort==='nombre'?' on':''}" onclick="sortSeg('nombre',this)">Municipio <span class="sa">↕</span></th>`
-    + SEG_CODES.map(cod=>`<th class="ts${segSort===cod?' on':''}" onclick="sortSeg('${cod}',this)">${SEG_LABELS_SHORT[cod]} <span class="sa">↕</span></th>`).join('')
-    + `<th class="ts${segSort==='total'?' on':''}" onclick="sortSeg('total',this)">Núcleo duro (total) <span class="sa">↕</span></th>`;
+    + SEG_SUBORDEN.map(key=>`<th class="ts${segSort===key?' on':''}" onclick="sortSeg('${key}',this)" style="color:${SEG_SUBGRUPOS[key].color}">${SEG_SUBGRUPOS[key].short} <span class="sa">↕</span></th>`).join('')
+    + SEG_CODES.map(cod=>`<th class="ts${segSort===cod?' on':''}" onclick="sortSeg('${cod}',this)">${SEG_LABELS_SHORT[cod]}${SEG_BAJO_CONTEO.includes(cod)?'†':''} <span class="sa">↕</span></th>`).join('')
+    + `<th class="ts${segSort==='total'?' on':''}" onclick="sortSeg('total',this)">Suma total (ref.) <span class="sa">↕</span></th>`;
 
   const lista=segFiltrada();
   lista.sort((a,b)=>{
     let av,bv;
     if(segSort==='nombre'){av=a.nombre;bv=b.nombre;return segSortDir*av.localeCompare(bv);}
     else if(segSort==='total'){av=segTasaTotal(a);bv=segTasaTotal(b);}
+    else if(SEG_SUBGRUPOS[segSort]){av=segSub(a,segSort);bv=segSub(b,segSort);}
     else{av=segTasa(a,segSort);bv=segTasa(b,segSort);}
     return segSortDir*((av??0)-(bv??0));
   });
@@ -1882,9 +1936,10 @@ function renderSegTabla(){
   document.getElementById('seg-tbody').innerHTML = lista.map(m=>{
     const sel = segPanelId===m.id?'sel':'';
     return `<tr class="${sel}" onclick="openPanelSeg('${m.id}')"><td class="mn">${m.nombre}</td>`
+      + SEG_SUBORDEN.map(key=>`<td style="font-weight:700;color:${SEG_SUBGRUPOS[key].color}">${fmtN(segSub(m,key))}</td>`).join('')
       + SEG_CODES.map(cod=>`<td>${fmtN(segTasa(m,cod))}</td>`).join('')
-      + `<td style="font-weight:700">${fmtN(segTasaTotal(m))}</td></tr>`;
-  }).join('') || `<tr><td colspan="11" style="text-align:center;color:var(--ink3);padding:1rem">Ningún municipio coincide con el filtro</td></tr>`;
+      + `<td style="color:var(--ink3)">${fmtN(segTasaTotal(m))}</td></tr>`;
+  }).join('') || `<tr><td colspan="14" style="text-align:center;color:var(--ink3);padding:1rem">Ningún municipio coincide con el filtro</td></tr>`;
 }
 
 function sortSeg(key,th){
@@ -1902,17 +1957,30 @@ function openPanelSeg(id){
   const s = m?.seguridad_snic_2025;
   if(!s) return;
   document.getElementById('p-title-seg').textContent = m.nombre;
-  document.getElementById('p-sub-seg').innerHTML = `<span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span><span style="font-size:12px;color:rgba(226,232,240,.75)">Tasa núcleo duro: <b style="color:#fff">${fmtN(s.tasa_nucleo_duro_c100k)}</b> c/100k hab. · ${s.total_hechos_nucleo_duro.toLocaleString('es-AR')} hechos en 2025</span>`;
-  document.getElementById('p-body-seg').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem">
+  document.getElementById('p-sub-seg').innerHTML = `<span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span><span style="font-size:12px;color:rgba(226,232,240,.75)">${s.total_hechos_nucleo_duro.toLocaleString('es-AR')} hechos totales en 2025 (9 categorías)</span>`;
+  document.getElementById('p-body-seg').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem;margin-bottom:1.25rem">
+    ${SEG_SUBORDEN.map(key=>{
+      const g=SEG_SUBGRUPOS[key];
+      return `<div style="background:${g.color}0d;border:1px solid ${g.color}40;border-radius:var(--r);padding:.875rem">
+        <div style="font-size:10px;color:${g.color};font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">${g.short}</div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline">
+          <span style="font-size:20px;font-weight:800;color:var(--ink)">${fmtN(segSub(m,key))}</span>
+          <span style="font-size:10px;color:var(--ink3)">c/100k · ${segSubHechos(m,key).toLocaleString('es-AR')} hechos</span>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>
+  <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem">Desglose por categoría</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem">
     ${SEG_CODES.map(cod=>`<div style="background:var(--bg);border-radius:var(--r);padding:.75rem .875rem">
-      <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">${SEG_LABELS[cod]}</div>
+      <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">${SEG_LABELS[cod]}${SEG_BAJO_CONTEO.includes(cod)?' †':''}</div>
       <div style="display:flex;justify-content:space-between;align-items:baseline">
         <span style="font-size:16px;font-weight:800;color:var(--ink)">${fmtN(segTasa(m,cod))}</span>
         <span style="font-size:10px;color:var(--ink3)">c/100k · ${s.hechos[cod].toLocaleString('es-AR')} hechos</span>
       </div>
     </div>`).join('')}
   </div>
-  <div style="font-size:10px;color:var(--ink3);margin-top:1rem">Fuente: ${s.fuente} · Año ${s.anio}</div>`;
+  <div style="font-size:10px;color:var(--ink3);margin-top:1rem">† conteo bajo, interpretar con cautela · Fuente: ${s.fuente} · Año ${s.anio}</div>`;
   document.getElementById('panel-seg').classList.add('open');
   renderSegTabla();
   document.getElementById('panel-seg').scrollIntoView({behavior:'smooth',block:'nearest'});
@@ -1934,23 +2002,32 @@ function ejecutarComparacionSeg(){
   const colores = COMP_COLORS;
   const headers = munis.map((m,i)=>`<th style="background:${colores[i]}22;color:${colores[i]};border-bottom:3px solid ${colores[i]};padding:10px;text-align:center;font-size:12px">${m.nombre}</th>`).join('');
 
+  const subRows = SEG_SUBORDEN.map(key=>{
+    const g=SEG_SUBGRUPOS[key];
+    const vals = munis.map(m=>segSub(m,key));
+    const best = Math.min(...vals);
+    return `<tr style="background:${g.color}0d"><td style="font-weight:800;color:${g.color};padding:8px 10px;font-size:11px">${g.l}</td>`
+      + vals.map(v=>`<td style="padding:8px 10px;text-align:center;font-size:13px;font-weight:800;border-left:1px solid var(--borde);color:${v===best?'#059669':g.color}">${fmtN(v)}${v===best?' ✓':''}</td>`).join('')
+      + `</tr>`;
+  }).join('');
+
   const rows = [
     ...SEG_CODES.map(cod=>{
       const vals = munis.map(m=>segTasa(m,cod));
       const best = Math.min(...vals);
-      return `<tr><td style="font-weight:600;color:var(--ink2);padding:7px 10px;font-size:11px">${SEG_LABELS[cod]}</td>`
+      return `<tr><td style="font-weight:600;color:var(--ink2);padding:7px 10px;font-size:11px">${SEG_LABELS[cod]}${SEG_BAJO_CONTEO.includes(cod)?' †':''}</td>`
         + vals.map(v=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid var(--borde);font-weight:${v===best?'800':'400'};color:${v===best?'#059669':'var(--ink)'}">${fmtN(v)}</td>`).join('')
         + `</tr>`;
     }),
   ].join('');
   const totVals = munis.map(segTasaTotal);
   const totBest = Math.min(...totVals);
-  const totRow = `<tr style="border-top:2px solid var(--borde)"><td style="font-weight:800;color:var(--ink);padding:8px 10px;font-size:11px">Núcleo duro (total)</td>`
-    + totVals.map(v=>`<td style="padding:8px 10px;text-align:center;font-size:13px;font-weight:800;border-left:1px solid var(--borde);color:${v===totBest?'#059669':'var(--ink)'}">${fmtN(v)}</td>`).join('')
+  const totRow = `<tr style="border-top:2px solid var(--borde)"><td style="font-weight:600;color:var(--ink3);padding:8px 10px;font-size:11px">Suma total (referencia, no comparar directamente)</td>`
+    + totVals.map(v=>`<td style="padding:8px 10px;text-align:center;font-size:12px;border-left:1px solid var(--borde);color:var(--ink3)">${fmtN(v)}</td>`).join('')
     + `</tr>`;
 
-  document.getElementById('comp-content-seg').innerHTML = `<div style="font-size:11px;color:var(--ink3);margin-bottom:.75rem">Tasas cada 100.000 hab. · el valor en <span style="color:#059669;font-weight:700">verde</span> indica la tasa más baja (mejor situación relativa) en cada categoría · SNIC 2025</div>
-  <table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:10px;font-size:11px;color:var(--ink3)">Categoría</th>${headers}</tr></thead><tbody>${rows}${totRow}</tbody></table>`;
+  document.getElementById('comp-content-seg').innerHTML = `<div style="font-size:11px;color:var(--ink3);margin-bottom:.75rem">Tasas cada 100.000 hab. · <span style="color:#059669;font-weight:700">✓ verde</span> = mejor situación relativa (menor tasa) en cada fila · † conteo bajo, interpretar con cautela · SNIC 2025</div>
+  <table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:10px;font-size:11px;color:var(--ink3)">Categoría</th>${headers}</tr></thead><tbody>${subRows}${rows}${totRow}</tbody></table>`;
 
   const cr = document.getElementById('comp-result-seg');
   cr.style.display='block';
@@ -1964,11 +2041,16 @@ function imprimirComparacionSeg(){
   if(munis.length<2) return;
   const colores = COMP_COLORS;
   const headers = munis.map((m,i)=>`<th style="background:${colores[i]}22;color:${colores[i]};border-bottom:3px solid ${colores[i]};padding:10px;text-align:center;font-size:13px">${m.nombre}</th>`).join('');
+  const subRows = SEG_SUBORDEN.map(key=>{
+    const g=SEG_SUBGRUPOS[key];
+    const vals = munis.map(m=>fmtN(segSub(m,key)));
+    return `<tr><td style="font-weight:800;color:${g.color};padding:7px 10px;background:#f8f8f8;font-size:11px">${g.l}</td>${vals.map(v=>`<td style="padding:7px 10px;text-align:center;font-size:13px;font-weight:800;border-left:1px solid #eee;color:${g.color}">${v}</td>`).join('')}</tr>`;
+  }).join('');
   const rows = SEG_CODES.map(cod=>{
     const vals = munis.map(m=>fmtN(segTasa(m,cod)));
-    return `<tr><td style="font-weight:600;color:#444;padding:7px 10px;background:#f8f8f8;font-size:11px">${SEG_LABELS[cod]}</td>${vals.map(v=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee">${v}</td>`).join('')}</tr>`;
+    return `<tr><td style="font-weight:600;color:#444;padding:7px 10px;background:#f8f8f8;font-size:11px">${SEG_LABELS[cod]}${SEG_BAJO_CONTEO.includes(cod)?' †':''}</td>${vals.map(v=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee">${v}</td>`).join('')}</tr>`;
   }).join('');
-  const totRow = `<tr><td style="font-weight:800;color:#111;padding:7px 10px;background:#f8f8f8;font-size:11px">Núcleo duro (total)</td>${munis.map(m=>`<td style="padding:7px 10px;text-align:center;font-size:13px;font-weight:800;border-left:1px solid #eee">${fmtN(segTasaTotal(m))}</td>`).join('')}</tr>`;
+  const totRow = `<tr><td style="font-weight:600;color:#999;padding:7px 10px;background:#f8f8f8;font-size:11px">Suma total (referencia)</td>${munis.map(m=>`<td style="padding:7px 10px;text-align:center;font-size:12px;border-left:1px solid #eee;color:#999">${fmtN(segTasaTotal(m))}</td>`).join('')}</tr>`;
 
   const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
 <title>Comparación Seguridad · Observatorio Fiscal del Conurbano</title>
@@ -1986,7 +2068,7 @@ function imprimirComparacionSeg(){
 <div class="sub">Observatorio Fiscal del Conurbano · Franco Iuliani · franco.d.iuliani@gmail.com · ${new Date().toLocaleDateString('es-AR')}</div>
 <table>
   <thead><tr><th style="text-align:left;padding:10px;background:#f8f8f8;font-size:11px;color:#666">Categoría (tasa c/100k hab.)</th>${headers}</tr></thead>
-  <tbody>${rows}${totRow}</tbody>
+  <tbody>${subRows}${rows}${totRow}</tbody>
 </table>
 <footer>Fuente: SNIC (Sistema Nacional de Información Criminal) — Ministerio de Seguridad de la Nación, año 2025. Tasas cada 100.000 habitantes.</footer>
 </body></html>`;
@@ -1998,10 +2080,13 @@ function imprimirComparacionSeg(){
 }
 
 // ── MAPA SEGURIDAD (monocromático, delito x delito) ───────
-let mapVarSeg = 'total';
+let mapVarSeg = 'violencia_grave';
 const MAP_VARS_SEG = { total: {l:'Núcleo duro (total)', fn:m=>segTasaTotal(m), fmt:v=>fmtN(v)} };
 SEG_CODES.forEach(cod=>{
   MAP_VARS_SEG[cod] = { l:SEG_LABELS[cod], fn:m=>segTasa(m,cod), fmt:v=>fmtN(v) };
+});
+SEG_SUBORDEN.forEach(key=>{
+  MAP_VARS_SEG[key] = { l:SEG_SUBGRUPOS[key].l, fn:m=>segSub(m,key), fmt:v=>fmtN(v) };
 });
 const SEG_COLOR_LOW = '#FEF1F1', SEG_COLOR_HIGH = '#7F1D1D'; // monocromático en rojos: claro → oscuro
 
@@ -2041,15 +2126,11 @@ function mapHoverSeg(e,id){
   const m = DATA.find(x=>x.id===id);
   if(!m || !m.seguridad_snic_2025){ showTip(e, (m?m.nombre:id)+': sin dato'); return; }
   const s = m.seguridad_snic_2025;
-  let txt;
-  if(mapVarSeg==='total'){
-    txt = `${m.nombre}: ${s.total_hechos_nucleo_duro.toLocaleString('es-AR')} hechos · ${fmtN(s.tasa_nucleo_duro_c100k)} c/100k hab.`;
-  } else {
-    const hechos = s.hechos[mapVarSeg];
-    const tasa = s.tasas_c100k[mapVarSeg];
-    txt = `${m.nombre}: ${hechos.toLocaleString('es-AR')} hechos · ${fmtN(tasa)} c/100k hab.`;
-  }
-  showTip(e, txt);
+  let hechos, tasa;
+  if(mapVarSeg==='total'){ hechos=s.total_hechos_nucleo_duro; tasa=s.tasa_nucleo_duro_c100k; }
+  else if(SEG_SUBGRUPOS[mapVarSeg]){ hechos=segSubHechos(m,mapVarSeg); tasa=segSub(m,mapVarSeg); }
+  else { hechos=s.hechos[mapVarSeg]; tasa=s.tasas_c100k[mapVarSeg]; }
+  showTip(e, `${m.nombre}: ${hechos.toLocaleString('es-AR')} hechos · ${fmtN(tasa)} c/100k hab.`);
 }
 
 function mapClickSeg(id){
@@ -2065,17 +2146,23 @@ function mapClickSeg(id){
       <div style="font-size:15px;font-weight:800;color:var(--ink)">${m.nombre}</div>
       <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center"><span class="zch z${m.zona[0]}">${ZONA[m.zona]}</span></div>
     </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;background:var(--card2);border:1px solid var(--borde);border-radius:var(--r);padding:.6rem .875rem;margin-bottom:.75rem">
-      <span style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em">Núcleo duro</span>
-      <span style="font-size:18px;font-weight:900;color:var(--ink)">${fmtN(s.tasa_nucleo_duro_c100k)}<span style="font-size:10px;font-weight:400"> c/100k</span></span>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:.875rem">
+      ${SEG_SUBORDEN.map(key=>{
+        const g=SEG_SUBGRUPOS[key];
+        return `<div style="display:flex;justify-content:space-between;align-items:center;background:var(--card2);border:1px solid var(--borde);border-radius:var(--r);padding:.5rem .75rem">
+          <span style="font-size:10px;color:var(--ink3);display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:${g.color}"></span>${g.short}</span>
+          <span style="font-size:15px;font-weight:800;color:${g.color}">${fmtN(segSub(m,key))}<span style="font-size:9px;font-weight:400;color:var(--ink3)"> c/100k</span></span>
+        </div>`;
+      }).join('')}
     </div>
+    <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem">Desglose por categoría</div>
     <div style="display:flex;flex-direction:column;gap:6px">
       ${SEG_CODES.map(cod=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid var(--borde)">
-        <span style="color:var(--ink3)">${SEG_LABELS[cod]}</span>
+        <span style="color:var(--ink3)">${SEG_LABELS[cod]}${SEG_BAJO_CONTEO.includes(cod)?' †':''}</span>
         <span style="color:var(--ink);font-weight:600">${fmtN(segTasa(m,cod))}</span>
       </div>`).join('')}
     </div>
-    <div style="font-size:10px;color:var(--ink3);margin-top:.75rem">${s.total_hechos_nucleo_duro.toLocaleString('es-AR')} hechos totales en 2025 · Fuente: ${s.fuente}</div>
+    <div style="font-size:10px;color:var(--ink3);margin-top:.75rem">${s.total_hechos_nucleo_duro.toLocaleString('es-AR')} hechos totales en 2025 (suma de referencia) · † conteo bajo, interpretar con cautela · Fuente: ${s.fuente}</div>
   `;
 }
 
