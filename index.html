@@ -1919,7 +1919,8 @@ function renderSegChart(lista){
 
 function renderSegTabla(){
   const thead=document.getElementById('seg-thead-row');
-  thead.innerHTML = `<th class="ts${segSort==='nombre'?' on':''}" onclick="sortSeg('nombre',this)">Municipio <span class="sa">↕</span></th>`
+  thead.innerHTML = `<th style="width:26px;text-align:center" title="Posición según la columna ordenada">#</th>`
+    + `<th class="ts${segSort==='nombre'?' on':''}" onclick="sortSeg('nombre',this)">Municipio <span class="sa">↕</span></th>`
     + SEG_SUBORDEN.map(key=>`<th class="ts${segSort===key?' on':''}" onclick="sortSeg('${key}',this)" style="color:${SEG_SUBGRUPOS[key].color}">${SEG_SUBGRUPOS[key].short} <span class="sa">↕</span></th>`).join('')
     + SEG_CODES.map(cod=>`<th class="ts${segSort===cod?' on':''}" onclick="sortSeg('${cod}',this)">${SEG_LABELS_SHORT[cod]}${SEG_BAJO_CONTEO.includes(cod)?'†':''} <span class="sa">↕</span></th>`).join('')
     + `<th class="ts${segSort==='total'?' on':''}" onclick="sortSeg('total',this)">Suma total (ref.) <span class="sa">↕</span></th>`;
@@ -1934,13 +1935,13 @@ function renderSegTabla(){
     return segSortDir*((av??0)-(bv??0));
   });
 
-  document.getElementById('seg-tbody').innerHTML = lista.map(m=>{
+  document.getElementById('seg-tbody').innerHTML = lista.map((m,idx)=>{
     const sel = segPanelId===m.id?'sel':'';
-    return `<tr class="${sel}" onclick="openPanelSeg('${m.id}')"><td class="mn">${m.nombre}</td>`
+    return `<tr class="${sel}" onclick="openPanelSeg('${m.id}')"><td style="text-align:center;font-size:10px;font-weight:700;color:var(--mist)">${idx+1}</td><td class="mn">${m.nombre}</td>`
       + SEG_SUBORDEN.map(key=>`<td style="font-weight:700;color:${SEG_SUBGRUPOS[key].color}">${fmtN(segSub(m,key))}</td>`).join('')
       + SEG_CODES.map(cod=>`<td>${fmtN(segTasa(m,cod))}</td>`).join('')
       + `<td style="color:var(--ink3)">${fmtN(segTasaTotal(m))}</td></tr>`;
-  }).join('') || `<tr><td colspan="14" style="text-align:center;color:var(--ink3);padding:1rem">Ningún municipio coincide con el filtro</td></tr>`;
+  }).join('') || `<tr><td colspan="15" style="text-align:center;color:var(--ink3);padding:1rem">Ningún municipio coincide con el filtro</td></tr>`;
 }
 
 function sortSeg(key,th){
